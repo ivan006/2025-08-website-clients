@@ -86,11 +86,16 @@ export default {
       const url = window.location.origin + (this.$route?.fullPath || '/');
       const siteName = import.meta.env.VITE_API_SITE_TITLE;
 
+      let image = ""
+      if (this.parent?.fields?.['Image']?.[0]?.url) {
+        image = `https://capetownlists.co.za/?url=${this.parent?.fields?.['Image']?.[0]?.url}`;
+      }
+
       return buildSeoConfig({
         title: this.parent.fields?.['Title'] || siteName,
         description: this.parent.fields?.['Tagline'] || '',
         url,
-        image: this.parent.fields?.['Share Image URL'] || `${window.location.origin}/og-default.jpg`,
+        image: image || `${window.location.origin}/og-default.jpg`,
         siteName,
         type: this.parent.fields?.['SEO Type'],
         itemListElement: buildCatalogItems(this.items),

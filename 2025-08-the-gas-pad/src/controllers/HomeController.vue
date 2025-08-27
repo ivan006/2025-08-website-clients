@@ -212,11 +212,17 @@ export default {
       const url = window.location.origin + (this.$route?.fullPath || '/');
       const siteName = import.meta.env.VITE_API_SITE_TITLE;
 
+      let image = ""
+      if (this.item?.fields?.['Image']?.[0]?.url) {
+        image = `https://capetownlists.co.za/?url=${this.item?.['Image']?.[0]?.url}`;
+        image = `https://capetownlists.co.za/?url=${this.item?.fields?.['Image']?.[0]?.url}`;
+      }
+
       return buildSeoConfig({
         title: this.item.fields?.['Title'] || siteName,
         description: this.item.fields?.['Tagline'] || '',
         url,
-        image: this.item.fields?.['Share Image URL'] || `${window.location.origin}/og-default.jpg`,
+        image: image || `${window.location.origin}/og-default.jpg`,
         siteName,
         type: this.item.fields?.['SEO Type'],
       });

@@ -99,9 +99,7 @@
 
 <script>
 import Pool_Products_Page from "src/models/orm-api/Pool_Products_Page";
-import { createMetaMixin } from 'quasar'
 import Pool_Products_Page_Products_Controller from "src/controllers/Pool_Products_Page_Products_Controller.vue";
-import {buildSeoConfig} from "src/utils/seo";
 
 export default {
   name: "Pool_Products_Page_Controller",
