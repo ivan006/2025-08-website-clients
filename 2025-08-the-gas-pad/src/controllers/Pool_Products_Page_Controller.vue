@@ -101,6 +101,7 @@
 import Pool_Products_Page from "src/models/orm-api/Pool_Products_Page";
 import { createMetaMixin } from 'quasar'
 import Pool_Products_Page_Products_Controller from "src/controllers/Pool_Products_Page_Products_Controller.vue";
+import {buildSeoConfig} from "src/utils/seo";
 
 export default {
   name: "Pool_Products_Page_Controller",
@@ -110,33 +111,17 @@ export default {
 
   mixins: [
     createMetaMixin(function () {
-      const org = import.meta.env.VITE_API_SITE_TITLE
-      const origin = window.location.origin
-      const path = this.$route.fullPath
-      const canonicalUrl = `${origin}${path}`
+      const url = window.location.origin + (this.$route?.fullPath || '/');
+      const siteName = import.meta.env.VITE_API_SITE_TITLE;
 
-      return {
-        title: this.item.fields?.['Title'],
-        titleTemplate: title => `${title} | ${org}`, // prepend site name
-        meta: {
-          description: {
-            name: 'description',
-            content: this.item.fields?.['Tagline'] || ''
-          },
-        },
-        script: {
-          structuredData: {
-            type: 'application/ld+json',
-            innerHTML: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "WebPage",
-              "name": this.item.fields?.['Title'] || '',
-              "url": canonicalUrl,
-              "description": this.item.fields?.['Tagline'] || ``,
-            })
-          }
-        }
-      }
+      return buildSeoConfig({
+        title: this.item.fields?.['Title'] || siteName,
+        description: this.item.fields?.['Tagline'] || '',
+        url,
+        image: this.item.fields?.['Share Image URL'] || `${window.location.origin}/og-default.jpg`,
+        siteName,
+        type: this.item.fields?.['SEO Type'],
+      });
     })
   ],
   data(){

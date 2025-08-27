@@ -198,6 +198,7 @@ import Home_Page from "src/models/orm-api/Home_Page";
 import { createMetaMixin } from 'quasar'
 import HomeSEOController from "src/controllers/HomeSEOController.vue";
 import Home_Page_Items_Controller from "src/controllers/Home_Page_Items_Controller.vue";
+import {buildSeoConfig} from "src/utils/seo";
 
 
 
@@ -206,59 +207,19 @@ export default {
   name: "HomeController.vue",
   components: {Home_Page_Items_Controller, HomeSEOController},
   mixins: [
-    createMetaMixin(function () {
-      const org = import.meta.env.VITE_API_SITE_TITLE
 
-      return {
-        title: this.item.fields?.['Title'],
-        titleTemplate: title => `${title} | ${org}`, // prepend site name
-        meta: {
-          description: {
-            name: 'description',
-            content: this.item.fields?.['About Us Text'] || 'xcccc'
-          },
-          ogTitle: {
-            property: 'og:title',
-            content: this.item.fields?.['Title'] || ''
-          },
-          ogDescription: {
-            property: 'og:description',
-            content: this.item.fields?.['About Us Text'] || ''
-          },
-          ogImage: {
-            property: 'og:image',
-            content: this.item.fields?.['Contact Image']?.[0]?.url || ''
-          },
-          ogType: {
-            property: 'og:type',
-            content: 'website'
-          },
-          ogSiteName: {
-            property: 'og:site_name',
-            content: this.item.fields?.['Title']
-          },
-          twitterCard: {
-            name: 'twitter:card',
-            content: 'summary_large_image'
-          },
-          twitterTitle: {
-            name: 'twitter:title',
-            content: this.item.fields?.['Title'] || ''
-          },
-          twitterDescription: {
-            name: 'twitter:description',
-            content: this.item.fields?.['About Us Text'] || ''
-          },
-          twitterImage: {
-            name: 'twitter:image',
-            content: this.item.fields?.['Contact Image']?.[0]?.url || ''
-          },
-          // robots: {
-          //   name: 'robots',
-          //   content: 'noindex, follow'
-          // },
-        }
-      }
+    createMetaMixin(function () {
+      const url = window.location.origin + (this.$route?.fullPath || '/');
+      const siteName = import.meta.env.VITE_API_SITE_TITLE;
+
+      return buildSeoConfig({
+        title: this.item.fields?.['Title'] || siteName,
+        description: this.item.fields?.['Tagline'] || '',
+        url,
+        image: this.item.fields?.['Share Image URL'] || `${window.location.origin}/og-default.jpg`,
+        siteName,
+        type: this.item.fields?.['SEO Type'],
+      });
     })
   ],
   data(){

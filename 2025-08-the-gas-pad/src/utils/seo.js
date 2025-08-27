@@ -5,7 +5,6 @@ export function buildSeoConfig({
                                  url,            // canonical URL (absolute recommended)
                                  image,          // absolute URL to 1200x630 jpg/png
                                  siteName,
-                                 sameAs = [],    // social links
                                  type = 'WebPage', // schema type: WebPage | Organization | Article
                                  imageWidth = '1200',
                                  imageHeight = '630',
@@ -19,7 +18,6 @@ export function buildSeoConfig({
     description: description || '',
     image: image,
     logo: image,         // merged, same as image unless you override later
-    sameAs: sameAs,
   };
 
   return {
