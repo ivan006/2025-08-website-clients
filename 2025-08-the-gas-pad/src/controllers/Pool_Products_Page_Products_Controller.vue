@@ -13,9 +13,9 @@
       <!--<div class="row justify-center" >-->
 
 
-      <pre>
-              {{itemListElement}}
-            </pre>
+      <!--<pre>-->
+      <!--  {{itemListElement}}-->
+      <!--</pre>-->
       <template v-for="item in items" :key="item.id">
 
         <!--<q-avatar>-->

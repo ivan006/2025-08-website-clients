@@ -61,81 +61,81 @@
         </div>
       </div>
 
-      <div class=" bg-black" style="padding-top: 100px; padding-bottom: 100px;">
+      <div class=" bg-black" style="padding-top: 70px; padding-bottom: 70px;">
         <div
           class="container-md "
         >
 
-          <div class="row">
+          <!--<div class="row">-->
 
-            <div class="col-xl-6 col-md-6 col-sm-12 col-xs-12">
+          <!--  <div class="col-xl-6 col-md-6 col-sm-12 col-xs-12">-->
 
-              <h1 class="text-center text-h3 text-bold">
-                About Us
-              </h1>
+          <!--    <h1 class="text-center text-h3 text-bold">-->
+          <!--      About Us-->
+          <!--    </h1>-->
 
-            </div>
-            <div class="col-xl-6 col-md-6 col-sm-12 col-xs-12 q-px-xl">
-              <div class=" text-h5 ">
+          <!--  </div>-->
+          <!--  <div class="col-xl-6 col-md-6 col-sm-12 col-xs-12 q-px-xl">-->
+          <!--    <div class=" text-h5 ">-->
 
-                {{item.fields?.['About Us Text']}}
-              </div>
+          <!--      {{item.fields?.['About Us Text']}}-->
+          <!--    </div>-->
 
-            </div>
+          <!--  </div>-->
+          <!--</div>-->
+
+          <div class="gt-sm">
+            <h3 class="text-center text-h2 text-bold">
+              {{item.fields?.['List Section Title']}}
+            </h3>
+          </div>
+          <div class="lt-md">
+            <h3 class="text-center text-h3 text-bold">
+              {{item.fields?.['List Section Title']}}
+            </h3>
           </div>
         </div>
       </div>
 
-      <div class="q-py-xl">
+      <!--<div class="q-py-xl">-->
 
-        <div
-          class="container-md"
-        >
-          <div class="row q-col-gutter-md">
-
-
-            <!--<div class="col-xl-1 col-md-1 col-sm-12 col-xs-12">-->
+      <!--  <div-->
+      <!--    class="container-md"-->
+      <!--  >-->
+      <!--    <div class="row q-col-gutter-md">-->
 
 
-            <!--</div>-->
-
-            <div class="col-xl-10 col-md-10 col-sm-12 col-xs-12 offset-md-1 q-px-xl">
+      <!--      &lt;!&ndash;<div class="col-xl-1 col-md-1 col-sm-12 col-xs-12">&ndash;&gt;-->
 
 
-              <div class="gt-sm">
-                <h3 class="text-center text-h2 text-bold">
-                  {{item.fields?.['List Section Title']}}
-                </h3>
-              </div>
-              <div class="lt-md">
-                <h3 class="text-center text-h3 text-bold">
-                  {{item.fields?.['List Section Title']}}
-                </h3>
-              </div>
+      <!--      &lt;!&ndash;</div>&ndash;&gt;-->
 
-              <!--<div class="gt-sm">-->
-              <!--</div>-->
-              <!--<div class="lt-md">-->
-              <!--</div>-->
+      <!--      <div class="col-xl-10 col-md-10 col-sm-12 col-xs-12 offset-md-1 q-px-xl">-->
 
-              <!--<pre>{{item}}</pre>-->
-            </div>
-          </div>
-        </div>
-      </div>
-      <!--Site_Site_Menu_Items-->
 
-      <!--Home_Page-->
+      <!--        <div class="gt-sm">-->
+      <!--          <h3 class="text-center text-h2 text-bold">-->
+      <!--            {{item.fields?.['List Section Title']}}-->
+      <!--          </h3>-->
+      <!--        </div>-->
+      <!--        <div class="lt-md">-->
+      <!--          <h3 class="text-center text-h3 text-bold">-->
+      <!--            {{item.fields?.['List Section Title']}}-->
+      <!--          </h3>-->
+      <!--        </div>-->
 
-      <!--Home_Page_Items-->
+      <!--        &lt;!&ndash;<div class="gt-sm">&ndash;&gt;-->
+      <!--        &lt;!&ndash;</div>&ndash;&gt;-->
+      <!--        &lt;!&ndash;<div class="lt-md">&ndash;&gt;-->
+      <!--        &lt;!&ndash;</div>&ndash;&gt;-->
 
-      <!--Gas_Prices_Page-->
+      <!--        &lt;!&ndash;<pre>{{item}}</pre>&ndash;&gt;-->
+      <!--      </div>-->
+      <!--    </div>-->
+      <!--  </div>-->
+      <!--</div>-->
 
-      <!--Gas_Prices_Page_Prices-->
-
-      <!--Pool_Products_Page-->
-
-      <!--Pool_Products_Page_Products-->
+      
 
       <div class=" bg-black" style="padding-top: 100px; padding-bottom: 100px;">
         <div
