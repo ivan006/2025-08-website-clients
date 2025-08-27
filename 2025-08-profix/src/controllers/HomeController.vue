@@ -23,24 +23,24 @@
 
               <div class="gt-sm">
                 <h1 class="text-center text-h3">
-                  {{item.fields?.['Hero Title']}}
+                  {{item.fields?.['Title']}}
                 </h1>
               </div>
               <div class="lt-md">
                 <h1 class="text-center text-h4">
-                  {{item.fields?.['Hero Title']}}
+                  {{item.fields?.['Title']}}
                 </h1>
               </div>
 
 
               <div class="gt-sm">
                 <h2 class="text-center text-h1 text-bold">
-                  {{item.fields?.['Hero Subtitle']}}
+                  {{item.fields?.['Tagline']}}
                 </h2>
               </div>
               <div class="lt-md">
                 <h2 class="text-center text-h2 text-bold">
-                  {{item.fields?.['Hero Subtitle']}}
+                  {{item.fields?.['Tagline']}}
                 </h2>
               </div>
 
@@ -83,6 +83,53 @@
 
             </div>
           </div>
+        </div>
+      </div>
+
+      <div class="q-py-xl">
+
+        <div
+          class="container-md"
+        >
+          <div class="row q-col-gutter-md">
+
+
+            <!--<div class="col-xl-1 col-md-1 col-sm-12 col-xs-12">-->
+
+
+            <!--</div>-->
+
+            <div class="col-xl-10 col-md-10 col-sm-12 col-xs-12 offset-md-1 q-px-xl">
+
+
+              <div class="gt-sm">
+                <h3 class="text-center text-h2 text-bold">
+                  {{item.fields?.['Services Section Title']}}
+                </h3>
+              </div>
+              <div class="lt-md">
+                <h3 class="text-center text-h3 text-bold">
+                  {{item.fields?.['Services Section Title']}}
+                </h3>
+              </div>
+
+              <!--<div class="gt-sm">-->
+              <!--</div>-->
+              <!--<div class="lt-md">-->
+              <!--</div>-->
+
+              <!--<pre>{{item}}</pre>-->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class=" bg-black" style="padding-top: 100px; padding-bottom: 100px;">
+        <div
+          class="container-md "
+        >
+
+          <Services_Controller />
         </div>
       </div>
 
@@ -137,19 +184,20 @@
 import Home_Page from "src/models/orm-api/Home_Page";
 import { createMetaMixin } from 'quasar'
 import HomeSEOController from "src/controllers/HomeSEOController.vue";
+import Services_Controller from "src/controllers/Services_Controller.vue";
 
 
 
 
 export default {
   name: "HomeController.vue",
-  components: {HomeSEOController},
+  components: {Services_Controller, HomeSEOController},
   mixins: [
     createMetaMixin(function () {
       const org = import.meta.env.VITE_API_SITE_TITLE
 
       return {
-        title: this.item.fields?.['Hero Title'],
+        title: this.item.fields?.['Title'],
         titleTemplate: title => `${title} | ${org}`, // prepend site name
         meta: {
           description: {
@@ -158,7 +206,7 @@ export default {
           },
           ogTitle: {
             property: 'og:title',
-            content: this.item.fields?.['Hero Title'] || ''
+            content: this.item.fields?.['Title'] || ''
           },
           ogDescription: {
             property: 'og:description',
@@ -174,7 +222,7 @@ export default {
           },
           ogSiteName: {
             property: 'og:site_name',
-            content: this.item.fields?.['Hero Title']
+            content: this.item.fields?.['Title']
           },
           twitterCard: {
             name: 'twitter:card',
@@ -182,7 +230,7 @@ export default {
           },
           twitterTitle: {
             name: 'twitter:title',
-            content: this.item.fields?.['Hero Title'] || ''
+            content: this.item.fields?.['Title'] || ''
           },
           twitterDescription: {
             name: 'twitter:description',
