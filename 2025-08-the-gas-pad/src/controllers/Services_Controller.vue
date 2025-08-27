@@ -43,7 +43,7 @@
                   </h2>
 
                   <div class="text-body3">
-                    {{item["Description"]}}
+                    {{item["Tagline"]}}
                   </div>
                 </div>
 
