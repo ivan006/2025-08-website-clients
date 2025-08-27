@@ -98,12 +98,12 @@
 </template>
 
 <script>
-import Services_Page_Singleton from "src/models/orm-api/Services_Page_Singleton";
+import Services_Page from "src/models/orm-api/Services_Page";
 import { createMetaMixin } from 'quasar'
 import Services_Controller from "src/controllers/Services_Controller.vue";
 
 export default {
-  name: "Services_Page_Singleton_Controller",
+  name: "Services_Page_Controller",
   components: {
     Services_Controller
   },
@@ -152,7 +152,7 @@ export default {
       return 'receSN4yF0BAq47iO'
     },
     superTableModel() {
-      return Services_Page_Singleton
+      return Services_Page
     },
   },
   methods: {

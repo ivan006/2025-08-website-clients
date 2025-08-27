@@ -134,7 +134,7 @@
 </template>
 
 <script>
-import Home_Page_Singleton from "src/models/orm-api/Home_Page_Singleton";
+import Home_Page from "src/models/orm-api/Home_Page";
 import { createMetaMixin } from 'quasar'
 import HomeSEOController from "src/controllers/HomeSEOController.vue";
 
@@ -213,7 +213,7 @@ export default {
       return 'recoIS6KWZ2aqcBJT'
     },
     superTableModel() {
-      return Home_Page_Singleton
+      return Home_Page
     },
   },
   methods: {
