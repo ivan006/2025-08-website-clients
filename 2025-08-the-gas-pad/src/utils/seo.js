@@ -1,14 +1,17 @@
 // utils/seo.js
 
+// utils/seo.js
+
 export function buildSeoConfig({
                                  title,
                                  description,
                                  url,            // canonical URL (absolute recommended)
                                  image,          // absolute URL to 1200x630 jpg/png
                                  siteName,
-                                 type = 'WebPage', // schema type: WebPage | Organization | Article
+                                 type = 'WebPage', // schema type: WebPage | Organization | Article | OfferCatalog
                                  imageWidth = '1200',
                                  imageHeight = '630',
+                                 itemListElement = [] // optional: products/services array
                                }) {
   // Schema.org block
   const schema = {
@@ -18,8 +21,13 @@ export function buildSeoConfig({
     url: url,
     description: description || '',
     image: image,
-    logo: image,         // merged, same as image unless you override later
+    logo: image
   };
+
+  // Only add itemListElement if provided
+  if (itemListElement.length > 0) {
+    schema.itemListElement = itemListElement;
+  }
 
   return {
     title,
@@ -27,6 +35,8 @@ export function buildSeoConfig({
     link: [{ rel: 'canonical', href: url }],
     meta: [
       { name: 'description', content: description || '' },
+
+      // Open Graph
       { property: 'og:type', content: 'website' },
       { property: 'og:title', content: title || '' },
       { property: 'og:description', content: description || '' },
@@ -35,6 +45,8 @@ export function buildSeoConfig({
       { property: 'og:image:secure_url', content: image || '' },
       { property: 'og:image:width', content: String(imageWidth) },
       { property: 'og:image:height', content: String(imageHeight) },
+
+      // Twitter (always summary_large_image)
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:title', content: title || '' },
       { name: 'twitter:description', content: description || '' },
@@ -48,6 +60,7 @@ export function buildSeoConfig({
     },
   };
 }
+
 
 // --------------------------------------------------------------------
 // SECOND FUNCTION: for product or catalog style pages
@@ -68,6 +81,10 @@ export function buildCatalogItems(items = []) {
 
     if (item['Category']) {
       entity.category = item['Category'];
+    }
+
+    if (item?.['Image']?.[0]?.url) {
+      entity.image = `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.url}`;
     }
 
     // Only include Offer if price is present
