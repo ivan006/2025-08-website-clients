@@ -1,0 +1,1 @@
+import{n as s,i as t}from"./vendor.js";import{R as a}from"./index.js";import{S as i,a as o}from"./Site.js";import{S as m}from"./TestEntity.js";import"./BasicModel.js";const e=new t.Database;e.register(a);e.register(i);e.register(o);e.register(m);const n=s({plugins:[t.install(e)]}),l=({app:r})=>{r.use(n)};export{l as default};
