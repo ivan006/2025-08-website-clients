@@ -1,3 +1,5 @@
+https://favicon.io/
+
 # Quasar App (quasar-project)
 
 A Quasar Project
