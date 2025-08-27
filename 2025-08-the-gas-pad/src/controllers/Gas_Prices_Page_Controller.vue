@@ -98,12 +98,12 @@
 </template>
 
 <script>
-import Services_Page from "src/models/orm-api/Services_Page";
+import Gas_Prices_Page from "src/models/orm-api/Gas_Prices_Page";
 import { createMetaMixin } from 'quasar'
 import Services_Controller from "src/controllers/Services_Controller.vue";
 
 export default {
-  name: "Services_Page_Controller",
+  name: "Gas_Prices_Page_Controller",
   components: {
     Services_Controller
   },
@@ -149,10 +149,10 @@ export default {
 
     id() {
       // return this.$route.params.rId
-      return 'receSN4yF0BAq47iO'
+      return 'recHpBSy9dEXXwQDF'
     },
     superTableModel() {
-      return Services_Page
+      return Gas_Prices_Page
     },
   },
   methods: {

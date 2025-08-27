@@ -85,7 +85,7 @@ import { useRoute } from 'vue-router';
 import VueCookies from 'vue-cookies';
 import MenuItems from 'src/controllers/MenuItems.vue';
 import Menu_Items from "src/models/orm-api/Menu_Items";
-import Site_Settings from "src/models/orm-api/Site_Settings";
+import Site from "src/models/orm-api/Site";
 import FooterController from "src/controllers/FooterController.vue";
 
 export default {
@@ -110,7 +110,7 @@ export default {
       return 'reci1Y5KdKFBkz3T1'
     },
     superTableModel() {
-      return Site_Settings
+      return Site
     },
     bgUrl() {
       const result = this.item.fields?.['Site Background Image']?.[0]?.url

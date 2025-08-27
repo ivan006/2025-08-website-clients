@@ -67,7 +67,7 @@
 </template>
 
 <script>
-import Services from 'src/models/orm-api/Services'
+import Services from 'src/models/orm-api/Home_Page_Items'
 
 export default {
   name: 'Services_Controller',

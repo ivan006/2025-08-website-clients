@@ -104,12 +104,12 @@
 
               <div class="gt-sm">
                 <h3 class="text-center text-h2 text-bold">
-                  {{item.fields?.['Services Section Title']}}
+                  {{item.fields?.['List Section Title']}}
                 </h3>
               </div>
               <div class="lt-md">
                 <h3 class="text-center text-h3 text-bold">
-                  {{item.fields?.['Services Section Title']}}
+                  {{item.fields?.['List Section Title']}}
                 </h3>
               </div>
 
