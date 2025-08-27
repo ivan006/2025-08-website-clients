@@ -123,13 +123,26 @@
           </div>
         </div>
       </div>
+      <!--Site_Site_Menu_Items-->
+
+      <!--Home_Page-->
+
+      <!--Home_Page_Items-->
+
+      <!--Gas_Prices_Page-->
+
+      <!--Gas_Prices_Page_Prices-->
+
+      <!--Pool_Products_Page-->
+
+      <!--Pool_Products_Page_Products-->
 
       <div class=" bg-black" style="padding-top: 100px; padding-bottom: 100px;">
         <div
           class="container-md "
         >
 
-          <Services_Controller />
+          <Home_Page_Items_Controller />
         </div>
       </div>
 
@@ -184,14 +197,14 @@
 import Home_Page from "src/models/orm-api/Home_Page";
 import { createMetaMixin } from 'quasar'
 import HomeSEOController from "src/controllers/HomeSEOController.vue";
-import Services_Controller from "src/controllers/Services_Controller.vue";
+import Home_Page_Items_Controller from "src/controllers/Home_Page_Items_Controller.vue";
 
 
 
 
 export default {
   name: "HomeController.vue",
-  components: {Services_Controller, HomeSEOController},
+  components: {Home_Page_Items_Controller, HomeSEOController},
   mixins: [
     createMetaMixin(function () {
       const org = import.meta.env.VITE_API_SITE_TITLE

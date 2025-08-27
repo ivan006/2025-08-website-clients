@@ -52,7 +52,7 @@
 
 <script>
 // import MenuItems from 'src/controllers/MenuItems.vue';
-import Menu_Items from "src/models/orm-api/Menu_Items";
+import Site_Menu_Items from "src/models/orm-api/Site_Menu_Items";
 import Site from "src/models/orm-api/Site";
 
 export default {

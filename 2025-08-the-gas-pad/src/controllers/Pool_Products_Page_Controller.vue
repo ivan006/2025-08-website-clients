@@ -98,12 +98,12 @@
 </template>
 
 <script>
-import Gas_Prices_Page from "src/models/orm-api/Gas_Prices_Page";
+import Pool_Products_Page from "src/models/orm-api/Pool_Products_Page";
 import { createMetaMixin } from 'quasar'
 import Home_Page_Items_Controller from "src/controllers/Home_Page_Items_Controller.vue";
 
 export default {
-  name: "Gas_Prices_Page_Controller",
+  name: "Pool_Products_Page_Controller",
   components: {
     Home_Page_Items_Controller
   },
@@ -149,10 +149,10 @@ export default {
 
     id() {
       // return this.$route.params.rId
-      return 'recHpBSy9dEXXwQDF'
+      return 'recmpTrAB2ygtIn9p'
     },
     superTableModel() {
-      return Gas_Prices_Page
+      return Pool_Products_Page
     },
   },
   methods: {

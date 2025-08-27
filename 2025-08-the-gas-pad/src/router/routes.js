@@ -20,11 +20,21 @@ const routes = [
             },
           },
           {
-            path: '/services',
-            name: '/services',
+            path: '/gas-prices',
+            name: '/gas-prices',
             component: () => import('src/controllers/Gas_Prices_Page_Controller.vue'),
             meta: {
-              breadcrumbName: 'Services',
+              breadcrumbName: 'Gas Prices',
+              breadcrumbParentName: '',
+              requiresAuth: false,
+            },
+          },
+          {
+            path: '/pool-chem-and-equip',
+            name: '/pool-chem-and-equip',
+            component: () => import('src/controllers/Pool_Products_Page_Controller.vue'),
+            meta: {
+              breadcrumbName: 'Pool Chem & Equip',
               breadcrumbParentName: '',
               requiresAuth: false,
             },

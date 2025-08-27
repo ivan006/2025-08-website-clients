@@ -84,7 +84,7 @@ import { useRoute } from 'vue-router';
 // import BreadcrumbsComp from 'src/controllers/BreadcrumbsComp.vue';
 import VueCookies from 'vue-cookies';
 import MenuItems from 'src/controllers/MenuItems.vue';
-import Menu_Items from "src/models/orm-api/Menu_Items";
+import Site_Menu_Items from "src/models/orm-api/Site_Menu_Items";
 import Site from "src/models/orm-api/Site";
 import FooterController from "src/controllers/FooterController.vue";
 

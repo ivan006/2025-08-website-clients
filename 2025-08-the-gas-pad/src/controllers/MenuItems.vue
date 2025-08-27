@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import Menu_Items from 'src/models/orm-api/Menu_Items'
+import Site_Menu_Items from 'src/models/orm-api/Site_Menu_Items'
 
 export default {
   name: 'MenuItems',
@@ -77,7 +77,7 @@ export default {
   },
   computed: {
     superTableModel() {
-      return Menu_Items
+      return Site_Menu_Items
     },
     filterValsComp() {
       const result = {

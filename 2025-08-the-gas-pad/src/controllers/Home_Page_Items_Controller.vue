@@ -67,10 +67,10 @@
 </template>
 
 <script>
-import Services from 'src/models/orm-api/Home_Page_Items'
+import Home_Page_Items from 'src/models/orm-api/Home_Page_Items'
 
 export default {
-  name: 'Services_Controller',
+  name: 'Home_Page_Items_Controller',
   components: {
   },
 
@@ -97,7 +97,7 @@ export default {
   },
   computed: {
     superTableModel() {
-      return Services
+      return Home_Page_Items
     },
     filterValsComp() {
       const result = {
