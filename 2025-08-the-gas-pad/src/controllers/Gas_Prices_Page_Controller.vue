@@ -48,7 +48,7 @@
           class="container-md "
         >
 
-          <Home_Page_Items_Controller />
+          <Gas_Prices_Page_Prices_Controller />
         </div>
       </div>
 
@@ -100,12 +100,12 @@
 <script>
 import Gas_Prices_Page from "src/models/orm-api/Gas_Prices_Page";
 import { createMetaMixin } from 'quasar'
-import Home_Page_Items_Controller from "src/controllers/Home_Page_Items_Controller.vue";
+import Gas_Prices_Page_Prices_Controller from "src/controllers/Gas_Prices_Page_Prices_Controller.vue";
 
 export default {
   name: "Gas_Prices_Page_Controller",
   components: {
-    Home_Page_Items_Controller
+    Gas_Prices_Page_Prices_Controller
   },
 
   mixins: [

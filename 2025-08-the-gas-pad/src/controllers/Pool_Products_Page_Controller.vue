@@ -48,7 +48,7 @@
           class="container-md "
         >
 
-          <Home_Page_Items_Controller />
+          <Pool_Products_Page_Products_Controller />
         </div>
       </div>
 
@@ -100,12 +100,12 @@
 <script>
 import Pool_Products_Page from "src/models/orm-api/Pool_Products_Page";
 import { createMetaMixin } from 'quasar'
-import Home_Page_Items_Controller from "src/controllers/Home_Page_Items_Controller.vue";
+import Pool_Products_Page_Products_Controller from "src/controllers/Pool_Products_Page_Products_Controller.vue";
 
 export default {
   name: "Pool_Products_Page_Controller",
   components: {
-    Home_Page_Items_Controller
+    Pool_Products_Page_Products_Controller
   },
 
   mixins: [

@@ -45,6 +45,10 @@
                   <div class="text-body3">
                     {{item["Tagline"]}}
                   </div>
+
+                  <div class="text-body3">
+                    R{{item["Price"]}}.00
+                  </div>
                 </div>
 
 
