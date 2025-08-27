@@ -73,7 +73,7 @@
 <script>
 import Gas_Prices_Page_Prices from 'src/models/orm-api/Gas_Prices_Page_Prices'
 import {createMetaMixin} from "quasar";
-import {buildSeoConfig} from "src/utils/seo";
+import {buildCatalogItems, buildSeoConfig} from "src/utils/seo";
 
 export default {
   name: 'Gas_Prices_Page_Prices_Controller',
@@ -91,7 +91,7 @@ export default {
         image: this.parent.fields?.['Share Image URL'] || `${window.location.origin}/og-default.jpg`,
         siteName,
         type: this.parent.fields?.['SEO Type'],
-        // itemListElement: this.itemListElement,
+        itemListElement: buildCatalogItems(this.items),
       });
     })
   ],

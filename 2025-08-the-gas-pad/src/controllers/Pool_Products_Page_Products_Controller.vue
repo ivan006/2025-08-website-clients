@@ -73,7 +73,7 @@
 <script>
 import Pool_Products_Page_Products from 'src/models/orm-api/Pool_Products_Page_Products'
 import {createMetaMixin} from "quasar";
-import {buildSeoConfig} from "src/utils/seo";
+import {buildCatalogItems, buildSeoConfig} from "src/utils/seo";
 
 export default {
   name: 'Pool_Products_Page_Products_Controller',
@@ -93,7 +93,7 @@ export default {
         image: this.parent.fields?.['Share Image URL'] || `${window.location.origin}/og-default.jpg`,
         siteName,
         type: this.parent.fields?.['SEO Type'],
-        // itemListElement: this.itemListElement,
+        itemListElement: buildCatalogItems(this.items),
       });
     })
   ],
