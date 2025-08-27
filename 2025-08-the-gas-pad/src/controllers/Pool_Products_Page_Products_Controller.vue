@@ -12,6 +12,10 @@
     <div class="row">
       <!--<div class="row justify-center" >-->
 
+
+      <pre>
+              {{itemListElement}}
+            </pre>
       <template v-for="item in items" :key="item.id">
 
         <!--<q-avatar>-->
@@ -55,10 +59,6 @@
 
               </div>
             </div>
-
-            <!--<pre>-->
-            <!--  {{item}}-->
-            <!--</pre>-->
           </div>
         </div>
       </template>
@@ -72,17 +72,40 @@
 
 <script>
 import Pool_Products_Page_Products from 'src/models/orm-api/Pool_Products_Page_Products'
+import {createMetaMixin} from "quasar";
+import {buildSeoConfig} from "src/utils/seo";
 
 export default {
   name: 'Pool_Products_Page_Products_Controller',
   components: {
   },
 
+
+  mixins: [
+    createMetaMixin(function () {
+      const url = window.location.origin + (this.$route?.fullPath || '/');
+      const siteName = import.meta.env.VITE_API_SITE_TITLE;
+
+      return buildSeoConfig({
+        title: this.parent.fields?.['Title'] || siteName,
+        description: this.parent.fields?.['Tagline'] || '',
+        url,
+        image: this.parent.fields?.['Share Image URL'] || `${window.location.origin}/og-default.jpg`,
+        siteName,
+        type: this.parent.fields?.['SEO Type'],
+        // itemListElement: this.itemListElement,
+      });
+    })
+  ],
   props: {
     fetchFlags: {
       type: Object,
       default: () => ({})
-    }
+    },
+    parent: {
+      type: Object,
+      default: () => ({})
+    },
   },
   data(){
     return {
@@ -99,6 +122,7 @@ export default {
       filterValsRef: {},
     }
   },
+
   computed: {
     superTableModel() {
       return Pool_Products_Page_Products
@@ -107,6 +131,10 @@ export default {
       const result = {
         ...this.filterValsRef,
       };
+      return result;
+    },
+    itemListElement() {
+      const result = this.items;
       return result;
     },
   },

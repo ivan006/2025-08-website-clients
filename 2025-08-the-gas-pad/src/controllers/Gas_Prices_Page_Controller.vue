@@ -48,7 +48,7 @@
           class="container-md "
         >
 
-          <Gas_Prices_Page_Prices_Controller />
+          <Gas_Prices_Page_Prices_Controller :parent="this.item" />
         </div>
       </div>
 

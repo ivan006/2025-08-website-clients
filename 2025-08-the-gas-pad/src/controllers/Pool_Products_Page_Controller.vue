@@ -48,7 +48,7 @@
           class="container-md "
         >
 
-          <Pool_Products_Page_Products_Controller />
+          <Pool_Products_Page_Products_Controller :parent="this.item" />
         </div>
       </div>
 
@@ -108,22 +108,6 @@ export default {
   components: {
     Pool_Products_Page_Products_Controller
   },
-
-  mixins: [
-    createMetaMixin(function () {
-      const url = window.location.origin + (this.$route?.fullPath || '/');
-      const siteName = import.meta.env.VITE_API_SITE_TITLE;
-
-      return buildSeoConfig({
-        title: this.item.fields?.['Title'] || siteName,
-        description: this.item.fields?.['Tagline'] || '',
-        url,
-        image: this.item.fields?.['Share Image URL'] || `${window.location.origin}/og-default.jpg`,
-        siteName,
-        type: this.item.fields?.['SEO Type'],
-      });
-    })
-  ],
   data(){
     return {
       loading: true,

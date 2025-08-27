@@ -52,3 +52,64 @@ export function buildSeoConfig({
     },
   };
 }
+
+
+
+export function buildCatalogSeoConfig({
+                                        title,
+                                        description,
+                                        url,
+                                        image,
+                                        siteName,
+                                        products = [], // array of { name, price, currency, availability, image, category }
+                                      }) {
+  const schema = {
+    '@context': 'https://schema.org',
+    '@type': 'OfferCatalog',
+    name: title || '',
+    url: url,
+    description: description || '',
+    image: image,
+    logo: image,
+    itemListElement: products.map((p) => ({
+      '@type': 'Product',
+      name: p.name,
+      category: p.category || '',
+      image: p.image || image,
+      offers: {
+        '@type': 'Offer',
+        price: p.price,
+        priceCurrency: p.currency || 'ZAR',
+        availability: p.availability || 'https://schema.org/InStock',
+        url: url,
+      },
+    })),
+  };
+
+  return {
+    title,
+    titleTemplate: (t) => `${t} | ${siteName}`,
+    link: [{ rel: 'canonical', href: url }],
+    meta: [
+      { name: 'description', content: description || '' },
+      { property: 'og:type', content: 'website' },
+      { property: 'og:title', content: title || '' },
+      { property: 'og:description', content: description || '' },
+      { property: 'og:url', content: url || '' },
+      { property: 'og:image', content: image || '' },
+      { property: 'og:image:secure_url', content: image || '' },
+      { property: 'og:image:width', content: '1200' },
+      { property: 'og:image:height', content: '630' },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:title', content: title || '' },
+      { name: 'twitter:description', content: description || '' },
+      { name: 'twitter:image', content: image || '' },
+    ],
+    script: {
+      structuredData: {
+        type: 'application/ld+json',
+        innerHTML: JSON.stringify(schema),
+      },
+    },
+  };
+}

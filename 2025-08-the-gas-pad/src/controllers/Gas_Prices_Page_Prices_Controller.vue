@@ -72,17 +72,39 @@
 
 <script>
 import Gas_Prices_Page_Prices from 'src/models/orm-api/Gas_Prices_Page_Prices'
+import {createMetaMixin} from "quasar";
+import {buildSeoConfig} from "src/utils/seo";
 
 export default {
   name: 'Gas_Prices_Page_Prices_Controller',
   components: {
   },
+  mixins: [
+    createMetaMixin(function () {
+      const url = window.location.origin + (this.$route?.fullPath || '/');
+      const siteName = import.meta.env.VITE_API_SITE_TITLE;
+
+      return buildSeoConfig({
+        title: this.parent.fields?.['Title'] || siteName,
+        description: this.parent.fields?.['Tagline'] || '',
+        url,
+        image: this.parent.fields?.['Share Image URL'] || `${window.location.origin}/og-default.jpg`,
+        siteName,
+        type: this.parent.fields?.['SEO Type'],
+        // itemListElement: this.itemListElement,
+      });
+    })
+  ],
 
   props: {
     fetchFlags: {
       type: Object,
       default: () => ({})
-    }
+    },
+    parent: {
+      type: Object,
+      default: () => ({})
+    },
   },
   data(){
     return {

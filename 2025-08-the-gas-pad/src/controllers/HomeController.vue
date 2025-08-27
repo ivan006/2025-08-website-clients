@@ -187,7 +187,7 @@
         </div>
       </div>
     </template>
-    <HomeSEOController />
+    <!--<HomeSEOController />-->
 
 
   </div>
@@ -205,7 +205,7 @@ import {buildSeoConfig} from "src/utils/seo";
 
 export default {
   name: "HomeController.vue",
-  components: {Home_Page_Items_Controller, HomeSEOController},
+  components: {Home_Page_Items_Controller},
   mixins: [
 
     createMetaMixin(function () {
