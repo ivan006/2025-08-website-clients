@@ -71,12 +71,12 @@
 </template>
 
 <script>
-import Gas_Prices_Page_Prices from 'src/models/orm-api/Gas_Prices_Page_Prices'
+import Secondary_Page_Items from 'src/models/orm-api/Secondary_Page_Items'
 import {createMetaMixin} from "quasar";
 import {buildCatalogItems, buildSeoConfig} from "src/utils/seo";
 
 export default {
-  name: 'Gas_Prices_Page_Prices_Controller',
+  name: 'Secondary_Page_Items_Controller',
   components: {
   },
   mixins: [
@@ -127,7 +127,7 @@ export default {
   },
   computed: {
     superTableModel() {
-      return Gas_Prices_Page_Prices
+      return Secondary_Page_Items
     },
     filterValsComp() {
       const result = {

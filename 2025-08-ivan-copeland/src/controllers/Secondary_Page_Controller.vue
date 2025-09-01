@@ -52,7 +52,7 @@
           class="container-md "
         >
 
-          <Gas_Prices_Page_Prices_Controller :parent="this.item" />
+          <Secondary_Page_Items_Controller :parent="this.item" />
         </div>
       </div>
 
@@ -102,13 +102,13 @@
 </template>
 
 <script>
-import Gas_Prices_Page from "src/models/orm-api/Gas_Prices_Page";
-import Gas_Prices_Page_Prices_Controller from "src/controllers/Gas_Prices_Page_Prices_Controller.vue";
+import Secondary_Page from "src/models/orm-api/Secondary_Page";
+import Secondary_Page_Items_Controller from "src/controllers/Secondary_Page_Items_Controller.vue";
 
 export default {
-  name: "Gas_Prices_Page_Controller",
+  name: "Secondary_Page_Controller",
   components: {
-    Gas_Prices_Page_Prices_Controller
+    Secondary_Page_Items_Controller
   },
   data(){
     return {
@@ -123,7 +123,7 @@ export default {
       return 'recHpBSy9dEXXwQDF'
     },
     superTableModel() {
-      return Gas_Prices_Page
+      return Secondary_Page
     },
   },
   methods: {

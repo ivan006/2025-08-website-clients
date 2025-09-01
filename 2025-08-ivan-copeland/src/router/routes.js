@@ -22,7 +22,7 @@ const routes = [
           {
             path: '/gas-prices',
             name: '/gas-prices',
-            component: () => import('src/controllers/Gas_Prices_Page_Controller.vue'),
+            component: () => import('src/controllers/Secondary_Page_Controller.vue'),
             meta: {
               breadcrumbName: 'Gas Prices',
               breadcrumbParentName: '',
