@@ -1,5 +1,0 @@
-#Protect Directory
-AuthName "Dialog prompt"
-AuthType Basic
-AuthUserFile /usr/www/users/letsnvjszh/mischka.bluegemify.co.za/cacher/.htpasswd
-Require valid-user

@@ -1,1 +1,0 @@
-var c=Object.defineProperty;var r=(a,s,t)=>s in a?c(a,s,{enumerable:!0,configurable:!0,writable:!0,value:t}):a[s]=t;var e=(a,s,t)=>r(a,typeof s!="symbol"?s+"":s,t);import{B as o}from"./BasicModel.js";class i extends o{}e(i,"entity","Gas_Prices_Page"),e(i,"entityUrl","/Gas_Prices_Page");export{i as S};
