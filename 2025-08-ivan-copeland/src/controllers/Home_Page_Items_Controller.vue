@@ -54,11 +54,11 @@
 
                   <div class="lt-md q-mt-lg"></div>
 
-                  <h2 class="text-h4 text-bold q-mt-none">
+                  <h2 class="text-h4 text-bold q-mt-none font-1ry text-uppercase">
                     {{item["Title"]}}
                   </h2>
 
-                  <div class="text-body3">
+                  <div class="text-body3 font-2ry">
                     {{item["Tagline"]}}
                   </div>
                 </div>

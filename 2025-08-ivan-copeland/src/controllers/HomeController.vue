@@ -38,14 +38,14 @@
 
               <div class="gt-sm">
                 <h1 class="text-center text-h1 " style="letter-spacing: 15px;">
-                  <span class="text-weight-thin font-garamond text-uppercase" style="letter-spacing: 15px;">
+                  <span class="text-weight-thin font-1ry text-uppercase" style="letter-spacing: 15px;">
                     {{item.fields?.['Title']}}
                   </span>
                 </h1>
               </div>
               <div class="lt-md">
-                <h1 class="text-center text-h2 font-garamond">
-                  <span class="text-weight-thin font-garamond text-uppercase" style="letter-spacing: 15px;">
+                <h1 class="text-center text-h2 font-1ry">
+                  <span class="text-weight-thin font-1ry text-uppercase" style="letter-spacing: 15px;">
                     {{item.fields?.['Title']}}
                   </span>
                 </h1>
@@ -53,14 +53,14 @@
 
               <div class="gt-sm">
                 <h2 class="text-center text-h3" >
-                  <span class="text-weight-light font-arial text-uppercase" style="letter-spacing: 15px;">
+                  <span class="text-weight-light font-2ry text-uppercase" style="letter-spacing: 15px;">
                   {{item.fields?.['Tagline']}}
                   </span>
                 </h2>
               </div>
               <div class="lt-md">
-                <h2 class="text-center text-h4 text-bold font-arial">
-                  <span class="text-weight-light font-arial text-uppercase" style="letter-spacing: 15px;">
+                <h2 class="text-center text-h4 text-bold font-2ry">
+                  <span class="text-weight-light font-2ry text-uppercase" style="letter-spacing: 15px;">
                   {{item.fields?.['Tagline']}}
                   </span>
                 </h2>
@@ -83,61 +83,7 @@
         </div>
       </div>
 
-      <!--<div class="bg-2ry-color" style="padding-top: 70px; padding-bottom: 70px;">-->
-      <!--  <div-->
-      <!--    class="container-md "-->
-      <!--  >-->
 
-      <!--    <div class="gt-sm">-->
-      <!--      <h3 class="text-center text-h2 text-bold">-->
-      <!--        {{item.fields?.['List Section Title']}}-->
-      <!--      </h3>-->
-      <!--    </div>-->
-      <!--    <div class="lt-md">-->
-      <!--      <h3 class="text-center text-h3 text-bold">-->
-      <!--        {{item.fields?.['List Section Title']}}-->
-      <!--      </h3>-->
-      <!--    </div>-->
-      <!--  </div>-->
-      <!--</div>-->
-
-      <!--<div class="q-py-xl">-->
-
-      <!--  <div-->
-      <!--    class="container-md"-->
-      <!--  >-->
-      <!--    <div class="row q-col-gutter-md">-->
-
-
-      <!--      &lt;!&ndash;<div class="col-xl-1 col-md-1 col-sm-12 col-xs-12">&ndash;&gt;-->
-
-
-      <!--      &lt;!&ndash;</div>&ndash;&gt;-->
-
-      <!--      <div class="col-xl-10 col-md-10 col-sm-12 col-xs-12 offset-md-1 q-px-xl">-->
-
-
-      <!--        <div class="gt-sm">-->
-      <!--          <h3 class="text-center text-h2 text-bold">-->
-      <!--            {{item.fields?.['List Section Title']}}-->
-      <!--          </h3>-->
-      <!--        </div>-->
-      <!--        <div class="lt-md">-->
-      <!--          <h3 class="text-center text-h3 text-bold">-->
-      <!--            {{item.fields?.['List Section Title']}}-->
-      <!--          </h3>-->
-      <!--        </div>-->
-
-      <!--        &lt;!&ndash;<div class="gt-sm">&ndash;&gt;-->
-      <!--        &lt;!&ndash;</div>&ndash;&gt;-->
-      <!--        &lt;!&ndash;<div class="lt-md">&ndash;&gt;-->
-      <!--        &lt;!&ndash;</div>&ndash;&gt;-->
-
-      <!--        &lt;!&ndash;<pre>{{item}}</pre>&ndash;&gt;-->
-      <!--      </div>-->
-      <!--    </div>-->
-      <!--  </div>-->
-      <!--</div>-->
 
 
 
@@ -157,10 +103,7 @@
             class="col-xl-6 col-md-6 col-sm-12 col-xs-12"
           >
 
-            <!--:style="this.item.fields?.['Contact Image']?.[0]?.url ? `background-image: url(https://capetownlists.co.za/?url=${this.item.fields?.['Contact Image']?.[0]?.url});` : ``"-->
-            <!--<div style="height: 500px;">-->
 
-            <!--</div>-->
 
             <img
               :src="this.item.fields?.['Contact Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${this.item.fields?.['Contact Image']?.[0]?.url}` : ''"
@@ -179,12 +122,12 @@
 
 
 
-                <h2 class="text-h3 text-bold ">
+                <h2 class="text-h3 text-bold font-1ry text-uppercase">
 
                   {{item.fields?.['Contact Title']}}
                 </h2>
 
-                <div class=" text-h5 q-pb-xl">
+                <div class=" text-h5 q-pb-xl font-2ry ">
 
                   {{item.fields?.['Contact Email Address']}}
                 </div>

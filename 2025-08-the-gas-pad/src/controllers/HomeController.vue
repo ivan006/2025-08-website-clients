@@ -25,14 +25,14 @@
 
               <div class="gt-sm">
                 <h1 class="text-center text-h1 " style="letter-spacing: 15px;">
-                  <span class="text-weight-thin font-garamond text-uppercase" style="letter-spacing: 15px;">
+                  <span class="text-weight-thin font-1ry text-uppercase" style="letter-spacing: 15px;">
                     {{item.fields?.['Title']}}
                   </span>
                 </h1>
               </div>
               <div class="lt-md">
-                <h1 class="text-center text-h2 font-garamond">
-                  <span class="text-weight-thin font-garamond text-uppercase" style="letter-spacing: 15px;">
+                <h1 class="text-center text-h2 font-1ry">
+                  <span class="text-weight-thin font-1ry text-uppercase" style="letter-spacing: 15px;">
                     {{item.fields?.['Title']}}
                   </span>
                 </h1>
@@ -40,14 +40,14 @@
 
               <div class="gt-sm">
                 <h2 class="text-center text-h3" >
-                  <span class="text-weight-light font-arial text-uppercase" style="letter-spacing: 15px;">
+                  <span class="text-weight-light font-2ry text-uppercase" style="letter-spacing: 15px;">
                   {{item.fields?.['Tagline']}}
                   </span>
                 </h2>
               </div>
               <div class="lt-md">
-                <h2 class="text-center text-h4 text-bold font-arial">
-                  <span class="text-weight-light font-arial text-uppercase" style="letter-spacing: 15px;">
+                <h2 class="text-center text-h4 text-bold font-2ry">
+                  <span class="text-weight-light font-2ry text-uppercase" style="letter-spacing: 15px;">
                   {{item.fields?.['Tagline']}}
                   </span>
                 </h2>

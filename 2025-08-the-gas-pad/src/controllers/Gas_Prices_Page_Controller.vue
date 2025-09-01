@@ -23,14 +23,14 @@
 
               <div class="gt-sm">
                 <h1 class="text-center text-h1 text-bold">
-                  <span class="text-weight-thin font-garamond text-uppercase" style="letter-spacing: 15px;">
+                  <span class="text-weight-thin font-1ry text-uppercase" style="letter-spacing: 15px;">
                     {{item.fields?.['Title']}}
                   </span>
                 </h1>
               </div>
               <div class="lt-md">
                 <h1 class="text-center text-h2 text-bold">
-                  <span class="text-weight-thin font-garamond text-uppercase" style="letter-spacing: 15px;">
+                  <span class="text-weight-thin font-1ry text-uppercase" style="letter-spacing: 15px;">
                     {{item.fields?.['Title']}}
                   </span>
                 </h1>
