@@ -8,8 +8,8 @@
     background-size: cover;
     background-attachment: fixed;
 
-    background-color: rgba(0,0,0,.25);
-    background-blend-mode: darken;
+    background-color: rgba(255,255,255,.5);
+    background-blend-mode: lighten;
     "
     class="ScaledParent"
   >
@@ -23,7 +23,7 @@
         <div
           class="container-md"
         >
-          <div class="row q-col-gutter-md text-white">
+          <div class="row q-col-gutter-md ">
 
 
             <!--<div class="col-xl-1 col-md-1 col-sm-12 col-xs-12">-->
@@ -83,41 +83,23 @@
         </div>
       </div>
 
-      <div class="bg-2ry-color" style="padding-top: 70px; padding-bottom: 70px;">
-        <div
-          class="container-md "
-        >
+      <!--<div class="bg-2ry-color" style="padding-top: 70px; padding-bottom: 70px;">-->
+      <!--  <div-->
+      <!--    class="container-md "-->
+      <!--  >-->
 
-          <!--<div class="row">-->
-
-          <!--  <div class="col-xl-6 col-md-6 col-sm-12 col-xs-12">-->
-
-          <!--    <h1 class="text-center text-h3 text-bold">-->
-          <!--      About Us-->
-          <!--    </h1>-->
-
-          <!--  </div>-->
-          <!--  <div class="col-xl-6 col-md-6 col-sm-12 col-xs-12 q-px-xl">-->
-          <!--    <div class=" text-h5 ">-->
-
-          <!--      {{item.fields?.['About Us Text']}}-->
-          <!--    </div>-->
-
-          <!--  </div>-->
-          <!--</div>-->
-
-          <div class="gt-sm">
-            <h3 class="text-center text-h2 text-bold">
-              {{item.fields?.['List Section Title']}}
-            </h3>
-          </div>
-          <div class="lt-md">
-            <h3 class="text-center text-h3 text-bold">
-              {{item.fields?.['List Section Title']}}
-            </h3>
-          </div>
-        </div>
-      </div>
+      <!--    <div class="gt-sm">-->
+      <!--      <h3 class="text-center text-h2 text-bold">-->
+      <!--        {{item.fields?.['List Section Title']}}-->
+      <!--      </h3>-->
+      <!--    </div>-->
+      <!--    <div class="lt-md">-->
+      <!--      <h3 class="text-center text-h3 text-bold">-->
+      <!--        {{item.fields?.['List Section Title']}}-->
+      <!--      </h3>-->
+      <!--    </div>-->
+      <!--  </div>-->
+      <!--</div>-->
 
       <!--<div class="q-py-xl">-->
 
