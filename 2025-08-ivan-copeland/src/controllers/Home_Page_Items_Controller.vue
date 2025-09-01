@@ -23,15 +23,31 @@
             <div class="row">
 
               <div class="col-xl-4 col-md-4 col-sm-12 col-xs-12 q-px-lg">
-                <div
 
-                >
-                  <img
-                    :src="item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.thumbnails?.large?.url}` : ''"
-                    style="width: 100%; display: block; border-radius: 1000px;"
-                  >
-                  <!--<img src="https://cdn.quasar.dev/img/avatar.png">-->
-                </div>
+                <!--<img src="~assets/square.webp">-->
+                <img
+                  src="~assets/square.webp"
+                  :style="item?.['Image']?.[0]?.thumbnails?.large?.url ? `background-image: url(https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.thumbnails?.large?.url});` : ``"
+                  style="
+                  background-color: rgb(70,70,70);
+                  background-position: center;
+                  background-size: cover;
+                  border-radius: 100%;
+                  max-width: 100%;
+                  "
+                />
+
+                <!--<img-->
+                <!--  :src="item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.thumbnails?.large?.url}` : ''"-->
+                <!--  style="-->
+
+
+                <!--  display: inline;-->
+                <!--  margin: 0 auto;-->
+                <!--  height: 100%;-->
+                <!--  width: auto;-->
+                <!--  "-->
+                <!--&gt;-->
               </div>
               <div class="col-xl-8 col-md-8 col-sm-12 col-xs-12 q-px-lg ">
                 <div class="column justify-center full-height">

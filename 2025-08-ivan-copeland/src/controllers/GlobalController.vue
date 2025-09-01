@@ -1,17 +1,5 @@
 <template>
   <div
-    :style="this.item.fields?.['Site Background Image']?.[0]?.url ? `background-image: url(https://capetownlists.co.za/?url=${this.item.fields?.['Site Background Image']?.[0]?.url});` : ``"
-    style="
-    min-height: 100vh;
-    background-color: rgb(70,70,70);
-    background-position: center;
-    background-size: cover;
-    background-attachment: fixed;
-
-    background-color: rgba(0,0,0,.25);
-    background-blend-mode: darken;
-    "
-    class="ScaledParent"
   >
 
 

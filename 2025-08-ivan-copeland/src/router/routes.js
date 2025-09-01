@@ -20,11 +20,11 @@ const routes = [
             },
           },
           {
-            path: '/gas-prices',
-            name: '/gas-prices',
+            path: '/portfolio',
+            name: '/portfolio',
             component: () => import('src/controllers/Secondary_Page_Controller.vue'),
             meta: {
-              breadcrumbName: 'Gas Prices',
+              breadcrumbName: 'Portfolio',
               breadcrumbParentName: '',
               requiresAuth: false,
             },
