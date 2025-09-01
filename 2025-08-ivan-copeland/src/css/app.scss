@@ -1,0 +1,135 @@
+
+// app global css in SCSS form
+
+
+
+// breakpoint variable, from https://quasar.dev/style/breakpoints
+// Except the xs one because I think 600px is too small
+$xs-breakpoint: 718px;
+$sm-breakpoint: 1024px;
+$md-breakpoint: 1439px;
+$lg-breakpoint: 1920px;
+
+.container,
+.container-sm,
+.container-md,
+.container-lg,
+.container-xl {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: $xs-breakpoint) {
+  .container,
+  .container-sm {
+    max-width: 540px;
+  }
+}
+
+@media (min-width: $sm-breakpoint) {
+  .container,
+  .container-sm,
+  .container-md {
+    max-width: 920px;
+  }
+}
+
+@media (min-width: $md-breakpoint) {
+  .container,
+  .container-sm,
+  .container-md,
+  .container-lg {
+    max-width: 1140px;
+  }
+}
+
+@media (min-width: $lg-breakpoint) {
+  .container,
+  .container-sm,
+  .container-md,
+  .container-lg,
+  .container-xl {
+    max-width: 1440px;
+  }
+}
+
+
+
+//.text-subtitle1 {
+//  font-size: 1rem;
+//  font-weight: 400;
+//  line-height: 1.75rem;
+//  letter-spacing: .00937em;
+//}
+//
+//.text-body1 {
+//  font-size: 1rem;
+//  font-weight: 400;
+//  line-height: 1.5rem;
+//  letter-spacing: .03125em;
+//}
+//
+//.text-body2 {
+//  font-size: .875rem;
+//  font-weight: 400;
+//  line-height: 1.25rem;
+//  letter-spacing: .01786em;
+//}
+
+.text-body3 {
+  font-size: 1.25rem;       /* 20px: 25% bigger than body1 (16px) */
+  font-weight: 400;         /* keep same weight for body tone */
+  line-height: 1.875rem;    /* proportional line height */
+  letter-spacing: 0.008em;  /* slightly tighter tracking */
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+.font-garamond {
+  font-family: 'EB Garamond', serif;
+}
+.font-arial {
+  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+}
+
+
+
+
+/* -------------------------
+   Brand Color Utilities
+   ------------------------- */
+
+/* Text colors */
+.text-1ry-color {
+  color: #C8102E; /* Deep Red */
+}
+
+//.text-2ry-color {
+//  color: #333333; /* Neutral Charcoal */
+//}
+
+.text-3ry-color {
+  color: #8CC63F; /* Bright Green */
+}
+
+/* Background colors */
+//.bg-1ry-color {
+//  background-color: #FFFFFF; /* White */
+//}
+
+.bg-2ry-color {
+  background-color: #F7F7F7; /* Light Gray */
+}
+
+.bg-3ry-color {
+  background-color: #8CC63F; /* Bright Green */
+}
+
+.bg-4ry-color {
+  background-color: #F7FFCC; /* Light Gray */
+}
+
+
