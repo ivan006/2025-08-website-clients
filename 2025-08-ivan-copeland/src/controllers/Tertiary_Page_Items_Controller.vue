@@ -71,12 +71,12 @@
 </template>
 
 <script>
-import Pool_Products_Page_Products from 'src/models/orm-api/Pool_Products_Page_Products'
+import Tertiary_Page_Items from 'src/models/orm-api/Tertiary_Page_Items'
 import {createMetaMixin} from "quasar";
 import {buildCatalogItems, buildSeoConfig} from "src/utils/seo";
 
 export default {
-  name: 'Pool_Products_Page_Products_Controller',
+  name: 'Tertiary_Page_Items_Controller',
   components: {
   },
 
@@ -130,7 +130,7 @@ export default {
 
   computed: {
     superTableModel() {
-      return Pool_Products_Page_Products
+      return Tertiary_Page_Items
     },
     filterValsComp() {
       const result = {

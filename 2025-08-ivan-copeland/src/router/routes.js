@@ -32,7 +32,7 @@ const routes = [
           {
             path: '/pool-chem-and-equip',
             name: '/pool-chem-and-equip',
-            component: () => import('src/controllers/Pool_Products_Page_Controller.vue'),
+            component: () => import('src/controllers/Tertiary_Page_Controller.vue'),
             meta: {
               breadcrumbName: 'Pool Chem & Equip',
               breadcrumbParentName: '',
