@@ -2,20 +2,22 @@
   <div
     :style="this.item.fields?.['Site Background Image']?.[0]?.url ? `background-image: url(https://capetownlists.co.za/?url=${this.item.fields?.['Site Background Image']?.[0]?.url});` : ``"
     style="
-    color: white;
     min-height: 100vh;
     background-color: rgb(70,70,70);
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
+
+    background-color: rgba(255,255,255,.15);
+    background-blend-mode: lighten;
     "
     class="ScaledParent"
   >
 
 
-    <q-toolbar style="" class="q-py-md bg-black">
+    <q-toolbar style="" class="q-py-md bg-white ">
 
-      <div class="container-md text-white ">
+      <div class="container-md  ">
         <template v-if="loading">
           <div class="text-center q-pa-xl">Loading...</div>
         </template>

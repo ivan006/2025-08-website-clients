@@ -10,7 +10,7 @@
         <div
           class="container-md"
         >
-          <div class="row q-col-gutter-md">
+          <div class="row q-col-gutter-md  text-white">
 
 
             <!--<div class="col-xl-1 col-md-1 col-sm-12 col-xs-12">-->
@@ -23,12 +23,16 @@
 
               <div class="gt-sm">
                 <h1 class="text-center text-h1 text-bold">
-                  {{item.fields?.['Title']}}
+                  <span class="text-weight-thin font-garamond text-uppercase" style="letter-spacing: 15px;">
+                    {{item.fields?.['Title']}}
+                  </span>
                 </h1>
               </div>
               <div class="lt-md">
                 <h1 class="text-center text-h2 text-bold">
-                  {{item.fields?.['Title']}}
+                  <span class="text-weight-thin font-garamond text-uppercase" style="letter-spacing: 15px;">
+                    {{item.fields?.['Title']}}
+                  </span>
                 </h1>
               </div>
 
@@ -43,7 +47,7 @@
         </div>
       </div>
 
-      <div class=" bg-black" style="padding-top: 100px; padding-bottom: 100px;">
+      <div class=" bg-3ry-color text-white" style="padding-top: 100px; padding-bottom: 100px;">
         <div
           class="container-md "
         >
@@ -58,7 +62,7 @@
         <div
           class="container-md"
         >
-          <div class="row q-col-gutter-md">
+          <div class="row q-col-gutter-md text-white">
 
 
             <!--<div class="col-xl-1 col-md-1 col-sm-12 col-xs-12">-->

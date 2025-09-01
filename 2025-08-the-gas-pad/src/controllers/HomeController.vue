@@ -10,7 +10,7 @@
         <div
           class="container-md"
         >
-          <div class="row q-col-gutter-md">
+          <div class="row q-col-gutter-md text-white">
 
 
             <!--<div class="col-xl-1 col-md-1 col-sm-12 col-xs-12">-->
@@ -18,29 +18,38 @@
 
             <!--</div>-->
 
-            <div class="col-xl-10 col-md-10 col-sm-12 col-xs-12 offset-md-1 q-px-xl">
+            <div class="col-xl-10 col-md-10 col-sm-12 col-xs-12 offset-md-1 q-px-xl ">
+
+
 
 
               <div class="gt-sm">
-                <h1 class="text-center text-h3">
-                  {{item.fields?.['Title']}}
+                <h1 class="text-center text-h1 " style="letter-spacing: 15px;">
+                  <span class="text-weight-thin font-garamond text-uppercase" style="letter-spacing: 15px;">
+                    {{item.fields?.['Title']}}
+                  </span>
                 </h1>
               </div>
               <div class="lt-md">
-                <h1 class="text-center text-h4">
-                  {{item.fields?.['Title']}}
+                <h1 class="text-center text-h2 font-garamond">
+                  <span class="text-weight-thin font-garamond text-uppercase" style="letter-spacing: 15px;">
+                    {{item.fields?.['Title']}}
+                  </span>
                 </h1>
               </div>
 
-
               <div class="gt-sm">
-                <h2 class="text-center text-h1 text-bold">
+                <h2 class="text-center text-h3" >
+                  <span class="text-weight-light font-arial text-uppercase" style="letter-spacing: 15px;">
                   {{item.fields?.['Tagline']}}
+                  </span>
                 </h2>
               </div>
               <div class="lt-md">
-                <h2 class="text-center text-h2 text-bold">
+                <h2 class="text-center text-h4 text-bold font-arial">
+                  <span class="text-weight-light font-arial text-uppercase" style="letter-spacing: 15px;">
                   {{item.fields?.['Tagline']}}
+                  </span>
                 </h2>
               </div>
 
@@ -61,7 +70,7 @@
         </div>
       </div>
 
-      <div class=" bg-black" style="padding-top: 70px; padding-bottom: 70px;">
+      <div class="bg-2ry-color" style="padding-top: 70px; padding-bottom: 70px;">
         <div
           class="container-md "
         >
@@ -137,7 +146,7 @@
 
 
 
-      <div class=" bg-black" style="padding-top: 100px; padding-bottom: 100px;">
+      <div class=" bg-white" style="padding-top: 100px; padding-bottom: 100px;">
         <div
           class="container-md "
         >
@@ -146,7 +155,7 @@
         </div>
       </div>
 
-      <div class=" bg-white text-black">
+      <div class=" bg-3ry-color text-white">
         <div class="row">
 
           <div
@@ -160,7 +169,11 @@
 
             <img
               :src="this.item.fields?.['Contact Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${this.item.fields?.['Contact Image']?.[0]?.url}` : ''"
-              style="width: 100%; display: block;"
+              style="
+                width: 100%; display: block;
+                -webkit-filter: grayscale(100%);
+                filter:  brightness(120%);
+              "
             >
 
           </div>

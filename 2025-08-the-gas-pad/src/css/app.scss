@@ -83,3 +83,53 @@ $lg-breakpoint: 1920px;
   line-height: 1.875rem;    /* proportional line height */
   letter-spacing: 0.008em;  /* slightly tighter tracking */
 }
+
+
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+.font-garamond {
+  font-family: 'EB Garamond', serif;
+}
+.font-arial {
+  font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+}
+
+
+
+
+/* -------------------------
+   Brand Color Utilities
+   ------------------------- */
+
+/* Text colors */
+.text-1ry-color {
+  color: #C8102E; /* Deep Red */
+}
+
+//.text-2ry-color {
+//  color: #333333; /* Neutral Charcoal */
+//}
+
+.text-3ry-color {
+  color: #8CC63F; /* Bright Green */
+}
+
+/* Background colors */
+//.bg-1ry-color {
+//  background-color: #FFFFFF; /* White */
+//}
+
+.bg-2ry-color {
+  background-color: #F7F7F7; /* Light Gray */
+}
+
+.bg-3ry-color {
+  background-color: #8CC63F; /* Bright Green */
+}
+
+.bg-4ry-color {
+  background-color: #F7FFCC; /* Light Gray */
+}
+
+

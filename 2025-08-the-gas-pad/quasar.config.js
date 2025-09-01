@@ -3,7 +3,9 @@ import { configure } from "quasar/wrappers";
 export default configure(function () {
   return {
     boot: ["qcalendar", "store", "vuex-orm-axios"],
-    css: ["app.scss"],
+    css: [
+      "app.scss"
+    ],
     extras: ["roboto-font", "material-icons"],
 
     build: {
