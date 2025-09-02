@@ -23,10 +23,10 @@ export default {
       const baseUrl = import.meta.env.VITE_API_BACKEND_URL
       return {
         meta: {
-          viewport: {
-            name: 'viewport',
-            content: 'width=device-width, initial-scale=0.75, maximum-scale=1.0, user-scalable=yes'
-          },
+          // viewport: {
+          //   name: 'viewport',
+          //   content: 'width=device-width, initial-scale=0.75, maximum-scale=1.0, user-scalable=yes'
+          // },
           ogLocale: {
             property: 'og:locale',
             content: 'en_ZA' // Or en_US if you're targeting US audience
