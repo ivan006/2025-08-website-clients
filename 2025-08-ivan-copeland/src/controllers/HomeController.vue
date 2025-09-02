@@ -8,8 +8,8 @@
     background-size: cover;
     background-attachment: fixed;
 
-    background-color: rgba(255,255,255,.5);
-    background-blend-mode: lighten;
+    background-color: rgba(0,0,0,.2);
+    background-blend-mode: darken;
     "
     class="ScaledParent"
   >
@@ -23,7 +23,7 @@
         <div
           class="container-md"
         >
-          <div class="row q-col-gutter-md ">
+          <div class="row q-col-gutter-md text-white" >
 
 
             <!--<div class="col-xl-1 col-md-1 col-sm-12 col-xs-12">-->
@@ -31,39 +31,41 @@
 
             <!--</div>-->
 
-            <div class="col-xl-10 col-md-10 col-sm-12 col-xs-12 offset-md-1 q-px-xl ">
+            <div class="col-xl-10 col-md-10 col-sm-12 col-xs-12 offset-md-1 q-px-xl flex flex-center " style="min-height: 500px;">
 
 
+              <div>
 
 
-              <div class="gt-sm">
-                <h1 class="text-center text-h1 " style="letter-spacing: 15px;">
+                <div class="gt-sm">
+                  <h1 class="text-center text-h1 " style="letter-spacing: 15px;">
                   <span class="text-weight-thin font-1ry text-uppercase" style="letter-spacing: 15px;">
                     {{item.fields?.['Title']}}
                   </span>
-                </h1>
-              </div>
-              <div class="lt-md">
-                <h1 class="text-center text-h2 font-1ry">
+                  </h1>
+                </div>
+                <div class="lt-md">
+                  <h1 class="text-center text-h2 font-1ry">
                   <span class="text-weight-thin font-1ry text-uppercase" style="letter-spacing: 15px;">
                     {{item.fields?.['Title']}}
                   </span>
-                </h1>
-              </div>
+                  </h1>
+                </div>
 
-              <div class="gt-sm">
-                <h2 class="text-center text-h3" >
+                <div class="gt-sm">
+                  <h2 class="text-center text-h3" >
                   <span class="text-weight-light font-2ry text-uppercase" style="letter-spacing: 15px;">
-                  {{item.fields?.['Tagline']}}
+                  {{item.fields?.['Subtitle']}}
                   </span>
-                </h2>
-              </div>
-              <div class="lt-md">
-                <h2 class="text-center text-h4 text-bold font-2ry">
+                  </h2>
+                </div>
+                <div class="lt-md">
+                  <h2 class="text-center text-h4 text-bold font-2ry">
                   <span class="text-weight-light font-2ry text-uppercase" style="letter-spacing: 15px;">
-                  {{item.fields?.['Tagline']}}
+                  {{item.fields?.['Subtitle']}}
                   </span>
-                </h2>
+                  </h2>
+                </div>
               </div>
 
               <!--<div class="text-center">-->
@@ -157,28 +159,6 @@ import {buildSeoConfig} from "src/utils/seo";
 export default {
   name: "HomeController.vue",
   components: {Home_Page_Items_Controller},
-  mixins: [
-
-    createMetaMixin(function () {
-      const url = window.location.origin + (this.$route?.fullPath || '/');
-      const siteName = import.meta.env.VITE_API_SITE_TITLE;
-
-      let image = ""
-      if (this.item?.fields?.['Image']?.[0]?.url) {
-        image = `https://capetownlists.co.za/?url=${this.item?.['Image']?.[0]?.url}`;
-        image = `https://capetownlists.co.za/?url=${this.item?.fields?.['Image']?.[0]?.url}`;
-      }
-
-      return buildSeoConfig({
-        title: this.item.fields?.['Title'] || siteName,
-        description: this.item.fields?.['Tagline'] || '',
-        url,
-        image: image || `${window.location.origin}/og-default.jpg`,
-        siteName,
-        type: this.item.fields?.['SEO Type'],
-      });
-    })
-  ],
   data(){
     return {
       loading: true,

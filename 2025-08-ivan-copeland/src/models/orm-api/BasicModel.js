@@ -27,7 +27,7 @@ export default class BasicModel extends Model {
     return this.api()
   }
 
-  static FetchAll(relationships = [], flags = {}, moreHeaders = {}, options = { page: 1, limit: 15, filters: {}, clearPrimaryModelOnly: false }) {
+  static FetchAll(relationships = [], flags = {}, moreHeaders = {}, options = { page: 1, limit: 15, filters: {}, clearPrimaryModelOnly: false, filterByFormula: "" }) {
 
     const url = `${this.baseUrl}${this.entityUrl}`
 
@@ -53,7 +53,8 @@ export default class BasicModel extends Model {
           },
           ...flags,
           ...preparedRels,
-          ...filtersObj
+          ...filtersObj,
+          filterByFormula: options.filterByFormula
         },
         // dataTransformer: ({ data }) => {
         //   if (options.clearPrimaryModelOnly) {
@@ -74,6 +75,8 @@ export default class BasicModel extends Model {
 
     return result
   }
+
+
 
   static FetchById(id, relationships = [], flags = {}, moreHeaders = {}) {
 

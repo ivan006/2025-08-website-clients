@@ -20,6 +20,18 @@ const routes = [
             },
           },
           {
+            path: '/home/:rId/:rName',
+            name: '/home/:rId/:rName',
+            // path: '/home/:rId',
+            // name: '/home/:rId',
+            component: () => import('src/controllers/Home_Page_Items_Single_Controller.vue'),
+            meta: {
+              breadcrumbName: ':rId',
+              breadcrumbParentName: '/',
+              requiresAuth: false,
+            },
+          },
+          {
             path: '/portfolio',
             name: '/portfolio',
             component: () => import('src/controllers/Secondary_Page_Controller.vue'),

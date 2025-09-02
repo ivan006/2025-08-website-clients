@@ -43,7 +43,7 @@
                   </h2>
 
                   <div class="text-body3">
-                    {{item["Tagline"]}}
+                    {{item["Subtitle"]}}
                   </div>
 
                   <div class="text-body3">
@@ -92,7 +92,7 @@ export default {
       const schema = buildSchemaItem({
         type: this.parent.fields?.['SEO Type'],
         name: this.parent.fields?.['Title'] || siteName,
-        description: this.parent.fields?.['Tagline'] || '',
+        description: this.parent.fields?.['Subtitle'] || '',
         url,
         image,
         extras: {}
@@ -104,7 +104,7 @@ export default {
         const newItem = buildSchemaItem({
           type: item['SEO Type'],
           name: item['Title'] || '',
-          description: item['Tagline'] || '',
+          description: item['Subtitle'] || '',
           image: `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.url}`,
           price: String(item['Price']),
           extras: {
@@ -123,7 +123,7 @@ export default {
 
       return buildSeoConfig({
         title: this.parent.fields?.['Title'] || siteName,
-        description: this.parent.fields?.['Tagline'] || '',
+        description: this.parent.fields?.['Subtitle'] || '',
         url,
         image: image || `${window.location.origin}/og-default.jpg`,
         siteName,

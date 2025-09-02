@@ -14,91 +14,125 @@
 
       <template v-for="item in items" :key="item.id">
 
+
         <!--<q-avatar>-->
         <!--  <img :src="item">-->
         <!--</q-avatar>-->
         <div class="col-xl-8 col-md-8 col-sm-12 col-xs-12  offset-xl-2 offset-md-2">
           <div class="q-py-lg q-px-lg">
+            <q-item
+              :to="`/home/${item['id']}/${item['Slug']}`"
+            >
 
-            <div class="row">
+              <q-item-section>
 
-              <div class="col-xl-4 col-md-4 col-sm-12 col-xs-12 q-px-lg">
+                <div class="row">
 
-                <!--<img src="~assets/square.webp">-->
-                <img
-                  src="~assets/square.webp"
-                  :style="item?.['Image']?.[0]?.thumbnails?.large?.url ? `background-image: url(https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.thumbnails?.large?.url});` : ``"
-                  style="
+                  <div class="col-xl-4 col-md-4 col-sm-12 col-xs-12 q-px-lg">
+
+                    <!--<img src="~assets/square.webp">-->
+                    <img
+                      src="~assets/square.webp"
+                      :style="item?.['Image']?.[0]?.thumbnails?.large?.url ? `background-image: url(https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.thumbnails?.large?.url});` : ``"
+                      style="
                   background-color: rgb(70,70,70);
                   background-position: center;
                   background-size: cover;
                   border-radius: 100%;
                   max-width: 100%;
                   "
-                />
+                    />
 
-                <!--<img-->
-                <!--  :src="item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.thumbnails?.large?.url}` : ''"-->
-                <!--  style="-->
+                    <!--<img-->
+                    <!--  :src="item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.thumbnails?.large?.url}` : ''"-->
+                    <!--  style="-->
 
 
-                <!--  display: inline;-->
-                <!--  margin: 0 auto;-->
-                <!--  height: 100%;-->
-                <!--  width: auto;-->
-                <!--  "-->
-                <!--&gt;-->
-              </div>
-              <div class="col-xl-8 col-md-8 col-sm-12 col-xs-12 q-px-lg ">
-                <div class="column justify-center full-height">
-
-                  <div class="lt-md q-mt-lg"></div>
-
-                  <h2 class="text-h4 text-bold q-mt-none font-1ry text-uppercase">
-                    {{item["Title"]}}
-                  </h2>
-
-                  <div class="text-body3 font-2ry">
-                    {{item["Tagline"]}}
+                    <!--  display: inline;-->
+                    <!--  margin: 0 auto;-->
+                    <!--  height: 100%;-->
+                    <!--  width: auto;-->
+                    <!--  "-->
+                    <!--&gt;-->
                   </div>
+                  <div class="col-xl-8 col-md-8 col-sm-12 col-xs-12 q-px-lg ">
+                    <div class="column justify-center full-height">
+
+                      <div class="lt-md q-mt-lg"></div>
+
+                      <h2 class="text-h4 text-bold q-mt-none font-1ry text-uppercase q-my-xs">
+                        {{item["Title"]}}
+                      </h2>
+
+                      <!--<div class="text-body3 font-1ry  " style="letter-spacing: 0px;">-->
+
+                      <!--  <q-badge color="teal" style="font-size: 0.8em">-->
+                      <!--    {{item["Subtitle"]}}-->
+                      <!--  </q-badge>-->
+                      <!--</div>-->
+                      <!--<div class="text-body3 font-2ry  text-uppercase q-mb-sm" style="letter-spacing: 10px;">-->
+
+                      <!--  {{item["Subtitle"]}}-->
+                      <!--</div>-->
+                      <div class="text-body3 font-2ry">
+                        <!--{{item["Subtitle"]}} - {{item["Short Description"]}}-->
+                        {{item["Short Description"]}}
+                      </div>
 
 
-                  <!--<div class="text-body3 font-1ry q-mt-md">-->
-                  <!--  &lt;!&ndash;<q-badge color="teal" style="font-size: 1em">&ndash;&gt;-->
-                  <!--  &lt;!&ndash;</q-badge>&ndash;&gt;-->
+                      <div class="text-body3 font-1ry q-my-sm">
+                        R{{item["Price"]}}.00
+                        <q-badge class="bg-3ry-color" style="font-size: 0.8em">
+                          Monthly Fee
+                        </q-badge>
+                        +
+                        R{{item["Setup Fee"]}}.00
+                        <q-badge class="bg-3ry-color" style="font-size: 0.8em">
+                          Setup Fee
+                        </q-badge>
+                      </div>
 
-                  <!--  {{item["Price Text"]}}-->
-                  <!--</div>-->
 
-                  <div class="text-body3 font-1ry q-mt-md">
-                    R{{item["Price"]}}.00
-                    <q-badge color="teal" style="font-size: 0.8em">
-                      Monthly Fee
-                    </q-badge>
-                    +
-                    R{{item["Setup Fee"]}}.00
-                    <q-badge color="teal" style="font-size: 0.8em">
-                      Setup Fee
-                    </q-badge>
+                      <!--<div class="text-body3 font-1ry q-mt-md">-->
+                      <!--  &lt;!&ndash;<q-badge color="teal" style="font-size: 1em">&ndash;&gt;-->
+                      <!--  &lt;!&ndash;</q-badge>&ndash;&gt;-->
+
+                      <!--  {{item["Price Text"]}}-->
+                      <!--</div>-->
+
+
+
+                      <!--<div class="">-->
+                      <!--  <q-btn-->
+                      <!--    outline-->
+                      <!--    :to="`/home/${item['id']}/${item['Slug']}`"-->
+                      <!--    class="q-mt-md text-3ry-color "-->
+                      <!--    style="text-transform: none"-->
+                      <!--  >-->
+
+                      <!--    Learn More-->
+                      <!--  </q-btn>-->
+                      <!--</div>-->
+
+                      <!--<div class="text-body3 font-1ry q-mt-md">-->
+                      <!--  <q-badge color="teal" style="font-size: 0.8em">-->
+                      <!--    R{{item["Price"]}}.00-->
+                      <!--  </q-badge>-->
+                      <!--  Monthly Fee-->
+                      <!--  +-->
+                      <!--  <q-badge color="teal" style="font-size: 0.8em">-->
+                      <!--    R{{item["Setup Fee"]}}.00-->
+                      <!--  </q-badge>-->
+                      <!--  Setup Fee-->
+                      <!--</div>-->
+                    </div>
+
+
+
                   </div>
-
-                  <!--<div class="text-body3 font-1ry q-mt-md">-->
-                  <!--  <q-badge color="teal" style="font-size: 0.8em">-->
-                  <!--    R{{item["Price"]}}.00-->
-                  <!--  </q-badge>-->
-                  <!--  Monthly Fee-->
-                  <!--  +-->
-                  <!--  <q-badge color="teal" style="font-size: 0.8em">-->
-                  <!--    R{{item["Setup Fee"]}}.00-->
-                  <!--  </q-badge>-->
-                  <!--  Setup Fee-->
-                  <!--</div>-->
                 </div>
-
-
-
-              </div>
-            </div>
+              </q-item-section>
+            </q-item>
 
             <!--<pre>-->
             <!--  {{item}}-->
@@ -138,7 +172,7 @@ export default {
       const schema = buildSchemaItem({
         type: this.parent.fields?.['SEO Type'],
         name: this.parent.fields?.['Title'] || siteName,
-        description: this.parent.fields?.['Tagline'] || '',
+        description: this.parent.fields?.['Subtitle'] || '',
         url,
         image,
         extras: {}
@@ -150,7 +184,7 @@ export default {
         const newItem = buildSchemaItem({
           type: item['SEO Type'],
           name: item['Title'] || '',
-          description: item['Tagline'] || '',
+          description: item['Subtitle'] || '',
           image: `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.url}`,
           price: String(item['Price']),
           extras: {
@@ -170,7 +204,7 @@ export default {
 
       return buildSeoConfig({
         title: this.parent.fields?.['Title'] || siteName,
-        description: this.parent.fields?.['Tagline'] || '',
+        description: this.parent.fields?.['Subtitle'] || '',
         url,
         image: image || `${window.location.origin}/og-default.jpg`,
         siteName,
@@ -230,7 +264,9 @@ export default {
 
 
         let extraHeaderComputed = {};
-        let flagsComputed = {};
+        let flagsComputed = {
+          view: "viw1aARBy4sfw3ZjO"
+        };
 
         const response = await this.superTableModel.FetchAll(
           // =========================

@@ -74,7 +74,7 @@
 
 
               <h2 class="text-center text-h3 text-bold">
-                {{item.fields?.['Tagline']}}
+                {{item.fields?.['Subtitle']}}
               </h2>
 
 
