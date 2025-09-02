@@ -22,10 +22,23 @@
               <!--  &lt;!&ndash;<q-icon name="school" size="lg" style="opacity: 50%" />&ndash;&gt;-->
               <!--</q-avatar>-->
 
-              <img
-                :src="this.item.fields?.['Logo Image'][0].thumbnails.large.url ? `https://capetownlists.co.za/?url=${this.item.fields?.['Logo Image'][0].thumbnails.large.url}` : ''"
-                style="height: 200px;"
+
+
+              <q-item
+                to="/"
+                class="q-pa-none"
               >
+
+                <q-item-section>
+
+                  <div>
+                    <img
+                      :src="this.item.fields?.['Logo Image'][0].thumbnails.large.url ? `https://capetownlists.co.za/?url=${this.item.fields?.['Logo Image'][0].thumbnails.large.url}` : ''"
+                      style="max-height: 200px;"
+                    >
+                  </div>
+                </q-item-section>
+              </q-item>
               <!--<q-toolbar-title>-->
               <!--  &lt;!&ndash;{{ siteTitle }}&ndash;&gt;-->
               <!--</q-toolbar-title>-->
