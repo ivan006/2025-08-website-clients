@@ -16,53 +16,61 @@
       <!--<pre>-->
       <!--  {{itemListElement}}-->
       <!--</pre>-->
-      <template v-for="item in items" :key="item.id">
+      <!--<h2 class="text-center">Deposits</h2>-->
+      <div class="row">
+        <!--<div class="row justify-center" >-->
 
-        <!--<q-avatar>-->
-        <!--  <img :src="item">-->
-        <!--</q-avatar>-->
-        <div class="col-xl-6 col-md-6 col-sm-12 col-xs-12">
-          <div class="q-py-lg q-px-lg">
+        <template v-for="item in items" :key="item.id">
 
-            <div class="row">
+          <!--<q-avatar>-->
+          <!--  <img :src="item">-->
+          <!--</q-avatar>-->
+          <div class="col-xl-3 col-md-6 col-sm-12 col-xs-12">
+            <div class="q-py-md q-px-md">
 
-              <div class="col-xl-4 col-md-4 col-sm-12 col-xs-12 q-px-lg">
-                <div
+              <div class="row">
 
-                >
-                  <img
-                    :src="item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.thumbnails?.large?.url}` : ''"
-                    style="width: 100%; display: block; border-radius: 1000px;"
+                <div class="col-xl-5 col-md-5 col-sm-12 col-xs-12 q-px-md">
+                  <div
+
                   >
-                  <!--<img src="https://cdn.quasar.dev/img/avatar.png">-->
-                </div>
-              </div>
-              <div class="col-xl-8 col-md-8 col-sm-12 col-xs-12 q-px-lg ">
-                <div class="column justify-center full-height">
-
-                  <div class="lt-md q-mt-lg"></div>
-
-                  <h2 class="text-h4 text-bold q-mt-none">
-                    {{item["Title"]}}
-                  </h2>
-
-                  <div class="text-body3">
-                    {{item["Subtitle"]}}
-                  </div>
-
-                  <div class="text-body3">
-                    R{{item["Price"]}}.00
+                    <img
+                      :src="item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.thumbnails?.large?.url}` : ''"
+                      style="width: 100%; display: block; border-radius: 1000px;"
+                    >
+                    <!--<img src="https://cdn.quasar.dev/img/avatar.png">-->
                   </div>
                 </div>
+                <div class="col-xl-7 col-md-7 col-sm-12 col-xs-12 q-px-sm ">
+                  <div class="column justify-center full-height">
+
+                    <div class="lt-md q-mt-lg"></div>
+
+                    <h2 class="text-body1 text-bold q-mt-none">
+                      {{item["Title"]}}
+                    </h2>
+
+                    <div class="text-body2">
+                      {{item["Subtitle"]}}
+                    </div>
+
+                    <div class="text-body2">
+                      R{{item["Price"]}}.00
+                    </div>
+                  </div>
 
 
 
+                </div>
               </div>
+
+              <!--<pre>-->
+              <!--  {{item}}-->
+              <!--</pre>-->
             </div>
           </div>
-        </div>
-      </template>
-
+        </template>
+      </div>
     </div>
 
   </template>
