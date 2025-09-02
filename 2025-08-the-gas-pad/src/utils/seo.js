@@ -76,7 +76,7 @@ export function buildCatalogItems(items = []) {
     const entity = {
       '@type': type,
       name: item['Title'] || '',
-      description: item['Tagline'] || '',
+      description: item['Subtitle'] || '',
     };
 
     if (item['Category']) {

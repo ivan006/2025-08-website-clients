@@ -47,7 +47,7 @@
                   </h2>
 
                   <div class="text-body3">
-                    {{item["Tagline"]}}
+                    {{item["Subtitle"]}}
                   </div>
 
                   <div class="text-body3">
@@ -93,7 +93,7 @@ export default {
 
       return buildSeoConfig({
         title: this.parent.fields?.['Title'] || siteName,
-        description: this.parent.fields?.['Tagline'] || '',
+        description: this.parent.fields?.['Subtitle'] || '',
         url,
         image: image || `${window.location.origin}/og-default.jpg`,
         siteName,

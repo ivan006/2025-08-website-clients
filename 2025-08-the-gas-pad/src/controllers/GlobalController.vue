@@ -1,17 +1,5 @@
 <template>
   <div
-    :style="this.item.fields?.['Site Background Image']?.[0]?.url ? `background-image: url(https://capetownlists.co.za/?url=${this.item.fields?.['Site Background Image']?.[0]?.url});` : ``"
-    style="
-    min-height: 100vh;
-    background-color: rgb(70,70,70);
-    background-position: center;
-    background-size: cover;
-    background-attachment: fixed;
-
-    background-color: rgba(255,255,255,.15);
-    background-blend-mode: lighten;
-    "
-    class="ScaledParent"
   >
 
 
@@ -66,7 +54,7 @@
 
     <q-page-container>
       <!--<pre>{{item}}</pre>-->
-      <div class="q-mt-md " style="min-height: 60vh;">
+      <div class=" " style="min-height: 60vh;">
         <!--<BreadcrumbsComp />-->
         <router-view />
       </div>
