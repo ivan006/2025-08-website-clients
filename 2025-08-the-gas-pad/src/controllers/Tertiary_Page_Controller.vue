@@ -52,7 +52,7 @@
           class="container-md "
         >
 
-          <Pool_Products_Page_Products_Controller :parent="this.item" />
+          <Tertiary_Page_Items_Controller :parent="this.item" />
         </div>
       </div>
 
@@ -102,13 +102,13 @@
 </template>
 
 <script>
-import Pool_Products_Page from "src/models/orm-api/Pool_Products_Page";
-import Pool_Products_Page_Products_Controller from "src/controllers/Pool_Products_Page_Products_Controller.vue";
+import Tertiary_Page from "src/models/orm-api/Tertiary_Page";
+import Tertiary_Page_Items_Controller from "src/controllers/Tertiary_Page_Items_Controller.vue";
 
 export default {
-  name: "Pool_Products_Page_Controller",
+  name: "Tertiary_Page_Controller",
   components: {
-    Pool_Products_Page_Products_Controller
+    Tertiary_Page_Items_Controller
   },
   data(){
     return {
@@ -123,7 +123,7 @@ export default {
       return 'recmpTrAB2ygtIn9p'
     },
     superTableModel() {
-      return Pool_Products_Page
+      return Tertiary_Page
     },
   },
   methods: {
