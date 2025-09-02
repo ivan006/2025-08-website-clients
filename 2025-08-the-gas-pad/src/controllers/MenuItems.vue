@@ -140,7 +140,9 @@ export default {
 
 
         let extraHeaderComputed = {};
-        let flagsComputed = {};
+        let flagsComputed = {
+          // view: "viwd5NTAtsGwAryxx"
+        };
 
         const response = await this.superTableModel.FetchAll(
           // =========================

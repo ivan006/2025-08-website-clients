@@ -77,7 +77,7 @@
         </div>
       </div>
 
-      <div class=" bg-3ry-color text-white" style="padding-top: 100px; padding-bottom: 100px;">
+      <div class=" bg-2ry-color " style="padding-top: 100px; padding-bottom: 100px;">
         <div
           class="container-md "
         >
@@ -87,43 +87,6 @@
       </div>
 
 
-      <div class="q-py-xl">
-
-        <div
-          class="container-md"
-        >
-          <div class="row q-col-gutter-md text-white">
-
-
-            <!--<div class="col-xl-1 col-md-1 col-sm-12 col-xs-12">-->
-
-
-            <!--</div>-->
-
-            <div class="col-xl-8 col-md-8 col-sm-12 col-xs-12 offset-md-2 q-px-xl">
-
-
-              <h2 class="text-center text-h3 text-bold">
-                {{item.fields?.['Subtitle']}}
-              </h2>
-
-
-              <div class="text-center">
-
-                <q-btn
-                  size="xl"
-                  class="text-black"
-                  color="white"
-                  :to="item.fields?.['Button Link']"
-                >
-                  {{item.fields?.['Button Text']}}
-                </q-btn>
-              </div>
-              <!--<pre>{{item}}</pre>-->
-            </div>
-          </div>
-        </div>
-      </div>
     </template>
 
 
