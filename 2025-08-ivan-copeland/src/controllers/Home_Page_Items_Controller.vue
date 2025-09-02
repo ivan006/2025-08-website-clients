@@ -184,7 +184,7 @@ export default {
           type: item['SEO Type'],
           name: item['Title'] || '',
           description: item['Subtitle'] || '',
-          image: `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.url}`,
+          image: item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.url}` : "",
           price: String(item['Price']),
           extras: {
             category: item['Category'],
