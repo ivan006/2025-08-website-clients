@@ -73,7 +73,7 @@
 <script>
 import Secondary_Page_Items from 'src/models/orm-api/Secondary_Page_Items'
 import {createMetaMixin} from "quasar";
-import {buildCatalogItems, buildSeoConfig} from "src/utils/seo";
+import {buildSchemaItem, buildSeoConfig} from "src/utils/seo";
 
 export default {
   name: 'Secondary_Page_Items_Controller',
@@ -88,6 +88,39 @@ export default {
       if (this.parent?.fields?.['Image']?.[0]?.url) {
         image = `https://capetownlists.co.za/?url=${this.parent?.fields?.['Image']?.[0]?.url}`;
       }
+
+      const schema = buildSchemaItem({
+        type: this.parent.fields?.['SEO Type'],
+        name: this.parent.fields?.['Title'] || siteName,
+        description: this.parent.fields?.['Tagline'] || '',
+        url,
+        image,
+        extras: {}
+      });
+
+
+      const products = this.items.map((item) => {
+
+        const newItem = buildSchemaItem({
+          type: item['SEO Type'],
+          name: item['Title'] || '',
+          description: item['Tagline'] || '',
+          image: `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.url}`,
+          price: String(item['Price']),
+          extras: {
+            category: item['Category'],
+          }
+        });
+        // console.log(newItem)
+
+        return newItem;
+      });
+
+      // Only add itemListElement if provided
+      if (products.length > 0) {
+        schema.hasProduct = products;
+      }
+
       return buildSeoConfig({
         title: this.parent.fields?.['Title'] || siteName,
         description: this.parent.fields?.['Tagline'] || '',
@@ -95,7 +128,7 @@ export default {
         image: image || `${window.location.origin}/og-default.jpg`,
         siteName,
         type: this.parent.fields?.['SEO Type'],
-        itemListElement: buildCatalogItems(this.items),
+        schema
       });
     })
   ],

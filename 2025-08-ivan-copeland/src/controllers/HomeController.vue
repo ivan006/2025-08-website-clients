@@ -92,7 +92,7 @@
           class="container-md "
         >
 
-          <Home_Page_Items_Controller />
+          <Home_Page_Items_Controller :parent="this.item" />
         </div>
       </div>
 
