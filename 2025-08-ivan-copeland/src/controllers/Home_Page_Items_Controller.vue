@@ -20,9 +20,9 @@
         <!--</q-avatar>-->
         <div class="col-xl-8 col-md-8 col-sm-12 col-xs-12  offset-xl-2 offset-md-2">
           <div class="q-py-lg q-px-lg">
-           
+
             <router-link
-              :to="`/home/${item['id']}/${item['Slug']}`"
+              :to="`/home/${item['id']}/${item['Slug']}/`"
 
               class="q-link q-item"
             >
