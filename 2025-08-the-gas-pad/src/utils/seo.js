@@ -11,23 +11,9 @@ export function buildSeoConfig({
                                  type = 'WebPage', // schema type: WebPage | Organization | Article | OfferCatalog
                                  imageWidth = '1200',
                                  imageHeight = '630',
-                                 itemListElement = [] // optional: products/services array
+                                 schema = {}
                                }) {
-  // Schema.org block
-  const schema = {
-    '@context': 'https://schema.org',
-    '@type': type,
-    name: title || '',
-    url: url,
-    description: description || '',
-    image: image,
-    logo: image
-  };
 
-  // Only add itemListElement if provided
-  if (itemListElement.length > 0) {
-    schema.itemListElement = itemListElement;
-  }
 
   return {
     title,
@@ -61,43 +47,28 @@ export function buildSeoConfig({
   };
 }
 
+export function buildSchemaItem({ type, name, description, url, image, price, extras = {} }) {
+  const item = {
+    "@context": "https://schema.org",
+    "@type": type,
+    name,
+    description,
+    url,
+    image,
+    ...extras
+  };
 
-// --------------------------------------------------------------------
-// SECOND FUNCTION: for product or catalog style pages
-// --------------------------------------------------------------------
-
-// utils/seo.js
-
-export function buildCatalogItems(items = []) {
-  return items.map((item) => {
-    const type = item['SEO Type'] || 'Product';
-
-    // Base entity
-    const entity = {
-      '@type': type,
-      name: item['Title'] || '',
-      description: item['Subtitle'] || '',
+  // Auto-add Offer if Product with price
+  if (type === "Product" && price) {
+    item.offers = {
+      "@type": "Offer",
+      price,
+      priceCurrency: "ZAR",
+      availability: "https://schema.org/InStock"
     };
+  }
 
-    if (item['Category']) {
-      entity.category = item['Category'];
-    }
-
-    if (item?.['Image']?.[0]?.url) {
-      entity.image = `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.url}`;
-    }
-
-    // Only include Offer if price is present
-    if (item['Price'] !== undefined && item['Price'] !== null && item['Price'] !== '') {
-      entity.offers = {
-        '@type': 'Offer',
-        price: String(item['Price']),
-        priceCurrency: 'ZAR',
-        availability: 'https://schema.org/InStock',
-      };
-    }
-
-    return entity;
-  });
+  return item;
 }
+
 
