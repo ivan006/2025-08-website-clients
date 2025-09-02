@@ -83,6 +83,8 @@ export default {
 
   mixins: [
     createMetaMixin(function () {
+
+
       const url = window.location.origin + (this.$route?.fullPath || '/');
       const siteName = import.meta.env.VITE_API_SITE_TITLE;
 
@@ -90,7 +92,6 @@ export default {
       if (this.parent?.fields?.['Image']?.[0]?.url) {
         image = `https://capetownlists.co.za/?url=${this.parent?.fields?.['Image']?.[0]?.url}`;
       }
-
 
 
       const schema = buildSchemaItem({
@@ -109,7 +110,7 @@ export default {
           type: item['SEO Type'],
           name: item['Title'] || '',
           description: item['Subtitle'] || '',
-          image: `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.url}`,
+          image: item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.url}` : "",
           price: String(item['Price']),
           extras: {
             category: item['Category'],
@@ -122,8 +123,9 @@ export default {
 
       // Only add itemListElement if provided
       if (products.length > 0) {
-        schema.hasProduct = products;
+        schema.itemListElement = products;
       }
+
 
       return buildSeoConfig({
         title: this.parent.fields?.['Title'] || siteName,
