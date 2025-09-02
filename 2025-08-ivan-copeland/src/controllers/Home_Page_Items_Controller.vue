@@ -61,6 +61,38 @@
                   <div class="text-body3 font-2ry">
                     {{item["Tagline"]}}
                   </div>
+
+
+                  <!--<div class="text-body3 font-1ry q-mt-md">-->
+                  <!--  &lt;!&ndash;<q-badge color="teal" style="font-size: 1em">&ndash;&gt;-->
+                  <!--  &lt;!&ndash;</q-badge>&ndash;&gt;-->
+
+                  <!--  {{item["Price Text"]}}-->
+                  <!--</div>-->
+
+                  <div class="text-body3 font-1ry q-mt-md">
+                    R{{item["Price"]}}.00
+                    <q-badge color="teal" style="font-size: 0.8em">
+                      Monthly Fee
+                    </q-badge>
+                    +
+                    R{{item["Setup Fee"]}}.00
+                    <q-badge color="teal" style="font-size: 0.8em">
+                      Setup Fee
+                    </q-badge>
+                  </div>
+
+                  <!--<div class="text-body3 font-1ry q-mt-md">-->
+                  <!--  <q-badge color="teal" style="font-size: 0.8em">-->
+                  <!--    R{{item["Price"]}}.00-->
+                  <!--  </q-badge>-->
+                  <!--  Monthly Fee-->
+                  <!--  +-->
+                  <!--  <q-badge color="teal" style="font-size: 0.8em">-->
+                  <!--    R{{item["Setup Fee"]}}.00-->
+                  <!--  </q-badge>-->
+                  <!--  Setup Fee-->
+                  <!--</div>-->
                 </div>
 
 
@@ -84,17 +116,78 @@
 
 <script>
 import Home_Page_Items from 'src/models/orm-api/Home_Page_Items'
+import {createMetaMixin} from "quasar";
+import {buildSeoConfig, buildSchemaItem} from "src/utils/seo";
 
 export default {
   name: 'Home_Page_Items_Controller',
   components: {
   },
 
+  mixins: [
+    createMetaMixin(function () {
+      const url = window.location.origin + (this.$route?.fullPath || '/');
+      const siteName = import.meta.env.VITE_API_SITE_TITLE;
+
+      let image = ""
+      if (this.parent?.fields?.['Image']?.[0]?.url) {
+        image = `https://capetownlists.co.za/?url=${this.parent?.fields?.['Image']?.[0]?.url}`;
+      }
+
+
+      const schema = buildSchemaItem({
+        type: this.parent.fields?.['SEO Type'],
+        name: this.parent.fields?.['Title'] || siteName,
+        description: this.parent.fields?.['Tagline'] || '',
+        url,
+        image,
+        extras: {}
+      });
+
+
+      const products = this.items.map((item) => {
+
+        const newItem = buildSchemaItem({
+          type: item['SEO Type'],
+          name: item['Title'] || '',
+          description: item['Tagline'] || '',
+          image: `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.url}`,
+          price: String(item['Price']),
+          extras: {
+            category: item['Category'],
+          }
+        });
+        // console.log(newItem)
+
+        return newItem;
+      });
+
+      // Only add itemListElement if provided
+      if (products.length > 0) {
+        schema.hasProduct = products;
+      }
+
+
+      return buildSeoConfig({
+        title: this.parent.fields?.['Title'] || siteName,
+        description: this.parent.fields?.['Tagline'] || '',
+        url,
+        image: image || `${window.location.origin}/og-default.jpg`,
+        siteName,
+        type: this.parent.fields?.['SEO Type'],
+        schema
+      });
+    })
+  ],
   props: {
     fetchFlags: {
       type: Object,
       default: () => ({})
-    }
+    },
+    parent: {
+      type: Object,
+      default: () => ({})
+    },
   },
   data(){
     return {
