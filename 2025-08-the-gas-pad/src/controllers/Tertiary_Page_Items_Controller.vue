@@ -20,11 +20,93 @@
       <div class="row">
         <!--<div class="row justify-center" >-->
 
-        <template v-for="item in items" :key="item.id">
+        <div class="row">
+          <template v-for="(subcats, category) in itemsComputed" :key="category">
+            <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12 q-px-md">
+              <h2 class="text-h2 q-mt-lg text-center">{{ category }}</h2>
 
-          <!--<q-avatar>-->
-          <!--  <img :src="item">-->
-          <!--</q-avatar>-->
+              <div class="row">
+                <template v-for="(products, sub) in subcats" :key="sub">
+
+                  <div class="col-xl-3 col-md-3 col-sm-12 col-xs-12 q-px-md">
+                      
+                    <!-- <q-card class="">
+                      <q-card-section> -->
+                        
+                        <h3 class="text-h6 q-mt-md " style="margin-top: 0;">{{ sub }}</h3>
+
+                        <div class="row">
+                          <template v-for="item in products" :key="item.id" >
+                            
+                            <!--<q-avatar>-->
+                            <!--  <img :src="item">-->
+                            <!--</q-avatar>-->
+                            <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12 q-ma-sm">
+                              
+                              <q-card class="">
+                                <q-card-section>
+                                  <div class="q-py-md q-px-md">
+
+                                    <div class="row">
+
+                                      <div class="col-xl-4 col-md-4 col-sm-12 col-xs-12 q-px-md">
+                                        <div
+
+                                        >
+                                          <img
+                                            :src="item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.thumbnails?.large?.url}` : ''"
+                                            style="width: 100%; display: block; border-radius: 1000px;"
+                                          >
+                                          <!--<img src="https://cdn.quasar.dev/img/avatar.png">-->
+                                        </div>
+                                      </div>
+                                      <div class="col-xl-7 col-md-7 col-sm-12 col-xs-12 q-px-sm ">
+                                        <div class="column justify-center full-height">
+
+                                          <div class="lt-md q-mt-lg"></div>
+
+                                          <h2 class="text-body1 text-bold q-mt-none">
+                                            {{item["Title"]}}
+                                          </h2>
+
+                                          <div class="text-body2">
+                                            {{item["Subtitle"]}}
+                                          </div>
+
+                                          <div class="text-body2">
+                                            R{{item["Price"]}}.00
+                                          </div>
+                                        </div>
+
+
+
+                                      </div>
+                                    </div>
+
+                                    <!--<pre>-->
+                                    <!--  {{item}}-->
+                                    <!--</pre>-->
+                                  </div>
+                                  
+                                </q-card-section>
+                              </q-card>
+                            </div>
+                          </template>
+                        </div>
+                      
+                      <!-- </q-card-section>
+                    </q-card> -->
+                  </div>  
+                </template>
+
+              </div> 
+            </div>
+          </template>
+        </div>
+
+        <!-- <template v-for="item in items" :key="item.id">
+
+          
           <div class="col-xl-3 col-md-6 col-sm-12 col-xs-12">
             <div class="q-py-md q-px-md">
 
@@ -38,7 +120,6 @@
                       :src="item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.thumbnails?.large?.url}` : ''"
                       style="width: 100%; display: block; border-radius: 1000px;"
                     >
-                    <!--<img src="https://cdn.quasar.dev/img/avatar.png">-->
                   </div>
                 </div>
                 <div class="col-xl-7 col-md-7 col-sm-12 col-xs-12 q-px-sm ">
@@ -64,12 +145,9 @@
                 </div>
               </div>
 
-              <!--<pre>-->
-              <!--  {{item}}-->
-              <!--</pre>-->
             </div>
           </div>
-        </template>
+        </template> -->
       </div>
     </div>
 
@@ -177,15 +255,31 @@ export default {
       return Tertiary_Page_Items
     },
     filterValsComp() {
-      const result = {
+      return {
         ...this.filterValsRef,
       };
-      return result;
     },
     itemListElement() {
-      const result = this.items;
-      return result;
+      return this.items;
     },
+    itemsComputed() {
+      const grouped = {};
+
+      this.items.forEach(item => {
+        const category = item['Category'] || 'Uncategorized';
+        const sub = item['Sub-category'] || 'Misc';
+
+        if (!grouped[category]) {
+          grouped[category] = {};
+        }
+        if (!grouped[category][sub]) {
+          grouped[category][sub] = [];
+        }
+        grouped[category][sub].push(item);
+      });
+
+      return grouped;
+    }
   },
   methods: {
 
