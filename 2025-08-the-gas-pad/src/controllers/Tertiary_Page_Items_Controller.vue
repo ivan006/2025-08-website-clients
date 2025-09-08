@@ -8,7 +8,162 @@
     </template>
   </template>
   <template v-else>
+    <div class="row">
+      <!-- <pre>{{ itemsNoSubcategory }}</pre> -->
+      <template v-for="(items, category) in itemsNoSubcategory" :key="category">
+        <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12 q-px-md">
+          <h2 class="text-h2 q-mt-lg text-center">{{ category }}</h2>
 
+          <div class="row">
+            <!-- <template v-for="(products, sub) in subcats" :key="sub">
+
+              
+            </template> -->
+            
+            <template v-for="item in items" :key="item.id" >
+                        
+              <!--<q-avatar>-->
+              <!--  <img :src="item">-->
+              <!--</q-avatar>-->
+              <div class="col-xl-3 col-md-3 col-sm-12 col-xs-12 ">
+                
+                <q-card class="q-ma-sm" style="border-radius: 10px;">
+                  <q-card-section>
+                    <div class="q-py-md q-px-md">
+
+                      <div class="row">
+
+                        <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12 q-px-md">
+                          <div
+
+                          >
+                            <img
+                              :src="item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.thumbnails?.large?.url}` : ''"
+                              style="width: 100%; display: block; border-radius: 1000px;"
+                            >
+                            <!--<img src="https://cdn.quasar.dev/img/avatar.png">-->
+                          </div>
+                        </div>
+                        <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12 q-px-sm ">
+                          <div class="column justify-center full-height">
+
+                            <div class="lt-md q-mt-lg"></div>
+
+                            <h2 class="text-body1 text-bold q-mt-none">
+                              {{item["Title"]}}
+                            </h2>
+
+                            <div class="text-body2">
+                              {{item["Subtitle"]}}
+                            </div>
+
+                            <!-- <div class="text-body2">
+                              R{{item["Price"]}}.00
+                            </div> -->
+                          </div>
+
+
+
+                        </div>
+                      </div>
+
+                      <!--<pre>-->
+                      <!--  {{item}}-->
+                      <!--</pre>-->
+                    </div>
+                    
+                  </q-card-section>
+                </q-card>
+              </div>
+            </template>
+
+          </div> 
+        </div>
+      </template>
+
+      
+      <template v-for="(subcats, category) in itemsComputed" :key="category">
+        <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12 q-px-md">
+          <h2 class="text-h2 q-mt-lg text-center">{{ category }}</h2>
+
+          <div class="row ">
+            <template v-for="(products, sub) in subcats" :key="sub">
+
+              <div class="col-xl-3 col-md-3 col-sm-12 col-xs-12 q-pa-md ">
+                  
+                <!-- <q-card class="bg-4ry-color">
+                  <q-card-section> -->
+                    
+                    <h3 class="text-h6 q-mt-md text-center text-" style="margin-top: 0;">{{ sub }}</h3>
+
+                    <div class="row justify-center">
+                      <template v-for="item in products" :key="item.id" >
+                        
+                        <!--<q-avatar>-->
+                        <!--  <img :src="item">-->
+                        <!--</q-avatar>-->
+                        <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12 ">
+                          
+                          <q-card class="q-ma-sm" style="border-radius: 10px;">
+                            <q-card-section>
+                              <div class="">
+
+                                <div class="row">
+
+                                  <div class="col-xl-7 col-md-7 col-sm-12 col-xs-12 q-px-md">
+                                    <div
+
+                                    >
+                                      <img
+                                        :src="item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.thumbnails?.large?.url}` : ''"
+                                        style="width: 100%; display: block; border-radius: 1000px;"
+                                      >
+                                      <!--<img src="https://cdn.quasar.dev/img/avatar.png">-->
+                                    </div>
+                                  </div>
+                                  <div class="col-xl-5 col-md-5 col-sm-12 col-xs-12 q-px-sm ">
+                                    <div class="column justify-center full-height">
+
+                                      <div class="lt-md q-mt-lg"></div>
+
+                                      <h2 class="text-body1 text-bold q-mt-none">
+                                        {{item["Title"]}}
+                                      </h2>
+
+                                      <div class="text-body2">
+                                        {{item["Subtitle"]}}
+                                      </div>
+
+                                      <div class="text-body2">
+                                        R{{item["Price"]}}.00
+                                      </div>
+                                    </div>
+
+
+
+                                  </div>
+                                </div>
+
+                                <!--<pre>-->
+                                <!--  {{item}}-->
+                                <!--</pre>-->
+                              </div>
+                              
+                            </q-card-section>
+                          </q-card>
+                        </div>
+                      </template>
+                    </div>
+                  
+                  <!-- </q-card-section>
+                </q-card> -->
+              </div>  
+            </template>
+
+          </div> 
+        </div>
+      </template>
+    </div>
     <div class="row">
       <!--<div class="row justify-center" >-->
 
@@ -20,89 +175,7 @@
       <div class="row">
         <!--<div class="row justify-center" >-->
 
-        <div class="row">
-          <template v-for="(subcats, category) in itemsComputed" :key="category">
-            <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12 q-px-md">
-              <h2 class="text-h2 q-mt-lg text-center">{{ category }}</h2>
-
-              <div class="row">
-                <template v-for="(products, sub) in subcats" :key="sub">
-
-                  <div class="col-xl-3 col-md-3 col-sm-12 col-xs-12 q-px-md">
-                      
-                    <!-- <q-card class="">
-                      <q-card-section> -->
-                        
-                        <h3 class="text-h6 q-mt-md " style="margin-top: 0;">{{ sub }}</h3>
-
-                        <div class="row">
-                          <template v-for="item in products" :key="item.id" >
-                            
-                            <!--<q-avatar>-->
-                            <!--  <img :src="item">-->
-                            <!--</q-avatar>-->
-                            <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12 q-ma-sm">
-                              
-                              <q-card class="">
-                                <q-card-section>
-                                  <div class="q-py-md q-px-md">
-
-                                    <div class="row">
-
-                                      <div class="col-xl-4 col-md-4 col-sm-12 col-xs-12 q-px-md">
-                                        <div
-
-                                        >
-                                          <img
-                                            :src="item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.thumbnails?.large?.url}` : ''"
-                                            style="width: 100%; display: block; border-radius: 1000px;"
-                                          >
-                                          <!--<img src="https://cdn.quasar.dev/img/avatar.png">-->
-                                        </div>
-                                      </div>
-                                      <div class="col-xl-7 col-md-7 col-sm-12 col-xs-12 q-px-sm ">
-                                        <div class="column justify-center full-height">
-
-                                          <div class="lt-md q-mt-lg"></div>
-
-                                          <h2 class="text-body1 text-bold q-mt-none">
-                                            {{item["Title"]}}
-                                          </h2>
-
-                                          <div class="text-body2">
-                                            {{item["Subtitle"]}}
-                                          </div>
-
-                                          <div class="text-body2">
-                                            R{{item["Price"]}}.00
-                                          </div>
-                                        </div>
-
-
-
-                                      </div>
-                                    </div>
-
-                                    <!--<pre>-->
-                                    <!--  {{item}}-->
-                                    <!--</pre>-->
-                                  </div>
-                                  
-                                </q-card-section>
-                              </q-card>
-                            </div>
-                          </template>
-                        </div>
-                      
-                      <!-- </q-card-section>
-                    </q-card> -->
-                  </div>  
-                </template>
-
-              </div> 
-            </div>
-          </template>
-        </div>
+        
 
         <!-- <template v-for="item in items" :key="item.id">
 
@@ -261,13 +334,16 @@ export default {
     },
     itemListElement() {
       return this.items;
-    },
+    },  
     itemsComputed() {
       const grouped = {};
 
       this.items.forEach(item => {
         const category = item['Category'] || 'Uncategorized';
-        const sub = item['Sub-category'] || 'Misc';
+        const sub = item['Sub-category'];
+
+        // skip items with no subcategory
+        if (!sub) return;
 
         if (!grouped[category]) {
           grouped[category] = {};
@@ -276,6 +352,26 @@ export default {
           grouped[category][sub] = [];
         }
         grouped[category][sub].push(item);
+      });
+
+      return grouped;
+    },
+
+    // Collect items that have NO subcategory
+    // Group items with Category but no Sub-category
+    itemsNoSubcategory() {
+      const grouped = {};
+
+      this.items.forEach(item => {
+        const category = item['Category'] || 'Uncategorized';
+        const sub = item['Sub-category'];
+
+        if (sub) return; // skip items that *do* have subcategory
+
+        if (!grouped[category]) {
+          grouped[category] = [];
+        }
+        grouped[category].push(item);
       });
 
       return grouped;
