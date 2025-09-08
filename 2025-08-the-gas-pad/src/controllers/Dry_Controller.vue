@@ -11,7 +11,7 @@
     background-color: rgba(0,0,0,.2);
     background-blend-mode: darken;
     "
-    class="ScaledParent"
+    class="ScaledParent "
   >
     <template v-if="loading">
       <div class="text-center q-pa-xl">Loading...</div>
@@ -96,7 +96,7 @@
 </template>
 
 <script>
-import Tertiary_Page from "src/models/orm-api/Tertiary_Page";
+import Dry from "src/models/orm-api/Dry";
 import Tertiary_Page_Items_Controller from "src/controllers/Tertiary_Page_Items_Controller.vue";
 
 export default {
@@ -114,10 +114,10 @@ export default {
 
     id() {
       // return this.$route.params.rId
-      return 'recmpTrAB2ygtIn9p'
+      return 'recZ0Py4gN0SjDJYj'
     },
     superTableModel() {
-      return Tertiary_Page
+      return Dry
     },
   },
   methods: {
