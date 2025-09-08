@@ -40,6 +40,26 @@ const routes = [
             },
           },
           {
+            path: '/firewood',
+            name: '/firewood',
+            component: () => import('src/controllers/Dry_Controller.vue'),
+            meta: {
+              breadcrumbName: '',
+              breadcrumbParentName: '',
+              requiresAuth: false,
+            },
+          },
+          {
+            path: '/contact',
+            name: '/contact',
+            component: () => import('src/controllers/Contact_Controller.vue'),
+            meta: {
+              breadcrumbName: '',
+              breadcrumbParentName: '',
+              requiresAuth: false,
+            },
+          },
+          {
             path: '/lists/TestEntity',
             name: '/lists/TestEntity',
             component: () => import('src/controllers/lists/test-entity/TestEntityListController.vue'),
