@@ -133,3 +133,53 @@ $lg-breakpoint: 1920px;
 }
 
 
+
+
+
+
+
+
+
+// @media (min-width: 1920px) {
+//     responsive-text-h1 {font-size: 6rem;     line-height: 6rem;     letter-spacing: -.01562em; font-weight: 300;}
+//     responsive-text-h2 {font-size: 3.75rem;  line-height: 3.75rem;  letter-spacing: -.00833em; font-weight: 300;}
+//     responsive-text-h3 {font-size: 3rem;     line-height: 3.125rem; letter-spacing: normal;    font-weight: 400;}
+//     responsive-text-h4 {font-size: 2.125rem; line-height: 2.5rem;   letter-spacing: .00735em;  font-weight: 400;}
+//     responsive-text-h5 {font-size: 1.5rem;   line-height: 2rem;     letter-spacing: normal;    font-weight: 400;}
+//     responsive-text-h6 {font-size: 1.25rem;  line-height: 2rem;     letter-spacing: .0125em;   font-weight: 500;}
+// }
+
+
+// @media (max-width: 1919px) {
+//     // responsive-text-h1 {font-size: 6rem;     line-height: 6rem;     letter-spacing: -.01562em; font-weight: 300;}
+//     // responsive-text-h2 {font-size: 3.75rem;  line-height: 3.75rem;  letter-spacing: -.00833em; font-weight: 300;}
+//     responsive-text-h1 {font-size: 3rem;     line-height: 3.125rem; letter-spacing: normal;    font-weight: 400;}
+//     responsive-text-h2 {font-size: 2.125rem; line-height: 2.5rem;   letter-spacing: .00735em;  font-weight: 400;}
+//     responsive-text-h3 {font-size: 1.5rem;   line-height: 2rem;     letter-spacing: normal;    font-weight: 400;}
+//     responsive-text-h4 {font-size: 1.25rem;  line-height: 2rem;     letter-spacing: .0125em;   font-weight: 500;}
+// }
+
+
+
+
+@media (min-width: 1920px) {
+    .r-text-h1 {font-size: 6rem;     }
+    .r-text-h2 {font-size: 3.75rem;  line-height: 3.75rem;  letter-spacing: -.00833em; font-weight: 300;}
+    .r-text-h3 {font-size: 3rem;     line-height: 3.125rem; letter-spacing: normal;    font-weight: 400;}
+    .r-text-h4 {font-size: 2.125rem; line-height: 2.5rem;   letter-spacing: .00735em;  font-weight: 400;}
+    .r-text-h5 {font-size: 1.5rem;   line-height: 2rem;     letter-spacing: normal;    font-weight: 400;}
+    .r-text-h6 {font-size: 1.25rem;  line-height: 2rem;     letter-spacing: .0125em;   font-weight: 500;}
+}
+
+
+@media (max-width: 1919px) {
+    // .r-text-h1 {font-size: 6rem;     line-height: 6rem;     letter-spacing: -.01562em; font-weight: 300;}
+    // .r-text-h2 {font-size: 3.75rem;  line-height: 3.75rem;  letter-spacing: -.00833em; font-weight: 300;}
+    .r-text-h1 {font-size: 3rem;     }
+    .r-text-h2 {font-size: 2.125rem; line-height: 2.5rem;   letter-spacing: .00735em;  font-weight: 400;}
+    .r-text-h3 {font-size: 1.5rem;   line-height: 2rem;     letter-spacing: normal;    font-weight: 400;}
+    .r-text-h4 {font-size: 1.25rem;  line-height: 2rem;     letter-spacing: .0125em;   font-weight: 500;}
+}
+
+
+
