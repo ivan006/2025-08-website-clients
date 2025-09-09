@@ -90,7 +90,7 @@
 </template>
 
 <script>
-import Dry from "src/models/orm-api/Dry";
+import Dry_Items from "src/models/orm-api/Dry_Items";
 
 export default {
   name: "Dry_Controller",
@@ -106,10 +106,10 @@ export default {
 
     id() {
       // return this.$route.params.rId
-      return 'recZ0Py4gN0SjDJYj'
+      return 'recCokU8M3eLMeuH0'
     },
     superTableModel() {
-      return Dry
+      return Dry_Items
     },
   },
   methods: {

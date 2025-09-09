@@ -9,15 +9,8 @@
   </template>
   <template v-else>
 
-    <div class="row">
-      <!--<div class="row justify-center" >-->
 
-
-      <!--<pre>-->
-      <!--  {{itemListElement}}-->
-      <!--</pre>-->
-      <!--<h2 class="text-center">Deposits</h2>-->
-      <div class="row">
+      <div class="row justify-center">
         <!--<div class="row justify-center" >-->
 
         <template v-for="item in items" :key="item.id">
@@ -25,44 +18,68 @@
           <!--<q-avatar>-->
           <!--  <img :src="item">-->
           <!--</q-avatar>-->
-          <div class="col-xl-3 col-md-6 col-sm-12 col-xs-12">
+          <div class="col-xl-4 col-md-4 col-sm-12 col-xs-12">
             <div class="q-py-md q-px-md">
 
-              <div class="row">
+            <q-card class="q-ma-sm" style="border-radius: 10px;">
+              <q-card-section>
+                <div class="">
 
-                <div class="col-xl-5 col-md-5 col-sm-12 col-xs-12 q-px-md">
-                  <div
+                  <div class="row">
 
-                  >
-                    <img
-                      :src="item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.thumbnails?.large?.url}` : ''"
-                      style="width: 100%; display: block; border-radius: 1000px;"
-                    >
-                    <!--<img src="https://cdn.quasar.dev/img/avatar.png">-->
-                  </div>
-                </div>
-                <div class="col-xl-7 col-md-7 col-sm-12 col-xs-12 q-px-sm ">
-                  <div class="column justify-center full-height">
+                    <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12 q-px-md text-center">
+                      <div
 
-                    <div class="lt-md q-mt-lg"></div>
-
-                    <h2 class="text-body1 text-bold q-mt-none">
-                      {{item["Title"]}}
-                    </h2>
-
-                    <div class="text-body2">
-                      {{item["Subtitle"]}}
+                      >
+                        <!-- <img
+                          :src="item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.thumbnails?.large?.url}` : ''"
+                          style="width: 100%; display: block; border-radius: 1000px;"
+                        > -->
+                        <img
+                        src="~assets/square.webp"
+                        :style="item?.['Image']?.[0]?.thumbnails?.large?.url ? `background-image: url(https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.thumbnails?.large?.url});` : ``"
+                        style="
+                          background-position: center;
+                          background-size: cover;
+                          border-radius: 100%;
+                          max-width: 100%;
+                          "
+                        />
+                        <!--<img src="https://cdn.quasar.dev/img/avatar.png">-->
+                      </div>
                     </div>
+                    <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12 q-px-sm  text-center">
+                      <div class="column justify-center full-height">
 
-                    <div class="text-body2">
-                      R{{item["Price"]}}.00
+                        <div class="lt-md q-mt-lg"></div>
+
+                        <h2 class="text-h5 text-bold q-my-xs">
+                          {{item["Title"]}}
+                        </h2>
+
+                        <h3 class="text-h6 q-my-xs text-weight-light">
+                          {{item["Subtitle"]}}
+                        </h3>
+
+                        <h4 class="text-h6 q-my-xs">
+                          R{{item["Price"]}}.00
+                        </h4>
+                      </div>
+
+
+
                     </div>
                   </div>
 
-
-
+                  <!--<pre>-->
+                  <!--  {{item}}-->
+                  <!--</pre>-->
                 </div>
-              </div>
+                
+              </q-card-section>
+            </q-card>
+                
+          
 
               <!--<pre>-->
               <!--  {{item}}-->
@@ -71,7 +88,6 @@
           </div>
         </template>
       </div>
-    </div>
 
   </template>
 
@@ -79,7 +95,7 @@
 </template>
 
 <script>
-import Tertiary_Page_Items from 'src/models/orm-api/Tertiary_Page_Items'
+import Dry_Items from 'src/models/orm-api/Dry_Items'
 import {createMetaMixin} from "quasar";
 import {buildSchemaItem, buildSeoConfig} from "src/utils/seo";
 
@@ -174,7 +190,7 @@ export default {
 
   computed: {
     superTableModel() {
-      return Tertiary_Page_Items
+      return Dry_Items
     },
     filterValsComp() {
       const result = {

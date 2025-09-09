@@ -50,6 +50,18 @@ const routes = [
             },
           },
           {
+            path: '/firewood/:rId/:rName',
+            name: '/firewood/:rId/:rName',
+            // path: '/home/:rId',
+            // name: '/home/:rId',
+            component: () => import('src/controllers/Dry_Items_Singular_Controller.vue'),
+            meta: {
+              breadcrumbName: ':rId',
+              breadcrumbParentName: '/',
+              requiresAuth: false,
+            },
+          },
+          {
             path: '/contact',
             name: '/contact',
             component: () => import('src/controllers/Contact_Controller.vue'),
