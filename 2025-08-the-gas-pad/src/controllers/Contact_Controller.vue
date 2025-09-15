@@ -82,7 +82,47 @@
           class="container-md "
         >
 
-          <Tertiary_Page_Items_Controller :parent="this.item" />
+          <!-- <Tertiary_Page_Items_Controller :parent="this.item" /> -->
+          <div class="q-pa-lg bg-white text-dark">
+            <div class="row q-col-gutter-xl justify-around text-center">
+
+              <!-- Phone -->
+              <div class="col-12 col-md-4">
+                <q-icon name="call" size="48px" color="primary" />
+                <h5 class="q-mt-sm">Call Us</h5>
+                <p class="q-mt-xs">+27 21 123 4567</p>
+              </div>
+
+              <!-- Opening Hours -->
+              <div class="col-12 col-md-4">
+                <q-icon name="schedule" size="48px" color="primary" />
+                <h5 class="q-mt-sm">Opening Hours</h5>
+                <p class="q-mt-xs">Monday to Saturday<br>11:00 PM – 5:00 AM</p>
+              </div>
+
+              <!-- Address & Directions -->
+              <div class="col-12 col-md-4">
+                <q-icon name="place" size="48px" color="primary" />
+                <h5 class="q-mt-sm">Find Us</h5>
+                <p class="q-mt-xs">123 Main Road, Cape Town<br>(see map below 👇)</p>
+              </div>
+
+              </div>
+
+            <!-- Map -->
+            <div class="q-mt-xl">
+              <iframe
+                width="100%"
+                height="400"
+                frameborder="0"
+                style="border:0"
+                allowfullscreen
+                src="https://www.google.com/maps/embed/v1/place?key=AIzaSyApw7uDtsYbaB0YzeB-xkWSz__rVRLi6VQ&q=52+Main+Rd,+Diep+River,+Cape+Town,+7800,+South+Africa">
+              </iframe>
+
+
+            </div>
+          </div>
         </div>
       </div>
 
@@ -97,12 +137,12 @@
 
 <script>
 import Contact from "src/models/orm-api/Contact";
-import Tertiary_Page_Items_Controller from "src/controllers/Tertiary_Page_Items_Controller.vue";
+// import Tertiary_Page_Items_Controller from "src/controllers/Tertiary_Page_Items_Controller.vue";
 
 export default {
   name: "Contact_Controller",
   components: {
-    Tertiary_Page_Items_Controller
+    // Tertiary_Page_Items_Controller
   },
   data(){
     return {
