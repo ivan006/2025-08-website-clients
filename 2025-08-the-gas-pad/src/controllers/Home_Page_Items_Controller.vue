@@ -9,7 +9,7 @@
   </template>
   <template v-else>
 
-    <div class="row">
+    <div class="row justify-around">
       <!--<div class="row justify-center" >-->
 
       <template v-for="item in items" :key="item.id">
@@ -17,7 +17,7 @@
         <!--<q-avatar>-->
         <!--  <img :src="item">-->
         <!--</q-avatar>-->
-        <div class="col-xl-4 col-md-4 col-sm-12 col-xs-12">
+        <div class="col-xl-6 col-md-6 col-sm-12 col-xs-12">
           <div class="q-py-lg q-px-lg">
 
            
@@ -40,17 +40,35 @@
                   <!--<img src="https://cdn.quasar.dev/img/avatar.png">-->
                 </div>
                 
-                <div class="column justify-center full-height q-py-lg q-px-md text-center ">
+                <div class=" q-py-lg q-px-md text-center ">
 
                   <!-- <div class="lt-md q-mt-lg"></div> -->
 
-                  <h2 class="text-h4 font-1ry text- q-my-xs text-uppercase">
+                  <h2 class="text-h4 font-1ry text- q-my-md text-uppercase">
                     {{item["Title"]}}
                   </h2>
 
-                  <h3 class="text-h6 q-my-xs font-2ry text-weight-light">
+                  <h3 class="text-h6 q-my-md font-2ry text-weight-light">
                     {{item["Subtitle"]}}
                   </h3>
+                  
+          
+                  <q-btn
+                    :to="item['Button URL']"
+                    color="green"
+                    size="md"
+                    unelevated
+                    class="q-my-md q-px-lg"
+                    style="border-radius: 100px;"
+                    
+                    no-caps
+                  >
+                    <!-- {{ item["Button Text"] }} -->
+                    Learn More
+                  </q-btn>
+
+                  
+
 
                 
                 </div>

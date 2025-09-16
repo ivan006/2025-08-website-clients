@@ -8,18 +8,22 @@
     </template>
   </template>
   <template v-else>
-    <div class="row">
-      <!-- <pre>{{ itemsNoSubcategory }}</pre> -->
-      <template v-for="(items, category) in itemsNoSubcategory" :key="category">
-        <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12 q-px-md">
-          <h2 class="text-h2 q-mt-lg text-center">{{ category }}</h2>
-
+   <!-- <pre>{{ itemsNoSubcategory }}</pre> -->
+    <template v-for="(items, category) in itemsNoSubcategory" :key="category">
+      <div class="bg-3ry-color text-white" >
+        <div
+          class="container-md q-py-xl"
+        >
+          <h2 class="text-h2 q-my-none text-center font-1ry text-uppercase">{{ category }}</h2>
+        </div>
+      </div>
+      <div class="bg-2ry-color" >
+        <div
+          class="container-md q-py-xl"
+        >
+        
           <div class="row">
-            <!-- <template v-for="(products, sub) in subcats" :key="sub">
 
-              
-            </template> -->
-            
             <template v-for="item in items" :key="item.id" >
                         
               <!--<q-avatar>-->
@@ -49,7 +53,7 @@
 
                             <div class="lt-md q-mt-lg"></div>
 
-                            <h2 class="text-body1 text-bold q-mt-none">
+                            <h2 class="text-body1 text-bold q-mt-none font-1ry text-uppercase">
                               {{item["Title"]}}
                             </h2>
 
@@ -76,16 +80,27 @@
                 </q-card>
               </div>
             </template>
+            
 
-          </div> 
+          </div>
         </div>
-      </template>
+      </div>
+    </template>
 
-      
-      <template v-for="(subcats, category) in itemsComputed" :key="category">
-        <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12 q-px-md">
-          <h2 class="text-h2 q-mt-lg text-center">{{ category }}</h2>
-
+    
+    <template v-for="(subcats, category) in itemsComputed" :key="category">
+      <div class="bg-3ry-color text-white" >
+        <div
+          class="container-md q-py-xl"
+        >
+          <h2 class="text-h2 q-my-none text-center font-1ry text-uppercase">{{ category }}</h2>
+        </div>
+      </div>
+      <div class="bg-2ry-color" >
+        <div
+          class="container-md q-py-xl"
+        >
+        
           <div class="row ">
             <template v-for="(products, sub) in subcats" :key="sub">
 
@@ -94,7 +109,7 @@
                 <!-- <q-card class="bg-4ry-color">
                   <q-card-section> -->
                     
-                    <h3 class="text-h6 q-mt-md text-center text-" style="margin-top: 0;">{{ sub }}</h3>
+                    <h3 class="text-h6 q-mt-md text-center text-uppercase font-1ry" style="margin-top: 0;">{{ sub }}</h3>
 
                     <div class="row justify-center">
                       <template v-for="item in products" :key="item.id" >
@@ -126,7 +141,7 @@
 
                                       <div class="lt-md q-mt-lg"></div>
 
-                                      <h2 class="text-body1 text-bold q-mt-none">
+                                      <h2 class="text-body1 text-bold q-mt-none font-1ry text-uppercase">
                                         {{item["Title"]}}
                                       </h2>
 
@@ -162,8 +177,9 @@
 
           </div> 
         </div>
-      </template>
-    </div>
+      </div>
+
+    </template>
     <div class="row">
       <!--<div class="row justify-center" >-->
 

@@ -8,7 +8,7 @@
     background-size: cover;
     background-attachment: fixed;
 
-    background-color: rgba(0,0,0,.2);
+    background-color: rgba(0,0,0,.5);
     background-blend-mode: darken;
     "
     class="ScaledParent"

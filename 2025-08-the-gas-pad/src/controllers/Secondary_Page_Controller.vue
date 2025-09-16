@@ -8,7 +8,7 @@
     background-size: cover;
     background-attachment: fixed;
 
-    background-color: rgba(0,0,0,.2);
+    background-color: rgba(0,0,0,.5);
     background-blend-mode: darken;
     "
     class="ScaledParent"
@@ -77,14 +77,9 @@
         </div>
       </div>
 
-      <div class=" bg-2ry-color " style="padding-top: 100px; padding-bottom: 100px;">
-        <div
-          class="container-md "
-        >
-
-          <Secondary_Page_Items_Controller :parent="this.item" />
-        </div>
-      </div>
+    
+      
+      <Secondary_Page_Items_Controller :parent="this.item" />
 
 
     </template>

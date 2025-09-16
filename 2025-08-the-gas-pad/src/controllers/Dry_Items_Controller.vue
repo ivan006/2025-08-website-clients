@@ -53,7 +53,7 @@
 
                         <div class="lt-md q-mt-lg"></div>
 
-                        <h2 class="text-h5 text-bold q-my-xs">
+                        <h2 class="text-h5 text-bold q-my-xs text-uppercase font-1ry">
                           {{item["Title"]}}
                         </h2>
 

@@ -9,122 +9,247 @@
   </template>
   <template v-else>
 
-    <h2 class="text-center">Deposits</h2>
-    <div class="row">
-      <!--<div class="row justify-center" >-->
+    <div class=" bg-3ry-color text-white q-py-xl">
+      <div
+        class="container-md "
+      >
 
-      <template v-for="item in items" :key="item.id">
-        <template v-if="item['Category'] === 'Deposit'">
+        <h2 class="text-center q-my-none text-uppercase font-1ry">Deposits</h2>
+      </div>
+    </div>
+    
+    <div class=" bg-2ry-color q-py-xl">
+      <div
+        class="container-md "
+      >
 
-          <!--<q-avatar>-->
-          <!--  <img :src="item">-->
-          <!--</q-avatar>-->
-          <div class="col-xl-3 col-md-6 col-sm-12 col-xs-12">
-            <div class="q-py-md q-px-md">
 
-              <div class="row">
+        <div class="row">
+          <!--<div class="row justify-center" >-->
 
-                <div class="col-xl-5 col-md-5 col-sm-12 col-xs-12 q-px-md">
-                  <div
+          <template v-for="item in items" :key="item.id">
+            <template v-if="item['Category'] === 'Deposit'">
 
-                  >
-                    <img
-                      :src="item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.thumbnails?.large?.url}` : ''"
-                      style="width: 100%; display: block; border-radius: 1000px;"
-                    >
-                    <!--<img src="https://cdn.quasar.dev/img/avatar.png">-->
-                  </div>
-                </div>
-                <div class="col-xl-7 col-md-7 col-sm-12 col-xs-12 q-px-sm ">
-                  <div class="column justify-center full-height">
+              <!--<q-avatar>-->
+              <!--  <img :src="item">-->
+              <!--</q-avatar>-->
+              <div class="col-xl-3 col-md-6 col-sm-12 col-xs-12">
+                <div class="q-py-md q-px-md">
 
-                    <div class="lt-md q-mt-lg"></div>
+                  <div class="row">
 
-                    <h2 class="text-body1 text-bold q-mt-none">
-                      {{item["Title"]}}
-                    </h2>
+                    
+                    <q-card class="q-ma-sm" style="border-radius: 10px;">
+                      <q-card-section>
+                        <div class="">
 
-                    <div class="text-body2">
-                      {{item["Subtitle"]}}
+                          <div class="row">
+
+                            <div class="col-xl-7 col-md-7 col-sm-12 col-xs-12 q-px-md">
+                              <div
+
+                              >
+                                <img
+                                  :src="item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.thumbnails?.large?.url}` : ''"
+                                  style="width: 100%; display: block; border-radius: 1000px;"
+                                >
+                                <!--<img src="https://cdn.quasar.dev/img/avatar.png">-->
+                              </div>
+                            </div>
+                            <div class="col-xl-5 col-md-5 col-sm-12 col-xs-12 q-px-sm ">
+                              <div class="column justify-center full-height">
+
+                                <div class="lt-md q-mt-lg"></div>
+
+                                <h2 class="text-body1 text-bold q-mt-none font-1ry text-uppercase">
+                                  {{item["Title"]}}
+                                </h2>
+
+                                <div class="text-body2">
+                                  {{item["Subtitle"]}}
+                                </div>
+
+                                <div class="text-body2">
+                                  R{{item["Price"]}}.00
+                                </div>
+                              </div>
+
+
+
+                            </div>
+                          </div>
+
+                          <!--<pre>-->
+                          <!--  {{item}}-->
+                          <!--</pre>-->
+                        </div>
+                        
+                      </q-card-section>
+                    </q-card>
+                    <!-- <div class="col-xl-5 col-md-5 col-sm-12 col-xs-12 q-px-md">
+                      <div
+
+                      >
+                        <img
+                          :src="item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.thumbnails?.large?.url}` : ''"
+                          style="width: 100%; display: block; border-radius: 1000px;"
+                        >
+                      </div>
                     </div>
+                    <div class="col-xl-7 col-md-7 col-sm-12 col-xs-12 q-px-sm ">
+                      <div class="column justify-center full-height">
 
-                    <div class="text-body2">
-                      R{{item["Price"]}}.00
-                    </div>
+                        <div class="lt-md q-mt-lg"></div>
+
+                        <h2 class="text-body1 text-bold q-mt-none font-1ry text-uppercase">
+                          {{item["Title"]}}
+                        </h2>
+
+                        <div class="text-body2">
+                          {{item["Subtitle"]}}
+                        </div>
+
+                        <div class="text-body2">
+                          R{{item["Price"]}}.00
+                        </div>
+                      </div>
+
+
+
+                    </div> -->
                   </div>
 
-
-
+                  <!--<pre>-->
+                  <!--  {{item}}-->
+                  <!--</pre>-->
                 </div>
               </div>
-
-              <!--<pre>-->
-              <!--  {{item}}-->
-              <!--</pre>-->
-            </div>
-          </div>
-        </template>
-      </template>
+            </template>
+          </template>
+        </div>
+      </div>
     </div>
 
-    <h2 class="text-center">Refills</h2>
-    <div class="row">
-      <template v-for="item in items" :key="item.id">
-        <template v-if="item['Category'] === 'Refill'">
+    
+    <div class=" bg-3ry-color text-white q-py-xl">
+      <div
+        class="container-md "
+      >
 
-          <!--<q-avatar>-->
-          <!--  <img :src="item">-->
-          <!--</q-avatar>-->
-          <div class="col-xl-3 col-md-6 col-sm-12 col-xs-12">
-            <div class="q-py-md q-px-md">
+        <h2 class="text-center q-my-none text-uppercase font-1ry">Refills</h2>
+      </div>
+    </div>
+    
+    <div class=" bg-2ry-color  q-py-xl">
+      <div
+        class="container-md "
+      >
 
-              <div class="row">
+        <div class="row">
+          <template v-for="item in items" :key="item.id">
+            <template v-if="item['Category'] === 'Refill'">
 
-                <div class="col-xl-5 col-md-5 col-sm-12 col-xs-12 q-px-md">
-                  <div
+                    
+              <!--<q-avatar>-->
+              <!--  <img :src="item">-->
+              <!--</q-avatar>-->
+              <div class="col-xl-3 col-md-6 col-sm-12 col-xs-12">
+                
+                <q-card class="q-ma-sm" style="border-radius: 10px;">
+                  <q-card-section>
+                    <div class="">
 
-                  >
-                    <img
-                      :src="item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.thumbnails?.large?.url}` : ''"
-                      style="width: 100%; display: block; border-radius: 1000px;"
-                    >
-                    <!--<img src="https://cdn.quasar.dev/img/avatar.png">-->
-                  </div>
-                </div>
-                <div class="col-xl-7 col-md-7 col-sm-12 col-xs-12 q-px-sm ">
-                  <div class="column justify-center full-height">
+                      <div class="row">
 
-                    <div class="lt-md q-mt-lg"></div>
+                        <div class="col-xl-7 col-md-7 col-sm-12 col-xs-12 q-px-md">
+                          <div
 
-                    <h2 class="text-body1 text-bold q-mt-none">
-                      {{item["Title"]}}
-                    </h2>
+                          >
+                            <img
+                              :src="item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.thumbnails?.large?.url}` : ''"
+                              style="width: 100%; display: block; border-radius: 1000px;"
+                            >
+                            <!--<img src="https://cdn.quasar.dev/img/avatar.png">-->
+                          </div>
+                        </div>
+                        <div class="col-xl-5 col-md-5 col-sm-12 col-xs-12 q-px-sm ">
+                          <div class="column justify-center full-height">
 
-                    <div class="text-body2">
-                      {{item["Subtitle"]}}
+                            <div class="lt-md q-mt-lg"></div>
+
+                            <h2 class="text-body1 text-bold q-mt-none font-1ry text-uppercase">
+                              {{item["Title"]}}
+                            </h2>
+
+                            <div class="text-body2">
+                              {{item["Subtitle"]}}
+                            </div>
+
+                            <div class="text-body2">
+                              R{{item["Price"]}}.00
+                            </div>
+                          </div>
+
+
+
+                        </div>
+                      </div>
+
+                      <!--<pre>-->
+                      <!--  {{item}}-->
+                      <!--</pre>-->
                     </div>
+                    
+                  </q-card-section>
+                </q-card>
+                <!-- <div class="q-py-md q-px-md">
 
-                    <div class="text-body2">
-                      R{{item["Price"]}}.00
+                  <div class="row">
+
+                    <div class="col-xl-5 col-md-5 col-sm-12 col-xs-12 q-px-md">
+                      <div
+
+                      >
+                        <img
+                          :src="item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.thumbnails?.large?.url}` : ''"
+                          style="width: 100%; display: block; border-radius: 1000px;"
+                        >
+                      </div>
+                    </div>
+                    <div class="col-xl-7 col-md-7 col-sm-12 col-xs-12 q-px-sm ">
+                      <div class="column justify-center full-height">
+
+                        <div class="lt-md q-mt-lg"></div>
+
+                        <h2 class="text-body1 text-bold q-mt-none">
+                          {{item["Title"]}}
+                        </h2>
+
+                        <div class="text-body2">
+                          {{item["Subtitle"]}}
+                        </div>
+
+                        <div class="text-body2">
+                          R{{item["Price"]}}.00
+                        </div>
+                      </div>
+
+
+
                     </div>
                   </div>
-
-
-
-                </div>
+                </div> -->
               </div>
-
-              <!--<pre>-->
-              <!--  {{item}}-->
-              <!--</pre>-->
-            </div>
-          </div>
-        </template>
-      </template>
+            </template>
+          </template>
 
 
 
+        </div>
+      </div>
     </div>
+    
+
 
   </template>
 

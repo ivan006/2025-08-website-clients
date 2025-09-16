@@ -8,7 +8,7 @@
     background-size: cover;
     background-attachment: fixed;
 
-    background-color: rgba(0,0,0,.2);
+    background-color: rgba(0,0,0,.5);
     background-blend-mode: darken;
     padding-top: 0px;
     "
@@ -38,35 +38,18 @@
 
 
               <div>
-                <div class="gt-sm">
-                  <h1 class="text-center text-h1 " style="letter-spacing: 15px;">
+                <h1 class="text-center text-h1 " style="letter-spacing: 15px;">
                   <span class="text-weight-thin font-1ry text-uppercase" style="letter-spacing: 15px;">
                     {{item.fields?.['Title']}}
                   </span>
-                  </h1>
-                </div>
-                <div class="lt-md">
-                  <h1 class="text-center text-h2 font-1ry">
-                  <span class="text-weight-thin font-1ry text-uppercase" style="letter-spacing: 15px;">
-                    {{item.fields?.['Title']}}
-                  </span>
-                  </h1>
-                </div>
+                </h1>
 
-                <div class="gt-sm">
-                  <h2 class="text-center text-h3" >
+                
+                <h2 class="text-center text-h3" >
                   <span class="text-weight-light font-2ry text-uppercase" style="letter-spacing: 15px;">
-                  {{item.fields?.['Subtitle']}}
+                    {{item.fields?.['Subtitle']}}
                   </span>
-                  </h2>
-                </div>
-                <div class="lt-md">
-                  <h2 class="text-center text-h4 text-bold font-2ry">
-                  <span class="text-weight-light font-2ry text-uppercase" style="letter-spacing: 15px;">
-                  {{item.fields?.['Subtitle']}}
-                  </span>
-                  </h2>
-                </div>
+                </h2>
               </div>
 
               <!--<div class="text-center">-->
@@ -138,13 +121,19 @@
 
 
 
-      <div class="bg-white" >
+      <div class="bg-2ry-color" >
         <div
           class="container-md q-py-xl"
         >
           <h3 class="text-center text-h3 font-1ry text-uppercase  q-my-xl">
             {{item.fields?.['List Section Title']}}
           </h3>
+        </div>
+      </div>
+      <div class="bg-white" >
+        <div
+          class="container-md q-py-xl"
+        >
 
           <Home_Page_Items_Controller />
         </div>
@@ -227,7 +216,9 @@
 
 
       </div> -->
-      <div class=" bg-3ry- bg-2ry-color" id="contact" >
+
+      
+      <div class="bg-2ry-color" >
         <div
           class="container-md q-py-xl"
         >
@@ -235,6 +226,12 @@
             <!-- {{item.fields?.['List Section Title']}} -->
              Contact Us
           </h3>
+        </div>
+      </div>
+      <div class="  bg-white" id="contact" >
+        <div
+          class="container-md q-py-xl"
+        >
 
           <!-- <Tertiary_Page_Items_Controller :parent="this.item" /> -->
           <div class="q-pa-lg bg- text-dark">
@@ -247,8 +244,25 @@
                   <q-card-section>
                     
                     <q-icon name="call" size="48px" color="green" />
-                    <h5 class="q-mt-sm">Call Us</h5>
-                    <p class="q-mt-xs">+27 21 123 4567</p>
+                    <h5 class="q-my-md text-uppercase font-1ry">Call Us</h5>
+                    <p class="text-body1">
+                      {{item.fields?.['Phone Number']}}
+                    </p>
+                  </q-card-section>
+                </q-card>
+              </div>
+
+              
+              <div class="col-12 col-md-4">
+                
+                <q-card class="q-ma-sm bg-grey-3" style="border-radius: 10px;" flat>
+                  <q-card-section>
+                    
+                    <q-icon name="mail" size="48px" color="green" />
+                    <h5 class="q-my-md text-uppercase font-1ry">Email Us</h5>
+                    <p class="text-body1">
+                      {{item.fields?.['Email Address']}}
+                    </p>
                   </q-card-section>
                 </q-card>
               </div>
@@ -260,20 +274,24 @@
                   <q-card-section>
                   
                     <q-icon name="schedule" size="48px" color="green" />
-                    <h5 class="q-mt-sm">Opening Hours</h5>
-                    <p class="q-mt-xs">Monday to Saturday<br>11:00 PM – 5:00 AM</p>
+                    <h5 class="q-my-md text-uppercase font-1ry">Opening Hours</h5>
+                     <p class="text-body1">
+                        {{item.fields?.['Opening Hours']}}
+                      </p>
                   </q-card-section>
                 </q-card>
               </div>
 
               <!-- Address & Directions -->
-              <div class="col-12 col-md-4">
+              <div class="col-12 col-md-6">
                 
                 <q-card class="q-ma-sm bg-grey-3 text-" style="border-radius: 10px;" flat >
                   <q-card-section>
                     <q-icon class="text" name="place" size="48px" color="green" />
-                    <h5 class="q-mt-sm">Find Us</h5>
-                    <p class="q-mt-xs">123 Main Road, Cape Town<br>(see map below 👇)</p>
+                    <h5 class="q-my-md text-uppercase font-1ry">Find Us</h5>
+                    <p class="text-body1" style="white-space: pre-line;">
+                        {{item.fields?.['Address']}}
+                    </p>
                   </q-card-section>
                 </q-card>
               </div>
