@@ -33,7 +33,7 @@
                     background-size: cover;
                     border-radius: 10px 10px 0 0 ;
                     max-width: 100%;
-                    height: 150px;
+                    height: 200px;
                     "
                   >
                   </div>

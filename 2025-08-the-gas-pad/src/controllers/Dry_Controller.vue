@@ -77,7 +77,7 @@
         </div>
       </div>
 
-      <div class=" bg-2ry-color " style="padding-top: 100px; padding-bottom: 100px;">
+      <div class=" bg-2ry-color q-py-xl" >
         <div
           class="container-md "
         >

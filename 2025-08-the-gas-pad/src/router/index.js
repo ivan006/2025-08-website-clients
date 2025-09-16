@@ -10,14 +10,20 @@ export default route(function (/* { store, ssrContext } */) {
 
   const Router = createRouter({
     scrollBehavior(to, from, savedPosition) {
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve({
-            el: to.hash,
-            behavior: 'smooth',
-          })
-        }, 200)
-      })
+      if (to.hash) {
+        return new Promise((resolve, reject) => {
+          setTimeout(() => {
+            resolve({
+              el: to.hash,
+              behavior: 'smooth',
+            })
+          }, 300)
+        })
+      } else {
+        return { top: 0 }
+      }
+      
+
     },
     routes,
     history: createHistory(process.env.VUE_ROUTER_BASE),

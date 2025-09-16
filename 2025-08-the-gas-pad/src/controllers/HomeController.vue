@@ -218,7 +218,7 @@
       </div> -->
 
       
-      <div class="bg-2ry-color" >
+      <div class="bg-2ry-color" id="contact" >
         <div
           class="container-md q-py-xl"
         >
@@ -228,7 +228,7 @@
           </h3>
         </div>
       </div>
-      <div class="  bg-white" id="contact" >
+      <div class="  bg-white" >
         <div
           class="container-md q-py-xl"
         >
@@ -275,7 +275,7 @@
                   
                     <q-icon name="schedule" size="48px" color="green" />
                     <h5 class="q-my-md text-uppercase font-1ry">Opening Hours</h5>
-                     <p class="text-body1">
+                     <p class="text-body1" style="white-space: pre-line;">
                         {{item.fields?.['Opening Hours']}}
                       </p>
                   </q-card-section>
