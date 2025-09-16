@@ -53,15 +53,15 @@
 
                         <div class="lt-md q-mt-lg"></div>
 
-                        <h2 class="text-h5 text-bold q-my-xs text-uppercase font-1ry">
+                        <h2 class="r-font-h5 text-bold q-my-xs text-uppercase font-1ry">
                           {{item["Title"]}}
                         </h2>
 
-                        <h3 class="text-h6 q-my-xs text-weight-light">
+                        <h3 class="r-font-h6 q-my-xs text-weight-light">
                           {{item["Subtitle"]}}
                         </h3>
 
-                        <h4 class="text-h6 q-my-xs">
+                        <h4 class="r-font-h6 q-my-xs">
                           R{{item["Price"]}}.00
                         </h4>
                       </div>

@@ -38,14 +38,14 @@
 
 
               <div>
-                <h1 class="text-center text-h1 " style="letter-spacing: 15px;">
+                <h1 class="text-center r-font-h1 " style="letter-spacing: 15px;">
                   <span class="text-weight-thin font-1ry text-uppercase" style="letter-spacing: 15px;">
                     {{item.fields?.['Title']}}
                   </span>
                 </h1>
 
                 
-                <h2 class="text-center text-h3" >
+                <h2 class="text-center r-font-h3" >
                   <span class="text-weight-light font-2ry text-uppercase" style="letter-spacing: 15px;">
                     {{item.fields?.['Subtitle']}}
                   </span>
@@ -75,7 +75,7 @@
         >
 
 
-            <h3 class="text-center text-h2 font-1ry text-uppercas">
+            <h3 class="text-center r-font-h2 font-1ry text-uppercas">
               {{item.fields?.['List Section Title']}}
             </h3>
         </div>
@@ -98,12 +98,12 @@
 
 
       <!--        <div class="gt-sm">-->
-      <!--          <h3 class="text-center text-h2 text-bold">-->
+      <!--          <h3 class="text-center r-font-h2 text-bold">-->
       <!--            {{item.fields?.['List Section Title']}}-->
       <!--          </h3>-->
       <!--        </div>-->
       <!--        <div class="lt-md">-->
-      <!--          <h3 class="text-center text-h3 text-bold">-->
+      <!--          <h3 class="text-center r-font-h3 text-bold">-->
       <!--            {{item.fields?.['List Section Title']}}-->
       <!--          </h3>-->
       <!--        </div>-->
@@ -125,7 +125,7 @@
         <div
           class="container-md q-py-xl"
         >
-          <h3 class="text-center text-h3 font-1ry text-uppercase  q-my-xl">
+          <h3 class="text-center r-font-h3 font-1ry text-uppercase  q-my-xl">
             {{item.fields?.['List Section Title']}}
           </h3>
         </div>
@@ -165,12 +165,12 @@
 
 
 
-                <h2 class="text-h3 text-bold ">
+                <h2 class="r-font-h3 text-bold ">
 
                   {{item.fields?.['Contact Title']}}
                 </h2>
 
-                <div class=" text-h5 q-pb-xl">
+                <div class=" r-font-h5 q-pb-xl">
 
                   {{item.fields?.['Contact Email Address']}}
                 </div>
@@ -222,7 +222,7 @@
         <div
           class="container-md q-py-xl"
         >
-          <h3 class="text-center text-h3 font-1ry text-uppercase  q-my-xl text-">
+          <h3 class="text-center r-font-h3 font-1ry text-uppercase  q-my-xl text-">
             <!-- {{item.fields?.['List Section Title']}} -->
              Contact Us
           </h3>

@@ -44,11 +44,11 @@
 
                   <!-- <div class="lt-md q-mt-lg"></div> -->
 
-                  <h2 class="text-h4 font-1ry text- q-my-md text-uppercase">
+                  <h2 class="r-font-h4 font-1ry text- q-my-md text-uppercase">
                     {{item["Title"]}}
                   </h2>
 
-                  <h3 class="text-h6 q-my-md font-2ry text-weight-light">
+                  <h3 class="r-font-h6 q-my-md font-2ry text-weight-light">
                     {{item["Subtitle"]}}
                   </h3>
                   

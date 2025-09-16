@@ -53,14 +53,14 @@
               
               <div class="q-pl-xl">
                 
-                <h1 class="r-text-h2 text-bold">
+                <h1 class="r-r-font-h2 text-bold">
                   <span class="text-weight-thin font-1ry text-uppercase" style="letter-spacing: 15px;">
                     {{item.fields?.['Title']}}
                   </span>
                 </h1>
 
                 
-                <h2 class="r-text-h3" >
+                <h2 class="r-r-font-h3" >
                   <span class="text-weight-light font-2ry text-uppercase" style="letter-spacing: 15px;">
                     {{item.fields?.['Subtitle']}}
                   </span>

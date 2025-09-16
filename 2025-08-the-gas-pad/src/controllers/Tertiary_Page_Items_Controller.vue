@@ -14,7 +14,7 @@
         <div
           class="container-md q-py-xl"
         >
-          <h2 class="text-h2 q-my-none text-center font-1ry text-uppercase">{{ category }}</h2>
+          <h2 class="r-font-h2 q-my-none text-center font-1ry text-uppercase">{{ category }}</h2>
         </div>
       </div>
       <div class="bg-2ry-color" >
@@ -93,7 +93,7 @@
         <div
           class="container-md q-py-xl"
         >
-          <h2 class="text-h2 q-my-none text-center font-1ry text-uppercase">{{ category }}</h2>
+          <h2 class="r-font-h2 q-my-none text-center font-1ry text-uppercase">{{ category }}</h2>
         </div>
       </div>
       <div class="bg-2ry-color" >
@@ -109,7 +109,7 @@
                 <!-- <q-card class="bg-4ry-color">
                   <q-card-section> -->
                     
-                    <h3 class="text-h6 q-mt-md text-center text-uppercase font-1ry" style="margin-top: 0;">{{ sub }}</h3>
+                    <h3 class="r-font-h6 q-mt-md text-center text-uppercase font-1ry" style="margin-top: 0;">{{ sub }}</h3>
 
                     <div class="row justify-center">
                       <template v-for="item in products" :key="item.id" >
