@@ -3,7 +3,7 @@
   >
 
 
-    <q-toolbar style="" class="q-py-md bg-white ">
+    <q-toolbar class="q-py-md bg-whit text-" style="margin-bottom: -0px; background-color: rgba(255,255,255,1.0);">
 
       <div class="container-md  ">
         <template v-if="loading">

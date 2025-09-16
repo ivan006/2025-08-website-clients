@@ -17,40 +17,46 @@
         <!--<q-avatar>-->
         <!--  <img :src="item">-->
         <!--</q-avatar>-->
-        <div class="col-xl-6 col-md-6 col-sm-12 col-xs-12">
+        <div class="col-xl-4 col-md-4 col-sm-12 col-xs-12">
           <div class="q-py-lg q-px-lg">
 
-            <div class="row">
+           
+            <q-card class="q-ma-sm" style="border-radius: 10px;">
+              <q-card-section class="q-pa-none">
+                
 
-              <div class="col-xl-4 col-md-4 col-sm-12 col-xs-12 q-px-lg">
-                <div
-
-                >
-                  <img
-                    :src="item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.thumbnails?.large?.url}` : ''"
-                    style="width: 100%; display: block; border-radius: 1000px;"
+                <div>
+                  <div
+                  :style="item?.['Image']?.[0]?.thumbnails?.large?.url ? `background-image: url(https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.thumbnails?.large?.url});` : ``"
+                  style="
+                    background-position: center;
+                    background-size: cover;
+                    border-radius: 10px 10px 0 0 ;
+                    max-width: 100%;
+                    height: 150px;
+                    "
                   >
+                  </div>
                   <!--<img src="https://cdn.quasar.dev/img/avatar.png">-->
                 </div>
-              </div>
-              <div class="col-xl-8 col-md-8 col-sm-12 col-xs-12 q-px-lg ">
-                <div class="column justify-center full-height">
+                
+                <div class="column justify-center full-height q-py-lg q-px-md text-center ">
 
-                  <div class="lt-md q-mt-lg"></div>
+                  <!-- <div class="lt-md q-mt-lg"></div> -->
 
-                  <h2 class="text-h4 text-bold q-mt-none">
+                  <h2 class="text-h4 font-1ry text- q-my-xs text-uppercase">
                     {{item["Title"]}}
                   </h2>
 
-                  <div class="text-body3">
+                  <h3 class="text-h6 q-my-xs font-2ry text-weight-light">
                     {{item["Subtitle"]}}
-                  </div>
+                  </h3>
+
+                
                 </div>
-
-
-
-              </div>
-            </div>
+                
+              </q-card-section>
+            </q-card>
 
             <!--<pre>-->
             <!--  {{item}}-->

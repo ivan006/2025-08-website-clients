@@ -10,6 +10,7 @@
 
     background-color: rgba(0,0,0,.2);
     background-blend-mode: darken;
+    padding-top: 0px;
     "
     class="ScaledParent"
   >
@@ -85,41 +86,17 @@
         </div>
       </div>
 
-      <div class="bg-2ry-color" style="padding-top: 70px; padding-bottom: 70px;">
+      <!-- <div class="bg-white q-py-lg " >
         <div
           class="container-md "
         >
 
-          <!--<div class="row">-->
 
-          <!--  <div class="col-xl-6 col-md-6 col-sm-12 col-xs-12">-->
-
-          <!--    <h1 class="text-center text-h3 text-bold">-->
-          <!--      About Us-->
-          <!--    </h1>-->
-
-          <!--  </div>-->
-          <!--  <div class="col-xl-6 col-md-6 col-sm-12 col-xs-12 q-px-xl">-->
-          <!--    <div class=" text-h5 ">-->
-
-          <!--      {{item.fields?.['About Us Text']}}-->
-          <!--    </div>-->
-
-          <!--  </div>-->
-          <!--</div>-->
-
-          <div class="gt-sm">
-            <h3 class="text-center text-h2 text-bold">
+            <h3 class="text-center text-h2 font-1ry text-uppercas">
               {{item.fields?.['List Section Title']}}
             </h3>
-          </div>
-          <div class="lt-md">
-            <h3 class="text-center text-h3 text-bold">
-              {{item.fields?.['List Section Title']}}
-            </h3>
-          </div>
         </div>
-      </div>
+      </div> -->
 
       <!--<div class="q-py-xl">-->
 
@@ -161,10 +138,13 @@
 
 
 
-      <div class=" bg-white" style="padding-top: 100px; padding-bottom: 100px;">
+      <div class=" bg-white" >
         <div
-          class="container-md "
+          class="container-md q-py-xl"
         >
+          <h3 class="text-center text-h3 font-1ry text-uppercase  q-my-xl">
+            {{item.fields?.['List Section Title']}}
+          </h3>
 
           <Home_Page_Items_Controller />
         </div>
