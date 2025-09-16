@@ -21,7 +21,7 @@
         <!--@click="clickRow(item)"-->
         <q-item
           clickable
-          :to="item.URL"
+          :to="{path: item.URL, hash: item.Hash}"
           :active-class="'q-item--highlighted'"
           class="q-pl-lg text-h5"
           :style="isActive(item) ? 'border-bottom: black solid 5px;' : 'border-bottom: rgba(0,0,0,0) solid 5px;'"
@@ -87,9 +87,8 @@ export default {
     },
   },
   methods: {
-
     isActive(item) {
-      return item.URL === this.activeRoute;
+      return item.URL === this.activeRoute && item.Hash == null;
     },
 
     // clickRow(item) {

@@ -138,7 +138,7 @@
 
 
 
-      <div class=" bg-white" >
+      <div class="bg-white" >
         <div
           class="container-md q-py-xl"
         >
@@ -150,17 +150,14 @@
         </div>
       </div>
 
-      <div class=" bg-3ry-color text-white">
+      <!-- <div class=" bg-3ry-color text-white">
         <div class="row">
 
           <div
             class="col-xl-6 col-md-6 col-sm-12 col-xs-12"
           >
 
-            <!--:style="this.item.fields?.['Contact Image']?.[0]?.url ? `background-image: url(https://capetownlists.co.za/?url=${this.item.fields?.['Contact Image']?.[0]?.url});` : ``"-->
-            <!--<div style="height: 500px;">-->
-
-            <!--</div>-->
+         
 
             <img
               :src="this.item.fields?.['Contact Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${this.item.fields?.['Contact Image']?.[0]?.url}` : ''"
@@ -175,7 +172,7 @@
           <div class="col-xl-6 col-md-6 col-sm-12 col-xs-12  " >
             <div class="row full-height items-center q-py-lg q-px-xl ">
 
-              <div class=""  id="contact">
+              <div class=""  id="contact1">
 
 
 
@@ -188,9 +185,120 @@
 
                   {{item.fields?.['Contact Email Address']}}
                 </div>
+                
+                <div class="q-pa-lg bg- text-dark">
+                  <div class="row q-col-gutter-xl justify-around text-center">
+
+                    <div class="col-12 col-md-6">
+                      
+                      <q-card class="q-ma-sm bg-grey-3" style="border-radius: 10px;" flat>
+                        <q-card-section>
+                          
+                          <q-icon name="call" size="48px" color="green" />
+                          <h5 class="q-mt-sm">Call Us</h5>
+                          <p class="q-mt-xs">+27 21 123 4567</p>
+                        </q-card-section>
+                      </q-card>
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                      
+                      <q-card class="q-ma-sm bg-grey-3" style="border-radius: 10px;" flat>
+                        <q-card-section>
+                        
+                          <q-icon name="schedule" size="48px" color="green" />
+                          <h5 class="q-mt-sm">Opening Hours</h5>
+                          <p class="q-mt-xs">Monday to Saturday<br>11:00 PM – 5:00 AM</p>
+                        </q-card-section>
+                      </q-card>
+                    </div>
+
+             
+                  </div>
+                </div>
+
+                
+
               </div>
             </div>
 
+          </div>
+        </div>
+
+
+      </div> -->
+      <div class=" bg-3ry- bg-2ry-color" id="contact" >
+        <div
+          class="container-md q-py-xl"
+        >
+          <h3 class="text-center text-h3 font-1ry text-uppercase  q-my-xl text-">
+            <!-- {{item.fields?.['List Section Title']}} -->
+             Contact Us
+          </h3>
+
+          <!-- <Tertiary_Page_Items_Controller :parent="this.item" /> -->
+          <div class="q-pa-lg bg- text-dark">
+            <div class="row q-col-gutter-xl justify-around text-center">
+
+              <!-- Phone -->
+              <div class="col-12 col-md-4">
+                
+                <q-card class="q-ma-sm bg-grey-3" style="border-radius: 10px;" flat>
+                  <q-card-section>
+                    
+                    <q-icon name="call" size="48px" color="green" />
+                    <h5 class="q-mt-sm">Call Us</h5>
+                    <p class="q-mt-xs">+27 21 123 4567</p>
+                  </q-card-section>
+                </q-card>
+              </div>
+
+              <!-- Opening Hours -->
+              <div class="col-12 col-md-4">
+                
+                <q-card class="q-ma-sm bg-grey-3" style="border-radius: 10px;" flat>
+                  <q-card-section>
+                  
+                    <q-icon name="schedule" size="48px" color="green" />
+                    <h5 class="q-mt-sm">Opening Hours</h5>
+                    <p class="q-mt-xs">Monday to Saturday<br>11:00 PM – 5:00 AM</p>
+                  </q-card-section>
+                </q-card>
+              </div>
+
+              <!-- Address & Directions -->
+              <div class="col-12 col-md-4">
+                
+                <q-card class="q-ma-sm bg-grey-3 text-" style="border-radius: 10px;" flat >
+                  <q-card-section>
+                    <q-icon class="text" name="place" size="48px" color="green" />
+                    <h5 class="q-mt-sm">Find Us</h5>
+                    <p class="q-mt-xs">123 Main Road, Cape Town<br>(see map below 👇)</p>
+                  </q-card-section>
+                </q-card>
+              </div>
+
+              </div>
+
+            <!-- Map -->
+            <div class="q-mt-xl">
+              
+              <q-card class="q-ma-sm bg-grey-3" style="border-radius: 10px;" flat>
+                  <q-card-section>
+                    
+                    <iframe
+                      width="100%"
+                      height="400"
+                      frameborder="0"
+                      style="border:0"
+                      allowfullscreen
+                      src="https://www.google.com/maps/embed/v1/place?key=AIzaSyApw7uDtsYbaB0YzeB-xkWSz__rVRLi6VQ&q=52+Main+Rd,+Diep+River,+Cape+Town,+7800,+South+Africa">
+                    </iframe>
+                  </q-card-section>
+                </q-card>
+
+
+            </div>
           </div>
         </div>
       </div>
@@ -273,37 +381,6 @@ export default {
   },
   mounted(){
     this.fetchData();
-
-
-
-
-    if (window.location.hash) {
-      const hash = window.location.hash; // keep the full hash intact
-
-      // Test if hash is safe to use in querySelector
-      try {
-        document.querySelector(hash); // test if selector is valid
-      } catch (e) {
-        console.warn(`Invalid selector: ${hash} - skipping scroll`);
-        return; // skip scrolling
-      }
-
-      const scrollToHash = () => {
-        const el = document.querySelector(hash); // use raw hash
-
-        if (el) {
-          const top = el.getBoundingClientRect().top + window.scrollY
-          window.scrollTo({
-            top: top,
-            behavior: 'smooth'
-          })
-        } else {
-          setTimeout(scrollToHash, 200)
-        }
-      }
-
-      scrollToHash()
-    }
   }
 }
 </script>

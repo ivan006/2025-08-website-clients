@@ -9,7 +9,16 @@ export default route(function (/* { store, ssrContext } */) {
     : (process.env.VUE_ROUTER_MODE === 'history' ? createWebHistory : createWebHashHistory);
 
   const Router = createRouter({
-    scrollBehavior: () => ({ left: 0, top: 0 }),
+    scrollBehavior(to, from, savedPosition) {
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve({
+            el: to.hash,
+            behavior: 'smooth',
+          })
+        }, 200)
+      })
+    },
     routes,
     history: createHistory(process.env.VUE_ROUTER_BASE),
   });
