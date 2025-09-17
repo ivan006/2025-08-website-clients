@@ -119,7 +119,9 @@ export default {
   methods: {
     
     copyObject(obj) {
-        const text = JSON.stringify(obj);
+        // const text = JSON.stringify(obj);
+        const text = JSON.stringify(obj, null, 2);
+        
       navigator.clipboard.writeText(text).then(() => {
         // this.$q.notify({
         //   type: "positive",

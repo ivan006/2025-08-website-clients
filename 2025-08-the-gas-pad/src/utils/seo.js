@@ -62,7 +62,7 @@ export function buildSchemaItem({ type, name, description, url, image, price, ex
   if (type === "Product" && price) {
     item.offers = {
       "@type": "Offer",
-      price,
+      price: String(Number(price).toFixed(2)),
       priceCurrency: "ZAR",
       availability: "https://schema.org/InStock"
     };
