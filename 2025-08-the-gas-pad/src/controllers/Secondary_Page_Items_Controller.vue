@@ -14,7 +14,7 @@
         class="container-md "
       >
 
-        <h2 class="text-center q-my-none text-uppercase font-1ry">Deposits</h2>
+        <h2 class="r-font-h2 text-center q-my-none text-uppercase font-1ry">Deposits</h2>
       </div>
     </div>
     
@@ -99,7 +99,7 @@
         class="container-md "
       >
 
-        <h2 class="text-center q-my-none text-uppercase font-1ry">Refills</h2>
+        <h2 class="r-font-h2 text-center q-my-none text-uppercase font-1ry">Refills</h2>
       </div>
     </div>
     
@@ -118,7 +118,7 @@
                   <q-card-section>
                     <div class="">
 
-                      <div class="row q-col-gutter-md">
+                      <div class="row">
 
                         <div class="col-xl-7 col-md-7 col-sm-12 col-xs-12 q-px-md">
                           <div
@@ -128,6 +128,7 @@
                               :src="item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.thumbnails?.large?.url}` : ''"
                               style="width: 100%; display: block; border-radius: 1000px;"
                             >
+                            <!--<img src="https://cdn.quasar.dev/img/avatar.png">-->
                           </div>
                         </div>
                         <div class="col-xl-5 col-md-5 col-sm-12 col-xs-12 q-px-sm ">
@@ -152,10 +153,6 @@
 
                         </div>
                       </div>
-
-                      <!--<pre>-->
-                      <!--  {{item}}-->
-                      <!--</pre>-->
                     </div>
                     
                   </q-card-section>

@@ -21,22 +21,30 @@
       <div class="q-py-xl">
 
         <div
-          class="container-md"
+          class="container-md text-white"
         >
-          <div class="text-white">
-    
-              <h1 class="text-center r-font-h1 text-bold">
-              <span class="text-weight-thin font-1ry text-uppercase" style="letter-spacing: 15px;">
-                {{item.fields?.['Title']}}
-              </span>
+          
+          <div class="row q-col-gutter-md justify-center">
+        
+            <div class="col-xl-8 col-md-8 col-12 ">
+              
+              <div class="gt-md q-py-xl"></div>
+              
+              <h1 class="text-center r-font-h2 text-bold">
+                <span class="text-weight-thin font-1ry text-uppercase" style="letter-spacing: 15px;">
+                  {{item.fields?.['Title']}}
+                </span>
               </h1>
 
-      
-              <h2 class="text-center r-font-h3" >
-              <span class="text-weight-light font-2ry text-uppercase" style="letter-spacing: 15px;">
-              {{item.fields?.['Subtitle']}}
-              </span>
+
+              <h2 class="text-center r-font-h4" >
+                <span class="text-weight-light font-2ry text-uppercase" style="letter-spacing: 15px;">
+                {{item.fields?.['Subtitle']}}
+                </span>
               </h2>
+              
+              <div class="gt-md q-py-xl"></div>
+            </div>
           </div>
         </div>
       </div>

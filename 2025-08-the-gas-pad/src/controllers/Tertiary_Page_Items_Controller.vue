@@ -14,7 +14,7 @@
         <div
           class="container-md q-py-xl"
         >
-          <h2 class="r-font-h2 q-my-none text-center font-1ry text-uppercase">{{ category }}</h2>
+          <h2 class="r-font-h3 q-my-none text-center font-1ry text-uppercase">{{ category }}</h2>
         </div>
       </div>
       <div class="bg-2ry-color" >
@@ -71,7 +71,7 @@
         <div
           class="container-md q-py-xl"
         >
-          <h2 class="r-font-h2 q-my-none text-center font-1ry text-uppercase">{{ category }}</h2>
+          <h2 class="r-font-h3 q-my-none text-center font-1ry text-uppercase">{{ category }}</h2>
         </div>
       </div>
       <div class="bg-2ry-color" >
@@ -88,7 +88,7 @@
                 <!-- <q-card class="bg-4ry-color">
                   <q-card-section> -->
                     
-                    <h3 class="r-font-h4 q-my-none q-py-xl text-center text-uppercase font-1ry" style="">{{ sub }}</h3>
+                    <h3 class="r-font-h5 q-my-none q-py-xl text-center text-uppercase font-1ry" style="">{{ sub }}</h3>
 
                     <div class="row q-col-gutter-md justify-center">
                       <template v-for="item in products" :key="item.id" >
