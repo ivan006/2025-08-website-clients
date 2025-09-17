@@ -234,11 +234,11 @@
         >
 
           <!-- <Tertiary_Page_Items_Controller :parent="this.item" /> -->
-          <div class="q-pa-lg bg- text-dark">
-            <div class="row q-col-gutter-xl justify-around text-center">
+          <div class=" bg- text-dark">
+            <div class="row q-col-gutter-md justify-around text-center">
 
               <!-- Phone -->
-              <div class="col-12 col-md-4">
+              <div class="col-6 col-md-4">
                 
                 <q-card class="q-ma-sm bg-grey-3" style="border-radius: 10px;" flat>
                   <q-card-section>
@@ -253,7 +253,7 @@
               </div>
 
               
-              <div class="col-12 col-md-4">
+              <div class="col-6 col-md-4">
                 
                 <q-card class="q-ma-sm bg-grey-3" style="border-radius: 10px;" flat>
                   <q-card-section>
@@ -268,7 +268,7 @@
               </div>
 
               <!-- Opening Hours -->
-              <div class="col-12 col-md-4">
+              <div class="col-6 col-md-4">
                 
                 <q-card class="q-ma-sm bg-grey-3" style="border-radius: 10px;" flat>
                   <q-card-section>
@@ -283,7 +283,7 @@
               </div>
 
               <!-- Address & Directions -->
-              <div class="col-12 col-md-6">
+              <div class="col-6 col-md-6">
                 
                 <q-card class="q-ma-sm bg-grey-3 text-" style="border-radius: 10px;" flat >
                   <q-card-section>
@@ -299,7 +299,7 @@
               </div>
 
             <!-- Map -->
-            <div class="q-mt-xl">
+            <div class="q-mt-md">
               
               <q-card class="q-ma-sm bg-grey-3" style="border-radius: 10px;" flat>
                   <q-card-section>

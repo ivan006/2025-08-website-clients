@@ -9,7 +9,7 @@
   </template>
   <template v-else>
 
-    <div class="row justify-around">
+    <div class="row q-col-gutter-md justify-around">
       <!--<div class="row justify-center" >-->
 
       <template v-for="item in items" :key="item.id">
@@ -17,8 +17,8 @@
         <!--<q-avatar>-->
         <!--  <img :src="item">-->
         <!--</q-avatar>-->
-        <div class="col-xl-6 col-md-6 col-sm-12 col-xs-12">
-          <div class="q-py-lg q-px-lg">
+        <div class="col-xl-6 col-md-6 col-6">
+          <div class="">
 
            
             <q-card class="q-ma-sm" style="border-radius: 10px;">
