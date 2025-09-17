@@ -14,7 +14,7 @@
         class="container-md "
       >
 
-        <h2 class="r-font-h2 text-center q-my-none text-uppercase font-1ry">Deposits</h2>
+        <h2 class="r-font-h3 text-center q-my-none text-uppercase font-1ry">Deposits</h2>
       </div>
     </div>
     
@@ -99,7 +99,7 @@
         class="container-md "
       >
 
-        <h2 class="r-font-h2 text-center q-my-none text-uppercase font-1ry">Refills</h2>
+        <h2 class="r-font-h3 text-center q-my-none text-uppercase font-1ry">Refills</h2>
       </div>
     </div>
     

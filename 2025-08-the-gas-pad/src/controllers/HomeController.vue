@@ -52,17 +52,20 @@
 
 
 
-
-      <div class="bg-2ry-color" >
+      
+      <div class=" bg-white text- q-py-xl">
         <div
-          class="container-md q-py-xl"
+          class="container-md "
         >
-          <h3 class="text-center r-font-h3 font-1ry text-uppercase  q-my-xl">
+
+          <h2 class="r-font-h3 text-center q-my-none text-uppercase font-1ry">
             {{item.fields?.['List Section Title']}}
-          </h3>
+          </h2>
         </div>
       </div>
-      <div class="bg-white" >
+
+      
+      <div class="bg-2ry-color" >
         <div
           class="container-md q-py-xl"
         >
@@ -71,16 +74,20 @@
         </div>
       </div>
 
-      <div class="bg-2ry-color" id="contact" >
+
+      
+      <div class=" bg-white text- q-py-xl" id="contact">
         <div
-          class="container-md q-py-xl"
+          class="container-md "
         >
-          <h3 class="text-center r-font-h3 font-1ry text-uppercase  q-my-xl text-">
+
+          <h2 class="r-font-h3 text-center q-my-none text-uppercase font-1ry">
+            
              Contact Us
-          </h3>
+          </h2>
         </div>
       </div>
-      <div class="  bg-white" >
+      <div class="  bg-2ry-color" >
         <div
           class="container-md q-py-xl"
         >
@@ -90,7 +97,7 @@
             <div class="row q-col-gutter-md justify-around text-center">
 
               <!-- Phone -->
-              <div class="col-6 col-md-4">
+              <div class="col-md-4 col-6 ">
                 
                 <q-card class="q-ma-sm bg-grey-3" style="border-radius: 10px;" flat>
                   <q-card-section>
@@ -105,7 +112,7 @@
               </div>
 
               
-              <div class="col-6 col-md-4">
+              <div class="col-md-4 col-6 ">
                 
                 <q-card class="q-ma-sm bg-grey-3" style="border-radius: 10px;" flat>
                   <q-card-section>
@@ -120,7 +127,7 @@
               </div>
 
               <!-- Opening Hours -->
-              <div class="col-6 col-md-6 col-12">
+              <div class="col-md-4 col-12">
                 
                 <q-card class="q-ma-sm bg-grey-3" style="border-radius: 10px;" flat>
                   <q-card-section>
