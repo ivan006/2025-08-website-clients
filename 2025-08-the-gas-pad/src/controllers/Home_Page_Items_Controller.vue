@@ -169,7 +169,7 @@ export default {
           name: item['Title'] || '',
           description: item['Subtitle'] || '',
           image: item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.url}` : "",
-          price: String(item['Price']),
+          price: item['Price'] ? String(item['Price']) : null,
           extras: {
             category: item['Category'],
           }

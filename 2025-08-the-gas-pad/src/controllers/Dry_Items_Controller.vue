@@ -8,6 +8,7 @@
     </template>
   </template>
   <template v-else>
+    <SEODataViewer :seoConfig="seoConfig" :seoLdJson="seoLdJson" />
 
 
       <div class="row justify-center">
@@ -98,70 +99,23 @@
 import Dry_Items from 'src/models/orm-api/Dry_Items'
 import {createMetaMixin} from "quasar";
 import {buildSchemaItem, buildSeoConfig} from "src/utils/seo";
+import SEODataViewer from "src/controllers/SEODataViewer.vue";
 
 export default {
   name: 'Dry_Items_Controller',
   components: {
+    SEODataViewer
   },
 
 
   mixins: [
     createMetaMixin(function () {
 
+      return this.seoConfig;
 
-      const url = window.location.origin + (this.$route?.fullPath || '/');
-      const siteName = import.meta.env.VITE_API_SITE_TITLE;
-
-      let image = ""
-      if (this.parent?.fields?.['Image']?.[0]?.url) {
-        image = `https://capetownlists.co.za/?url=${this.parent?.fields?.['Image']?.[0]?.url}`;
-      }
-
-
-      const schema = buildSchemaItem({
-        type: this.parent.fields?.['SEO Type'],
-        name: this.parent.fields?.['Title'] || siteName,
-        description: this.parent.fields?.['Subtitle'] || '',
-        url,
-        image,
-        extras: {}
-      });
-
-
-      const products = this.items.map((item) => {
-
-        const newItem = buildSchemaItem({
-          type: item['SEO Type'],
-          name: item['Title'] || '',
-          description: item['Subtitle'] || '',
-          image: item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.url}` : "",
-          price: String(item['Price']),
-          extras: {
-            category: item['Category'],
-          }
-        });
-        // console.log(newItem)
-
-        return newItem;
-      });
-
-      // Only add itemListElement if provided
-      if (products.length > 0) {
-        schema.itemListElement = products;
-      }
-
-
-      return buildSeoConfig({
-        title: this.parent.fields?.['Title'] || siteName,
-        description: this.parent.fields?.['Subtitle'] || '',
-        url,
-        image: image || `${window.location.origin}/og-default.jpg`,
-        siteName,
-        type: this.parent.fields?.['SEO Type'],
-        schema
-      });
     })
   ],
+  
   props: {
     fetchFlags: {
       type: Object,
@@ -189,6 +143,77 @@ export default {
   },
 
   computed: {
+
+    
+    
+    seoConfig(){
+
+      const url = window.location.origin + (this.$route?.fullPath || '/');
+      const siteName = import.meta.env.VITE_API_SITE_TITLE;
+
+      let image = ""
+      if (this.parent?.fields?.['Image']?.[0]?.url) {
+        image = `https://capetownlists.co.za/?url=${this.parent?.fields?.['Image']?.[0]?.url}`;
+      }
+
+     return buildSeoConfig({
+        title: this.parent.fields?.['Title'] || siteName,
+        description: this.parent.fields?.['Subtitle'] || '',
+        url,
+        image: image || `${window.location.origin}/og-default.jpg`,
+        siteName,
+        type: this.parent.fields?.['SEO Type'],
+        schema: this.seoLdJson
+      });
+    },
+    
+    seoLdJson(){
+    
+      const url = window.location.origin + (this.$route?.fullPath || '/');
+      const siteName = import.meta.env.VITE_API_SITE_TITLE;
+
+      let image = ""
+      if (this.parent?.fields?.['Image']?.[0]?.url) {
+        image = `https://capetownlists.co.za/?url=${this.parent?.fields?.['Image']?.[0]?.url}`;
+      }
+
+
+      const schema = buildSchemaItem({
+        type: this.parent.fields?.['SEO Type'],
+        name: this.parent.fields?.['Title'] || siteName,
+        description: this.parent.fields?.['Subtitle'] || '',
+        url,
+        image,
+        extras: {}
+      });
+
+
+      const products = this.items.map((item) => {
+
+        const newItem = buildSchemaItem({
+          type: item['SEO Type'],
+          url: item['SEO URL'] ? window.location.origin + item['SEO URL'] : null,
+          name: item['Title'] || '',
+          description: item['Subtitle'] || '',
+          image: item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.url}` : "",
+          price: item['Price'] ? String(item['Price']) : null,
+          extras: {
+            category: item['Category'],
+          }
+        });
+        // console.log(newItem)
+
+        return newItem;
+      });
+
+      // Only add itemListElement if provided
+      if (products.length > 0) {
+        schema.itemListElement = products;
+      }
+
+      return schema;
+    },
+  
     superTableModel() {
       return Dry_Items
     },
