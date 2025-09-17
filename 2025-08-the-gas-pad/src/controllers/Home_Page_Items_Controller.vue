@@ -142,7 +142,7 @@ export default {
       
 
 
-      const url = window.location.origin + (this.$route?.fullPath || '/');
+      const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/');
       const siteName = import.meta.env.VITE_API_SITE_TITLE;
 
       let image = ""
@@ -169,7 +169,7 @@ export default {
           name: item['Title'] || '',
           description: item['Subtitle'] || '',
           image: item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.url}` : "",
-          price: item['Price'] ? String(item['Price']) : null,
+          price: item['Price'],
           extras: {
             category: item['Category'],
           }
@@ -188,7 +188,7 @@ export default {
     },
     seoConfig(){
 
-      const url = window.location.origin + (this.$route?.fullPath || '/');
+      const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/');
       const siteName = import.meta.env.VITE_API_SITE_TITLE;
 
       let image = ""

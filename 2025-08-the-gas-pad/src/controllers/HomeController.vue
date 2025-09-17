@@ -202,7 +202,7 @@ export default {
   // mixins: [
 
   //   createMetaMixin(function () {
-  //     const url = window.location.origin + (this.$route?.fullPath || '/');
+  //     const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/');
   //     const siteName = import.meta.env.VITE_API_SITE_TITLE;
 
   //     let image = ""
