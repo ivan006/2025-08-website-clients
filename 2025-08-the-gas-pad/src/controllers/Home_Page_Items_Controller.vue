@@ -8,7 +8,7 @@
     </template>
   </template>
   <template v-else>
-    <SEODataViewer :seoConfigMasked="seoConfigMasked" :seoLdJson="seoLdJson" />
+    <SEODataViewer :seoConfig="seoConfig" :seoLdJson="seoLdJson" />
     
     <div class="row q-col-gutter-md justify-around">
       <!--<div class="row justify-center" >-->
@@ -108,23 +108,6 @@ export default {
 
       return this.seoConfig;
 
-      
-      // const url = window.location.origin + (this.$route?.fullPath || '/');
-      // const siteName = import.meta.env.VITE_API_SITE_TITLE;
-
-      // let image = ""
-      // if (this.parent?.fields?.['Image']?.[0]?.url) {
-      //   image = `https://capetownlists.co.za/?url=${this.parent?.fields?.['Image']?.[0]?.url}`;
-      // }
-      // return buildSeoConfig({
-      //   title: this.parent.fields?.['Title'] || siteName,
-      //   description: this.parent.fields?.['Subtitle'] || '',
-      //   url,
-      //   image: image || `${window.location.origin}/og-default.jpg`,
-      //   siteName,
-      //   type: this.parent.fields?.['SEO Type'],
-      //   schema: {dd:1}
-      // });
     })
   ],
 
@@ -182,7 +165,7 @@ export default {
 
         const newItem = buildSchemaItem({
           type: item['SEO Type'],
-          url: window.location.origin + item['SEO URL'],
+          url: item['SEO URL'] ? window.location.origin + item['SEO URL'] : null,
           name: item['Title'] || '',
           description: item['Subtitle'] || '',
           image: item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.url}` : "",
@@ -223,13 +206,7 @@ export default {
         schema: this.seoLdJson
       });
     },
-    
-    seoConfigMasked(){
-
-      const result = this.seoConfig
-      delete result.script.structuredData
-      return result
-    },
+  
     
     superTableModel() {
       return Home_Page_Items

@@ -26,7 +26,7 @@
 
         <q-card-section class="q-pt-none">
             
-            <pre>{{ seoConfigMasked }}</pre>
+            <pre>{{ seoConfig }}</pre>
             seoLdJson
             <pre>{{ seoLdJson }}</pre>
         </q-card-section>
@@ -54,13 +54,13 @@
                         flat
                         size="sm"
                         icon="content_copy"
-                        @click="copyObject(seoConfigMasked)"
+                        @click="copyObject(seoConfig)"
                     >
                         <q-tooltip>Copy</q-tooltip>
                     </q-btn>
                     </div>
                     <!-- <pre><code>{{ metaTags }}</code></pre> -->
-                    <pre><code>{{ seoConfigMasked }}</code></pre>
+                    <pre><code>{{ seoConfig }}</code></pre>
                 </q-card-section>
 
                 <!-- Structured Data Section -->
@@ -100,7 +100,7 @@ export default {
   },
 
   props: {
-    seoConfigMasked: {
+    seoConfig: {
       type: Object,
       default: () => ({})
     },

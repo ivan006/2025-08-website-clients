@@ -53,7 +53,7 @@ export function buildSchemaItem({ type, name, description, url, image, price, ex
     "@type": type,
     name,
     description,
-    url,
+    ...(url && { url }),
     image,
     ...extras
   };
