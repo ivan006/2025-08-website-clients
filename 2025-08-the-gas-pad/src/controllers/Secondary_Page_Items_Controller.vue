@@ -9,7 +9,7 @@
   </template>
   <template v-else>
 
-    <div class=" bg-3ry-color text-white q-py-xl">
+    <div class=" bg-white q-py-xl">
       <div
         class="container-md "
       >
@@ -24,7 +24,7 @@
       >
 
 
-        <div class="row">
+        <div class="row q-col-gutter-md">
           <!--<div class="row justify-center" >-->
 
           <template v-for="item in items" :key="item.id">
@@ -33,8 +33,8 @@
               <!--<q-avatar>-->
               <!--  <img :src="item">-->
               <!--</q-avatar>-->
-              <div class="col-xl-3 col-md-6 col-sm-12 col-xs-12">
-                <div class="q-py-md q-px-md">
+              <div class="col-xl-3 col-md-6 col-6">
+                <div class="">
 
                   <div class="row">
 
@@ -78,50 +78,13 @@
 
                             </div>
                           </div>
-
-                          <!--<pre>-->
-                          <!--  {{item}}-->
-                          <!--</pre>-->
                         </div>
                         
                       </q-card-section>
                     </q-card>
-                    <!-- <div class="col-xl-5 col-md-5 col-sm-12 col-xs-12 q-px-md">
-                      <div
-
-                      >
-                        <img
-                          :src="item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.thumbnails?.large?.url}` : ''"
-                          style="width: 100%; display: block; border-radius: 1000px;"
-                        >
-                      </div>
-                    </div>
-                    <div class="col-xl-7 col-md-7 col-sm-12 col-xs-12 q-px-sm ">
-                      <div class="column justify-center full-height">
-
-                        <div class="lt-md q-mt-lg"></div>
-
-                        <h2 class="text-body1 text-bold q-mt-none font-1ry text-uppercase">
-                          {{item["Title"]}}
-                        </h2>
-
-                        <div class="text-body2">
-                          {{item["Subtitle"]}}
-                        </div>
-
-                        <div class="text-body2">
-                          R{{item["Price"]}}.00
-                        </div>
-                      </div>
-
-
-
-                    </div> -->
+                   
                   </div>
 
-                  <!--<pre>-->
-                  <!--  {{item}}-->
-                  <!--</pre>-->
                 </div>
               </div>
             </template>
@@ -131,7 +94,7 @@
     </div>
 
     
-    <div class=" bg-3ry-color text-white q-py-xl">
+    <div class=" bg-white text- q-py-xl">
       <div
         class="container-md "
       >
@@ -145,21 +108,17 @@
         class="container-md "
       >
 
-        <div class="row">
+        <div class="row q-col-gutter-none">
           <template v-for="item in items" :key="item.id">
             <template v-if="item['Category'] === 'Refill'">
 
-                    
-              <!--<q-avatar>-->
-              <!--  <img :src="item">-->
-              <!--</q-avatar>-->
-              <div class="col-xl-3 col-md-6 col-sm-12 col-xs-12">
+              <div class="col-xl-3 col-md-6 col-6">
                 
                 <q-card class="q-ma-sm" style="border-radius: 10px;">
                   <q-card-section>
                     <div class="">
 
-                      <div class="row">
+                      <div class="row q-col-gutter-md">
 
                         <div class="col-xl-7 col-md-7 col-sm-12 col-xs-12 q-px-md">
                           <div
@@ -169,7 +128,6 @@
                               :src="item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.thumbnails?.large?.url}` : ''"
                               style="width: 100%; display: block; border-radius: 1000px;"
                             >
-                            <!--<img src="https://cdn.quasar.dev/img/avatar.png">-->
                           </div>
                         </div>
                         <div class="col-xl-5 col-md-5 col-sm-12 col-xs-12 q-px-sm ">

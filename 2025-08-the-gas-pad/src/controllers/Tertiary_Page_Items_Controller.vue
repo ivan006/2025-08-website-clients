@@ -10,7 +10,7 @@
   <template v-else>
    <!-- <pre>{{ itemsNoSubcategory }}</pre> -->
     <template v-for="(items, category) in itemsNoSubcategory" :key="category">
-      <div class="bg-3ry-color text-white" >
+      <div class="bg-white " >
         <div
           class="container-md q-py-xl"
         >
@@ -19,17 +19,17 @@
       </div>
       <div class="bg-2ry-color" >
         <div
-          class="container-md q-py-xl"
+          class="container-md q-py-md"
         >
         
-          <div class="row">
+          <div class="row q-col-gutter-md">
 
             <template v-for="item in items" :key="item.id" >
                         
               <!--<q-avatar>-->
               <!--  <img :src="item">-->
               <!--</q-avatar>-->
-              <div class="col-xl-3 col-md-3 col-sm-12 col-xs-12 ">
+              <div class="col-xl-3 col-md-3 col-6 ">
                 
                 <q-card class="q-ma-sm" style="border-radius: 10px;">
                   <q-card-section>
@@ -89,7 +89,7 @@
 
     
     <template v-for="(subcats, category) in itemsComputed" :key="category">
-      <div class="bg-3ry-color text-white" >
+      <div class="bg-white " >
         <div
           class="container-md q-py-xl"
         >
@@ -97,29 +97,30 @@
         </div>
       </div>
       <div class="bg-2ry-color" >
+        <!-- <div>&nbsp;</div> -->
         <div
-          class="container-md q-py-xl"
+          class="container-md q-py-md"
         >
         
-          <div class="row ">
+          <div class="row q-col-gutter-md">
             <template v-for="(products, sub) in subcats" :key="sub">
 
-              <div class="col-xl-3 col-md-3 col-sm-12 col-xs-12 q-pa-md ">
+              <div class="col-xl-3 col-md-3 col-sm-12 col-xs-12  ">
                   
                 <!-- <q-card class="bg-4ry-color">
                   <q-card-section> -->
                     
-                    <h3 class="r-font-h6 q-mt-md text-center text-uppercase font-1ry" style="margin-top: 0;">{{ sub }}</h3>
+                    <h3 class="r-font-h6 q-my-none q-pb-md text-center text-uppercase font-1ry" style="">{{ sub }}</h3>
 
-                    <div class="row justify-center">
+                    <div class="row q-col-gutter-md justify-center">
                       <template v-for="item in products" :key="item.id" >
                         
                         <!--<q-avatar>-->
                         <!--  <img :src="item">-->
                         <!--</q-avatar>-->
-                        <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12 ">
+                        <div class="col-xl-12 col-md-12 col-6 ">
                           
-                          <q-card class="q-ma-sm" style="border-radius: 10px;">
+                          <q-card class="" style="border-radius: 10px;">
                             <q-card-section>
                               <div class="">
 

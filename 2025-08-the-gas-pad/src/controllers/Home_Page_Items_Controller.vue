@@ -17,7 +17,7 @@
         <!--<q-avatar>-->
         <!--  <img :src="item">-->
         <!--</q-avatar>-->
-        <div class="col-xl-6 col-md-6 col-6">
+        <div class="col-xl-6 col-md-6 col-12">
           <div class="">
 
            

@@ -24,100 +24,24 @@
         <div
           class="container-md"
         >
-          <div class="row q-col-gutter-md text-white">
+          <div class=" text-white">
 
+              <h1 class="text-center r-font-h1 " style="letter-spacing: 15px;">
+                <span class="text-weight-thin font-1ry text-uppercase" style="letter-spacing: 15px;">
+                  {{item.fields?.['Title']}}
+                </span>
+              </h1>
 
-            <!--<div class="col-xl-1 col-md-1 col-sm-12 col-xs-12">-->
-
-
-            <!--</div>-->
-
-            <div class="col-xl-10 col-md-10 col-sm-12 col-xs-12 offset-md-1 q-px-xl flex flex-center " style="min-height: 500px;">
-
-
-
-
-              <div>
-                <h1 class="text-center r-font-h1 " style="letter-spacing: 15px;">
-                  <span class="text-weight-thin font-1ry text-uppercase" style="letter-spacing: 15px;">
-                    {{item.fields?.['Title']}}
-                  </span>
-                </h1>
-
-                
-                <h2 class="text-center r-font-h3" >
-                  <span class="text-weight-light font-2ry text-uppercase" style="letter-spacing: 15px;">
-                    {{item.fields?.['Subtitle']}}
-                  </span>
-                </h2>
-              </div>
-
-              <!--<div class="text-center">-->
-
-              <!--  <q-btn-->
-              <!--    size="lg"-->
-              <!--    class="text-black"-->
-              <!--    color="white"-->
-              <!--    :href="item.fields?.['Hero CTA URL']"-->
-              <!--  >-->
-              <!--    {{item.fields?.['Hero CTA Text']}}-->
-              <!--  </q-btn>-->
-              <!--</div>-->
-              <!--<pre>{{item}}</pre>-->
-            </div>
+              
+              <h2 class="text-center r-font-h3" >
+                <span class="text-weight-light font-2ry text-uppercase" style="letter-spacing: 15px;">
+                  {{item.fields?.['Subtitle']}}
+                </span>
+              </h2>
           </div>
         </div>
       </div>
 
-      <!-- <div class="bg-white q-py-lg " >
-        <div
-          class="container-md "
-        >
-
-
-            <h3 class="text-center r-font-h2 font-1ry text-uppercas">
-              {{item.fields?.['List Section Title']}}
-            </h3>
-        </div>
-      </div> -->
-
-      <!--<div class="q-py-xl">-->
-
-      <!--  <div-->
-      <!--    class="container-md"-->
-      <!--  >-->
-      <!--    <div class="row q-col-gutter-md">-->
-
-
-      <!--      &lt;!&ndash;<div class="col-xl-1 col-md-1 col-sm-12 col-xs-12">&ndash;&gt;-->
-
-
-      <!--      &lt;!&ndash;</div>&ndash;&gt;-->
-
-      <!--      <div class="col-xl-10 col-md-10 col-sm-12 col-xs-12 offset-md-1 q-px-xl">-->
-
-
-      <!--        <div class="gt-sm">-->
-      <!--          <h3 class="text-center r-font-h2 text-bold">-->
-      <!--            {{item.fields?.['List Section Title']}}-->
-      <!--          </h3>-->
-      <!--        </div>-->
-      <!--        <div class="lt-md">-->
-      <!--          <h3 class="text-center r-font-h3 text-bold">-->
-      <!--            {{item.fields?.['List Section Title']}}-->
-      <!--          </h3>-->
-      <!--        </div>-->
-
-      <!--        &lt;!&ndash;<div class="gt-sm">&ndash;&gt;-->
-      <!--        &lt;!&ndash;</div>&ndash;&gt;-->
-      <!--        &lt;!&ndash;<div class="lt-md">&ndash;&gt;-->
-      <!--        &lt;!&ndash;</div>&ndash;&gt;-->
-
-      <!--        &lt;!&ndash;<pre>{{item}}</pre>&ndash;&gt;-->
-      <!--      </div>-->
-      <!--    </div>-->
-      <!--  </div>-->
-      <!--</div>-->
 
 
 
@@ -139,91 +63,11 @@
         </div>
       </div>
 
-      <!-- <div class=" bg-3ry-color text-white">
-        <div class="row">
-
-          <div
-            class="col-xl-6 col-md-6 col-sm-12 col-xs-12"
-          >
-
-         
-
-            <img
-              :src="this.item.fields?.['Contact Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${this.item.fields?.['Contact Image']?.[0]?.url}` : ''"
-              style="
-                width: 100%; display: block;
-                -webkit-filter: grayscale(100%);
-                filter:  brightness(120%);
-              "
-            >
-
-          </div>
-          <div class="col-xl-6 col-md-6 col-sm-12 col-xs-12  " >
-            <div class="row full-height items-center q-py-lg q-px-xl ">
-
-              <div class=""  id="contact1">
-
-
-
-                <h2 class="r-font-h3 text-bold ">
-
-                  {{item.fields?.['Contact Title']}}
-                </h2>
-
-                <div class=" r-font-h5 q-pb-xl">
-
-                  {{item.fields?.['Contact Email Address']}}
-                </div>
-                
-                <div class="q-pa-lg bg- text-dark">
-                  <div class="row q-col-gutter-xl justify-around text-center">
-
-                    <div class="col-12 col-md-6">
-                      
-                      <q-card class="q-ma-sm bg-grey-3" style="border-radius: 10px;" flat>
-                        <q-card-section>
-                          
-                          <q-icon name="call" size="48px" color="green" />
-                          <h5 class="q-mt-sm">Call Us</h5>
-                          <p class="q-mt-xs">+27 21 123 4567</p>
-                        </q-card-section>
-                      </q-card>
-                    </div>
-
-                    <div class="col-12 col-md-6">
-                      
-                      <q-card class="q-ma-sm bg-grey-3" style="border-radius: 10px;" flat>
-                        <q-card-section>
-                        
-                          <q-icon name="schedule" size="48px" color="green" />
-                          <h5 class="q-mt-sm">Opening Hours</h5>
-                          <p class="q-mt-xs">Monday to Saturday<br>11:00 PM – 5:00 AM</p>
-                        </q-card-section>
-                      </q-card>
-                    </div>
-
-             
-                  </div>
-                </div>
-
-                
-
-              </div>
-            </div>
-
-          </div>
-        </div>
-
-
-      </div> -->
-
-      
       <div class="bg-2ry-color" id="contact" >
         <div
           class="container-md q-py-xl"
         >
           <h3 class="text-center r-font-h3 font-1ry text-uppercase  q-my-xl text-">
-            <!-- {{item.fields?.['List Section Title']}} -->
              Contact Us
           </h3>
         </div>

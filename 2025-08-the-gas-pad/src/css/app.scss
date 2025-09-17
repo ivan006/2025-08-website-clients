@@ -20,6 +20,7 @@ $lg-breakpoint: 1920px;
   margin-left: auto;
   padding-left: 16px;
   padding-right: 16px;
+  display: flow-root;
 }
 
 @media (min-width: $xs-breakpoint) {
