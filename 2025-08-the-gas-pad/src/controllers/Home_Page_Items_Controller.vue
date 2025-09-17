@@ -8,7 +8,8 @@
     </template>
   </template>
   <template v-else>
-
+    <SEODataViewer :seoConfigMasked="seoConfigMasked" :seoLdJson="seoLdJson" />
+    
     <div class="row q-col-gutter-md justify-around">
       <!--<div class="row justify-center" >-->
 
@@ -54,7 +55,7 @@
                   
           
                   <q-btn
-                    :to="item['Button URL']"
+                    :to="item['SEO URL']"
                     color="green"
                     size="md"
                     unelevated
@@ -92,17 +93,50 @@
 
 <script>
 import Home_Page_Items from 'src/models/orm-api/Home_Page_Items'
+import {createMetaMixin} from "quasar";
+import {buildSchemaItem, buildSeoConfig} from "src/utils/seo";
+import SEODataViewer from "src/controllers/SEODataViewer.vue";
 
 export default {
   name: 'Home_Page_Items_Controller',
   components: {
+    SEODataViewer
   },
+  
+  mixins: [
+    createMetaMixin(function () {
+
+      return this.seoConfig;
+
+      
+      // const url = window.location.origin + (this.$route?.fullPath || '/');
+      // const siteName = import.meta.env.VITE_API_SITE_TITLE;
+
+      // let image = ""
+      // if (this.parent?.fields?.['Image']?.[0]?.url) {
+      //   image = `https://capetownlists.co.za/?url=${this.parent?.fields?.['Image']?.[0]?.url}`;
+      // }
+      // return buildSeoConfig({
+      //   title: this.parent.fields?.['Title'] || siteName,
+      //   description: this.parent.fields?.['Subtitle'] || '',
+      //   url,
+      //   image: image || `${window.location.origin}/og-default.jpg`,
+      //   siteName,
+      //   type: this.parent.fields?.['SEO Type'],
+      //   schema: {dd:1}
+      // });
+    })
+  ],
 
   props: {
     fetchFlags: {
       type: Object,
       default: () => ({})
-    }
+    },
+    parent: {
+      type: Object,
+      default: () => ({})
+    },
   },
   data(){
     return {
@@ -116,10 +150,87 @@ export default {
         sortBy: [],
         groupBy: [],
       },
-      filterValsRef: {},
+      filterValsRef: {}
     }
   },
   computed: {
+    
+    seoLdJson(){
+      
+
+
+      const url = window.location.origin + (this.$route?.fullPath || '/');
+      const siteName = import.meta.env.VITE_API_SITE_TITLE;
+
+      let image = ""
+      if (this.parent?.fields?.['Image']?.[0]?.url) {
+        image = `https://capetownlists.co.za/?url=${this.parent?.fields?.['Image']?.[0]?.url}`;
+      }
+
+
+      const schema = buildSchemaItem({
+        type: this.parent.fields?.['SEO Type'],
+        name: this.parent.fields?.['Title'] || siteName,
+        description: this.parent.fields?.['Subtitle'] || '',
+        url,
+        image,
+        extras: {}
+      });
+
+
+      const products = this.items.map((item) => {
+
+        const newItem = buildSchemaItem({
+          type: item['SEO Type'],
+          url: window.location.origin + item['SEO URL'],
+          name: item['Title'] || '',
+          description: item['Subtitle'] || '',
+          image: item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.url}` : "",
+          price: String(item['Price']),
+          extras: {
+            category: item['Category'],
+          }
+        });
+        // console.log(newItem)
+
+        return newItem;
+      });
+
+      // Only add itemListElement if provided
+      if (products.length > 0) {
+        schema.itemListElement = products;
+      }
+
+      return schema;
+    },
+    seoConfig(){
+
+      const url = window.location.origin + (this.$route?.fullPath || '/');
+      const siteName = import.meta.env.VITE_API_SITE_TITLE;
+
+      let image = ""
+      if (this.parent?.fields?.['Image']?.[0]?.url) {
+        image = `https://capetownlists.co.za/?url=${this.parent?.fields?.['Image']?.[0]?.url}`;
+      }
+
+     return buildSeoConfig({
+        title: this.parent.fields?.['Title'] || siteName,
+        description: this.parent.fields?.['Subtitle'] || '',
+        url,
+        image: image || `${window.location.origin}/og-default.jpg`,
+        siteName,
+        type: this.parent.fields?.['SEO Type'],
+        schema: this.seoLdJson
+      });
+    },
+    
+    seoConfigMasked(){
+
+      const result = this.seoConfig
+      delete result.script.structuredData
+      return result
+    },
+    
     superTableModel() {
       return Home_Page_Items
     },

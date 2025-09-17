@@ -70,7 +70,7 @@
           class="container-md q-py-xl"
         >
 
-          <Home_Page_Items_Controller />
+          <Home_Page_Items_Controller :parent="this.item" />
         </div>
       </div>
 
@@ -99,7 +99,7 @@
               <!-- Phone -->
               <div class="col-md-4 col-6 ">
                 
-                <q-card class="q-ma-sm bg-grey-3" style="border-radius: 10px;" flat>
+                <q-card class="q-ma-sm bg-white" style="border-radius: 10px;" flat>
                   <q-card-section>
                     
                     <q-icon name="call" size="48px" color="green" />
@@ -114,7 +114,7 @@
               
               <div class="col-md-4 col-6 ">
                 
-                <q-card class="q-ma-sm bg-grey-3" style="border-radius: 10px;" flat>
+                <q-card class="q-ma-sm bg-white" style="border-radius: 10px;" flat>
                   <q-card-section>
                     
                     <q-icon name="mail" size="48px" color="green" />
@@ -129,7 +129,7 @@
               <!-- Opening Hours -->
               <div class="col-md-4 col-12">
                 
-                <q-card class="q-ma-sm bg-grey-3" style="border-radius: 10px;" flat>
+                <q-card class="q-ma-sm bg-white" style="border-radius: 10px;" flat>
                   <q-card-section>
                   
                     <q-icon name="schedule" size="48px" color="green" />
@@ -144,7 +144,7 @@
               <!-- Address & Directions -->
               <div class="col-6 col-md-6 col-12">
                 
-                <q-card class="q-ma-sm bg-grey-3 text-" style="border-radius: 10px;" flat >
+                <q-card class="q-ma-sm bg-white text-" style="border-radius: 10px;" flat >
                   <q-card-section>
                     <q-icon class="text" name="place" size="48px" color="green" />
                     <h5 class="q-my-md text-uppercase font-1ry">Find Us</h5>
@@ -160,7 +160,7 @@
             <!-- Map -->
             <div class="q-mt-md">
               
-              <q-card class="q-ma-sm bg-grey-3" style="border-radius: 10px;" flat>
+              <q-card class="q-ma-sm bg-white" style="border-radius: 10px;" flat>
                   <q-card-section>
                     
                     <iframe
@@ -199,28 +199,28 @@ import {buildSeoConfig} from "src/utils/seo";
 export default {
   name: "HomeController.vue",
   components: {Home_Page_Items_Controller},
-  mixins: [
+  // mixins: [
 
-    createMetaMixin(function () {
-      const url = window.location.origin + (this.$route?.fullPath || '/');
-      const siteName = import.meta.env.VITE_API_SITE_TITLE;
+  //   createMetaMixin(function () {
+  //     const url = window.location.origin + (this.$route?.fullPath || '/');
+  //     const siteName = import.meta.env.VITE_API_SITE_TITLE;
 
-      let image = ""
-      if (this.item?.fields?.['Image']?.[0]?.url) {
-        image = `https://capetownlists.co.za/?url=${this.item?.['Image']?.[0]?.url}`;
-        image = `https://capetownlists.co.za/?url=${this.item?.fields?.['Image']?.[0]?.url}`;
-      }
+  //     let image = ""
+  //     if (this.item?.fields?.['Image']?.[0]?.url) {
+  //       image = `https://capetownlists.co.za/?url=${this.item?.['Image']?.[0]?.url}`;
+  //       image = `https://capetownlists.co.za/?url=${this.item?.fields?.['Image']?.[0]?.url}`;
+  //     }
 
-      return buildSeoConfig({
-        title: this.item.fields?.['Title'] || siteName,
-        description: this.item.fields?.['Subtitle'] || '',
-        url,
-        image: image || `${window.location.origin}/og-default.jpg`,
-        siteName,
-        type: this.item.fields?.['SEO Type'],
-      });
-    })
-  ],
+  //     return buildSeoConfig({
+  //       title: this.item.fields?.['Title'] || siteName,
+  //       description: this.item.fields?.['Subtitle'] || '',
+  //       url,
+  //       image: image || `${window.location.origin}/og-default.jpg`,
+  //       siteName,
+  //       type: this.item.fields?.['SEO Type'],
+  //     });
+  //   })
+  // ],
   data(){
     return {
       loading: true,

@@ -8,6 +8,8 @@
     </template>
   </template>
   <template v-else>
+    
+    <SEODataViewer :seoConfigMasked="seoConfigMasked" :seoLdJson="seoLdJson" />
 
     <div class=" bg-white q-py-xl">
       <div
@@ -215,10 +217,12 @@
 import Secondary_Page_Items from 'src/models/orm-api/Secondary_Page_Items'
 import {createMetaMixin} from "quasar";
 import {buildSchemaItem, buildSeoConfig} from "src/utils/seo";
+import SEODataViewer from "src/controllers/SEODataViewer.vue";
 
 export default {
   name: 'Secondary_Page_Items_Controller',
   components: {
+    SEODataViewer
   },
   mixins: [
     createMetaMixin(function () {
