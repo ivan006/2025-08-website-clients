@@ -19,7 +19,7 @@
       </div>
       <div class="bg-2ry-color" >
         <div
-          class="container-md q-py-md"
+          class="container-md q-py-xl"
         >
         
           <div class="row q-col-gutter-md">
@@ -77,7 +77,7 @@
       <div class="bg-2ry-color" >
         <!-- <div>&nbsp;</div> -->
         <div
-          class="container-md q-py-md"
+          class="container-md q-pb-xl"
         >
         
           <div class="row q-col-gutter-md">
@@ -88,7 +88,7 @@
                 <!-- <q-card class="bg-4ry-color">
                   <q-card-section> -->
                     
-                    <h3 class="r-font-h4 q-my-none q-pb-md text-center text-uppercase font-1ry" style="">{{ sub }}</h3>
+                    <h3 class="r-font-h4 q-my-none q-py-xl text-center text-uppercase font-1ry" style="">{{ sub }}</h3>
 
                     <div class="row q-col-gutter-md justify-center">
                       <template v-for="item in products" :key="item.id" >
