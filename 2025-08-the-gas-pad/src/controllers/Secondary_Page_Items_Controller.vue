@@ -9,7 +9,7 @@
   </template>
   <template v-else>
     
-    <SEODataViewer :seoConfig="seoConfig" :seoLdJson="seoLdJson" />
+    <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
 
     <div class=" bg-white q-py-xl">
       <div
@@ -277,6 +277,12 @@ export default {
         type: this.parent.fields?.['SEO Type'],
         schema: this.seoLdJson
       });
+    },
+    
+    seoConfigMasked(){
+      const seoConfigMasked = { ...this.seoConfig }
+      seoConfigMasked.script = ""
+      return seoConfigMasked
     },
     
     seoLdJson(){

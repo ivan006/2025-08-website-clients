@@ -8,7 +8,7 @@
     </template>
   </template>
   <template v-else>
-    <SEODataViewer :seoConfig="seoConfig" :seoLdJson="seoLdJson" />
+    <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
     
     <div class="row q-col-gutter-md justify-around">
       <!--<div class="row justify-center" >-->
@@ -205,6 +205,12 @@ export default {
         type: this.parent.fields?.['SEO Type'],
         schema: this.seoLdJson
       });
+    },
+    
+    seoConfigMasked(){
+      const seoConfigMasked = { ...this.seoConfig }
+      seoConfigMasked.script = ""
+      return seoConfigMasked
     },
   
     

@@ -8,7 +8,7 @@
     </template>
   </template>
   <template v-else>
-    <SEODataViewer :seoConfig="seoConfig" :seoLdJson="seoLdJson" />
+    <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
    <!-- <pre>{{ itemsNoSubcategory }}</pre> -->
     <template v-for="(items, category) in itemsNoSubcategory" :key="category">
       <div class="bg-white " >
@@ -293,6 +293,12 @@ export default {
         type: this.parent.fields?.['SEO Type'],
         schema: this.seoLdJson
       });
+    },
+    
+    seoConfigMasked(){
+      const seoConfigMasked = { ...this.seoConfig }
+      seoConfigMasked.script = ""
+      return seoConfigMasked
     },
     
     seoLdJson(){
