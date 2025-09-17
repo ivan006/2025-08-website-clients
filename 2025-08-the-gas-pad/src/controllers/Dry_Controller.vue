@@ -35,35 +35,17 @@
 
 
               <div>
-                <div class="gt-sm">
                   <h1 class="text-center r-font-h1 text-bold">
                   <span class="text-weight-thin font-1ry text-uppercase" style="letter-spacing: 15px;">
                     {{item.fields?.['Title']}}
                   </span>
                   </h1>
-                </div>
-                <div class="lt-md">
-                  <h1 class="text-center r-font-h2 text-bold">
-                  <span class="text-weight-thin font-1ry text-uppercase" style="letter-spacing: 15px;">
-                    {{item.fields?.['Title']}}
-                  </span>
-                  </h1>
-                </div>
 
-                <div class="gt-sm">
                   <h2 class="text-center r-font-h3" >
                   <span class="text-weight-light font-2ry text-uppercase" style="letter-spacing: 15px;">
                   {{item.fields?.['Subtitle']}}
                   </span>
                   </h2>
-                </div>
-                <div class="lt-md">
-                  <h2 class="text-center r-font-h4 text-bold font-2ry">
-                  <span class="text-weight-light font-2ry text-uppercase" style="letter-spacing: 15px;">
-                  {{item.fields?.['Subtitle']}}
-                  </span>
-                  </h2>
-                </div>
               </div>
 
               <!--<div class="gt-sm">-->
