@@ -21,41 +21,21 @@
       <div class="q-py-xl">
 
         <div
-          class="container-md"
+          class="container-md text-white"
         >
-          <div class="row q-col-gutter-md  text-white">
+          
+        
+          <h1 class="text-center r-font-h1 text-bold">
+          <span class="text-weight-thin font-1ry text-uppercase" style="letter-spacing: 15px;">
+            {{item.fields?.['Title']}}
+          </span>
+          </h1>
 
-
-            <!--<div class="col-xl-1 col-md-1 col-sm-12 col-xs-12">-->
-
-
-            <!--</div>-->
-
-            <div class="col-xl-10 col-md-10 col-sm-12 col-xs-12 offset-md-1 q-px-xl flex flex-center " style="min-height: 500px;">
-
-
-              <div>
-                  <h1 class="text-center r-font-h1 text-bold">
-                  <span class="text-weight-thin font-1ry text-uppercase" style="letter-spacing: 15px;">
-                    {{item.fields?.['Title']}}
-                  </span>
-                  </h1>
-
-                  <h2 class="text-center r-font-h3" >
-                  <span class="text-weight-light font-2ry text-uppercase" style="letter-spacing: 15px;">
-                  {{item.fields?.['Subtitle']}}
-                  </span>
-                  </h2>
-              </div>
-
-              <!--<div class="gt-sm">-->
-              <!--</div>-->
-              <!--<div class="lt-md">-->
-              <!--</div>-->
-
-              <!--<pre>{{item}}</pre>-->
-            </div>
-          </div>
+          <h2 class="text-center r-font-h3" >
+          <span class="text-weight-light font-2ry text-uppercase" style="letter-spacing: 15px;">
+          {{item.fields?.['Subtitle']}}
+          </span>
+          </h2>
         </div>
       </div>
 

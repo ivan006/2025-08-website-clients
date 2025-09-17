@@ -31,51 +31,29 @@
               <!--</q-avatar>-->
               <div class="col-xl-3 col-md-3 col-6 ">
                 
-                <q-card class="q-ma-sm" style="border-radius: 10px;">
+                <q-card  style="border-radius: 10px;">
                   <q-card-section>
-                    <div class="q-py-md q-px-md">
+                   <div
 
-                      <div class="row">
+                    >
+                      <div class="row q-col-gutter-none  justify-around">
 
-                        <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12 q-px-md">
-                          <div
-
+                        <div class="col-xl-6 col-md-6 col-12 ">
+                          
+                
+                          <img
+                            :src="item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.thumbnails?.large?.url}` : ''"
+                            style="width: 100%; display: block; border-radius: 1000px;"
                           >
-                            <img
-                              :src="item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.thumbnails?.large?.url}` : ''"
-                              style="width: 100%; display: block; border-radius: 1000px;"
-                            >
-                            <!--<img src="https://cdn.quasar.dev/img/avatar.png">-->
-                          </div>
                         </div>
-                        <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12 q-px-sm ">
-                          <div class="column justify-center full-height">
-
-                            <div class="lt-md q-mt-lg"></div>
-
-                            <h2 class="text-body1 text-bold q-mt-none font-1ry text-uppercase">
-                              {{item["Title"]}}
-                            </h2>
-
-                            <div class="text-body2">
-                              {{item["Subtitle"]}}
-                            </div>
-
-                            <!-- <div class="text-body2">
-                              R{{item["Price"]}}.00
-                            </div> -->
-                          </div>
-
-
-
-                        </div>
-                      </div>
-
-                      <!--<pre>-->
-                      <!--  {{item}}-->
-                      <!--</pre>-->
+                      </div>  
+                      <!--<img src="https://cdn.quasar.dev/img/avatar.png">-->
                     </div>
-                    
+                    <div class="lt-md q-mt-lg"></div>
+
+                    <h2 class="r-font-h5 text-center text-bold q-mt-none font-1ry text-uppercase">
+                      {{item["Title"]}}
+                    </h2>
                   </q-card-section>
                 </q-card>
               </div>
@@ -110,7 +88,7 @@
                 <!-- <q-card class="bg-4ry-color">
                   <q-card-section> -->
                     
-                    <h3 class="r-font-h6 q-my-none q-pb-md text-center text-uppercase font-1ry" style="">{{ sub }}</h3>
+                    <h3 class="r-font-h4 q-my-none q-pb-md text-center text-uppercase font-1ry" style="">{{ sub }}</h3>
 
                     <div class="row q-col-gutter-md justify-center">
                       <template v-for="item in products" :key="item.id" >
@@ -126,7 +104,7 @@
 
                                 <div class="row">
 
-                                  <div class="col-xl-7 col-md-7 col-sm-12 col-xs-12 q-px-md">
+                                  <div class="col-xl-6 col-md-6 col-sm-12 col-xs-12 q-px-md">
                                     <div
 
                                     >
@@ -137,12 +115,12 @@
                                       <!--<img src="https://cdn.quasar.dev/img/avatar.png">-->
                                     </div>
                                   </div>
-                                  <div class="col-xl-5 col-md-5 col-sm-12 col-xs-12 q-px-sm ">
+                                  <div class="col-xl-6 col-md-6 col-sm-12 col-xs-12 q-px-sm ">
                                     <div class="column justify-center full-height">
 
                                       <div class="lt-md q-mt-lg"></div>
 
-                                      <h2 class="text-body1 text-bold q-mt-none font-1ry text-uppercase">
+                                      <h2 class="r-font-h6 text-bold q-mt-none font-1ry text-uppercase">
                                         {{item["Title"]}}
                                       </h2>
 
