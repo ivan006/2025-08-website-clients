@@ -197,7 +197,7 @@ export default {
       }
 
      return buildSeoConfig({
-        title: this.parent.fields?.['Title'] || siteName,
+        title: null,
         description: this.parent.fields?.['Subtitle'] || '',
         url,
         image: image || `${window.location.origin}/og-default.jpg`,

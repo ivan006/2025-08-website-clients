@@ -16,8 +16,7 @@ export function buildSeoConfig({
 
 
   return {
-    title,
-    titleTemplate: (t) => `${t} | ${siteName}`,
+    title: title ? `${title} | ${siteName}` : siteName,
     link: [{ rel: 'canonical', href: url }],
     meta: [
       { name: 'description', content: description || '' },
