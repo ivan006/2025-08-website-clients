@@ -14,10 +14,10 @@
     "
     class="ScaledParent"
   >
-    <div v-show="childLoading">
+    <div v-show="loading || childLoading">
       <div class="text-center q-pa-xl">Loading...</div>
     </div>
-    <div v-show="!childLoading">
+    <div v-show="!(loading || childLoading)">
 
       <div class="q-py-xl">
 
