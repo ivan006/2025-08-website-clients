@@ -14,10 +14,10 @@
     "
     class="ScaledParent"
   >
-    <template v-if="loading">
+    <div v-show="childLoading">
       <div class="text-center q-pa-xl">Loading...</div>
-    </template>
-    <template v-else>
+    </div>
+    <div v-show="!childLoading">
 
       <div class="q-py-xl">
 
@@ -70,7 +70,7 @@
           class="container-md q-py-xl"
         >
 
-          <Home_Page_Items_Controller :parent="this.item" />
+          <Home_Page_Items_Controller :parent="this.item" @loaded="childLoading=false"/>
         </div>
       </div>
 
@@ -179,7 +179,7 @@
           </div>
         </div>
       </div>
-    </template>
+    </div>
     <!--<HomeSEOController />-->
 
 
@@ -224,6 +224,7 @@ export default {
   data(){
     return {
       loading: true,
+      childLoading: true,
       item: {},
     }
   },

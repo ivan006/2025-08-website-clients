@@ -13,10 +13,10 @@
     "
     class="ScaledParent"
   >
-    <template v-if="loading">
+    <div v-show="childLoading">
       <div class="text-center q-pa-xl">Loading...</div>
-    </template>
-    <template v-else>
+    </div>
+    <div v-show="!childLoading">
 
       <div class="q-py-xl">
 
@@ -50,11 +50,11 @@
       </div>
 
 
-      <Tertiary_Page_Items_Controller :parent="this.item" />
+      <Tertiary_Page_Items_Controller :parent="this.item" @loaded="childLoading=false" />
 
 
 
-    </template>
+    </div>
 
 
 
@@ -73,6 +73,7 @@ export default {
   data(){
     return {
       loading: true,
+      childLoading: true,
       item: {},
     }
   },
