@@ -162,6 +162,7 @@ export default {
           },
         );
 
+        this.$emit('loaded')
 
         this.items = response.response.data.records.map(record => {
           return {

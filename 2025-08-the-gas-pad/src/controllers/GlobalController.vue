@@ -6,10 +6,10 @@
     <q-toolbar class="q-py-md bg-whit text-" style="margin-bottom: -0px; background-color: rgba(255,255,255,1.0);">
 
       <div class="container-md  ">
-        <template v-if="loading">
+        <div v-show="loading || childLoading">
           <div class="text-center q-pa-xl">Loading...</div>
-        </template>
-        <template v-else>
+        </div>
+        <div v-show="!(loading || childLoading)">
           <div class="row justify-between items-center  q-py-md ">
 
             <div
@@ -48,11 +48,11 @@
             >
 
               <!--<q-btn flat round dense icon="whatshot" />-->
-              <MenuItems />
+              <MenuItems @loaded="childLoading=false" />
 
             </div>
           </div>
-        </template>
+        </div>
 
       </div>
 
@@ -103,6 +103,7 @@ export default {
     return {
       siteTitle: 'Lorum Ipsum',
       loading: true,
+      childLoading: true,
       item: {},
     }
   },
