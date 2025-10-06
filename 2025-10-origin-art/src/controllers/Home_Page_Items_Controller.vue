@@ -10,111 +10,44 @@
   <template v-else>
     <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
     
-    <div class="row q-col-gutter-md justify-around">
-      <!--<div class="row justify-center" >-->
+    <div v-for="(artists, tier) in groupedSculptures" :key="tier" class="q-my-xl">
+      <h2 class="text-h4 text-center q-mb-lg">{{ tier }}</h2>
 
-      <template v-for="item in items" :key="item.id">
+      <div v-for="(artworks, artist) in artists" :key="artist" class="q-mb-xl">
+        <h3 class="text-h5 text-center q-mb-md">{{ artist }}</h3>
 
-        <!--<q-avatar>-->
-        <!--  <img :src="item">-->
-        <!--</q-avatar>-->
-        <div class="col-xl-4 col-md-4 col-12">
-          <div class="">
-
-            <template v-for="(artists, tier) in groupedSculptures" :key="tier">
-              <h2 class="text-h5 q-my-lg">{{ tier }}</h2>
-
-              <template v-for="(works, artist) in artists" :key="artist">
-                <h3 class="text-h6 q-my-md">{{ artist }}</h3>
-
-                <div class="row q-col-gutter-md justify-around">
-                  <template v-for="item in works" :key="item.id">
-                    <!-- reuse your card -->
-                    <div class="col-xl-4 col-md-4 col-12">
-                      <q-card class="q-ma-sm" style="border-radius: 10px;">
-                        <q-card-section class="q-pa-none">
-                          <div
-                            :style="item?.['Image'] ? 
-                              `background-image: url(https://capetownlists.co.za/?url=${item['Image']});` : ``"
-                            style="background-position:center;background-size:cover;border-radius:10px 10px 0 0;height:200px;">
-                          </div>
-                          <div class="q-py-lg q-px-md text-center">
-                            <h2 class="r-font-h4 text-uppercase">{{ item["Title"] }}</h2>
-                            <h3 class="r-font-h6 text-weight-light">{{ item["Subtitle"] }}</h3>
-                            <q-btn :to="item['SEO URL']" color="green" class="q-my-md q-px-lg" unelevated no-caps>
-                              Learn More
-                            </q-btn>
-                          </div>
-                        </q-card-section>
-                      </q-card>
-                    </div>
-                  </template>
-                </div>
-              </template>
-            </template>
-
+        <div class="row q-col-gutter-md justify-center">
+          <div
+            v-for="art in artworks"
+            :key="art.id"
+            class="col-xl-3 col-md-4 col-sm-6 col-12"
+          >
             <q-card class="q-ma-sm" style="border-radius: 10px;">
               <q-card-section class="q-pa-none">
-                
-
-                <div>
-                  <div
-                  :style="item?.['Image']?.[0]?.thumbnails?.large?.url ? `background-image: url(https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.thumbnails?.large?.url});` : ``"
-                  style="
-                    background-position: center;
-                    background-size: cover;
-                    border-radius: 10px 10px 0 0 ;
-                    max-width: 100%;
-                    height: 200px;
-                    "
-                  >
-                  </div>
-                  <!--<img src="https://cdn.quasar.dev/img/avatar.png">-->
-                </div>
-                
-                <div class=" q-py-lg q-px-md text-center ">
-
-                  <!-- <div class="lt-md q-mt-lg"></div> -->
-
-                  <h2 class="r-font-h4 font-1ry text- q-my-md text-uppercase">
-                    {{item["Title"]}}
-                  </h2>
-
-                  <h3 class="r-font-h6 q-my-md font-2ry text-weight-light">
-                    {{item["Subtitle"]}}
-                  </h3>
-                  
-          
+                <div
+                  :style="art['Image'] ? 
+                      `background-image: url(https://capetownlists.co.za/?url=${art['Image']});` : ``"
+                  style="background-position: center; background-size: cover; border-radius: 10px 10px 0 0; height: 250px;"
+                ></div>
+                <div class="q-py-md q-px-sm text-center">
+                  <h2 class="r-font-h5 q-my-sm text-uppercase">{{ art.Title }}</h2>
                   <q-btn
-                    :to="item['SEO URL']"
+                    :to="art['SEO URL']"
                     color="green"
-                    size="md"
                     unelevated
-                    class="q-my-md q-px-lg"
+                    size="sm"
+                    class="q-my-sm q-px-md"
                     style="border-radius: 100px;"
-                    
                     no-caps
                   >
-                    <!-- {{ item["Button Text"] }} -->
                     Learn More
                   </q-btn>
-
-                  
-
-
-                
                 </div>
-                
               </q-card-section>
             </q-card>
-
-            <!--<pre>-->
-            <!--  {{item}}-->
-            <!--</pre>-->
           </div>
         </div>
-      </template>
-
+      </div>
     </div>
 
   </template>
@@ -169,21 +102,31 @@ export default {
   },
   computed: {
     
+
     groupedSculptures() {
-      // Filter sculptures only
       const sculptures = this.items.filter(
-        i => i['Media Category Name']?.includes('Sculptural Works')
+        i =>
+          Array.isArray(i['Priority in Sculpture']) &&
+          i['Priority in Sculpture'].includes('Yes')
       )
 
-      // Group by Artist Tier → Artist → Artworks
       const grouped = {}
+
       for (const art of sculptures) {
         const tier = art['Artist Tier Name']?.[0] || 'Uncategorized Tier'
         const artist = art['Artist Name']?.[0] || 'Unknown Artist'
 
         if (!grouped[tier]) grouped[tier] = {}
         if (!grouped[tier][artist]) grouped[tier][artist] = []
+
         grouped[tier][artist].push(art)
+      }
+
+      // ✅ Limit each artist’s artworks to 3 here
+      for (const tier in grouped) {
+        for (const artist in grouped[tier]) {
+          grouped[tier][artist] = grouped[tier][artist].slice(0, 3)
+        }
       }
 
       return grouped
