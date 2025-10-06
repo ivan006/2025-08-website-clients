@@ -21,7 +21,38 @@
         <div class="col-xl-4 col-md-4 col-12">
           <div class="">
 
-           
+            <template v-for="(artists, tier) in groupedSculptures" :key="tier">
+              <h2 class="text-h5 q-my-lg">{{ tier }}</h2>
+
+              <template v-for="(works, artist) in artists" :key="artist">
+                <h3 class="text-h6 q-my-md">{{ artist }}</h3>
+
+                <div class="row q-col-gutter-md justify-around">
+                  <template v-for="item in works" :key="item.id">
+                    <!-- reuse your card -->
+                    <div class="col-xl-4 col-md-4 col-12">
+                      <q-card class="q-ma-sm" style="border-radius: 10px;">
+                        <q-card-section class="q-pa-none">
+                          <div
+                            :style="item?.['Image'] ? 
+                              `background-image: url(https://capetownlists.co.za/?url=${item['Image']});` : ``"
+                            style="background-position:center;background-size:cover;border-radius:10px 10px 0 0;height:200px;">
+                          </div>
+                          <div class="q-py-lg q-px-md text-center">
+                            <h2 class="r-font-h4 text-uppercase">{{ item["Title"] }}</h2>
+                            <h3 class="r-font-h6 text-weight-light">{{ item["Subtitle"] }}</h3>
+                            <q-btn :to="item['SEO URL']" color="green" class="q-my-md q-px-lg" unelevated no-caps>
+                              Learn More
+                            </q-btn>
+                          </div>
+                        </q-card-section>
+                      </q-card>
+                    </div>
+                  </template>
+                </div>
+              </template>
+            </template>
+
             <q-card class="q-ma-sm" style="border-radius: 10px;">
               <q-card-section class="q-pa-none">
                 
@@ -138,6 +169,25 @@ export default {
   },
   computed: {
     
+    groupedSculptures() {
+      // Filter sculptures only
+      const sculptures = this.items.filter(
+        i => i['Media Category Name']?.includes('Sculptural Works')
+      )
+
+      // Group by Artist Tier → Artist → Artworks
+      const grouped = {}
+      for (const art of sculptures) {
+        const tier = art['Artist Tier Name']?.[0] || 'Uncategorized Tier'
+        const artist = art['Artist Name']?.[0] || 'Unknown Artist'
+
+        if (!grouped[tier]) grouped[tier] = {}
+        if (!grouped[tier][artist]) grouped[tier][artist] = []
+        grouped[tier][artist].push(art)
+      }
+
+      return grouped
+    },
     seoLdJson(){
       
 
