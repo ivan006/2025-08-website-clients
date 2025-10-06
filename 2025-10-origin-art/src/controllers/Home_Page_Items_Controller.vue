@@ -10,18 +10,21 @@
   <template v-else>
     <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
     
-    <div v-for="(artists, tier) in groupedSculptures" :key="tier" class="q-my-xl ">
+  
+
+    <div v-for="(tiers, categoryName) in groupedArtworks" :key="categoryName">
+    <h2 class="text-h3 text-center q-mt-xl">{{ categoryName }}</h2>
+
+    <div v-for="(artists, tier) in tiers" :key="tier">
       <h4 class="text-h4 text-center q-mb-lg">{{ tier }}</h4>
       <div class="row">
-
         <div
           v-for="(artworks, artist) in artists"
           :key="artist"
-          class="q-card q-pa-md  items-start no-wrap q-mb-xl"
+          class="q-card q-pa-md items-start no-wrap q-mb-xl"
           :class="artistCardWidthClass(artworks.length)"
           style="border-radius: 12px; overflow: hidden;"
         >
-        
           <div class="row q-col-gutter-md justify-start items-center">
             <!-- Left: Artist info -->
             <div
@@ -31,7 +34,7 @@
             >
               <div>
                 <h3 class="text-h5 q-mb-sm">{{ artist }}</h3>
-                <div class="text-caption text-grey-7">Tier: {{ tier }}</div>
+                <div class="text-body1 text-grey-7">Tier: {{ tier }}</div> <!-- bigger than caption -->
                 <q-btn
                   color="green"
                   unelevated
@@ -63,24 +66,23 @@
               ></div>
 
               <div class="q-pt-sm">
-                <div class="text-weight-bold text-uppercase">
+                <div class="text-weight-bold text-uppercase text-h6">
                   {{ art.Title }}
                 </div>
-                <div class="text-subtitle2 text-grey-7 q-my-xs">
+                <div class="text-body1 text-grey-7 q-my-xs">
                   R{{ art.Price.toLocaleString() }}
                 </div>
 
                 <q-btn
                   color="primary"
                   flat
-                  size="sm"
+                  size="md"
                   class="q-mt-xs text-weight-medium"
                   label="Read More"
                 />
               </div>
             </div>
           </div>
-
         </div>
       </div>
 
@@ -96,6 +98,9 @@
         />
       </div>
     </div>
+  </div>
+
+
 
 
   </template>
@@ -151,35 +156,57 @@ export default {
   computed: {
     
 
-    groupedSculptures() {
-      const sculptures = this.items.filter(i =>
-        Array.isArray(i['Priority in Sculpture']) &&
-        i['Priority in Sculpture'].includes('Yes') &&
-        Array.isArray(i['Media Category Name']) &&
-        i['Media Category Name'].includes('Sculptural Works')
-      )
-
-      const grouped = {}
-
-      for (const art of sculptures) {
-        const tier = art['Artist Tier Name']?.[0] || 'Uncategorized Tier'
-        const artist = art['Artist Name']?.[0] || 'Unknown Artist'
-
-        if (!grouped[tier]) grouped[tier] = {}
-        if (!grouped[tier][artist]) grouped[tier][artist] = []
-
-        grouped[tier][artist].push(art)
-      }
-
-      // Limit to 3 artworks per artist
-      for (const tier in grouped) {
-        for (const artist in grouped[tier]) {
-          grouped[tier][artist] = grouped[tier][artist].slice(0, 3)
+    groupedArtworks() {
+      const categories = {
+        'Fine Art': {
+          priority: 'Priority in Fine Art',
+          media: 'Fine Art'
+        },
+        'Sculptural Works': {
+          priority: 'Priority in Sculpture',
+          media: 'Sculptural Works'
+        },
+        'New Media': {
+          priority: 'Priority in New Media',
+          media: 'New Media'
         }
       }
 
-      return grouped
+      const groupedByCategory = {}
+
+      for (const [categoryName, { priority, media }] of Object.entries(categories)) {
+        const filtered = this.items.filter(i =>
+          Array.isArray(i[priority]) &&
+          i[priority].includes('Yes') &&
+          Array.isArray(i['Media Category Name']) &&
+          i['Media Category Name'].includes(media)
+        )
+
+        const grouped = {}
+
+        for (const art of filtered) {
+          const tier = art['Artist Tier Name']?.[0] || 'Uncategorized Tier'
+          const artist = art['Artist Name']?.[0] || 'Unknown Artist'
+
+          if (!grouped[tier]) grouped[tier] = {}
+          if (!grouped[tier][artist]) grouped[tier][artist] = []
+
+          grouped[tier][artist].push(art)
+        }
+
+        // Limit to 3 artworks per artist
+        for (const tier in grouped) {
+          for (const artist in grouped[tier]) {
+            grouped[tier][artist] = grouped[tier][artist].slice(0, 3)
+          }
+        }
+
+        groupedByCategory[categoryName] = grouped
+      }
+
+      return groupedByCategory
     }
+
 
 ,
     seoLdJson(){
