@@ -10,25 +10,24 @@
   <template v-else>
     <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
     
-    <div v-for="(artists, tier) in groupedSculptures" :key="tier" class="q-my-xl">
-      <h2 class="text-h4 text-center q-mb-lg">{{ tier }}</h2>
+    <div v-for="(tierArtists, tier) in groupedSculptures" :key="tier" class="q-my-xl">
+      <h4 class="text-h5 text-center q-mb-lg">{{ tier }} Tier</h4>
 
       <div
-        v-for="(artworks, artist) in artists"
+        v-for="(artworks, artist) in tierArtists"
         :key="artist"
         class="q-card q-pa-md row items-start no-wrap"
         style="border-radius: 12px; overflow: hidden; width: fit-content; margin: 24px auto;"
       >
-
         <!-- Left: Artist info -->
         <div class="q-pa-md text-center text-md-left" style="min-width: 220px;">
           <h3 class="text-h5 q-mb-sm">{{ artist }}</h3>
-          <div class="text-caption text-grey-7">Tier: {{ tier }}</div>
+          <div class="text-caption text-grey-7">Tier: {{ tier }} Tier</div>
           <q-btn
             color="green"
             unelevated
-            size="sm"
-            class="q-mt-md q-px-md"
+            size="md"
+            class="q-mt-md q-px-lg text-weight-bold"
             style="border-radius: 100px;"
             label="View Artist"
           />
@@ -39,36 +38,50 @@
           <div
             v-for="art in artworks.slice(0, 3)"
             :key="art.id"
-            style="width: 220px;"
+            style="width: 220px; border-radius: 10px; overflow: hidden; text-align: center;"
           >
-            <q-card class="q-ma-sm" style="border-radius: 10px;">
-              <q-card-section class="q-pa-none">
-                <div
-                  :style="art['Image']
-                    ? 'background-image: url(https://capetownlists.co.za/?url=' + art['Image'] + ');'
-                    : ''"
-                  style="
-                    background-position: center;
-                    background-size: cover;
-                    border-radius: 10px 10px 0 0;
-                    height: 200px;
-                  "
-                ></div>
-                <div class="q-py-sm q-px-md text-center">
-                  <div class="text-weight-bold text-uppercase">
-                    {{ art.Title }}
-                  </div>
-                  <div class="text-subtitle2 text-grey-7 q-my-xs">
-                    R{{ art.Price.toLocaleString() }}
-                  </div>
-                </div>
-              </q-card-section>
-            </q-card>
+            <div
+              :style="art['Image']
+                ? 'background-image: url(https://capetownlists.co.za/?url=' + art['Image'] + ');'
+                : ''"
+              style="
+                background-position: center;
+                background-size: cover;
+                height: 200px;
+                border-radius: 10px;
+              "
+            ></div>
+
+            <div class="q-pt-sm">
+              <div class="text-weight-bold text-uppercase">
+                {{ art.Title }}
+              </div>
+              <div class="text-subtitle2 text-grey-7 q-my-xs">
+                R{{ art.Price.toLocaleString() }}
+              </div>
+
+              <q-btn
+                color="primary"
+                flat
+                size="sm"
+                class="q-mt-xs text-weight-medium"
+                label="Read More"
+              />
+            </div>
           </div>
         </div>
       </div>
 
-
+      <!-- Tier-level "See More" button -->
+      <div class="text-center q-mt-md">
+        <q-btn
+          color="primary"
+          outline
+          size="md"
+          class="q-px-lg q-mt-sm"
+          :label="`See More ${tier} Artists`"
+        />
+      </div>
     </div>
 
 
