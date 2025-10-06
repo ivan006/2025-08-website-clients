@@ -22,21 +22,28 @@
           style="border-radius: 12px; overflow: hidden;"
         >
         
-          <!-- Right: Artworks -->
-          <div class="row q-col-gutter-md justify-start">
+          <div class="row q-col-gutter-md justify-start items-center">
             <!-- Left: Artist info -->
-            <div class="q-pa-md text-center text-md-left  " :class="artCardWidthClass(artworks.length)" >
-              <h3 class="text-h5 q-mb-sm">{{ artist }}</h3>
-              <div class="text-caption text-grey-7">Tier: {{ tier }}</div>
-              <q-btn
-                color="green"
-                unelevated
-                size="md"
-                class="q-mt-md q-px-lg text-weight-bold"
-                style="border-radius: 100px;"
-                label="View Artist"
-              />
+            <div
+              class="q-pa-md text-center text-md-left flex column items-center items-md-start"
+              :class="artCardWidthClass(artworks.length)"
+              style="align-self: stretch; display: flex; justify-content: center;"
+            >
+              <div>
+                <h3 class="text-h5 q-mb-sm">{{ artist }}</h3>
+                <div class="text-caption text-grey-7">Tier: {{ tier }}</div>
+                <q-btn
+                  color="green"
+                  unelevated
+                  size="md"
+                  class="q-mt-md q-px-lg text-weight-bold"
+                  style="border-radius: 100px;"
+                  label="View Artist"
+                />
+              </div>
             </div>
+
+            <!-- Right: Artworks -->
             <div
               v-for="art in artworks.slice(0, 3)"
               :key="art.id"
@@ -73,12 +80,13 @@
               </div>
             </div>
           </div>
+
         </div>
       </div>
 
 
       <!-- Tier-level "See More" button -->
-      <div class="text-center q-mt-md">
+      <div class="text-center ">
         <q-btn
           color="primary"
           outline
@@ -144,10 +152,11 @@ export default {
     
 
     groupedSculptures() {
-      const sculptures = this.items.filter(
-        i =>
-          Array.isArray(i['Priority in Sculpture']) &&
-          i['Priority in Sculpture'].includes('Yes')
+      const sculptures = this.items.filter(i =>
+        Array.isArray(i['Priority in Sculpture']) &&
+        i['Priority in Sculpture'].includes('Yes') &&
+        Array.isArray(i['Media Category Name']) &&
+        i['Media Category Name'].includes('Sculptural Works')
       )
 
       const grouped = {}
@@ -171,6 +180,7 @@ export default {
 
       return grouped
     }
+
 ,
     seoLdJson(){
       
