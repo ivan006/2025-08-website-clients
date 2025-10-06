@@ -16,11 +16,12 @@
       <div
         v-for="(artworks, artist) in artists"
         :key="artist"
-        class="q-card q-my-lg q-pa-md row items-start no-wrap"
-        style="border-radius: 12px; overflow: hidden;"
+        class="q-card q-pa-md row items-start no-wrap"
+        style="border-radius: 12px; overflow: hidden; width: fit-content; margin: 24px auto;"
       >
+
         <!-- Left: Artist info -->
-        <div class="col-12 col-md-3 q-pa-md text-center text-md-left">
+        <div class="q-pa-md text-center text-md-left" style="min-width: 220px;">
           <h3 class="text-h5 q-mb-sm">{{ artist }}</h3>
           <div class="text-caption text-grey-7">Tier: {{ tier }}</div>
           <q-btn
@@ -34,11 +35,11 @@
         </div>
 
         <!-- Right: Artworks -->
-        <div class="col-12 col-md-9 row q-col-gutter-md justify-start">
+        <div class="row q-col-gutter-md justify-start">
           <div
-            v-for="art in artworks"
+            v-for="art in artworks.slice(0, 3)"
             :key="art.id"
-            class="col-12 col-sm-4 col-md-4"
+            style="width: 220px;"
           >
             <q-card class="q-ma-sm" style="border-radius: 10px;">
               <q-card-section class="q-pa-none">
@@ -66,6 +67,8 @@
           </div>
         </div>
       </div>
+
+
     </div>
 
 
