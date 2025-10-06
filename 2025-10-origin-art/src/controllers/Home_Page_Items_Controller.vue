@@ -13,35 +13,53 @@
     <div v-for="(artists, tier) in groupedSculptures" :key="tier" class="q-my-xl">
       <h2 class="text-h4 text-center q-mb-lg">{{ tier }}</h2>
 
-      <div v-for="(artworks, artist) in artists" :key="artist" class="q-mb-xl">
-        <h3 class="text-h5 text-center q-mb-md">{{ artist }}</h3>
+      <div
+        v-for="(artworks, artist) in artists"
+        :key="artist"
+        class="q-card q-my-lg q-pa-md row items-start no-wrap"
+        style="border-radius: 12px; overflow: hidden;"
+      >
+        <!-- Left: Artist info -->
+        <div class="col-12 col-md-3 q-pa-md text-center text-md-left">
+          <h3 class="text-h5 q-mb-sm">{{ artist }}</h3>
+          <div class="text-caption text-grey-7">Tier: {{ tier }}</div>
+          <q-btn
+            color="green"
+            unelevated
+            size="sm"
+            class="q-mt-md q-px-md"
+            style="border-radius: 100px;"
+            label="View Artist"
+          />
+        </div>
 
-        <div class="row q-col-gutter-md justify-center">
+        <!-- Right: Artworks -->
+        <div class="col-12 col-md-9 row q-col-gutter-md justify-start">
           <div
             v-for="art in artworks"
             :key="art.id"
-            class="col-xl-3 col-md-4 col-sm-6 col-12"
+            class="col-12 col-sm-4 col-md-4"
           >
             <q-card class="q-ma-sm" style="border-radius: 10px;">
               <q-card-section class="q-pa-none">
                 <div
-                  :style="art['Image'] ? 
-                      `background-image: url(https://capetownlists.co.za/?url=${art['Image']});` : ``"
-                  style="background-position: center; background-size: cover; border-radius: 10px 10px 0 0; height: 250px;"
+                  :style="art['Image']
+                    ? 'background-image: url(https://capetownlists.co.za/?url=' + art['Image'] + ');'
+                    : ''"
+                  style="
+                    background-position: center;
+                    background-size: cover;
+                    border-radius: 10px 10px 0 0;
+                    height: 200px;
+                  "
                 ></div>
-                <div class="q-py-md q-px-sm text-center">
-                  <h2 class="r-font-h5 q-my-sm text-uppercase">{{ art.Title }}</h2>
-                  <q-btn
-                    :to="art['SEO URL']"
-                    color="green"
-                    unelevated
-                    size="sm"
-                    class="q-my-sm q-px-md"
-                    style="border-radius: 100px;"
-                    no-caps
-                  >
-                    Learn More
-                  </q-btn>
+                <div class="q-py-sm q-px-md text-center">
+                  <div class="text-weight-bold text-uppercase">
+                    {{ art.Title }}
+                  </div>
+                  <div class="text-subtitle2 text-grey-7 q-my-xs">
+                    R{{ art.Price.toLocaleString() }}
+                  </div>
                 </div>
               </q-card-section>
             </q-card>
@@ -49,6 +67,7 @@
         </div>
       </div>
     </div>
+
 
   </template>
 
@@ -122,7 +141,7 @@ export default {
         grouped[tier][artist].push(art)
       }
 
-      // ✅ Limit each artist’s artworks to 3 here
+      // Limit to 3 artworks per artist
       for (const tier in grouped) {
         for (const artist in grouped[tier]) {
           grouped[tier][artist] = grouped[tier][artist].slice(0, 3)
@@ -130,7 +149,8 @@ export default {
       }
 
       return grouped
-    },
+    }
+,
     seoLdJson(){
       
 
