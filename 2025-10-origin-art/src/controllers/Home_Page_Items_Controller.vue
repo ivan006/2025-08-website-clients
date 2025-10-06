@@ -10,67 +10,72 @@
   <template v-else>
     <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
     
-    <div v-for="(tierArtists, tier) in groupedSculptures" :key="tier" class="q-my-xl">
-      <h4 class="text-h5 text-center q-mb-lg">{{ tier }} Tier</h4>
+    <div v-for="(artists, tier) in groupedSculptures" :key="tier" class="q-my-xl ">
+      <h4 class="text-h4 text-center q-mb-lg">{{ tier }}</h4>
+      <div class="row">
 
-      <div
-        v-for="(artworks, artist) in tierArtists"
-        :key="artist"
-        class="q-card q-pa-md row items-start no-wrap"
-        style="border-radius: 12px; overflow: hidden; width: fit-content; margin: 24px auto;"
-      >
-        <!-- Left: Artist info -->
-        <div class="q-pa-md text-center text-md-left" style="min-width: 220px;">
-          <h3 class="text-h5 q-mb-sm">{{ artist }}</h3>
-          <div class="text-caption text-grey-7">Tier: {{ tier }} Tier</div>
-          <q-btn
-            color="green"
-            unelevated
-            size="md"
-            class="q-mt-md q-px-lg text-weight-bold"
-            style="border-radius: 100px;"
-            label="View Artist"
-          />
-        </div>
-
-        <!-- Right: Artworks -->
-        <div class="row q-col-gutter-md justify-start">
-          <div
-            v-for="art in artworks.slice(0, 3)"
-            :key="art.id"
-            style="width: 220px; border-radius: 10px; overflow: hidden; text-align: center;"
-          >
-            <div
-              :style="art['Image']
-                ? 'background-image: url(https://capetownlists.co.za/?url=' + art['Image'] + ');'
-                : ''"
-              style="
-                background-position: center;
-                background-size: cover;
-                height: 200px;
-                border-radius: 10px;
-              "
-            ></div>
-
-            <div class="q-pt-sm">
-              <div class="text-weight-bold text-uppercase">
-                {{ art.Title }}
-              </div>
-              <div class="text-subtitle2 text-grey-7 q-my-xs">
-                R{{ art.Price.toLocaleString() }}
-              </div>
-
+        <div
+          v-for="(artworks, artist) in artists"
+          :key="artist"
+          class="q-card q-pa-md  items-start no-wrap q-mb-xl"
+          :class="artistCardWidthClass(artworks.length)"
+          style="border-radius: 12px; overflow: hidden;"
+        >
+        
+          <!-- Right: Artworks -->
+          <div class="row q-col-gutter-md justify-start">
+            <!-- Left: Artist info -->
+            <div class="q-pa-md text-center text-md-left  " :class="artCardWidthClass(artworks.length)" >
+              <h3 class="text-h5 q-mb-sm">{{ artist }}</h3>
+              <div class="text-caption text-grey-7">Tier: {{ tier }}</div>
               <q-btn
-                color="primary"
-                flat
-                size="sm"
-                class="q-mt-xs text-weight-medium"
-                label="Read More"
+                color="green"
+                unelevated
+                size="md"
+                class="q-mt-md q-px-lg text-weight-bold"
+                style="border-radius: 100px;"
+                label="View Artist"
               />
+            </div>
+            <div
+              v-for="art in artworks.slice(0, 3)"
+              :key="art.id"
+              :class="artCardWidthClass(artworks.length)"
+              style="border-radius: 10px; overflow: hidden; text-align: center;"
+            >
+              <div
+                :style="art['Image']
+                  ? 'background-image: url(https://capetownlists.co.za/?url=' + art['Image'] + ');'
+                  : ''"
+                style="
+                  background-position: center;
+                  background-size: cover;
+                  height: 300px;
+                  border-radius: 10px;
+                "
+              ></div>
+
+              <div class="q-pt-sm">
+                <div class="text-weight-bold text-uppercase">
+                  {{ art.Title }}
+                </div>
+                <div class="text-subtitle2 text-grey-7 q-my-xs">
+                  R{{ art.Price.toLocaleString() }}
+                </div>
+
+                <q-btn
+                  color="primary"
+                  flat
+                  size="sm"
+                  class="q-mt-xs text-weight-medium"
+                  label="Read More"
+                />
+              </div>
             </div>
           </div>
         </div>
       </div>
+
 
       <!-- Tier-level "See More" button -->
       <div class="text-center q-mt-md">
@@ -255,6 +260,19 @@ export default {
   },
   methods: {
 
+    artistCardWidthClass(count) {
+      if (count >= 3) return 'col-12 col-md-12';
+      if (count === 2) return 'offset-md-2 col-md-8 col-12 ';
+      if (count === 1) return 'offset-md-3 col-md-6 col-12';
+      return 'col-12';
+    },
+    
+    artCardWidthClass(count) {
+      if (count >= 3) return 'col-md-3 col-12';
+      if (count === 2) return 'col-md-4 col-12';
+      if (count === 1) return 'col-md-6 col-12';
+      return 'col-12';
+    },
     isActive(item) {
       return item.URL === this.activeRoute;
     },
