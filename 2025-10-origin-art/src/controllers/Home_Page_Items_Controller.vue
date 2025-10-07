@@ -12,7 +12,7 @@
     
   
 
-    <div class="bg-1ry-color text-white " >
+    <div class="bg-white  " >
       <div
         class="container-md q-py-sm"
       >
@@ -28,24 +28,29 @@
 
     <div v-for="(groups, categoryName) in groupedArtworks" :key="categoryName">
       
-      <div class="bg-2ry-color text-white font-1ry" >
+      
+       
+      <div class=" bg-white text- q-py-xl">
         <div
-          class="container-md q-py-xl"
+          class="container-md "
         >
 
-          <h2 class="text-h3 text-center q-mt-xl">{{ categoryName }}</h2>
+          <div class="r-font-h3 text-center q-my-none text-uppercase font-1ry">
+            
+            <h2 class="text-h3 text-center q-mt-xl ">{{ categoryName }}</h2>
+          </div>
         </div>
       </div>
         
 
       <div v-for="(artists, groupKey) in groups" :key="groupKey">
         
-        <div class="bg-1ry-color text-white" >
+        <div class="bg-3ry-color " >
           <div
             class="container-md q-py-xl"
           >
 
-            <h4 class="text-h4 text-center q-mb-lg font-1ry">{{ groupKey }} {{ categoryName }}</h4>
+            <h4 class="text-h4 text-center  font-1ry text-white  q-my-lg">{{ groupKey }} {{ categoryName }}</h4>
           </div>
         </div>
           
@@ -58,10 +63,10 @@
               <div
                 v-for="(artworks, artist) in artists"
                 :key="artist"
-                class="q-card q-pa-md items-start no-wrap q-mb-xl bg-2ry-color text-white"
+                class="q-card q-pa-md items-start no-wrap q-mb-xl "
                 
                 :class="artistCardWidthClass(artworks.length)"
-                style="border-radius: 12px; overflow: hidden; box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);"
+                style="border-radius: 12px; overflow: hidden; "
               >
                 <div class="row q-col-gutter-md justify-start items-center">
                   <!-- Left: Artist info -->

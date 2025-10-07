@@ -52,7 +52,7 @@
 
 
 
-      
+<!--       
       <div class=" bg-white text- q-py-xl">
         <div
           class="container-md "
@@ -62,16 +62,11 @@
             {{item.fields?.['List Section Title']}}
           </h2>
         </div>
-      </div>
-
+      </div> -->
+      <div class="text-whitee">
+        
       
-      <div class="bg-2ry-color" >
-        <div
-          class="container-md q-py-xl"
-        >
-
-          <Home_Page_Items_Controller :parent="this.item" @loaded="childLoading=false"/>
-        </div>
+        <Home_Page_Items_Controller  :parent="this.item" @loaded="childLoading=false"/>
       </div>
 
 
