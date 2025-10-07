@@ -4,7 +4,7 @@
       <div class="text-center q-pa-md">Loading...</div>
     </template>
     <template v-else>
-      <div class="text-center q-pa-md text-grey-5">None</div>
+      <div class="text-center q-pa-md text-2ry-color ">None</div>
     </template>
   </template>
   <template v-else>
@@ -12,7 +12,7 @@
     
   
 
-    <div class="bg-white  " >
+    <div class="bg-1ry-color  q-pt-xl" >
       <div
         class="container-md q-py-sm"
       >
@@ -20,8 +20,8 @@
         <q-toggle
           v-model="groupByTheme"
           label="Group by Theme instead of Tier"
-          color="primary"
-          class="q-mb-xl"
+          
+          class=" text-3ry-color"
         />
       </div>
     </div>
@@ -30,7 +30,7 @@
       
       
        
-      <div class=" bg-white text- q-py-xl">
+      <div class=" bg-1ry-color text- q-py-xl">
         <div
           class="container-md "
         >
@@ -63,7 +63,7 @@
               <div
                 v-for="(artworks, artist) in artists"
                 :key="artist"
-                class="q-card q-pa-md items-start no-wrap q-mb-xl "
+                class="q-card q-pa-md items-start no-wrap q-mb-xl box-shadow-1ry bg-1ry-color  "
                 
                 :class="artistCardWidthClass(artworks.length)"
                 style="border-radius: 12px; overflow: hidden; "
@@ -71,28 +71,28 @@
                 <div class="row q-col-gutter-md justify-start items-center">
                   <!-- Left: Artist info -->
                   <div
-                    class="q-pa-md text-center text-md-left flex column items-center items-md-start"
+                    class="q-pa-md text-center text-md-left flex column items-center items-md-start "
                     :class="artCardWidthClass(artworks.length)"
                     style="align-self: stretch; display: flex; justify-content: center;"
                   >
                     <div>
-                      <h3 class="text-h5 q-mb-sm">{{ artist }}</h3>
+                      <h3 class="text-h5 q-mb-sm font-1ry">{{ artist }}</h3>
 
-                      <div class="text-body1 text-grey-7 q-mb-xs">
+                      <div class="text-body1 text-2ry-color q-mb-xs">
                         Style: <q-badge
                           outline
-                          color="primary"
-                          class="text-capitalize q-px-sm q-py-xs "
+                          
+                          class="text-capitalize q-px-sm q-py-xs text-3ry-color"
                           style="border-radius: 8px; font-size: 13px;"
                         >
                           {{ artworks[0]['Theme Name']?.[0] || 'Unspecified' }}
                         </q-badge>
                       </div>
-                      <div class="text-body1 text-grey-7">
+                      <div class="text-body1 text-2ry-color">
                         Tier: <q-badge
                           outline
-                          color="secondary"
-                          class="text-capitalize q-px-sm q-py-xs"
+                          
+                          class="text-capitalize q-px-sm q-py-xs text-3ry-color"
                           style="border-radius: 8px; font-size: 13px;"
                         >
                           {{ artworks[0]['Artist Tier Name']?.[0] || 'Uncategorized' }}
@@ -109,10 +109,10 @@
                         label="View All"
                       /> -->
                       <q-btn
-                        color="primary"
+                        
                         flat
                         size="md"
-                        class="q-mt-xs text-weight-medium"
+                        class="q-mt-xs text-weight-medium text-3ry-color"
                         label="View All Works"
                       />
                       
@@ -135,18 +135,18 @@
                     >
 
                     <div class="q-pt-sm">
-                      <div class="text-weight-bold text-uppercase text-h6">
+                      <div class="text-weight- text- text-h6 font-1ry">
                         {{ art.Title }}
                       </div>
-                      <div class="text-body1 text-grey-7 q-my-xs">
+                      <div class="text-body1 text-2ry-color q-my-xs">
                         R{{ art.Price.toLocaleString() }}
                       </div>
 
                       <q-btn
-                        color="primary"
+                        
                         flat
                         size="md"
-                        class="q-mt-xs text-weight-medium"
+                        class="q-mt-xs text-weight-medium text-3ry-color"
                         label="Read More"
                       />
                     </div>
@@ -158,18 +158,18 @@
             <!-- ✅ Dynamic View All button for this subgroup -->
             <div class="text-center q-mb-xl">
               <!-- <q-btn
-                color="primary"
+                
                 outline
                 size="md"
                 class="q-px-lg q-mt-sm"
                 :label="`View All ${groupKey} ${categoryName}`"
               /> -->
               <q-btn
-                color="primary"
+                
                 flat
                 size="md"
-                class="q-mt-xs text-weight-medium"
-                :label="`View More ${groupKey} Works`"
+                class="q-mt-xs text-weight-medium text-3ry-color"
+                :label="`View All ${groupKey} Works`"
               />
                 <!-- :label="`View All ${groupKey} ${categoryName}`" -->
             </div>

@@ -63,7 +63,7 @@
           </h2>
         </div>
       </div> -->
-      <div class="text-whitee">
+      <div class="text-1ry-color">
         
       
         <Home_Page_Items_Controller  :parent="this.item" @loaded="childLoading=false"/>
@@ -71,7 +71,7 @@
 
 
       
-      <div class=" bg-white text- q-py-xl" id="contact">
+      <!-- <div class=" bg-white text- q-py-xl" id="contact">
         <div
           class="container-md "
         >
@@ -87,11 +87,9 @@
           class="container-md q-py-xl"
         >
 
-          <!-- <Tertiary_Page_Items_Controller :parent="this.item" /> -->
           <div class=" bg- text-dark">
             <div class="row q-col-gutter-md justify-around text-center">
 
-              <!-- Phone -->
               <div class="col-md-4 col-6 ">
                 
                 <q-card class="q-ma-sm bg-white" style="border-radius: 10px;" flat>
@@ -121,7 +119,6 @@
                 </q-card>
               </div>
 
-              <!-- Opening Hours -->
               <div class="col-md-4 col-12">
                 
                 <q-card class="q-ma-sm bg-white" style="border-radius: 10px;" flat>
@@ -136,7 +133,6 @@
                 </q-card>
               </div>
 
-              <!-- Address & Directions -->
               <div class="col-6 col-md-6 col-12">
                 
                 <q-card class="q-ma-sm bg-white text-" style="border-radius: 10px;" flat >
@@ -152,7 +148,6 @@
 
               </div>
 
-            <!-- Map -->
             <div class="q-mt-md">
               
               <q-card class="q-ma-sm bg-white" style="border-radius: 10px;" flat>
@@ -173,7 +168,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
     <!--<HomeSEOController />-->
 
