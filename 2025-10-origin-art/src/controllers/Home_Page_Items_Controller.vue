@@ -63,17 +63,11 @@
                 :class="artCardWidthClass(artworks.length)"
                 style="border-radius: 10px; overflow: hidden; text-align: center;"
               >
-                <div
-                  :style="art['Image']
-                    ? 'background-image: url(https://capetownlists.co.za/?url=' + art['Image'] + ');'
-                    : ''"
-                  style="
-                    background-position: center;
-                    background-size: cover;
-                    height: 300px;
-                    border-radius: 10px;
-                  "
-                ></div>
+         
+                <img
+                  :src="art['Image'] ? `https://capetownlists.co.za/?url=${art['Image']}` : ''"
+                  style="height: 200px; display: block; border-radius: 10px; margin-left: auto; margin-right: auto;"
+                >
 
                 <div class="q-pt-sm">
                   <div class="text-weight-bold text-uppercase text-h6">
@@ -157,6 +151,7 @@ export default {
     
 
 
+
     groupedArtworks() {
       const categories = {
         'Fine Art': {
@@ -174,6 +169,10 @@ export default {
       }
 
       const groupedByCategory = {}
+
+      // Define preferred sort order for both themes and tiers
+      const themeOrder = ['Decorative', 'Evocative']
+      const tierOrder = ['Diamond Tier', 'Platinum Tier', 'Gold Tier', 'Silver Tier', 'Bronze Tier']
 
       for (const [categoryName, { priority, media }] of Object.entries(categories)) {
         const filtered = this.items.filter(i =>
@@ -205,11 +204,11 @@ export default {
           }
         }
 
-        // ✅ Sort keys with "Decorative" first, then "Evocative", then alphabetical
-        const sorted = Object.keys(grouped).sort((a, b) => {
-          const order = ['Decorative', 'Evocative']
-          const aIndex = order.indexOf(a)
-          const bIndex = order.indexOf(b)
+        // ✅ Sort group keys depending on grouping mode
+        const sortedKeys = Object.keys(grouped).sort((a, b) => {
+          const orderList = this.groupByTheme ? themeOrder : tierOrder
+          const aIndex = orderList.indexOf(a)
+          const bIndex = orderList.indexOf(b)
 
           if (aIndex !== -1 && bIndex !== -1) return aIndex - bIndex
           if (aIndex !== -1) return -1
@@ -218,7 +217,7 @@ export default {
         })
 
         const sortedGrouped = {}
-        for (const key of sorted) {
+        for (const key of sortedKeys) {
           sortedGrouped[key] = grouped[key]
         }
 
@@ -258,7 +257,7 @@ export default {
           url: item['SEO URL'] ? window.location.origin + item['SEO URL'] : null,
           name: item['Title'] || '',
           description: item['Subtitle'] || '',
-          image: item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.url}` : "",
+          image: item['Image'] ? `https://capetownlists.co.za/?url=${item['Image']}` : "",
           price: item['Price'],
           extras: {
             category: item['Category'],
