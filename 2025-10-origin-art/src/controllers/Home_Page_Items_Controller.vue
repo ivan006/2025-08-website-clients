@@ -156,60 +156,77 @@ export default {
   computed: {
     
 
-  groupedArtworks() {
-    const categories = {
-      'Fine Art': {
-        priority: 'Priority in Fine Art',
-        media: 'Fine Art'
-      },
-      'Sculptural Works': {
-        priority: 'Priority in Sculpture',
-        media: 'Sculptural Works'
-      },
-      'New Media': {
-        priority: 'Priority in New Media',
-        media: 'New Media'
-      }
-    }
 
-    const groupedByCategory = {}
-
-    for (const [categoryName, { priority, media }] of Object.entries(categories)) {
-      const filtered = this.items.filter(i =>
-        Array.isArray(i[priority]) &&
-        i[priority].includes('Yes') &&
-        Array.isArray(i['Media Category Name']) &&
-        i['Media Category Name'].includes(media)
-      )
-
-      const grouped = {}
-
-      for (const art of filtered) {
-        const groupKey = this.groupByTheme
-          ? art['Theme Name']?.[0] || 'Uncategorized Theme'
-          : art['Artist Tier Name']?.[0] || 'Uncategorized Tier'
-
-        const artist = art['Artist Name']?.[0] || 'Unknown Artist'
-
-        if (!grouped[groupKey]) grouped[groupKey] = {}
-        if (!grouped[groupKey][artist]) grouped[groupKey][artist] = []
-
-        grouped[groupKey][artist].push(art)
-      }
-
-      // Limit to 3 artworks per artist
-      for (const groupKey in grouped) {
-        for (const artist in grouped[groupKey]) {
-          grouped[groupKey][artist] = grouped[groupKey][artist].slice(0, 3)
+    groupedArtworks() {
+      const categories = {
+        'Fine Art': {
+          priority: 'Priority in Fine Art',
+          media: 'Fine Art'
+        },
+        'Sculptural Works': {
+          priority: 'Priority in Sculpture',
+          media: 'Sculptural Works'
+        },
+        'New Media': {
+          priority: 'Priority in New Media',
+          media: 'New Media'
         }
       }
 
-      groupedByCategory[categoryName] = grouped
+      const groupedByCategory = {}
+
+      for (const [categoryName, { priority, media }] of Object.entries(categories)) {
+        const filtered = this.items.filter(i =>
+          Array.isArray(i[priority]) &&
+          i[priority].includes('Yes') &&
+          Array.isArray(i['Media Category Name']) &&
+          i['Media Category Name'].includes(media)
+        )
+
+        const grouped = {}
+
+        for (const art of filtered) {
+          const groupKey = this.groupByTheme
+            ? art['Theme Name']?.[0] || 'Uncategorized Theme'
+            : art['Artist Tier Name']?.[0] || 'Uncategorized Tier'
+
+          const artist = art['Artist Name']?.[0] || 'Unknown Artist'
+
+          if (!grouped[groupKey]) grouped[groupKey] = {}
+          if (!grouped[groupKey][artist]) grouped[groupKey][artist] = []
+
+          grouped[groupKey][artist].push(art)
+        }
+
+        // Limit to 3 artworks per artist
+        for (const groupKey in grouped) {
+          for (const artist in grouped[groupKey]) {
+            grouped[groupKey][artist] = grouped[groupKey][artist].slice(0, 3)
+          }
+        }
+
+        // ✅ Sort keys with "Decorative" first, then "Evocative", then alphabetical
+        const sorted = Object.keys(grouped).sort((a, b) => {
+          const order = ['Decorative', 'Evocative']
+          const aIndex = order.indexOf(a)
+          const bIndex = order.indexOf(b)
+
+          if (aIndex !== -1 && bIndex !== -1) return aIndex - bIndex
+          if (aIndex !== -1) return -1
+          if (bIndex !== -1) return 1
+          return a.localeCompare(b)
+        })
+
+        const sortedGrouped = {}
+        for (const key of sorted) {
+          sortedGrouped[key] = grouped[key]
+        }
+
+        groupedByCategory[categoryName] = sortedGrouped
+      }
+
+      return groupedByCategory
     }
-
-    return groupedByCategory
-  }
-
 ,
     seoLdJson(){
       
