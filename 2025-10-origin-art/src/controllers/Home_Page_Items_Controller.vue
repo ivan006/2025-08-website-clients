@@ -58,10 +58,10 @@
               <div
                 v-for="(artworks, artist) in artists"
                 :key="artist"
-                class="q-card q-pa-md items-start no-wrap q-mb-xl bg-3ry-color text-white"
+                class="q-card q-pa-md items-start no-wrap q-mb-xl bg-2ry-color text-white"
                 
                 :class="artistCardWidthClass(artworks.length)"
-                style="border-radius: 12px; overflow: hidden; "
+                style="border-radius: 12px; overflow: hidden; box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);"
               >
                 <div class="row q-col-gutter-md justify-start items-center">
                   <!-- Left: Artist info -->
@@ -73,23 +73,22 @@
                     <div>
                       <h3 class="text-h5 q-mb-sm">{{ artist }}</h3>
 
-                      <div class="text-body1 text-grey-5 q-mb-xs">
-                        Style:
-                        <q-badge
+                      <div class="text-body1 text-grey-7 q-mb-xs">
+                        Style: <q-badge
                           outline
-                          class="text-capitalize q-px-sm q-py-xs text-2ry-color"
-                          style="border-radius: 8px; font-size: 13px; border-color: currentColor;"
+                          color="primary"
+                          class="text-capitalize q-px-sm q-py-xs "
+                          style="border-radius: 8px; font-size: 13px;"
                         >
                           {{ artworks[0]['Theme Name']?.[0] || 'Unspecified' }}
                         </q-badge>
                       </div>
-
-                      <div class="text-body1 text-grey-5">
+                      <div class="text-body1 text-grey-7">
                         Tier: <q-badge
                           outline
                           color="secondary"
-                          class="text-capitalize q-px-sm q-py-xs text-1ry-color"
-                          style="border-radius: 8px; font-size: 13px; border-color: currentColor;"
+                          class="text-capitalize q-px-sm q-py-xs"
+                          style="border-radius: 8px; font-size: 13px;"
                         >
                           {{ artworks[0]['Artist Tier Name']?.[0] || 'Uncategorized' }}
                         </q-badge>
@@ -108,7 +107,7 @@
                         color="primary"
                         flat
                         size="md"
-                        class="q-mt-xs text-weight-medium bg-transparent text-1ry-color hover:text-amber-3"
+                        class="q-mt-xs text-weight-medium"
                         label="View All Works"
                       />
                       
@@ -127,14 +126,14 @@
             
                     <img
                       :src="art['Image'] ? `https://capetownlists.co.za/?url=${art['Image']}` : ''"
-                      style="height: 200px; display: block; border-radius: 10px; margin-left: auto; margin-right: auto;  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);"
+                      style="height: 200px; display: block; border-radius: 10px; margin-left: auto; margin-right: auto;"
                     >
 
                     <div class="q-pt-sm">
                       <div class="text-weight-bold text-uppercase text-h6">
                         {{ art.Title }}
                       </div>
-                      <div class="text-body1 text-grey-5 q-my-xs">
+                      <div class="text-body1 text-grey-7 q-my-xs">
                         R{{ art.Price.toLocaleString() }}
                       </div>
 
@@ -142,7 +141,7 @@
                         color="primary"
                         flat
                         size="md"
-                        class="q-mt-xs text-weight-medium bg-transparent text-1ry-color hover:text-amber-3"
+                        class="q-mt-xs text-weight-medium"
                         label="Read More"
                       />
                     </div>
