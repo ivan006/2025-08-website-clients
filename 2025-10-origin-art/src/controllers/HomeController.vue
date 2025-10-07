@@ -19,7 +19,7 @@
     </div>
     <div v-show="!(loading || childLoading)">
 
-      <div class="q-py-xl">
+      <!-- <div class="q-py-xl">
 
         <div
           class="container-md text-white"
@@ -48,12 +48,12 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
 
 
       
-      <div class=" bg-white text- q-py-xl">
+      <!-- <div class=" bg-white text- q-py-xl">
         <div
           class="container-md "
         >
@@ -62,17 +62,11 @@
             {{item.fields?.['List Section Title']}}
           </h2>
         </div>
-      </div>
+      </div> -->
 
       
-      <div class="bg-2ry-color" >
-        <div
-          class="container-md q-py-xl"
-        >
-
-          <Home_Page_Items_Controller :parent="this.item" @loaded="childLoading=false"/>
-        </div>
-      </div>
+      
+      <Home_Page_Items_Controller :parent="this.item" @loaded="childLoading=false"/>
 
 
       

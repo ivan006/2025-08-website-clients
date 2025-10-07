@@ -3,7 +3,7 @@
   >
 
 
-    <q-toolbar class="q-py-md bg-whit text-" style="margin-bottom: -0px; background-color: rgba(255,255,255,1.0);">
+    <q-toolbar class="q-py-md bg-1ry-color text-white" style="margin-bottom: -0px; ">
 
       <div class="container-md  ">
         <div v-show="loading || childLoading">
@@ -16,11 +16,6 @@
               class="col-12 col-md-auto text-center"
             >
 
-              <!--<q-btn flat round dense icon="menu" class="q-mr-sm" />-->
-              <!--<q-avatar large>-->
-              <!--  <img :src="this.item.fields?.['Logo Image']?.[0]?.url">-->
-              <!--  &lt;!&ndash;<q-icon name="school" size="lg" style="opacity: 50%" />&ndash;&gt;-->
-              <!--</q-avatar>-->
 
 
 
@@ -39,15 +34,11 @@
                   </div>
                 </q-item-section>
               </q-item>
-              <!--<q-toolbar-title>-->
-              <!--  &lt;!&ndash;{{ siteTitle }}&ndash;&gt;-->
-              <!--</q-toolbar-title>-->
             </div>
             <div
               class="col-12 col-md-auto q-my-lg text-center"
             >
 
-              <!--<q-btn flat round dense icon="whatshot" />-->
               <MenuItems @loaded="childLoading=false" />
 
             </div>
@@ -57,11 +48,6 @@
       </div>
 
     </q-toolbar>
-
-
-
-    <!--<img v-if="item.fields" :src="`https://capetownlists.co.za/?url=${item.fields['Site Background Image']?.[0]?.url}`" alt="">-->
-    <!--<img v-if="item.fields" :src="`${item.fields['Site Background Image']?.[0]?.url}`" alt="">-->
 
 
 

@@ -24,7 +24,7 @@
           :to="{path: item.URL, hash: item.Hash}"
           :active-class="'q-item--highlighted'"
           class="q-pl-lg r-font-h5 text-uppercase font-1ry"
-          :style="isActive(item) ? 'border-bottom: black solid 5px;' : 'border-bottom: rgba(0,0,0,0) solid 5px;'"
+          :style="isActive(item) ? 'border-bottom: white solid 5px;' : 'border-bottom: rgba(0,0,0,0) solid 5px;'"
         >
           <!--<q-item-section avatar v-if="props.icon" style="width: 20px;">-->
           <!--  <q-icon :name="props.icon" />-->

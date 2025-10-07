@@ -12,93 +12,163 @@
     
   
 
-    <q-toggle
-      v-model="groupByTheme"
-      label="Group by Theme instead of Tier"
-      color="primary"
-      class="q-mb-xl"
-    />
+    <div class="bg-1ry-color text-white " >
+      <div
+        class="container-md q-py-sm"
+      >
+
+        <q-toggle
+          v-model="groupByTheme"
+          label="Group by Theme instead of Tier"
+          color="primary"
+          class="q-mb-xl"
+        />
+      </div>
+    </div>
 
     <div v-for="(groups, categoryName) in groupedArtworks" :key="categoryName">
-      <h2 class="text-h3 text-center q-mt-xl">{{ categoryName }}</h2>
+      
+      <div class="bg-2ry-color text-white font-1ry" >
+        <div
+          class="container-md q-py-xl"
+        >
+
+          <h2 class="text-h3 text-center q-mt-xl">{{ categoryName }}</h2>
+        </div>
+      </div>
+        
 
       <div v-for="(artists, groupKey) in groups" :key="groupKey">
-        <h4 class="text-h4 text-center q-mb-lg">{{ groupKey }}</h4>
-
-        <div class="row">
+        
+        <div class="bg-1ry-color text-white" >
           <div
-            v-for="(artworks, artist) in artists"
-            :key="artist"
-            class="q-card q-pa-md items-start no-wrap q-mb-xl"
-            :class="artistCardWidthClass(artworks.length)"
-            style="border-radius: 12px; overflow: hidden;"
+            class="container-md q-py-xl"
           >
-            <div class="row q-col-gutter-md justify-start items-center">
-              <!-- Left: Artist info -->
+
+            <h4 class="text-h4 text-center q-mb-lg font-1ry">{{ groupKey }} {{ categoryName }}</h4>
+          </div>
+        </div>
+          
+        <div class="bg-2ry-color" >
+          <div
+            class="container-md q-py-xl"
+          >
+
+            <div class="row">
               <div
-                class="q-pa-md text-center text-md-left flex column items-center items-md-start"
-                :class="artCardWidthClass(artworks.length)"
-                style="align-self: stretch; display: flex; justify-content: center;"
+                v-for="(artworks, artist) in artists"
+                :key="artist"
+                class="q-card q-pa-md items-start no-wrap q-mb-xl bg-2ry-color text-white"
+                
+                :class="artistCardWidthClass(artworks.length)"
+                style="border-radius: 12px; overflow: hidden; box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);"
               >
-                <div>
-                  <h3 class="text-h5 q-mb-sm">{{ artist }}</h3>
-                  <div class="text-body1 text-grey-7">
-                    {{ groupByTheme ? 'Theme' : 'Tier' }}: {{ groupKey }}
-                  </div>
-                  <q-btn
-                    color="green"
-                    unelevated
-                    size="md"
-                    class="q-mt-md q-px-lg text-weight-bold"
-                    style="border-radius: 100px;"
-                    label="View Artist"
-                  />
-                </div>
-              </div>
+                <div class="row q-col-gutter-md justify-start items-center">
+                  <!-- Left: Artist info -->
+                  <div
+                    class="q-pa-md text-center text-md-left flex column items-center items-md-start"
+                    :class="artCardWidthClass(artworks.length)"
+                    style="align-self: stretch; display: flex; justify-content: center;"
+                  >
+                    <div>
+                      <h3 class="text-h5 q-mb-sm">{{ artist }}</h3>
 
-              <!-- Right: Artworks -->
-              <div
-                v-for="art in artworks.slice(0, 3)"
-                :key="art.id"
-                :class="artCardWidthClass(artworks.length)"
-                style="border-radius: 10px; overflow: hidden; text-align: center;"
-              >
-         
-                <img
-                  :src="art['Image'] ? `https://capetownlists.co.za/?url=${art['Image']}` : ''"
-                  style="height: 200px; display: block; border-radius: 10px; margin-left: auto; margin-right: auto;"
-                >
+                      <div class="text-body1 text-grey-7 q-mb-xs">
+                        Style: <q-badge
+                          outline
+                          color="primary"
+                          class="text-capitalize q-px-sm q-py-xs "
+                          style="border-radius: 8px; font-size: 13px;"
+                        >
+                          {{ artworks[0]['Theme Name']?.[0] || 'Unspecified' }}
+                        </q-badge>
+                      </div>
+                      <div class="text-body1 text-grey-7">
+                        Tier: <q-badge
+                          outline
+                          color="secondary"
+                          class="text-capitalize q-px-sm q-py-xs"
+                          style="border-radius: 8px; font-size: 13px;"
+                        >
+                          {{ artworks[0]['Artist Tier Name']?.[0] || 'Uncategorized' }}
+                        </q-badge>
+                      </div>
 
-                <div class="q-pt-sm">
-                  <div class="text-weight-bold text-uppercase text-h6">
-                    {{ art.Title }}
-                  </div>
-                  <div class="text-body1 text-grey-7 q-my-xs">
-                    R{{ art.Price.toLocaleString() }}
+
+                      <!-- <q-btn
+                        color="green"
+                        unelevated
+                        size="md"
+                        class="q-mt-md q-px-lg text-weight-bold"
+                        style="border-radius: 100px;"
+                        label="View All"
+                      /> -->
+                      <q-btn
+                        color="primary"
+                        flat
+                        size="md"
+                        class="q-mt-xs text-weight-medium"
+                        label="View All Works"
+                      />
+                      
+                      
+                        <!-- label="View Artist" -->
+                    </div>
                   </div>
 
-                  <q-btn
-                    color="primary"
-                    flat
-                    size="md"
-                    class="q-mt-xs text-weight-medium"
-                    label="Read More"
-                  />
+                  <!-- Right: Artworks -->
+                  <div
+                    v-for="art in artworks.slice(0, 3)"
+                    :key="art.id"
+                    :class="artCardWidthClass(artworks.length)"
+                    style="border-radius: 10px; overflow: hidden; text-align: center;"
+                  >
+            
+                    <img
+                      :src="art['Image'] ? `https://capetownlists.co.za/?url=${art['Image']}` : ''"
+                      style="height: 200px; display: block; border-radius: 10px; margin-left: auto; margin-right: auto;"
+                    >
+
+                    <div class="q-pt-sm">
+                      <div class="text-weight-bold text-uppercase text-h6">
+                        {{ art.Title }}
+                      </div>
+                      <div class="text-body1 text-grey-7 q-my-xs">
+                        R{{ art.Price.toLocaleString() }}
+                      </div>
+
+                      <q-btn
+                        color="primary"
+                        flat
+                        size="md"
+                        class="q-mt-xs text-weight-medium"
+                        label="Read More"
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
 
-        <!-- ✅ Dynamic View All button for this subgroup -->
-        <div class="text-center q-mb-xl">
-          <q-btn
-            color="primary"
-            outline
-            size="md"
-            class="q-px-lg q-mt-sm"
-            :label="`View All ${groupKey} ${categoryName}`"
-          />
+            <!-- ✅ Dynamic View All button for this subgroup -->
+            <div class="text-center q-mb-xl">
+              <!-- <q-btn
+                color="primary"
+                outline
+                size="md"
+                class="q-px-lg q-mt-sm"
+                :label="`View All ${groupKey} ${categoryName}`"
+              /> -->
+              <q-btn
+                color="primary"
+                flat
+                size="md"
+                class="q-mt-xs text-weight-medium"
+                :label="`View More ${groupKey} Works`"
+              />
+                <!-- :label="`View All ${groupKey} ${categoryName}`" -->
+            </div>
+          </div>
         </div>
       </div>
     </div>
