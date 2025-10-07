@@ -259,7 +259,8 @@ export default {
 
       // Define preferred sort order for both themes and tiers
       const themeOrder = ['Decorative', 'Evocative']
-      const tierOrder = ['Diamond Tier', 'Platinum Tier', 'Gold Tier', 'Silver Tier', 'Bronze Tier']
+      // const tierOrder = ['Diamond Tier', 'Platinum Tier', 'Gold Tier', 'Silver Tier', 'Bronze Tier']
+      const tierOrder = ['Gold Tier', 'Silver Tier', 'Bronze Tier']
 
       for (const [categoryName, { priority, media }] of Object.entries(categories)) {
         const filtered = this.items.filter(i =>
@@ -274,7 +275,8 @@ export default {
         for (const art of filtered) {
           const groupKey = this.groupByTheme
             ? art['Theme Name']?.[0] || 'Uncategorized Theme'
-            : art['Artist Tier Name']?.[0] || 'Uncategorized Tier'
+            // : art['Artist Tier Name']?.[0] || 'Uncategorized Tier'
+            : art['Tier Category']?.[0] || 'Uncategorized Tier'
 
           const artist = art['Artist Name']?.[0] || 'Unknown Artist'
 
