@@ -10,20 +10,14 @@
   <template v-else>
     <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
   
-
-    <div v-for="(themes, categoryName) in groupedArtworks2" :key="categoryName">
+    <div v-for="(themes, categoryName) in groupedArtworks" :key="categoryName">
+      <hr>
       <h2 class="text-h3 text-center q-mt-xl">{{ categoryName }}</h2>
 
-      <div v-for="(artists, themeName) in themes" :key="themeName">
-        <h3 class="text-h4 text-center q-mt-lg">{{ themeName }}</h3>
+      <div v-for="(tiers, themeName) in themes" :key="themeName">
+        <h3 class="text-h4 text-center q-mt-lg">{{ themeName }} {{ categoryName }}</h3>
 
-        <div
-          v-for="(artworks, artist) in artists"
-          :key="artist"
-          class="q-card q-pa-md items-start no-wrap q-mb-xl"
-          :class="artistCardWidthClass(artworks.length)"
-          style="border-radius: 12px; overflow: hidden;"
-        >
+        <div v-for="(artists, tier) in tiers" :key="tier">
           <h4 class="text-h5 text-center q-mb-lg">{{ tier }} Artists</h4>
 
           <!-- Tier-level "See More" button -->
@@ -128,133 +122,12 @@
             />
               <!-- :label="`See More ${tier} Artists`" -->
           </div>
+
+
         </div>
       </div>
     </div>
 
-
-
-    <template if="false">
-      
-      <div v-for="(themes, categoryName) in groupedArtworks" :key="categoryName">
-        <hr>
-        <h2 class="text-h3 text-center q-mt-xl">{{ categoryName }}</h2>
-
-        <div v-for="(tiers, themeName) in themes" :key="themeName">
-          <h3 class="text-h4 text-center q-mt-lg">{{ themeName }} {{ categoryName }}</h3>
-
-          <div v-for="(artists, tier) in tiers" :key="tier">
-            <h4 class="text-h5 text-center q-mb-lg">{{ tier }} Artists</h4>
-
-            <!-- Tier-level "See More" button -->
-            <div class="text-center ">
-              <!-- <q-btn
-                color="primary"
-                outline
-                size="md"
-                class="q-px-lg q-mt-sm"
-                :label="`See All`"
-              /> -->
-                <!-- :label="`See More ${tier} Artists`" -->
-            </div>
-            <div class="row justify-center">
-              <div
-                v-for="(artworks, artist) in artists"
-                :key="artist"
-                class=" items-start no-wrap  q-pa-md"
-                :class="artistCardWidthClass(artworks.length)"
-                style="border-radius: 12px; overflow: hidden;"
-              >
-                <div class="q-card q-pa-md ">
-                  <!-- Left: Artist info -->
-                  <div
-                    class="q-pa-md "
-                    :class="`col-12`"
-                    style="align-self: stretch; display: flex; justify-content: center;"
-                  >
-                    <div>
-                      <h3 class="text-h5 q-mb-sm q-mt-sm text-center">{{ artist }}</h3>
-                      
-                      
-                      <div class="text-center q-pa-md">
-                        <q-btn
-                          color="green"
-                          unelevated
-                          size="md"
-                          class=" q-px-lg text-weight-bold"
-                          style="border-radius: 100px;"
-                          label="View Artist"
-                        />
-                      </div>
-                      <div class="text-body1 text-grey-7 text-center">Tier: {{ tier }}</div>
-                    </div>
-                  </div>
-                  <div class="row q-col-gutter-md justify-start items-center">
-
-                    <!-- Right: Artworks -->
-                    <div
-                      v-for="art in artworks.slice(0, 3)"
-                      :key="art.id"
-                      :class="artCardWidthClass(artworks.length)"
-                      style="border-radius: 10px; overflow: hidden; text-align: center;"
-                    >
-                      <img
-                        :src="art['Image'] ? `https://capetownlists.co.za/?url=${art['Image']}` : ''"
-                        style="height: 200px; display: block; border-radius: 10px; margin-left: auto; margin-right: auto;"
-                      >
-
-                      <div class="q-pt-sm">
-                        <div class="text-weight-bold text-uppercase text-h6">
-                          {{ art.Title }}
-                        </div>
-                        <div class="text-body1 text-grey-7 q-my-xs">
-                          R{{ art.Price.toLocaleString() }}
-                        </div>
-
-                        <q-btn
-                          color="primary"
-                          flat
-                          size="md"
-                          class="q-mt-xs text-weight-medium"
-                          label="Read More"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div class="text-center q-pa-md">
-                    <!-- <q-btn
-                      color="green"
-                      unelevated
-                      size="md"
-                      class="q-mt-md q-px-lg text-weight-bold"
-                      style="border-radius: 100px;"
-                      label="View All Works"
-                    /> -->
-                      <!-- label="View Artist" -->
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Tier-level "See More" button -->
-            <div class="text-center ">
-              <q-btn
-                color="primary"
-                outline
-                size="md"
-                class="q-px-lg q-mt-sm"
-                :label="`See All`"
-              />
-                <!-- :label="`See More ${tier} Artists`" -->
-            </div>
-
-
-          </div>
-        </div>
-      </div>
-
-    </template>
   </template>
 
 
@@ -306,57 +179,7 @@ export default {
     }
   },
   computed: {
-    groupedArtworks2() {
-      const categories = {
-        'Fine Art': {
-          priority: 'Priority in Fine Art',
-          media: 'Fine Art'
-        },
-        'Sculptural Works': {
-          priority: 'Priority in Sculpture',
-          media: 'Sculptural Works'
-        },
-        'New Media': {
-          priority: 'Priority in New Media',
-          media: 'New Media'
-        }
-      }
-
-      const groupedByCategory = {}
-
-      for (const [categoryName, { priority, media }] of Object.entries(categories)) {
-        const filtered = this.items.filter(i =>
-          Array.isArray(i[priority]) &&
-          i[priority].includes('Yes') &&
-          Array.isArray(i['Media Category Name']) &&
-          i['Media Category Name'].includes(media)
-        )
-
-        const grouped = {}
-
-        for (const art of filtered) {
-          const theme = art['Theme Name']?.[0] || 'Uncategorized Theme'
-          const artist = art['Artist Name']?.[0] || 'Unknown Artist'
-
-          if (!grouped[theme]) grouped[theme] = {}
-          if (!grouped[theme][artist]) grouped[theme][artist] = []
-
-          grouped[theme][artist].push(art)
-        }
-
-        // Limit to 3 artworks per artist
-        for (const theme in grouped) {
-          for (const artist in grouped[theme]) {
-            grouped[theme][artist] = grouped[theme][artist].slice(0, 3)
-          }
-        }
-
-        groupedByCategory[categoryName] = grouped
-      }
-
-      return groupedByCategory
-    },
-
+    
 
     groupedArtworks() {
       const categories = {
