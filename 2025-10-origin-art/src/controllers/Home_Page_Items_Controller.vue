@@ -13,9 +13,9 @@
   
 
     <div v-for="(tiers, categoryName) in groupedArtworks" :key="categoryName">
-    <h2 class="text-h3 text-center q-mt-xl">{{ categoryName }}</h2>
+      <h2 class="text-h3 text-center q-mt-xl">{{ categoryName }}</h2>
 
-    <div v-for="(artists, tier) in tiers" :key="tier">
+      <div v-for="(artists, tier) in tiers" :key="tier">
       <h4 class="text-h4 text-center q-mb-lg">{{ tier }}</h4>
       <div class="row">
         <div
