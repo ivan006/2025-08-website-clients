@@ -12,7 +12,7 @@
     
   
 
-   <q-toggle
+    <q-toggle
       v-model="groupByTheme"
       label="Group by Theme instead of Tier"
       color="primary"
@@ -89,8 +89,20 @@
             </div>
           </div>
         </div>
+
+        <!-- ✅ Dynamic View All button for this subgroup -->
+        <div class="text-center q-mb-xl">
+          <q-btn
+            color="primary"
+            outline
+            size="md"
+            class="q-px-lg q-mt-sm"
+            :label="`View All ${groupKey} ${categoryName}`"
+          />
+        </div>
       </div>
     </div>
+
 
 
 
