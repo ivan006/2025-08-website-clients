@@ -51,7 +51,8 @@ if (!isset($_GET['url'])) {
 }
 
 // ✅ decode the encoded inner URL
-$url = urldecode($_GET['url']);
+// $url = urldecode($_GET['url']);
+$url = $_GET['url'];
 // echo $url;
 // die;
 $file = buildFilePath($method, $url);
