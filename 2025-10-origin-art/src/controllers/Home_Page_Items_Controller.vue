@@ -12,20 +12,6 @@
     
   
 
-    <div class="bg-1ry-color  q-pt-xl" >
-      <div
-        class="container-md q-py-sm"
-      >
-
-        <q-toggle
-          v-model="groupByTheme"
-          label="Group by Theme instead of Tier"
-          
-          class=" text-3ry-color"
-        />
-      </div>
-    </div>
-
     <div v-for="(groups, categoryName) in groupedArtworks" :key="categoryName">
       
       
@@ -39,6 +25,21 @@
             
             <h2 class="text-h3 text-center q-mt-xl ">{{ categoryName }}</h2>
           </div>
+        </div>
+      </div>
+      
+
+      <div class="bg-2ry-color  q-py-xl" >
+        <div
+          class="container-md q-py-sm"
+        >
+
+          <q-toggle
+            v-model="groupByTheme"
+            label="Group by Theme instead of Tier"
+            
+            class=" text-3ry-color"
+          />
         </div>
       </div>
         
@@ -60,10 +61,11 @@
           >
 
             <div class="row">
-              <div
+              <q-card
                 v-for="(artworks, artist) in artists"
                 :key="artist"
-                class="q-card q-pa-md items-start no-wrap q-mb-xl box-shadow-1ry bg-1ry-color  "
+                flat 
+                class="q-ard q-pa-md items-start no-wrap q-mb-xl box-shadsow-1ry flat bg-1ry-color  text-1ry-color border-1ry"
                 
                 :class="artistCardWidthClass(artworks.length)"
                 style="border-radius: 12px; overflow: hidden; "
@@ -82,17 +84,17 @@
                         Style: <q-badge
                           outline
                           
-                          class="text-capitalize q-px-sm q-py-xs text-3ry-color"
+                          class="text-uppdercase q-px-sm q-py-xs text-3ry-color"
                           style="border-radius: 8px; font-size: 13px;"
                         >
                           {{ artworks[0]['Theme Name']?.[0] || 'Unspecified' }}
                         </q-badge>
                       </div>
-                      <div class="text-body1 text-2ry-color">
+                      <div class="text-body1 text-2ry-color ">
                         Tier: <q-badge
                           outline
                           
-                          class="text-capitalize q-px-sm q-py-xs text-3ry-color"
+                          class="text-uppdercase q-px-sm q-py-xs text-3ry-color"
                           style="border-radius: 8px; font-size: 13px;"
                         >
                           {{ artworks[0]['Artist Tier Name']?.[0] || 'Uncategorized' }}
@@ -152,7 +154,7 @@
                     </div>
                   </div>
                 </div>
-              </div>
+              </q-card>
             </div>
 
             <!-- ✅ Dynamic View All button for this subgroup -->
