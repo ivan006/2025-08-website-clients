@@ -12,7 +12,7 @@ export default class BasicModel extends Model {
       ...headers,
     };
 
-    result['Authorization'] = `Bearer ${import.meta.env.VITE_API_AIRTABLE_KEY}`;
+    // result['Authorization'] = `Bearer ${import.meta.env.VITE_API_AIRTABLE_KEY}`;
 
     return result;
   }
