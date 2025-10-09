@@ -229,7 +229,7 @@ export default {
       loadingError: false,
       options: {
         page: 1,
-        itemsPerPage: 10,
+        itemsPerPage: 1000,
         sortBy: [],
         groupBy: [],
       },
