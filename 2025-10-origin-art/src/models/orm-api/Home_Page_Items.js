@@ -3,7 +3,13 @@ import BasicModel from './BasicModel'
 export default class Home_Page_Items extends BasicModel {
 
   static entity = 'Home_Page_Items';
-  static entityUrl = '/Artwork?view=viw9Yme6JVV0ZElia';
+  static entityUrl = '/Artwork';
+
+  
+  static defaultFlags = {
+    view: "viw9Yme6JVV0ZElia",
+  }
+  
   // static entityUrl = '/Artwork?view=viwRVEM6ePmPsrZE4';
 
 

@@ -6,6 +6,7 @@ export default class BasicModel extends Model {
 
   static baseUrl = import.meta.env.VITE_API_BACKEND_URL
 
+  static defaultFlags = {}
 
   static mergeHeaders(headers) {
     const result = {
@@ -17,6 +18,8 @@ export default class BasicModel extends Model {
     return result;
   }
 
+  
+
   static customApiBase(moreHeaders) {
     this.apiConfig = {
       baseURL: "",
@@ -25,6 +28,19 @@ export default class BasicModel extends Model {
       },
     }
     return this.api()
+  }
+
+  static flattenParams(obj, prefix = '') {
+    const result = {}
+    for (const [key, value] of Object.entries(obj)) {
+      const newKey = prefix ? `${prefix}.${key}` : key
+      if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+        Object.assign(result, this.flattenParams(value, newKey))
+      } else {
+        result[newKey] = Array.isArray(value) ? value.join(',') : value
+      }
+    }
+    return result
   }
 
   static FetchAll(
@@ -41,17 +57,24 @@ export default class BasicModel extends Model {
 
     // ✅ Build Airtable URL
     const airtableUrl = `${airtableBase}${this.entityUrl}`;
-    const params = new URLSearchParams({
+
+    // ✅ Flatten params to prevent [object Object]
+
+    const flatParams = this.flattenParams({
       limit: options.limit,
       offset,
       ...flags,
+      ...this.defaultFlags,
       ...options.filters,
     });
 
-    // ✅ Encode the inner Airtable request
-    const encodedInner = encodeURIComponent(`${airtableUrl}?${params.toString()}`);
+    // ✅ Build query string
+    const queryString = new URLSearchParams(flatParams).toString();
 
-    // ✅ Build the final proxy URL
+    // ✅ Encode the full inner URL
+    const encodedInner = encodeURIComponent(`${airtableUrl}?${queryString}`);
+
+    // ✅ Final proxy URL
     const finalUrl = `${proxyBase}${encodedInner}`;
 
     // ✅ Call proxy
@@ -60,32 +83,34 @@ export default class BasicModel extends Model {
 
 
   static FetchById(id, relationships = [], flags = {}, moreHeaders = {}) {
-    const proxyBase = import.meta.env.VITE_API_PROXY_URL;      // e.g. https://capetownlists.co.za/?url=
-    const airtableBase = import.meta.env.VITE_API_BACKEND_URL; // e.g. https://api.airtable.com/v0/appVY1Zwf71mOzczr
+    const proxyBase = import.meta.env.VITE_API_PROXY_URL;
+    const airtableBase = import.meta.env.VITE_API_BACKEND_URL;
     const headers = this.mergeHeaders(moreHeaders);
 
-    // 1️⃣ Build the raw Airtable URL
+    // ✅ Build base Airtable URL
     const airtableUrl = `${airtableBase}${this.entityUrl}/${id}`;
 
-    // 2️⃣ Add optional query params (if flags or relationships exist)
-    const params = new URLSearchParams({
+    // ✅ Flatten query params to prevent [object Object]
+    const flatParams = this.flattenParams({
       ...flags,
       ...(relationships.length ? { with: relationships.join(',') } : {}),
     });
 
-    // 3️⃣ Encode the inner Airtable URL
+    // ✅ Build query string if any
+    const queryString = new URLSearchParams(flatParams).toString();
+
+    // ✅ Encode full inner URL
     const encodedInner = encodeURIComponent(
-      params.toString() ? `${airtableUrl}?${params.toString()}` : airtableUrl
+      queryString ? `${airtableUrl}?${queryString}` : airtableUrl
     );
 
-    // 4️⃣ Final proxy URL
+    // ✅ Final proxy URL
     const finalUrl = `${proxyBase}${encodedInner}`;
 
-    // 5️⃣ Make the request through proxy
-    return this.customApiBase(headers).get(finalUrl, {
-      save: false,
-    });
+    // ✅ Make the request through proxy
+    return this.customApiBase(headers).get(finalUrl, { save: false });
   }
+
 
 
 
