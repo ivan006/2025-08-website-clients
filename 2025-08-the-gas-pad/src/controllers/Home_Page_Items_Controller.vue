@@ -28,7 +28,7 @@
 
                 <div>
                   <div
-                  :style="item?.['Image']?.[0]?.thumbnails?.large?.url ? `background-image: url(https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.thumbnails?.large?.url});` : ``"
+                  :style="item?.['Image']?.[0]?.thumbnails?.large?.url ? `background-image: url(https://capetownlists.co.za/?url=${encodeURIComponent(item?.['Image']?.[0]?.thumbnails?.large?.url)});` : ``"
                   style="
                     background-position: center;
                     background-size: cover;
@@ -129,7 +129,7 @@ export default {
       loadingError: false,
       options: {
         page: 1,
-        itemsPerPage: 10,
+        itemsPerPage: 1000,
         sortBy: [],
         groupBy: [],
       },
@@ -147,7 +147,7 @@ export default {
 
       let image = ""
       if (this.parent?.fields?.['Image']?.[0]?.url) {
-        image = `https://capetownlists.co.za/?url=${this.parent?.fields?.['Image']?.[0]?.url}`;
+        image = `https://capetownlists.co.za/?url=${encodeURIComponent(this.parent?.fields?.['Image']?.[0]?.url)}`;
       }
 
 
@@ -168,7 +168,7 @@ export default {
           url: item['SEO URL'] ? window.location.origin + item['SEO URL'] : null,
           name: item['Title'] || '',
           description: item['Subtitle'] || '',
-          image: item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.url}` : "",
+          image: item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${encodeURIComponent(item?.['Image']?.[0]?.url)}` : "",
           price: item['Price'],
           extras: {
             category: item['Category'],
@@ -193,7 +193,7 @@ export default {
 
       let image = ""
       if (this.parent?.fields?.['Image']?.[0]?.url) {
-        image = `https://capetownlists.co.za/?url=${this.parent?.fields?.['Image']?.[0]?.url}`;
+        image = `https://capetownlists.co.za/?url=${encodeURIComponent(this.parent?.fields?.['Image']?.[0]?.url)}`;
       }
 
      return buildSeoConfig({

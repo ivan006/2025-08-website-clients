@@ -35,7 +35,7 @@
 
                   >
                     <img
-                      :src="item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.thumbnails?.large?.url}` : ''"
+                      :src="item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${encodeURIComponent(item?.['Image']?.[0]?.thumbnails?.large?.url)}` : ''"
                       style="width: 100%; display: block; border-radius: 1000px;"
                     >
                     <!--<img src="https://cdn.quasar.dev/img/avatar.png">-->
@@ -98,7 +98,7 @@ export default {
 
       let image = ""
       if (this.parent?.fields?.['Image']?.[0]?.url) {
-        image = `https://capetownlists.co.za/?url=${this.parent?.fields?.['Image']?.[0]?.url}`;
+        image = `https://capetownlists.co.za/?url=${encodeURIComponent(this.parent?.fields?.['Image']?.[0]?.url)}`;
       }
 
 
@@ -118,7 +118,7 @@ export default {
           type: item['SEO Type'],
           name: item['Title'] || '',
           description: item['Subtitle'] || '',
-          image: item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.url}` : "",
+          image: item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${encodeURIComponent(item?.['Image']?.[0]?.url)}` : "",
           price: item['Price'],
           extras: {
             category: item['Category'],
@@ -164,7 +164,7 @@ export default {
       loadingError: false,
       options: {
         page: 1,
-        itemsPerPage: 10,
+        itemsPerPage: 1000,
         sortBy: [],
         groupBy: [],
       },
