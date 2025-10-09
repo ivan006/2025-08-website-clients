@@ -33,7 +33,7 @@
       <q-btn label="Apply Filters" color="primary" class="q-mt-md full-width" @click="fetchData" />
     </div>
 
-    <!-- 🖼️ Artwork Grid -->
+    <!-- 🖼️ Catalogue Grid -->
     <div class="col-12 col-md-9 bg-2ry-color q-pa-xl">
       <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
 
@@ -128,17 +128,24 @@ export default {
     async fetchData() {
       this.loading = true
       try {
-        const response = await Home_Page_Items.FetchAll([], this.filterValsRef, {}, {
-          page: this.options.page,
-          limit: this.options.itemsPerPage,
-          filters: this.filterValsRef,
-        })
+        const response = await Home_Page_Items.FetchAll(
+          [], // relationships
+          {}, // flags
+          {}, // headers
+          {
+            page: this.options.page,
+            limit: this.options.itemsPerPage,
+            filters: this.filterValsRef,
+          }
+        )
         this.items = response.response.data.records.map((r) => ({ id: r.id, ...r.fields }))
-        this.totalItems = response.response.data.total || this.items.length
+        this.totalItems = this.items.length
       } catch (err) {
         console.error(err)
       }
       this.loading = false
+      
+      this.$emit('loaded')
     },
   },
   mounted() {
