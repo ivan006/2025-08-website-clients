@@ -1,6 +1,6 @@
 <template>
   <div
-    :style="this.item.fields?.['Banner Image']?.[0]?.url ? `background-image: url(https://capetownlists.co.za/?url=${this.item.fields?.['Banner Image']?.[0]?.url});` : ``"
+    :style="this.item.fields?.['Banner Image']?.[0]?.url ? `background-image: url(https://capetownlists.co.za/?url=${encodeURIComponent(this.item.fields?.['Banner Image']?.[0]?.url)});` : ``"
     style="
     min-height: 50vh;
     background-color: rgb(70,70,70);
@@ -37,7 +37,7 @@
                   
                   <img
                   src="~assets/square.webp"
-                  :style="this.item.fields?.['Image']?.[0]?.thumbnails?.large?.url ? `background-image: url(https://capetownlists.co.za/?url=${this.item.fields?.['Image']?.[0]?.thumbnails?.large?.url});` : ``"
+                  :style="this.item.fields?.['Image']?.[0]?.thumbnails?.large?.url ? `background-image: url(https://capetownlists.co.za/?url=${encodeURIComponent(this.item.fields?.['Image']?.[0]?.thumbnails?.large?.url)});` : ``"
                   style="
                     background-color: rgb(70,70,70);
                     background-position: center;

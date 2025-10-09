@@ -44,7 +44,7 @@
         <div v-for="art in items" :key="art.id" class="col-12 col-sm-6 col-md-4">
           <q-card flat bordered class="bg-1ry-color text-1ry-color box-shadow-1ry">
             <q-img
-              :src="art['Image'] ? `https://capetownlists.co.za/?url=${art['Image']}` : ''"
+              :src="art['Image'] ? `https://capetownlists.co.za/?url=${encodeURIComponent(art['Image'])}` : ''"
               ratio="1"
               class="rounded-borders"
             />
@@ -103,7 +103,7 @@ export default {
           url: item['SEO URL'] ? window.location.origin + item['SEO URL'] : null,
           name: item['Title'] || '',
           description: item['Subtitle'] || '',
-          image: item['Image'] ? `https://capetownlists.co.za/?url=${item['Image']}` : '',
+          image: item['Image'] ? `https://capetownlists.co.za/?url=${encodeURIComponent(item['Image'])}` : '',
           price: item['Price'],
         })
       )

@@ -13,7 +13,7 @@
           >
 
             <img
-              :src="this.item.fields?.['Footer Logo'][0].thumbnails.large.url ? `https://capetownlists.co.za/?url=${this.item.fields?.['Footer Logo'][0].thumbnails.large.url}` : ''"
+              :src="this.item.fields?.['Footer Logo'][0].thumbnails.large.url ? `https://capetownlists.co.za/?url=${encodeURIComponent(this.item.fields?.['Footer Logo'][0].thumbnails.large.url)}` : ''"
               style="height: 100px;"
             >
           </div>

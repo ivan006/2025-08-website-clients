@@ -16,7 +16,7 @@
         <div >
           
         <div
-          :style="this.item.fields?.['Image']?.[0]?.url ? `background-image: url(https://capetownlists.co.za/?url=${this.item.fields?.['Image']?.[0]?.url});` : ``"
+          :style="this.item.fields?.['Image']?.[0]?.url ? `background-image: url(https://capetownlists.co.za/?url=${encodeURIComponent(this.item.fields?.['Image']?.[0]?.url)});` : ``"
           style="
           min-height: 400px;
           background-color: rgb(70,70,70);
@@ -222,8 +222,8 @@ export default {
 
   //     let image = ""
   //     if (this.item?.fields?.['Image']?.[0]?.url) {
-  //       image = `https://capetownlists.co.za/?url=${this.item?.['Image']?.[0]?.url}`;
-  //       image = `https://capetownlists.co.za/?url=${this.item?.fields?.['Image']?.[0]?.url}`;
+  //       image = `https://capetownlists.co.za/?url=${encodeURIComponent(this.item?.['Image']?.[0]?.url)}`;
+  //       image = `https://capetownlists.co.za/?url=${encodeURIComponent(this.item?.fields?.['Image']?.[0]?.url)}`;
   //     }
 
   //     return buildSeoConfig({
