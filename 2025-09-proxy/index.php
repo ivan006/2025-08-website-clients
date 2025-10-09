@@ -50,10 +50,10 @@ if (!isset($_GET['url'])) {
   throw new Exception('No URL');
 }
 
-$url = $_GET['url'];
-
-
-
+// ✅ decode the encoded inner URL
+$url = urldecode($_GET['url']);
+// echo $url;
+// die;
 $file = buildFilePath($method, $url);
 //print "$file\n"; exit();
 
