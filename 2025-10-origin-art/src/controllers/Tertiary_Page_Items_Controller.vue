@@ -264,7 +264,7 @@ export default {
       loadingError: false,
       options: {
         page: 1,
-        itemsPerPage: 1000,
+        itemsPerPage: 100,
         sortBy: [],
         groupBy: [],
       },
