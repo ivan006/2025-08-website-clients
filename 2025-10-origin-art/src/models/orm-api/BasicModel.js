@@ -27,86 +27,66 @@ export default class BasicModel extends Model {
     return this.api()
   }
 
-  static FetchAll(relationships = [], flags = {}, moreHeaders = {}, options = { page: 1, limit: 15, filters: {}, clearPrimaryModelOnly: false }) {
+  static FetchAll(
+    relationships = [],
+    flags = {},
+    moreHeaders = {},
+    options = { page: 1, limit: 15, filters: {}, clearPrimaryModelOnly: false }
+  ) {
+    const proxyBase = import.meta.env.VITE_API_PROXY_URL;      // cache/proxy
+    const airtableBase = import.meta.env.VITE_API_BACKEND_URL; // real API
+    const headers = this.mergeHeaders(moreHeaders);
 
-    const url = `${this.baseUrl}${this.entityUrl}`
+    const offset = (options.page - 1) * options.limit;
 
-    const headers = this.mergeHeaders(moreHeaders)
+    // ✅ Build Airtable URL
+    const airtableUrl = `${airtableBase}${this.entityUrl}`;
+    const params = new URLSearchParams({
+      limit: options.limit,
+      offset,
+      ...flags,
+      ...options.filters,
+    });
 
-    let offset = (options.page - 1) * options.limit
-    // todo: note - i hade to put the filters in line because urls can have duplicates keys and objects cans and i needed duplicates key support for the date range filter
+    // ✅ Encode the inner Airtable request
+    const encodedInner = encodeURIComponent(`${airtableUrl}?${params.toString()}`);
 
-    let computedUrl = url
-    let preparedRels = {}
-    let filtersObj = {}
+    // ✅ Build the final proxy URL
+    const finalUrl = `${proxyBase}${encodedInner}`;
 
-    computedUrl = url;
-
-    const result = this.customApiBase(headers)
-      .get(computedUrl, {
-        // persistBy: 'insertOrUpdate',
-        save: false,
-        params: {
-          ...{
-            limit: options.limit,
-            offset: offset,
-          },
-          ...flags,
-          ...preparedRels,
-          ...filtersObj
-        },
-        // dataTransformer: ({ data }) => {
-        //   if (options.clearPrimaryModelOnly) {
-        //     this.deleteAll()
-        //   }
-        //   console.log('url3')
-        //   console.log(url)
-        //   const result = data.records.map(record => {
-        //     return {
-        //       id: record.id,
-        //       createdTime: record.createdTime,
-        //       ...record.fields
-        //     };
-        //   });
-        //   return result
-        // },
-      })
-
-    return result
+    // ✅ Call proxy
+    return this.customApiBase(headers).get(finalUrl, { save: false });
   }
+
 
   static FetchById(id, relationships = [], flags = {}, moreHeaders = {}) {
+    const proxyBase = import.meta.env.VITE_API_PROXY_URL;      // e.g. https://capetownlists.co.za/?url=
+    const airtableBase = import.meta.env.VITE_API_BACKEND_URL; // e.g. https://api.airtable.com/v0/appVY1Zwf71mOzczr
+    const headers = this.mergeHeaders(moreHeaders);
 
+    // 1️⃣ Build the raw Airtable URL
+    const airtableUrl = `${airtableBase}${this.entityUrl}/${id}`;
 
+    // 2️⃣ Add optional query params (if flags or relationships exist)
+    const params = new URLSearchParams({
+      ...flags,
+      ...(relationships.length ? { with: relationships.join(',') } : {}),
+    });
 
-    const url = `${this.baseUrl}${this.entityUrl}`
-    const headers = this.mergeHeaders(moreHeaders)
-    let computedUrl = url
-    let preparedRels = {}
+    // 3️⃣ Encode the inner Airtable URL
+    const encodedInner = encodeURIComponent(
+      params.toString() ? `${airtableUrl}?${params.toString()}` : airtableUrl
+    );
 
+    // 4️⃣ Final proxy URL
+    const finalUrl = `${proxyBase}${encodedInner}`;
 
-    computedUrl = `${url}/${id}`;
-    preparedRels = {}; // likely still returns {}
-
-    return this.customApiBase(headers)
-      .get(computedUrl, {
-        save: false,
-        params: {
-          ...preparedRels,
-        },
-        // dataTransformer: ({ data }) => {
-        //   // const result = this.NormalizeRecursive(data)
-        //   const result = {
-        //     id: data.id,
-        //     createdTime: data.createdTime,
-        //     ...data.fields
-        //   };
-        //   return result
-        // },
-      })
-
-
+    // 5️⃣ Make the request through proxy
+    return this.customApiBase(headers).get(finalUrl, {
+      save: false,
+    });
   }
+
 
 
 }
