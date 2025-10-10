@@ -1,22 +1,17 @@
 <template>
   <div>
-    <!-- 📱 Sticky filter bar (mobile only) -->
+    <!-- 📱 Sticky bar on mobile -->
     <div
-      class="bg-white q-pa-sm shadow-2 row justify-between items-center"
-      style="position: sticky; top: 0; z-index: 10;"
+      class="q-pa-sm bg-grey-2 flex justify-between items-center"
+      style="position: sticky; top: 0; z-index: 3;"
       v-if="$q.screen.lt.md"
     >
       <div class="text-subtitle1">Catalogue</div>
-      <q-btn
-        color="primary"
-        label="Filters"
-        @click="showFilters = true"
-        dense
-      />
+      <q-btn flat color="primary" label="Filters" @click="showFilters = true" />
     </div>
 
     <div class="row q-col-gutter-md">
-      <!-- 🧭 Sidebar (desktop filters) -->
+      <!-- 🧭 Filters Sidebar (desktop only) -->
       <div class="col-12 col-md-3" v-if="$q.screen.gt.sm">
         <div
           class="q-pa-md bg-grey-2 rounded-borders"
@@ -32,19 +27,37 @@
       </div>
     </div>
 
-    <!-- 📱 Mobile filters panel -->
-    <q-dialog v-model="showFilters" persistent full-width maximized>
-      <q-card style="min-height: 100vh; display: flex; flex-direction: column;">
-        <q-card-section class="q-pa-md scroll" style="flex: 1; overflow-y: auto;">
-          <slot name="filters" />
-        </q-card-section>
+    <!-- 📱 Mobile Filters Drawer -->
+    <q-drawer
+      v-model="showFilters"
+      side="right"
+      overlay
+      bordered
+      content-class="bg-white"
+    >
+      <div class="column full-height">
+        <!-- Sticky header -->
+        <div
+          class="q-pa-md bg-grey-3 text-h6 text-center"
+          style="position: sticky; top: 0; z-index: 2;"
+        >
+          Filters
+        </div>
 
-        <!-- 🧩 Sticky Done button -->
-        <q-card-actions align="center" class="bg-white q-pa-md shadow-2">
-          <q-btn label="Done" color="primary" @click="showFilters = false" class="full-width" />
-        </q-card-actions>
-      </q-card>
-    </q-dialog>
+        <!-- Scrollable filters content -->
+        <div class="q-pa-md scroll" style="flex: 1; overflow-y: auto;">
+          <slot name="filters" />
+        </div>
+
+        <!-- Sticky footer -->
+        <div
+          class="q-pa-md bg-grey-2"
+          style="position: sticky; bottom: 0; z-index: 2;"
+        >
+          <q-btn label="Done" color="primary" unelevated class="full-width" @click="showFilters = false" />
+        </div>
+      </div>
+    </q-drawer>
   </div>
 </template>
 
