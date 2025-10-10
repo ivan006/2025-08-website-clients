@@ -1,77 +1,86 @@
 <template>
-  <div class="row no-wrap">
-    <!-- 🧭 Left Filter Panel -->
-    <div class="col-12 col-md-3 bg-3ry-color q-pa-md">
-      <h5 class="text-h5 text-1ry-color q-mb-md">Filter Artworks</h5>
+  <div>
+     <catalogue-layout class="q-ma-md">
+      <template #filters>
+        <div>
+         
+          <!-- <h5 class="text-h5 text-1ry-color q-mb-md ">Filter Artworks</h5> -->
 
-      <q-input v-model="filterValsRef.search" label="Search by Title" filled dense @keyup.enter="fetchData" />
-      <q-select
-        v-model="filterValsRef['Media Category Name']"
-        :options="['Fine Art', 'Sculptural Works', 'New Media']"
-        label="Media Type"
-        filled dense emit-value map-options
-        class="q-mt-sm"
-        @update:model-value="fetchData"
-      />
-      <q-select
-        v-model="filterValsRef['Theme Name']"
-        :options="['Decorative', 'Evocative']"
-        label="Theme"
-        filled dense emit-value map-options
-        class="q-mt-sm"
-        @update:model-value="fetchData"
-      />
-      <q-select
-        v-model="filterValsRef['Artist Tier Name']"
-        :options="['Gold Tier', 'Silver Tier', 'Bronze Tier']"
-        label="Tier"
-        filled dense emit-value map-options
-        class="q-mt-sm"
-        @update:model-value="fetchData"
-      />
+          <!-- <q-input v-model="filterValsRef.search" label="Search by Title" filled dense @keyup.enter="fetchData" /> -->
+          <q-select
+            v-model="filterValsRef['Media Category Name']"
+            :options="['Fine Art', 'Sculptural Works', 'New Media']"
+            label="Media Type"
+            filled dense emit-value map-options
+            clearable
+            class="q-mt-sm "
+            @update:model-value="fetchData"
+          />
 
-      <q-btn label="Apply Filters" color="primary" class="q-mt-md full-width" @click="fetchData" />
-    </div>
+          <q-select
+            v-model="filterValsRef['Theme Name']"
+            :options="['Decorative', 'Evocative']"
+            label="Theme"
+            filled dense emit-value map-options
+            clearable
+            class="q-mt-sm"
+            @update:model-value="fetchData"
+          />
 
-    <!-- 🖼️ Catalogue Grid -->
-    <div class="col-12 col-md-9 bg-2ry-color q-pa-xl">
-      <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
+          <q-select
+            v-model="filterValsRef['Artist Tier Name']"
+            :options="['Gold Tier', 'Silver Tier', 'Bronze Tier']"
+            label="Tier"
+            filled dense emit-value map-options
+            clearable
+            class="q-mt-sm"
+            @update:model-value="fetchData"
+          />
 
-      <div v-if="loading" class="text-center q-pa-md">Loading...</div>
-      <div v-else-if="!items.length" class="text-center q-pa-md text-2ry-color">No artworks found.</div>
 
-      <div v-else class="row q-col-gutter-lg">
-        <div v-for="art in items" :key="art.id" class="col-12 col-sm-6 col-md-4">
-          <q-card flat bordered class="bg-1ry-color text-1ry-color box-shadow-1ry">
-            <q-img
-              :src="art['Image'] ? `https://capetownlists.co.za/?url=${encodeURIComponent(art['Image'])}` : ''"
-              ratio="1"
-              class="rounded-borders"
-            />
-            <q-card-section>
-              <div class="text-h6 font-1ry">{{ art.Title }}</div>
-              <div class="text-subtitle2 text-2ry-color q-mt-xs">
-                {{ art['Artist Name']?.[0] || 'Unknown Artist' }}
-              </div>
-              <div class="text-body1 q-mt-xs">R{{ art.Price?.toLocaleString() }}</div>
-            </q-card-section>
-            <q-card-actions align="right">
-              <q-btn flat size="sm" color="primary" label="View Details" />
-            </q-card-actions>
-          </q-card>
+          <!-- <q-btn label="Apply Filters" color="primary" class="q-mt-md full-width" @click="fetchData" /> -->
         </div>
-      </div>
+      </template>
 
-      <div class="text-center q-mt-lg">
-        <q-pagination
-          v-model="options.page"
-          :max="Math.ceil(totalItems / options.itemsPerPage)"
-          max-pages="7"
-          boundary-numbers
-          @update:model-value="fetchData"
-        />
-      </div>
-    </div>
+      <template #content>
+        <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
+
+        <div v-if="loading" class="text-center q-pa-md">Loading...</div>
+        <div v-else-if="!items.length" class="text-center q-pa-md text-2ry-color">No artworks found.</div>
+
+        <div v-else class="row q-col-gutter-lg">
+          <div v-for="art in items" :key="art.id" class="col-6  col-md-2">
+            <q-card flat bordered class=" text-1ry-color box-shadow-1ry">
+              <img
+                :src="art['Image'] ? `https://capetownlists.co.za/?url=${encodeURIComponent(art['Image'])}` : ''"
+                ratio="1"
+                class="rounded-borders"
+              />
+              <q-card-section>
+                <div class="text-h6 font-1ry">{{ art.Title }}</div>
+                <div class="text-subtitle2 text-2ry-color q-mt-xs">
+                  {{ art['Artist Name']?.[0] || 'Unknown Artist' }}
+                </div>
+                <div class="text-body1 q-mt-xs">R{{ art.Price?.toLocaleString() }}</div>
+              </q-card-section>
+              <q-card-actions align="right">
+                <q-btn flat size="sm" label="View Details" class="bg-1ry-color" />
+              </q-card-actions>
+            </q-card>
+          </div>
+        </div>
+
+        <div class="text-center q-mt-lg">
+          <q-pagination
+            v-model="options.page"
+            :max="Math.ceil(totalItems / options.itemsPerPage)"
+            max-pages="7"
+            boundary-numbers
+            @update:model-value="fetchData"
+          />
+        </div>
+      </template>
+    </catalogue-layout>
   </div>
 </template>
 
@@ -80,10 +89,14 @@ import Home_Page_Items from 'src/models/orm-api/Home_Page_Items'
 import { createMetaMixin } from 'quasar'
 import { buildSchemaItem, buildSeoConfig } from 'src/utils/seo'
 import SEODataViewer from 'src/controllers/SEODataViewer.vue'
+import CatalogueLayout from 'src/controllers/CatalogueLayout.vue'
 
 export default {
   name: 'Catalogue_Page',
-  components: { SEODataViewer },
+  components: { 
+    SEODataViewer,
+    CatalogueLayout,
+   },
   mixins: [createMetaMixin(function () { return this.seoConfig })],
   data() {
     return {
@@ -128,25 +141,29 @@ export default {
     async fetchData() {
       this.loading = true
       try {
-        const response = await Home_Page_Items.FetchAll(
-          [], // relationships
-          {}, // flags
-          {}, // headers
-          {
-            page: this.options.page,
-            limit: this.options.itemsPerPage,
-            filters: this.filterValsRef,
-          }
-        )
+        // ✅ Build Airtable formula
+        const filters = this.filterValsRef
+        const parts = Object.entries(filters)
+          .filter(([_, v]) => v) // ignore empty filters
+          .map(([k, v]) => `({${k}}='${v.replace(/'/g, "\\'")}')`)
+        const formula = parts.length ? `AND(${parts.join(',')})` : ''
+
+        // ✅ Send to BasicModel as filterByFormula param
+        const response = await Home_Page_Items.FetchAll([], {}, {}, {
+          page: this.options.page,
+          limit: this.options.itemsPerPage,
+          filters: formula ? { filterByFormula: formula } : {},
+        })
+
         this.items = response.response.data.records.map((r) => ({ id: r.id, ...r.fields }))
         this.totalItems = this.items.length
       } catch (err) {
         console.error(err)
       }
       this.loading = false
-      
       this.$emit('loaded')
-    },
+    }
+
   },
   mounted() {
     this.fetchData()
