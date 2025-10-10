@@ -15,7 +15,7 @@
       <div class="col-12 col-md-3" v-if="$q.screen.gt.sm">
         <div
           class="q-pa-mdx bg-grey-2x rounded-borders"
-          style="position: sticky; top: 10; z-index: 2;"
+          style="position: sticky; top: 10px; z-index: 2;"
         >
           <slot name="filters" />
         </div>
@@ -41,7 +41,7 @@
         <!-- Sticky header -->
         <div
           class="q-pa-md bg-grey-3 text-h6 text-center"
-          style="position: sticky; top: 10; z-index: 2;"
+          style="position: sticky; top: 0; z-index: 2;"
         >
           Filters
         </div>
