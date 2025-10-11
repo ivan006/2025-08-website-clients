@@ -10,19 +10,19 @@
       <q-btn flat color="primary" class="text-3ry-color" label="Filters" @click="showFilters = true" />
     </div>
 
-    <div class="row q-col-gutter-md">
+    <div class="row q-col-gutter-mdx " >
       <!-- 🧭 Filters Sidebar (desktop only) -->
-      <div class="col-12 col-md-3" v-if="$q.screen.gt.sm">
+      <div class="col-12 col-md-2 q-pa-md" v-if="$q.screen.gt.sm" style="border-right: 1px solid rgba(0, 0, 0, 0.12);">
         <div
-          class="q-pa-mdx bg-grey-2x rounded-borders"
-          style="position: sticky; top: 10px; z-index: 2;"
+        class="q-pa-mdx bg-grey-2x rounded-borders "
+        style="position: sticky; top: 10px; z-index: 2;"
         >
-          <slot name="filters" />
+            <slot name="filters" />
         </div>
       </div>
 
       <!-- 🖼️ Catalogue -->
-      <div class="col-12 col-md-9">
+      <div class="col-12 col-md-10 q-pb-md bg-3ry-color q-pa-sm">
         <slot name="content" />
       </div>
     </div>
@@ -56,7 +56,7 @@
           class="q-pa-md bg-grey-2"
           style="position: sticky; bottom: 0; z-index: 2;"
         >
-          <q-btn label="Done" color="primary" unelevated class="full-width" @click="showFilters = false" />
+          <q-btn label="Done" color="" unelevated class="full-width bg-3ry-color" @click="showFilters = false" />
         </div>
       </div>
     </q-drawer>

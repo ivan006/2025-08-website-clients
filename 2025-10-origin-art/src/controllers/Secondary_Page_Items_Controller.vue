@@ -1,6 +1,6 @@
 <template>
-  <div>
-     <catalogue-layout class="q-ma-md">
+  <div class="container-mdx" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
+     <catalogue-layout class="">
       <template #filters>
         <div>
          
@@ -48,8 +48,8 @@
         <div v-if="loading" class="text-center q-pa-md">Loading...</div>
         <div v-else-if="!items.length" class="text-center q-pa-md text-2ry-color">No artworks found.</div>
 
-        <div v-else class="row q-col-gutter-lg">
-          <div v-for="art in items" :key="art.id" class="col-6  col-md-2">
+        <div v-else class="row q-col-gutter-lgx">
+          <div v-for="art in items" :key="art.id" class="col-6  col-md-2 q-pa-sm">
             <q-card flat bordered class=" text-1ry-color box-shadow-1ry">
               <img
                 :src="art['Image'] ? `https://capetownlists.co.za/?url=${encodeURIComponent(art['Image'])}` : ''"

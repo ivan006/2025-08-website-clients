@@ -10,7 +10,7 @@
           <div class="text-center q-pa-xl">Loading...</div>
         </div>
         <div v-show="!(loading || childLoading)">
-          <div class="row justify-between items-center  q-py-md ">
+          <div class="row justify-between items-center  q-py-mdx ">
 
             <div
               class="col-12 col-md-auto text-center"
@@ -34,7 +34,7 @@
                   <div>
                     <img
                       :src="this.item.fields?.['Logo Image'][0].thumbnails.large.url ? `https://capetownlists.co.za/?url=${encodeURIComponent(this.item.fields?.['Logo Image'][0].thumbnails.large.url)}` : ''"
-                      style="max-height: 200px;"
+                      style="max-height: 100px;"
                     >
                   </div>
                 </q-item-section>
@@ -44,7 +44,7 @@
               <!--</q-toolbar-title>-->
             </div>
             <div
-              class="col-12 col-md-auto q-my-lg text-center"
+              class="col-12 col-md-auto q-my-lgx text-center"
             >
 
               <!--<q-btn flat round dense icon="whatshot" />-->
