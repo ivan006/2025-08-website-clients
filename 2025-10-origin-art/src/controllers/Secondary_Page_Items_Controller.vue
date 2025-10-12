@@ -5,46 +5,51 @@
         <div>
 
           <!-- 🎨 Media Type -->
-          <q-expansion-item label="Media Type" default-opened>
+          <q-expansion-item label="Media Type" class="text-weight-bold" default-opened>
             <q-option-group
               v-model="filterValsRef['Media Category Name']"
               :options="[
+                { label: 'Select All', value: '' },
                 { label: 'Fine Art', value: 'Fine Art' },
                 { label: 'Sculptural Works', value: 'Sculptural Works' },
                 { label: 'New Media', value: 'New Media' }
               ]"
               type="radio"
-              dense
               @update:model-value="fetchData"
+              class="q-pb-md text-weight-regular"
             />
           </q-expansion-item>
-
+          <q-separator  />
           <!-- 🌈 Theme -->
-          <q-expansion-item label="Theme">
+          <q-expansion-item label="Style" class="text-weight-bold">
             <q-option-group
               v-model="filterValsRef['Theme Name']"
               :options="[
+                { label: 'Select All', value: '' },
                 { label: 'Decorative', value: 'Decorative' },
                 { label: 'Evocative', value: 'Evocative' }
               ]"
               type="radio"
-              dense
               @update:model-value="fetchData"
+              class="q-pb-md text-weight-regular"
             />
           </q-expansion-item>
 
+          <q-separator  />
           <!-- 🏅 Tier -->
-          <q-expansion-item label="Tier">
+           <pre>{{ filterValsRef['Artist Tier Name'] }}</pre>
+          <q-expansion-item label="Budget" class="text-weight-bold">
             <q-option-group
               v-model="filterValsRef['Artist Tier Name']"
               :options="[
-                { label: 'Gold Tier', value: 'Gold Tier' },
-                { label: 'Silver Tier', value: 'Silver Tier' },
-                { label: 'Bronze Tier', value: 'Bronze Tier' }
+                { label: 'Select All', value: '' },
+                { label: 'Gold (Above 50k)', value: 'Gold Tier' },
+                { label: 'Silver (10k-50k)', value: 'Silver Tier' },
+                { label: 'Bronze (Below 10k)', value: 'Bronze Tier' }
               ]"
               type="radio"
-              dense
               @update:model-value="fetchData"
+              class="q-pb-md text-weight-regular"
             />
           </q-expansion-item>
 
@@ -113,7 +118,11 @@ export default {
       items: [],
       totalItems: 0,
       loading: false,
-      filterValsRef: {},
+      filterValsRef: {
+        'Media Category Name': '',
+        'Theme Name': '',
+        "Artist Tier Name": '',
+      },
       options: { page: 1, itemsPerPage: 12 },
     }
   },
