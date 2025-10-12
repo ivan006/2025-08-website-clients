@@ -3,44 +3,54 @@
      <catalogue-layout class="">
       <template #filters>
         <div>
-         
-          <!-- <h5 class="text-h5 text-1ry-color q-mb-md ">Filter Artworks</h5> -->
 
-          <!-- <q-input v-model="filterValsRef.search" label="Search by Title" filled dense @keyup.enter="fetchData" /> -->
-          <q-select
-            v-model="filterValsRef['Media Category Name']"
-            :options="['Fine Art', 'Sculptural Works', 'New Media']"
-            label="Media Type"
-            filled dense emit-value map-options
-            clearable
-            class="q-mt-sm "
-            @update:model-value="fetchData"
-          />
+          <!-- 🎨 Media Type -->
+          <q-expansion-item label="Media Type" default-opened>
+            <q-option-group
+              v-model="filterValsRef['Media Category Name']"
+              :options="[
+                { label: 'Fine Art', value: 'Fine Art' },
+                { label: 'Sculptural Works', value: 'Sculptural Works' },
+                { label: 'New Media', value: 'New Media' }
+              ]"
+              type="radio"
+              dense
+              @update:model-value="fetchData"
+            />
+          </q-expansion-item>
 
-          <q-select
-            v-model="filterValsRef['Theme Name']"
-            :options="['Decorative', 'Evocative']"
-            label="Theme"
-            filled dense emit-value map-options
-            clearable
-            class="q-mt-sm"
-            @update:model-value="fetchData"
-          />
+          <!-- 🌈 Theme -->
+          <q-expansion-item label="Theme">
+            <q-option-group
+              v-model="filterValsRef['Theme Name']"
+              :options="[
+                { label: 'Decorative', value: 'Decorative' },
+                { label: 'Evocative', value: 'Evocative' }
+              ]"
+              type="radio"
+              dense
+              @update:model-value="fetchData"
+            />
+          </q-expansion-item>
 
-          <q-select
-            v-model="filterValsRef['Artist Tier Name']"
-            :options="['Gold Tier', 'Silver Tier', 'Bronze Tier']"
-            label="Tier"
-            filled dense emit-value map-options
-            clearable
-            class="q-mt-sm"
-            @update:model-value="fetchData"
-          />
+          <!-- 🏅 Tier -->
+          <q-expansion-item label="Tier">
+            <q-option-group
+              v-model="filterValsRef['Artist Tier Name']"
+              :options="[
+                { label: 'Gold Tier', value: 'Gold Tier' },
+                { label: 'Silver Tier', value: 'Silver Tier' },
+                { label: 'Bronze Tier', value: 'Bronze Tier' }
+              ]"
+              type="radio"
+              dense
+              @update:model-value="fetchData"
+            />
+          </q-expansion-item>
 
-
-          <!-- <q-btn label="Apply Filters" color="primary" class="q-mt-md full-width" @click="fetchData" /> -->
         </div>
       </template>
+
 
       <template #content>
         <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
