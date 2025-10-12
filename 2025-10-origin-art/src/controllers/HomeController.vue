@@ -12,7 +12,7 @@
     </div>
     <div v-show="!(loading || childLoading)">
       
-      <div class="bg-3ry-color ">
+      <!-- <div class="bg-3ry-color ">
         <div
           :style="this.item.fields?.['Image']?.[0]?.url ? `background-image: url(https://capetownlists.co.za/?url=${encodeURIComponent(this.item.fields?.['Image']?.[0]?.url)});` : ``"
           style="
@@ -70,7 +70,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
 
 

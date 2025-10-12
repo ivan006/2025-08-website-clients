@@ -16,7 +16,7 @@
       
       
        
-      <div class=" bg-1ry-color text- q-py-xl">
+      <div class=" bg-1ry-color text- q-py-lg">
         <div
           class="container-md "
         >
@@ -48,7 +48,7 @@
         
         <div class="bg-3ry-color " >
           <div
-            class="container-md q-py-xl"
+            class="container-md q-py-lg"
           >
 
             <h4 class="text-h4 text-center  font-1ry text-white  q-my-lg">{{ groupKey }} {{ categoryName }}</h4>

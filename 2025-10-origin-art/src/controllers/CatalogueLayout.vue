@@ -22,7 +22,7 @@
       </div>
 
       <!-- 🖼️ Catalogue -->
-      <div class="col-12 col-md-10 q-pb-md bg-3ry-color q-pa-sm">
+      <div class="col-12 col-md-10 q-pb-md bg-2ry-color q-pa-sm">
         <slot name="content" />
       </div>
     </div>
