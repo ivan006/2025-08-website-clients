@@ -69,13 +69,14 @@
                 :src="art['Image'] ? `https://capetownlists.co.za/?url=${encodeURIComponent(art['Image'])}` : ''"
                 ratio="1"
                 class="rounded-borders"
+                style="max-height: 200px; max-width: 200px; height: auto; width: auto; margin-left: auto; margin-right: auto;"
               />
               <q-card-section>
-                <div class="text-h6 font-1ry">{{ art.Title }}</div>
+                <div class="text-h6 font-1ry" style="min-height: 64px;">{{ art.Title }}</div>
                 <div class="text-subtitle2 text-2ry-color q-mt-xs">
                   {{ art['Artist Name']?.[0] || 'Unknown Artist' }}
                 </div>
-                <div class="text-body1 q-mt-xs">R{{ art.Price?.toLocaleString() }}</div>
+                <div class="text-body1 q-mt-xs text-weight-bold">R{{ art.Price?.toLocaleString() }}</div>
               </q-card-section>
               <q-card-actions align="right">
                 <q-btn flat size="sm" label="View Details" class="bg-1ry-color" />
