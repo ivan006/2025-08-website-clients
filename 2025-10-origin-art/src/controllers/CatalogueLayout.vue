@@ -22,7 +22,8 @@
       </div>
 
       <!-- 🖼️ Catalogue -->
-      <div class="col-12 col-md-10 q-pb-md bg-2ry-color q-pa-sm">
+      <!-- <div class="col-12 col-md-10 q-pb-md bg-2ry-color q-pa-sm" style="min-height: 70vh"> -->
+      <div class="col-12 col-md-10 q-pb-md bg-2ry-color q-pa-sm" style="min-height: 80vh">
         <slot name="content" />
       </div>
     </div>

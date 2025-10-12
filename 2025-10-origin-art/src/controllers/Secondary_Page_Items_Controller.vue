@@ -1,6 +1,6 @@
 <template>
-  <div class="container-mdx" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
-     <catalogue-layout class="">
+  <div class="container-mdx" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12); ">
+     <catalogue-layout class="" >
       <template #filters>
         <div>
 
@@ -9,7 +9,7 @@
             <q-option-group
               v-model="filterValsRef['Media Category Name']"
               :options="[
-                { label: 'Select All', value: '' },
+                { label: 'All', value: '' },
                 { label: 'Fine Art', value: 'Fine Art' },
                 { label: 'Sculptural Works', value: 'Sculptural Works' },
                 { label: 'New Media', value: 'New Media' }
@@ -25,7 +25,7 @@
             <q-option-group
               v-model="filterValsRef['Theme Name']"
               :options="[
-                { label: 'Select All', value: '' },
+                { label: 'All', value: '' },
                 { label: 'Decorative', value: 'Decorative' },
                 { label: 'Evocative', value: 'Evocative' }
               ]"
@@ -37,12 +37,11 @@
 
           <q-separator  />
           <!-- 🏅 Tier -->
-           <pre>{{ filterValsRef['Artist Tier Name'] }}</pre>
           <q-expansion-item label="Budget" class="text-weight-bold">
             <q-option-group
-              v-model="filterValsRef['Artist Tier Name']"
+              v-model="filterValsRef['Tier Category']"
               :options="[
-                { label: 'Select All', value: '' },
+                { label: 'All', value: '' },
                 { label: 'Gold (Above 50k)', value: 'Gold Tier' },
                 { label: 'Silver (10k-50k)', value: 'Silver Tier' },
                 { label: 'Bronze (Below 10k)', value: 'Bronze Tier' }
@@ -121,7 +120,7 @@ export default {
       filterValsRef: {
         'Media Category Name': '',
         'Theme Name': '',
-        "Artist Tier Name": '',
+        "Tier Category": '',
       },
       options: { page: 1, itemsPerPage: 12 },
     }
@@ -185,7 +184,12 @@ export default {
 
   },
   mounted() {
-    this.fetchData()
+
+      this.fetchData()
+    // setTimeout(function (){
+    //   this.fetchData()
+                
+    // }, 5000)
   },
 }
 </script>
