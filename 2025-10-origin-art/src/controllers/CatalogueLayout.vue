@@ -2,8 +2,8 @@
   <div>
     <!-- 📱 Sticky bar on mobile -->
     <div
-      class="q-pa-sm bg-grey-2x bg-white flex justify-between items-center q-mb-md"
-      style="position: sticky; top: 0; z-index: 3;"
+      class="q-pa-sm bg-grey-2x bg-white flex justify-between items-center q-mb-mdx"
+      style="position: sticky; top: 0; z-index: 3; border-bottom: 1px solid rgba(0, 0, 0, 0.12);"
       v-if="$q.screen.lt.md"
     >
       <div class="text-subtitle1">Catalogue</div>
@@ -42,13 +42,13 @@
         <!-- Sticky header -->
         <div
           class="q-pa-md bg-grey-3 text-h6 text-center"
-          style="position: sticky; top: 0; z-index: 2;"
+          style="position: sticky; top: 0; z-index: 2; "
         >
           Filters
         </div>
 
         <!-- Scrollable filters content -->
-        <div class="q-pa-md scroll" style="flex: 1; overflow-y: auto;">
+        <div class="q-pa-mdx scroll" style="flex: 1; overflow-y: auto; ">
           <slot name="filters" />
         </div>
 

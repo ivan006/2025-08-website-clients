@@ -69,7 +69,6 @@
                 :src="art['Image'] ? `https://capetownlists.co.za/?url=${encodeURIComponent(art['Image'])}` : ''"
                 ratio="1"
                 class="rounded-borders"
-                style="max-height: 200px; max-width: 200px; height: auto; width: auto; margin-left: auto; margin-right: auto;"
               />
               <q-card-section>
                 <div class="text-h6 font-1ry" style="min-height: 64px;">{{ art.Title }}</div>
