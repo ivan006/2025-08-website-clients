@@ -39,6 +39,15 @@
       <template #content>
         <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
           <pre>{{offsetTrail}}</pre>
+
+          
+        <!-- ✅ Pagination buttons -->
+        <div class="text-center q-mt-lg">
+          <q-btn flat color="primary" label="Previous" icon="chevron_left" :disable="currentPage === 0"
+            @click="prevPage" class="q-mr-sm" />
+          <q-btn flat color="primary" label="Next" icon-right="chevron_right" :disable="!nextOffset"
+            @click="nextPage" />
+        </div>
         <div v-if="loading" class="text-center q-pa-md">Loading...</div>
         <div v-else-if="!items.length" class="text-center q-pa-md text-2ry-color">No artworks found.</div>
 
@@ -142,12 +151,20 @@ export default {
         const response = await Home_Page_Items.FetchAll([], {}, {}, {
           limit: this.options.itemsPerPage,
           filters: formula ? { filterByFormula: formula } : {},
-          offset, // 🔹 proper Airtable offset token
+          offset,
         })
 
         const data = response.response.data
         this.items = data.records.map((r) => ({ id: r.id, ...r.fields }))
-        this.nextOffset = data.offset || null
+        const newOffset = data.offset || null
+
+        // ✅ Update nextOffset for next-page button
+        this.nextOffset = newOffset
+
+        // ✅ Add only new, non-duplicate offsets
+        if (newOffset && !this.offsetTrail.includes(newOffset)) {
+          this.offsetTrail.push(newOffset)
+        }
       } catch (err) {
         console.error(err)
       }
@@ -157,8 +174,6 @@ export default {
 
     async nextPage() {
       if (this.nextOffset) {
-        // ✅ Save offset for back navigation
-        this.offsetTrail.push(this.nextOffset)
         this.currentPage++
         await this.fetchData(this.nextOffset)
       }
@@ -178,6 +193,7 @@ export default {
       await this.fetchData()
     },
   },
+
 
   mounted() {
     this.fetchData()
