@@ -1,7 +1,6 @@
 <template>
   <div>
-    <!-- 🧾 All-Content Combination Calculator -->
-    <div class="text-subtitle1 q-mb-sm">All Combonations</div>
+    <h6 class="text-subtitle1 q-mb-sm">All Content Combination Impact</h6>
 
     <div v-if="filters.length">
       <div v-for="(filter, i) in filters" :key="i" class="q-mb-sm row items-center">
@@ -11,7 +10,7 @@
             type="number"
             v-model.number="optionCounts[i]"
             :label="filter + ' options'"
-            min="1"
+            min="2"
             style="max-width: 250px"
           />
         </div>
@@ -44,10 +43,24 @@
 <script>
 export default {
   name: 'DataCacheManagerAllCombos',
+  props: {
+    filters: {
+      type: Array,
+      required: true
+    }
+  },
   data() {
     return {
-      filters: ['Media', 'Style', 'Budget Tier'],
-      optionCounts: [2, 2, 2]
+      optionCounts: []
+    }
+  },
+  watch: {
+    filters: {
+      immediate: true,
+      handler(newFilters) {
+        // Ensure optionCounts array matches filters length
+        this.optionCounts = newFilters.map((_, i) => this.optionCounts[i] || 2)
+      }
     }
   },
   computed: {
@@ -55,10 +68,8 @@ export default {
       const results = []
       const subsetCount = Math.pow(2, this.filters.length)
 
-      // Always include unfiltered first
       results.push({ label: 'All (unfiltered)', depth: 0 })
 
-      // Generate all subset combinations
       for (let mask = 1; mask < subsetCount; mask++) {
         const activeFilters = this.filters
           .map((f, i) => (mask & (1 << i) ? i : null))
@@ -81,15 +92,14 @@ export default {
         expand([], 0)
       }
 
-      // Sort by combination depth (1, 2, 3…)
+      // Order by complexity
       results.sort((a, b) => a.depth - b.depth)
-
-      // Map back to labels
       return results.map(r => r.label)
     }
   },
   methods: {
     calculateAllCombos() {
+      // Trigger reactivity
       this.optionCounts = [...this.optionCounts]
     }
   }
