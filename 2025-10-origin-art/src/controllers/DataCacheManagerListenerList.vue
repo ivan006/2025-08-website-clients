@@ -1,7 +1,7 @@
 <template>
     <div>
 
-
+            
         <!-- 🧩 Segment hiding -->
         <div v-if="requests.length" class="q-mt-md">
             <div class="row items-center q-gutter-sm">
