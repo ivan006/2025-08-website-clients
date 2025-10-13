@@ -1,7 +1,8 @@
 <template>
-  
-  <!-- 🧮 Calculator -->
   <div>
+    <!-- 🧮 1️⃣ Single Content Combination Calculator -->
+    <div class="text-subtitle1 q-mb-sm">Combonations If you Add 1 Artwork</div>
+
     <q-input
       filled
       dense
@@ -14,8 +15,8 @@
 
     <div v-if="filters.length" class="q-mt-md">
       <p>
-        <strong>{{ filters.length }}</strong> filters → 
-        <strong>{{ totalCombos }}</strong> combinations
+        Adding <strong>one new item</strong> affects 
+        <strong>{{ totalCombos }}</strong> cache combinations.
       </p>
       <ul style="margin-left:1em;">
         <li v-for="(combo, i) in combos" :key="i">
@@ -23,13 +24,24 @@
         </li>
       </ul>
     </div>
+
+    <q-separator class="q-my-lg" />
+
+    <!-- 🧾 2️⃣ All Content Combination Impact -->
+    <DataCacheManagerAllCombos
+      v-if="filters.length"
+      :filters="filters"
+      class="q-mt-lg"
+    />
   </div>
 </template>
 
-
 <script>
+import DataCacheManagerAllCombos from './DataCacheManagerAllCombos.vue'
+
 export default {
   name: 'DataCacheManagerStrategicUseTool',
+  components: { DataCacheManagerAllCombos },
   data() {
     return {
       inputString: 'Media, Style, Budget Tier',

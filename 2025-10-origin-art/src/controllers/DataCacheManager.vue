@@ -1,6 +1,6 @@
 <template>
   <div>
-    <q-dialog v-model="show" persistent>
+    <q-dialog v-model="show" >
       <q-card
         flat
         bordered
