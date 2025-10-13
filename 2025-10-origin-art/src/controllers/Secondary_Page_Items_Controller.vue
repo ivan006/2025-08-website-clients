@@ -1,9 +1,8 @@
 <template>
   <div class="container-mdx" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12); ">
-    <catalogue-layout class="">
+    <catalogue-layout>
       <template #filters>
         <div>
-
           <!-- 🎨 Media Type -->
           <q-expansion-item label="Media Type" class="text-weight-bold" default-opened>
             <q-option-group v-model="filterValsRef['Media Category Name']" :options="[
@@ -11,8 +10,9 @@
               { label: 'Fine Art', value: 'Fine Art' },
               { label: 'Sculptural Works', value: 'Sculptural Works' },
               { label: 'New Media', value: 'New Media' }
-            ]" type="radio" @update:model-value="fetchData" class="q-pb-md text-weight-regular" />
+            ]" type="radio" @update:model-value="resetAndFetch" class="q-pb-md text-weight-regular" />
           </q-expansion-item>
+
           <q-separator />
           <!-- 🌈 Theme -->
           <q-expansion-item label="Style" class="text-weight-bold">
@@ -20,7 +20,7 @@
               { label: 'All', value: '' },
               { label: 'Decorative', value: 'Decorative' },
               { label: 'Evocative', value: 'Evocative' }
-            ]" type="radio" @update:model-value="fetchData" class="q-pb-md text-weight-regular" />
+            ]" type="radio" @update:model-value="resetAndFetch" class="q-pb-md text-weight-regular" />
           </q-expansion-item>
 
           <q-separator />
@@ -31,22 +31,29 @@
               { label: 'Gold (Above 50k)', value: 'Gold Tier' },
               { label: 'Silver (10k-50k)', value: 'Silver Tier' },
               { label: 'Bronze (Below 10k)', value: 'Bronze Tier' }
-            ]" type="radio" @update:model-value="fetchData" class="q-pb-md text-weight-regular" />
+            ]" type="radio" @update:model-value="resetAndFetch" class="q-pb-md text-weight-regular" />
           </q-expansion-item>
-
         </div>
       </template>
 
-
       <template #content>
         <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
-
+          <pre>{{ currentPage }}</pre>
+          <pre>{{ offsetTrail }}</pre>
+          <pre>next {{ nextOffset }}</pre>
+        <!-- ✅ Pagination buttons -->
+        <div class="text-center q-mt-lg">
+          <q-btn flat color="primary" label="Previous" icon="chevron_left" :disable="currentPage === 0"
+            @click="prevPage" class="q-mr-sm" />
+          <q-btn flat color="primary" label="Next" icon-right="chevron_right" :disable="!nextOffset"
+            @click="nextPage" />
+        </div>
         <div v-if="loading" class="text-center q-pa-md">Loading...</div>
         <div v-else-if="!items.length" class="text-center q-pa-md text-2ry-color">No artworks found.</div>
 
         <div v-else class="row q-col-gutter-lgx">
-          <div v-for="art in items" :key="art.id" class="col-6  col-md-2 q-pa-sm">
-            <q-card flat bordered class=" text-1ry-color box-shadow-1ry">
+          <div v-for="art in items" :key="art.id" class="col-6 col-md-2 q-pa-sm">
+            <q-card flat bordered class="text-1ry-color box-shadow-1ry">
               <img :src="art['Image'] ? `https://capetownlists.co.za/?url=${encodeURIComponent(art['Image'])}` : ''"
                 ratio="1" class="rounded-borders" />
               <q-card-section>
@@ -63,9 +70,12 @@
           </div>
         </div>
 
+        <!-- ✅ Pagination buttons -->
         <div class="text-center q-mt-lg">
-          <q-pagination v-model="options.page" :max="Math.ceil(totalItems / options.itemsPerPage)" max-pages="7"
-            boundary-numbers @update:model-value="fetchData" />
+          <q-btn flat color="primary" label="Previous" icon="chevron_left" :disable="currentPage === 0"
+            @click="prevPage" class="q-mr-sm" />
+          <q-btn flat color="primary" label="Next" icon-right="chevron_right" :disable="!nextOffset"
+            @click="nextPage" />
         </div>
       </template>
     </catalogue-layout>
@@ -81,22 +91,21 @@ import CatalogueLayout from 'src/controllers/CatalogueLayout.vue'
 
 export default {
   name: 'Catalogue_Page',
-  components: {
-    SEODataViewer,
-    CatalogueLayout,
-  },
+  components: { SEODataViewer, CatalogueLayout },
   mixins: [createMetaMixin(function () { return this.seoConfig })],
   data() {
     return {
       items: [],
-      totalItems: 0,
       loading: false,
       filterValsRef: {
         'Media Category Name': '',
         'Theme Name': '',
-        "Tier Category": '',
+        'Tier Category': '',
       },
-      options: { page: 1, itemsPerPage: 12 },
+      nextOffset: null,
+      offsetTrail: [null], // track offset history
+      currentPage: 0,
+      options: { itemsPerPage: 12 },
     }
   },
   computed: {
@@ -130,40 +139,64 @@ export default {
     },
   },
   methods: {
-    async fetchData() {
+    async fetchData(offset = null) {
       this.loading = true
       try {
-        // ✅ Build Airtable formula
         const filters = this.filterValsRef
         const parts = Object.entries(filters)
-          .filter(([_, v]) => v) // ignore empty filters
+          .filter(([_, v]) => v)
           .map(([k, v]) => `({${k}}='${v.replace(/'/g, "\\'")}')`)
         const formula = parts.length ? `AND(${parts.join(',')})` : ''
 
-        // ✅ Send to BasicModel as filterByFormula param
         const response = await Home_Page_Items.FetchAll([], {}, {}, {
-          page: this.options.page,
           limit: this.options.itemsPerPage,
           filters: formula ? { filterByFormula: formula } : {},
+          offset, // 🔹 pass offset to fetch next batch
         })
 
-        this.items = response.response.data.records.map((r) => ({ id: r.id, ...r.fields }))
-        this.totalItems = this.items.length
+        const data = response.response.data
+        this.items = data.records.map((r) => ({ id: r.id, ...r.fields }))
+        this.nextOffset = data.offset || null
+
+        // 🔹 Save offset trail for "Previous" navigation
+        console.log(11111111)
+        console.log(this.currentPage === this.offsetTrail.length - 1)
+        console.log(this.currentPage  )
+        console.log(this.offsetTrail.length - 1)
+        if (offset && this.currentPage === this.offsetTrail.length - 1) {
+          this.offsetTrail.push(offset)
+        }
       } catch (err) {
         console.error(err)
       }
       this.loading = false
       this.$emit('loaded')
-    }
+    },
 
+    async nextPage() {
+      if (this.nextOffset) {
+        this.currentPage++
+        await this.fetchData(this.nextOffset)
+      }
+    },
+
+    async prevPage() {
+      if (this.currentPage > 0) {
+        this.currentPage--
+        const prevOffset = this.offsetTrail[this.currentPage]
+        await this.fetchData(prevOffset)
+      }
+    },
+
+    async resetAndFetch() {
+      this.offsetTrail = [null]
+      this.currentPage = 0
+      await this.fetchData()
+    },
   },
+
   mounted() {
-
     this.fetchData()
-    // setTimeout(function (){
-    //   this.fetchData()
-
-    // }, 5000)
   },
 }
 </script>

@@ -18,7 +18,7 @@ export default class BasicModel extends Model {
     return result;
   }
 
-  
+
 
   static customApiBase(moreHeaders) {
     this.apiConfig = {
@@ -47,43 +47,40 @@ export default class BasicModel extends Model {
     relationships = [],
     flags = {},
     moreHeaders = {},
-    options = { page: 1, limit: 15, filters: {}, clearPrimaryModelOnly: false }
+    options = { page: 1, limit: 15, filters: {}, offset: null, clearPrimaryModelOnly: false }
   ) {
     const proxyBase = import.meta.env.VITE_API_PROXY_URL;      // cache/proxy
     const airtableBase = import.meta.env.VITE_API_BACKEND_URL; // real API
     const headers = this.mergeHeaders(moreHeaders);
 
-    const offset = (options.page - 1) * options.limit;
+    // ✅ Airtable offset is a token, not numeric — use it if provided
+    const airtableOffset = options.offset ? options.offset : undefined;
 
-    // ✅ Build Airtable URL
+    // ✅ Build Airtable base URL
     const airtableUrl = `${airtableBase}${this.entityUrl}`;
 
-    // ✅ Flatten params to prevent [object Object]
-
+    // ✅ Flatten params safely
     const flatParams = this.flattenParams({
       limit: options.limit,
-      offset,
+      ...(airtableOffset ? { offset: airtableOffset } : {}),
       ...flags,
       ...this.defaultFlags,
       ...options.filters,
     });
 
-    // ✅ Build query string
-    const queryStringEncoded = new URLSearchParams(flatParams).toString();
-    const queryString = decodeURIComponent(queryStringEncoded);
-    
+    // ✅ Encode query string (Airtable-safe)
+    const queryString = new URLSearchParams(flatParams).toString();
 
-    // ✅ Encode the full inner URL
-    const encodedInnerString = `${airtableUrl}?${queryString}`;
-    // const encodedInner = encodedInnerString;
-    const encodedInner = encodeURIComponent(encodedInnerString);
+    // ✅ Build and encode full inner URL
+    const encodedInner = encodeURIComponent(`${airtableUrl}?${queryString}`);
 
-    // ✅ Final proxy URL
+    // ✅ Final proxy URL (proxyBase should already end with "?url=")
     const finalUrl = `${proxyBase}${encodedInner}`;
 
-    // ✅ Call proxy
+    // ✅ Fire request
     return this.customApiBase(headers).get(finalUrl, { save: false });
   }
+
 
 
   static FetchById(id, relationships = [], flags = {}, moreHeaders = {}) {
@@ -105,7 +102,7 @@ export default class BasicModel extends Model {
     const queryString = decodeURIComponent(queryStringEncoded);
 
     // ✅ Encode full inner URL
-    
+
     const encodedInnerString = queryString ? `${airtableUrl}?${queryString}` : airtableUrl;
     const encodedInner = encodedInnerString;
     // const encodedInner = encodeURIComponent(encodedInnerString);
