@@ -39,41 +39,36 @@
               <!-- 📘 Lesson text -->
               <div class="q-mb-md">
               <p>
-               To populate the listener list strategically, ensuring new artworks appear across all relevant filter combinations.
+               The purpose of populating the listener list is to identify which endpoints should be re-cached. 
+               <br>This ensures that newly added artworks become visible to site visitors.
+
+               <br>Because each artwork can appear under multiple filter combinations, it’s important to approach 
+               this step intentionally rather than randomly browsing.
+
+               <br>By thoughtfully invoking and capturing the right endpoints, you’ll make sure that new artworks 
+               display correctly across all relevant filter scenarios.
+
+               <br>To plan your re-caching effectively, it helps to understand how many possible cache combinations your filters create.
               </p>
 
 
 
                 <p>
+                  To plan your re-caching effectively, it helps to understand how many possible cache combinations your filters create.
                   Each filter on your site (for example, <em>Media</em>, <em>Style</em>, or <em>Budget Tier</em>)
-                  doubles the number of possible cache combinations.
-                  The relationship follows a simple formula:
+                  doubles the number of potential cache variations.
+                  This relationship follows a simple formula:
                   <code>2<sup>x</sup></code>, where <strong>x</strong> is the number of filters.
                 </p>
 
                 <p>
-                  <strong>Example (3 filters):</strong> Media, Style, Budget Tier → <strong>8 combinations</strong>:
+                  Use the calculator below to experiment with your own filter setup and see how many combinations the site can
+                  <em>invoke</em>.
                 </p>
 
-                <ul style="margin-left:1em;">
-                  <li>All (unfiltered)</li>
-                  <li>Media</li>
-                  <li>Style</li>
-                  <li>Budget Tier</li>
-                  <li>Media + Style</li>
-                  <li>Media + Budget Tier</li>
-                  <li>Style + Budget Tier</li>
-                  <li>Media + Style + Budget Tier</li>
-                </ul>
+                <q-separator spaced />
+                <DataCacheManagerStrategicUseTool />
 
-                <p>
-                  Use the calculator below to explore how your own filter setup affects the total number
-                  of cache combinations the site can <em>invoke</em>.
-                </p>
-              </div>
-
-              <q-separator spaced />
-              <DataCacheManagerStrategicUseTool />
 
               <q-separator spaced />
 
@@ -86,6 +81,7 @@
                 </p>
               </div>
             </div>
+          </div>
         </q-card-section>
 
         <q-card-actions align="right">
