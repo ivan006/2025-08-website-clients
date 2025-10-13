@@ -23,7 +23,7 @@
             />
           </div>
 
-          <div class="q-mt-sm">
+          <!-- <div class="q-mt-sm">
             <q-btn
               label="Clear Cache for Observed Requests"
               color="negative"
@@ -33,11 +33,11 @@
               @click="clearCache"
               :disable="!requests.length"
             />
-          </div>
+          </div> -->
 
           <div class="q-mt-md text-caption text-grey">
             <span v-if="!requests.length">No requests captured yet.</span>
-            <ul v-else>
+            <ol v-else>
               <li v-for="(url, i) in requests" :key="i">
                 <!-- <code>{{ splitUrl(url) }}</code> -->
                 <code>
@@ -50,8 +50,9 @@
                   </span>
                 </code>
               </li>
-            </ul>
+            </ol>
           </div>
+          <CacheComboLesson />
           
         </q-card-section>
 
@@ -64,9 +65,13 @@
 </template>
 
 <script>
+import CacheComboLesson from 'src/controllers/CacheComboLesson.vue'
 export default {
   name: 'DataCacheManager',
 
+  components: {
+    CacheComboLesson
+  },
   data() {
     return {
       show: false,
@@ -105,21 +110,22 @@ export default {
         '#AD1457', // dark pink
         '#6A1B9A', // deep purple
         '#424242'  // charcoal grey
+
       ],
     }
   },
 
   methods: {
-  coloredParts(arg) {
-    let newString = decodeURIComponent(arg)
+    coloredParts(arg) {
+      let newString = decodeURIComponent(arg)
 
-    newString = newString.replace(`https://capetownlists.co.za/?url=https://api.airtable.com/v0/appVY1Zwf71mOzczr/`, '');
-    // Split but keep the delimiters ( ?, /, & ) in the results using a capturing group
-    const array = newString.split(/([?/&=]+)/)
+      newString = newString.replace(`https://capetownlists.co.za/?url=https://api.airtable.com/v0/appVY1Zwf71mOzczr/`, '');
+      // Split but keep the delimiters ( ?, /, & ) in the results using a capturing group
+      const array = newString.split(/([?/&=]+)/)
 
-    // Filter out empty strings and return full list including delimiters
-    return array.filter(p => p.length > 0)
-  },
+      // Filter out empty strings and return full list including delimiters
+      return array.filter(p => p.length > 0)
+    },
     splitUrl(arg) {
       let newString = decodeURIComponent(arg)
 
@@ -164,8 +170,6 @@ export default {
         }
         return vm.origXHROpenRef.call(this, method, url, ...rest)
       }
-
-      this.$q.notify({ type: 'positive', message: 'Listening for JSON requests...' })
     },
 
     stopIntercept() {
@@ -173,19 +177,17 @@ export default {
       if (this.origXHROpenRef) XMLHttpRequest.prototype.open = this.origXHROpenRef
       this.origFetchRef = this.origXHROpenRef = null
       this.listening = false
-      this.$q.notify({ type: 'info', message: 'Stopped listening' })
     },
 
-    clearCache() {
-      if (!this.requests.length) return
-      this.requests.forEach((url) => {
-        const delURL = url.replace('?url=', '?delete=')
-        fetch(delURL, { method: 'GET' })
-          .then(() => console.log('Cleared cache:', delURL))
-          .catch((err) => console.error('Error clearing cache:', delURL, err))
-      })
-      this.$q.notify({ type: 'positive', message: 'Clear requests sent' })
-    }
+    // clearCache() {
+    //   if (!this.requests.length) return
+    //   this.requests.forEach((url) => {
+    //     const delURL = url.replace('?url=', '?delete=')
+    //     fetch(delURL, { method: 'GET' })
+    //       .then(() => console.log('Cleared cache:', delURL))
+    //       .catch((err) => console.error('Error clearing cache:', delURL, err))
+    //   })
+    // }
   },
 
   mounted() {
