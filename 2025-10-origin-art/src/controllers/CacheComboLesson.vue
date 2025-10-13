@@ -63,7 +63,7 @@
     <div class="text-grey-7">
       <p>
         <strong>Coming soon:</strong> an advanced tool to automatically re-cache intelligently.
-        It’s in development and will require developer configuration.
+        It’s in development and will also require developer configuration for each context.
       </p>
     </div>
   </div>
