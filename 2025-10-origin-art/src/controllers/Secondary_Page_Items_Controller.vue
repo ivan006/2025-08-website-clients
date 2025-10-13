@@ -9,7 +9,7 @@
               // { label: 'All', value: '' },
               { label: 'Fine Art', value: 'Fine Art' },
               { label: 'Sculptural Works', value: 'Sculptural Works' },
-              { label: 'New Media', value: 'New Media' }
+              { label: 'New Media)', value: 'New Media' }
             ]" type="radio" @update:model-value="resetAndFetch" class="q-pb-md text-weight-regular" />
           </q-expansion-item>
 
@@ -66,10 +66,10 @@
           <q-btn flat color="primary" icon="chevron_left" label="Previous" :disable="currentPage === 0"
             @click="prevPage" />
 
-          <!-- <div>
+          <div>
             <q-btn v-for="(off, idx) in offsetTrail" :key="idx" size="sm" flat round :label="idx + 1"
               :color="idx === currentPage ? 'primary' : 'grey-6'" @click="goToPage(idx)" />
-          </div> -->
+          </div>
 
           <q-btn flat color="primary" icon-right="chevron_right" label="Next" :disable="!nextOffset"
             @click="nextPage" />
