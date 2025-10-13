@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Filter Combination Visualizer</title>
+<style>
+  body{font-family:system-ui,sans-serif;padding:2rem;background:#fafafa}
+  h1{font-size:1.2rem}
+  input,select,button{font-size:1rem;margin:.3rem 0}
+  #result{margin-top:1rem;font-weight:bold}
+  ul{list-style:none;padding-left:1.2rem;margin:.2rem 0}
+  li{margin:.1rem 0}
+  .group{font-weight:600;margin-top:.4rem}
+  code{background:#eee;padding:.1rem .3rem;border-radius:4px}
+</style>
+</head>
+<body>
+<h1>Filter Combination Visualizer</h1>
+
+<label>Enter filter option counts (comma-separated):</label><br>
+<input type="text" id="numbers" placeholder="e.g. 2,3,4,5" size="30"><br>
+
+<label>Mode:</label><br>
+<select id="mode">
+  <option value="overthetop">Over-the-top (all filters)</option>
+  <option value="reinedin" selected>Reined-in (top-2 filters only)</option>
+</select><br>
+
+<label>Include “All” choice for each filter?</label>
+<input type="checkbox" id="includeAll" checked><br>
+
+<button onclick="calculate()">Calculate</button>
+
+<div id="result"></div>
+<div id="details"></div>
+
+<script>
+function calculate(){
+  const raw=document.getElementById('numbers').value.trim();
+  if(!raw) return;
+  const nums=raw.split(',').map(n=>parseInt(n.trim(),10)).filter(Boolean);
+  const mode=document.getElementById('mode').value;
+  const includeAll=document.getElementById('includeAll').checked;
+
+  let combos=0,html="";
+  const sorted=[...nums].sort((a,b)=>b-a);
+  const top=sorted.slice(0,2);
+
+  if(mode==='overthetop'){
+    combos=nums.reduce((p,n)=>p*(includeAll?(n+1):n),1);
+    if(includeAll) combos-=1;
+    document.getElementById('details').innerHTML="";
+  }else{
+    combos=top.reduce((p,n)=>p*(includeAll?(n+1):n),1);
+    html=renderReinedList(top,includeAll);
+  }
+
+  document.getElementById('result').textContent=`Combinations: ${combos.toLocaleString()}`;
+  document.getElementById('details').innerHTML=html;
+}
+
+/* Build a grouped list for top-2 filters */
+function renderReinedList(top,includeAll){
+  const [n1,n2]=top;
+  const options1=Array.from({length:n1+(includeAll?1:0)},(_,i)=>i);
+  const options2=Array.from({length:n2+(includeAll?1:0)},(_,i)=>i);
+  const label=i=>includeAll && i===n1? "All" : `Option ${i+1}`;
+
+  let html="<ul>";
+  options1.forEach(i=>{
+    html+=`<li class="group">Filter 1 – ${label(i)}<ul>`;
+    options2.forEach(j=>{
+      const label2=includeAll && j===n2? "All" : `Option ${j+1}`;
+      html+=`<li>Filter 2 – ${label2} → <code>Cache Key = F1_${i+1||'All'}-F2_${j+1||'All'}</code></li>`;
+    });
+    html+="</ul></li>";
+  });
+  html+="</ul>";
+  return html;
+}
+</script>
+</body>
+</html>
