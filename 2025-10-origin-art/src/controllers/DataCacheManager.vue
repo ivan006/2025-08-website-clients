@@ -1,59 +1,89 @@
 <template>
   <div>
     <!-- 🧰 Hidden Data Cache Manager dialog -->
-    <q-dialog v-model="show" >
-      <q-card style="max-height: 90vh; overflow-y: auto;  width: 900px; max-width: 80vw;">
+    <q-dialog v-model="show">
+      <q-card style="max-height: 90vh; overflow-y: auto; width: 900px; max-width: 80vw;">
         <q-card-section>
-          <div class="text-h6">Data Cache Manager</div>
+          <div class="text-h5 q-mb-xs">Data Cache Manager</div>
           <div class="text-caption text-grey">
-            Monitor and clear cached JSON data endpoints
+            Monitor and rebuild cached JSON data endpoints
           </div>
         </q-card-section>
 
-        <!-- Controls -->
+        <!-- 🧭 Invoked Data -->
         <q-card-section>
-          <div class="row items-center justify-between">
-            <div class="text-subtitle2">Listener</div>
+          <div class="text-h6 q-mb-sm">Invoked Data</div>
+
+          <!-- Listener toggle under heading -->
+          <div class="row items-center q-gutter-sm q-mb-md">
             <q-toggle
               v-model="listening"
-              label="Listen"
+              label="Listen for requests"
               color="primary"
               dense
               @update:model-value="toggleInterception"
             />
+            <div class="text-grey-7 text-caption">
+              Toggle <strong>Listen</strong>, then browse the site to
+              <strong>invoke</strong> data endpoints. Return here to view the results.
+            </div>
           </div>
 
-          <!-- <div class="q-mt-sm">
-            <q-btn
-              label="Clear Cache for Observed Requests"
-              color="negative"
-              outline
-              icon="delete_forever"
-              size="sm"
-              @click="clearCache"
-              :disable="!requests.length"
-            />
-          </div> -->
+          <!-- 🧩 Segment hiding -->
+          <div v-if="requests.length" class="q-mt-md">
+            <div class="row items-center q-gutter-sm">
+              <q-input
+                dense
+                outlined
+                type="number"
+                v-model.number="hideSegmentsCount"
+                label="Hide first N segments"
+                min="0"
+                style="max-width: 180px"
+              />
+              <div class="row items-center q-gutter-xs">
+                <q-btn
+                  v-for="preset in [0, 5, 14, 26, 30]"
+                  :key="preset"
+                  size="sm"
+                  outline
+                  color="primary"
+                  :label="preset"
+                  :flat="hideSegmentsCount === preset"
+                  @click="hideSegmentsCount = preset"
+                />
+              </div>
+            </div>
+          </div>
 
+          <!-- 🧾 Endpoint list -->
           <div class="q-mt-md text-caption text-grey">
-            <span v-if="!requests.length">No requests captured yet.</span>
-            <ol v-else>
-              <li v-for="(url, i) in requests" :key="i">
-                <!-- <code>{{ splitUrl(url) }}</code> -->
-                <code>
-                   <span
-                    v-for="(part, i) in coloredParts(url)"
-                    :key="i"
-                    :style="{ color: rainbow[i % rainbow.length], fontWeight: 'bold' }"
-                  >
-                    {{ part }}
-                  </span>
-                </code>
-              </li>
-            </ol>
+            <div v-if="!requests.length" class="q-mt-sm">
+              No requests captured yet. Turn on the listener and browse the site to invoke data.
+            </div>
+
+            <div v-else>
+              <ol>
+                <li v-for="(url, i) in requests" :key="i">
+                  <code>
+                    <span
+                      v-for="(part, j) in visibleParts(url)"
+                      :key="j"
+                      :style="{ color: rainbow[j % rainbow.length], fontWeight: 'bold' }"
+                    >
+                      {{ part }}
+                    </span>
+                  </code>
+                </li>
+              </ol>
+            </div>
           </div>
+        </q-card-section>
+
+        <!-- 🧠 Strategic Use -->
+        <q-card-section>
+          <div class="text-h6 q-mb-sm">Strategic Use of the Tool</div>
           <CacheComboLesson />
-          
         </q-card-section>
 
         <q-card-actions align="right">
@@ -66,12 +96,11 @@
 
 <script>
 import CacheComboLesson from 'src/controllers/CacheComboLesson.vue'
+
 export default {
   name: 'DataCacheManager',
+  components: { CacheComboLesson },
 
-  components: {
-    CacheComboLesson
-  },
   data() {
     return {
       show: false,
@@ -79,38 +108,10 @@ export default {
       requests: [],
       origFetchRef: null,
       origXHROpenRef: null,
-      
+      hideSegmentsCount: 26,
       rainbow: [
-        
-        // '#b71c1c', // deep red
-        // '#e65100', // burnt orange
-        // '#f9a825', // golden yellow
-        // '#2e7d32', // dark green
-        // '#1565c0', // deep blue
-        // '#4527a0', // dark indigo
-        // '#6a1b9a'  // rich violet
-
-
-        
-        // '#1E88E5', // blue
-        // '#00ACC1', // cyan
-        // '#43A047', // green
-        // '#F9A825', // amber
-        // '#EF6C00', // orange
-        // '#E91E63', // pink
-        // '#8E24AA', // purple
-        // '#616161'  // grey
-
-        
-        '#1565C0', // deep blue
-        '#0277BD', // teal-blue
-        '#00897B', // dark turquoise
-        '#2E7D32', // forest green
-        '#EF6C00', // burnt orange
-        '#AD1457', // dark pink
-        '#6A1B9A', // deep purple
-        '#424242'  // charcoal grey
-
+        '#1565C0', '#0277BD', '#00897B', '#2E7D32',
+        '#EF6C00', '#AD1457', '#6A1B9A', '#424242'
       ],
     }
   },
@@ -118,31 +119,17 @@ export default {
   methods: {
     coloredParts(arg) {
       let newString = decodeURIComponent(arg)
-
-      newString = newString.replace(`https://capetownlists.co.za/?url=https://api.airtable.com/v0/appVY1Zwf71mOzczr/`, '');
-      // Split but keep the delimiters ( ?, /, & ) in the results using a capturing group
       const array = newString.split(/([?/&=]+)/)
-
-      // Filter out empty strings and return full list including delimiters
       return array.filter(p => p.length > 0)
     },
-    splitUrl(arg) {
-      let newString = decodeURIComponent(arg)
 
-      newString = newString.replace(/[?]/g, ' ? ');
-      newString = newString.replace(/[/]/g, ' / ');
-      newString = newString.replace(/[&]/g, ' & ');
-
-      // let newString = arg
-      // newString = newString.replace("/", " / ");
-      // newString = newString.replace("&", " & ");
-      // newString = newString.replace("?", " ? ");
-        
-      return newString
+    visibleParts(arg) {
+      const parts = this.coloredParts(arg)
+      return parts.slice(this.hideSegmentsCount)
     },
+
     toggleInterception(active) {
-      if (active) this.startIntercept()
-      else this.stopIntercept()
+      active ? this.startIntercept() : this.stopIntercept()
     },
 
     startIntercept() {
@@ -150,7 +137,6 @@ export default {
       const jsonRequests = new Set()
       const vm = this
 
-      // --- Intercept fetch
       this.origFetchRef = window.fetch
       window.fetch = async (input, init = {}) => {
         const method = (init?.method || 'GET').toUpperCase()
@@ -161,7 +147,6 @@ export default {
         return vm.origFetchRef(input, init)
       }
 
-      // --- Intercept XHR
       this.origXHROpenRef = XMLHttpRequest.prototype.open
       XMLHttpRequest.prototype.open = function (method, url, ...rest) {
         if (method.toUpperCase() === 'GET' && typeof url === 'string' && url.includes('?url=')) {
@@ -178,24 +163,11 @@ export default {
       this.origFetchRef = this.origXHROpenRef = null
       this.listening = false
     },
-
-    // clearCache() {
-    //   if (!this.requests.length) return
-    //   this.requests.forEach((url) => {
-    //     const delURL = url.replace('?url=', '?delete=')
-    //     fetch(delURL, { method: 'GET' })
-    //       .then(() => console.log('Cleared cache:', delURL))
-    //       .catch((err) => console.error('Error clearing cache:', delURL, err))
-    //   })
-    // }
   },
 
   mounted() {
-    // Global hotkey Shift + C
-    window.addEventListener('keydown', (e) => {
-      if (e.shiftKey && e.key.toLowerCase() === 'c') {
-        this.show = !this.show
-      }
+    window.addEventListener('keydown', e => {
+      if (e.shiftKey && e.key.toLowerCase() === 'c') this.show = !this.show
     })
   },
 

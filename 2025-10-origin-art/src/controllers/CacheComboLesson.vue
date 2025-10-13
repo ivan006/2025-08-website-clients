@@ -3,31 +3,40 @@
 
     <!-- 📘 Lesson text -->
     <div class="q-mb-md">
+    <p>
+    <strong>A note on strategic tool use:</strong><br>
+    After using the <em>Listener</em> to invoke data across the site,
+    this section shows how to plan cache rebuilds more strategically —
+    ensuring that new artworks appear across all relevant filter combinations.
+    </p>
+
+
+
       <p>
-        <strong>About this tool:</strong><br>
-        The Data Cache Manager is a <strong>cache rebuilding</strong> tool that works by observing endpoint activity.
-        Toggle <em>Listen</em>, browse the site as normal, and it will <strong>invoke</strong> and log every API request the site makes.
-        Afterwards, reopen the tool to view those endpoints and click <em>Clear</em> to rebuild their caches.
+        Each filter on your site (for example, <em>Media</em>, <em>Style</em>, or <em>Budget Tier</em>)
+        doubles the number of possible cache combinations.
+        The relationship follows a simple formula:
+        <code>2<sup>x</sup></code>, where <strong>x</strong> is the number of filters.
       </p>
 
       <p>
-        That’s the <strong>core use</strong>: toggle, browse, rebuild.
-        To use it more intelligently—such as after adding artwork—understand how many caches may need rebuilding.
-        Each filter doubles the combinations of possible cached views:
-        <code>2<sup>x</sup></code> where <strong>x</strong> is the number of filters.
-      </p>
-
-      <p>
-        <strong>Example (3 filters):</strong> Media, Style, Budget Tier → 8 total combinations:
+        <strong>Example (3 filters):</strong> Media, Style, Budget Tier → <strong>8 combinations</strong>:
       </p>
 
       <ul style="margin-left:1em;">
-        <li>All</li><li>Media</li><li>Style</li><li>Budget Tier</li>
-        <li>Media + Style</li><li>Media + Budget</li><li>Style + Budget</li><li>All 3</li>
+        <li>All (unfiltered)</li>
+        <li>Media</li>
+        <li>Style</li>
+        <li>Budget Tier</li>
+        <li>Media + Style</li>
+        <li>Media + Budget Tier</li>
+        <li>Style + Budget Tier</li>
+        <li>Media + Style + Budget Tier</li>
       </ul>
 
       <p>
-        Try it yourself below to see how many cache states your setup might invoke.
+        Use the calculator below to explore how your own filter setup affects the total number
+        of cache combinations the site can <em>invoke</em>.
       </p>
     </div>
 
@@ -60,14 +69,17 @@
 
     <q-separator spaced />
 
+    <!-- 🔮 Coming soon -->
     <div class="text-grey-7">
       <p>
-        <strong>Coming soon:</strong> an advanced tool to automatically re-cache intelligently.
-        It’s in development and will also require developer configuration for each context.
+        <strong>Coming soon:</strong> an advanced re-caching tool that automates this process,
+        intelligently rebuilding all relevant endpoints when new content is added.
+        It’s still in development and will require project-specific configuration.
       </p>
     </div>
   </div>
 </template>
+
 
 <script>
 export default {
