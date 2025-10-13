@@ -15,26 +15,34 @@
           />
         </div>
       </div>
-      <q-btn color="secondary" label="Calculate All Combos" @click="calculateAllCombos" />
+
+      <q-btn color="secondary" label="Calculate All Combos" @click="calculateAllCombos" class="q-mr-sm" />
+      <div>
+        <q-toggle
+          v-model="truncateLongCombos"
+          label="Truncate combos with more than 2 parts"
+          color="primary"
+        />
+      </div>
     </div>
 
     <div v-if="filters.length" class="q-mt-md">
       <p>
         Adding content across all categories generates
-        <strong>{{ optionCombos.length.toLocaleString() }}</strong> possible combinations.
+        <strong>{{ filteredCombos.length.toLocaleString() }}</strong> possible combinations.
       </p>
 
-      <div v-if="optionCombos.length && optionCombos.length < 200">
+      <div v-if="filteredCombos.length && filteredCombos.length < 200">
         <p>Here are all possible endpoint combinations (grouped by complexity):</p>
-        <ul style="margin-left:1em;">
-          <li v-for="(combo, i) in optionCombos" :key="i">
+        <ol style="margin-left:1em;">
+          <li v-for="(combo, i) in filteredCombos" :key="i">
             {{ combo }}
           </li>
-        </ul>
+        </ol>
       </div>
 
-      <p v-else-if="optionCombos.length >= 200" class="text-negative">
-        ⚠️ Too many combinations ({{ optionCombos.length.toLocaleString() }}) to list individually.
+      <p v-else-if="filteredCombos.length >= 200" class="text-negative">
+        ⚠️ Too many combinations ({{ filteredCombos.length.toLocaleString() }}) to list individually.
       </p>
     </div>
   </div>
@@ -51,23 +59,22 @@ export default {
   },
   data() {
     return {
-      optionCounts: []
+      optionCounts: [],
+      truncateLongCombos: false
     }
   },
   watch: {
     filters: {
       immediate: true,
       handler(newFilters) {
-        // Ensure optionCounts array matches filters length
         this.optionCounts = newFilters.map((_, i) => this.optionCounts[i] || 2)
       }
     }
   },
   computed: {
-    optionCombos() {
+    optionCombosDetailed() {
       const results = []
       const subsetCount = Math.pow(2, this.filters.length)
-
       results.push({ label: 'All (unfiltered)', depth: 0 })
 
       for (let mask = 1; mask < subsetCount; mask++) {
@@ -92,15 +99,22 @@ export default {
         expand([], 0)
       }
 
-      // Order by complexity
       results.sort((a, b) => a.depth - b.depth)
-      return results.map(r => r.label)
+      return results
+    },
+
+    filteredCombos() {
+      if (this.truncateLongCombos) {
+        return this.optionCombosDetailed
+          .filter(r => r.depth <= 2)
+          .map(r => r.label)
+      }
+      return this.optionCombosDetailed.map(r => r.label)
     }
   },
   methods: {
     calculateAllCombos() {
-      // Trigger reactivity
-      this.optionCounts = [...this.optionCounts]
+      this.optionCounts = [...this.optionCounts] // trigger recompute
     }
   }
 }

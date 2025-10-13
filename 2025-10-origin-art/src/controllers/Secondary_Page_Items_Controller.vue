@@ -38,16 +38,7 @@
 
       <template #content>
         <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
-          <pre>{{ currentPage }}</pre>
-          <pre>{{ offsetTrail }}</pre>
-          <pre>next {{ nextOffset }}</pre>
-        <!-- ✅ Pagination buttons -->
-        <div class="text-center q-mt-lg">
-          <q-btn flat color="primary" label="Previous" icon="chevron_left" :disable="currentPage === 0"
-            @click="prevPage" class="q-mr-sm" />
-          <q-btn flat color="primary" label="Next" icon-right="chevron_right" :disable="!nextOffset"
-            @click="nextPage" />
-        </div>
+          <pre>{{offsetTrail}}</pre>
         <div v-if="loading" class="text-center q-pa-md">Loading...</div>
         <div v-else-if="!items.length" class="text-center q-pa-md text-2ry-color">No artworks found.</div>
 
@@ -103,7 +94,7 @@ export default {
         'Tier Category': '',
       },
       nextOffset: null,
-      offsetTrail: [null], // track offset history
+      offsetTrail: [null], // stores offsets for back navigation
       currentPage: 0,
       options: { itemsPerPage: 12 },
     }
@@ -151,21 +142,12 @@ export default {
         const response = await Home_Page_Items.FetchAll([], {}, {}, {
           limit: this.options.itemsPerPage,
           filters: formula ? { filterByFormula: formula } : {},
-          offset, // 🔹 pass offset to fetch next batch
+          offset, // 🔹 proper Airtable offset token
         })
 
         const data = response.response.data
         this.items = data.records.map((r) => ({ id: r.id, ...r.fields }))
         this.nextOffset = data.offset || null
-
-        // 🔹 Save offset trail for "Previous" navigation
-        console.log(11111111)
-        console.log(this.currentPage === this.offsetTrail.length - 1)
-        console.log(this.currentPage  )
-        console.log(this.offsetTrail.length - 1)
-        if (offset && this.currentPage === this.offsetTrail.length - 1) {
-          this.offsetTrail.push(offset)
-        }
       } catch (err) {
         console.error(err)
       }
@@ -175,6 +157,8 @@ export default {
 
     async nextPage() {
       if (this.nextOffset) {
+        // ✅ Save offset for back navigation
+        this.offsetTrail.push(this.nextOffset)
         this.currentPage++
         await this.fetchData(this.nextOffset)
       }
