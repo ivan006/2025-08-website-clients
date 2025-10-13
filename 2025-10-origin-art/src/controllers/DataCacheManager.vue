@@ -14,7 +14,17 @@
         <q-card-section>
           <div class="text-h6 q-mb-sm">Invoked Data</div>
 
-          <DataCacheManagerListener />
+          
+          <!-- Listener toggle under heading -->
+          <div class="row items-center q-gutter-sm q-mb-md">
+              <q-toggle v-model="listening" label="Listen for requests" color="primary" dense
+                  @update:model-value="toggleInterception" />
+              <div class="text-grey-7 text-caption">
+                  Toggle <strong>Listen</strong>, then browse the site to
+                  <strong>invoke</strong> data endpoints. Return here to view the results.
+              </div>
+          </div>
+          <DataCacheManagerListenerList :requests="requests"/>
         </q-card-section>
 
         <!-- 🧠 Strategic Use -->
@@ -88,19 +98,59 @@
 
 <script>
 import DataCacheManagerStrategicUseTool from './DataCacheManagerStrategicUseTool.vue';
-import DataCacheManagerListener from './DataCacheManagerListener.vue';
+import DataCacheManagerListenerList from './DataCacheManagerListenerList.vue';
 
 export default {
   name: 'DataCacheManager',
-  components: { DataCacheManagerStrategicUseTool, DataCacheManagerListener },
+  components: { DataCacheManagerStrategicUseTool, DataCacheManagerListenerList },
 
   data() {
     return {
+        listening: false,
+        requests: [],
+        origFetchRef: null,
+        origXHROpenRef: null,
       show: false,
     }
   },
 
   methods: {
+    
+    toggleInterception(active) {
+        active ? this.startIntercept() : this.stopIntercept()
+    },
+
+    startIntercept() {
+        this.requests = []
+        const jsonRequests = new Set()
+        const vm = this
+
+        this.origFetchRef = window.fetch
+        window.fetch = async (input, init = {}) => {
+            const method = (init?.method || 'GET').toUpperCase()
+            if (method === 'GET' && typeof input === 'string' && input.includes('?url=')) {
+                jsonRequests.add(input)
+                vm.requests = Array.from(jsonRequests)
+            }
+            return vm.origFetchRef(input, init)
+        }
+
+        this.origXHROpenRef = XMLHttpRequest.prototype.open
+        XMLHttpRequest.prototype.open = function (method, url, ...rest) {
+            if (method.toUpperCase() === 'GET' && typeof url === 'string' && url.includes('?url=')) {
+                jsonRequests.add(url)
+                vm.requests = Array.from(jsonRequests)
+            }
+            return vm.origXHROpenRef.call(this, method, url, ...rest)
+        }
+    },
+
+    stopIntercept() {
+        if (this.origFetchRef) window.fetch = this.origFetchRef
+        if (this.origXHROpenRef) XMLHttpRequest.prototype.open = this.origXHROpenRef
+        this.origFetchRef = this.origXHROpenRef = null
+        this.listening = false
+    },
   },
 
   mounted() {
@@ -109,7 +159,9 @@ export default {
     })
   },
 
+
   beforeUnmount() {
+      this.stopIntercept()
   }
 }
 </script>

@@ -29,7 +29,7 @@
 
 <script>
 export default {
-  name: 'CacheComboLesson',
+  name: 'DataCacheManagerStrategicUseTool',
   data() {
     return {
       inputString: 'Media, Style, Budget Tier',
