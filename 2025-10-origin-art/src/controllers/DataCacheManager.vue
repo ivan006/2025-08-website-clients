@@ -4,7 +4,7 @@
     <q-dialog v-model="show">
       <q-card style="max-height: 90vh; overflow-y: auto; width: 900px; max-width: 80vw;">
         <q-card-section>
-          <div class="text-h5 q-mb-xs">Data Cache Manager</div>
+          <div class="text-h4 q-mb-xs">Data Cache Manager</div>
           <div class="text-caption text-grey">
             Monitor and rebuild cached JSON data endpoints
           </div>
@@ -12,7 +12,9 @@
 
         <!-- 🧭 Invoked Data -->
         <q-card-section>
-          <div class="text-h6 q-mb-sm">Listener</div>
+          
+          <div class="text-h5 q-mb-sm">Robust Fallback Tool</div>
+          <div class="text-h6 q-mb-sm">Exploration Based Recaching</div>
 
           
           <!-- Listener toggle under heading -->
@@ -32,43 +34,35 @@
 
         <!-- 🧠 Strategic Use -->
         <q-card-section>
-          <div class="text-h6 q-mb-sm">Strategic Use</div>
-          
-            <div class="q-pa-mdx q-mt-md text-body2 text-grey-8">
+          <div class="text-h6 q-mb-sm">Strategic Exploration</div>
 
-              <!-- 📘 Lesson text -->
-              <div class="q-mb-md">
+          <div class="q-pa-mdx q-mt-md text-body2 text-grey-8">
+            <!-- 📘 Lesson text -->
+            <div class="q-mb-md">
               <p>
-               The purpose of populating the listener list is to identify which endpoints should be re-cached. 
-               <br>This ensures that newly added artworks become visible to site visitors.
+                The listener list defines which endpoints should be re-cached,
+                ensuring new artworks appear correctly for site visitors.
+              </p>
 
-               <br>Because each artwork can appear under multiple filter combinations, it’s important to approach 
-               this step intentionally rather than randomly browsing.
+              <p>
+                Since artworks can show under multiple filter combinations,
+                be intentional when invoking data to capture all relevant endpoints.
+              </p>
 
-               <br>By thoughtfully invoking and capturing the right endpoints, you’ll make sure that new artworks 
-               display correctly across all relevant filter scenarios.
+              <p>
+                Each filter (for example, <em>Media</em>, <em>Style</em>, or <em>Budget Tier</em>)
+                doubles the number of cache variations, following the formula
+                <code>2<sup>x</sup></code> — where <strong>x</strong> is the number of filters.
+              </p>
 
-               <br>To plan your re-caching effectively, it helps to understand how many possible cache combinations your filters create.
+              <p>
+                Use the calculator below to see how your filter setup affects
+                the number of combinations the site can <em>invoke</em>.
               </p>
 
 
-
-                <p>
-                  To plan your re-caching effectively, it helps to understand how many possible cache combinations your filters create.
-                  Each filter on your site (for example, <em>Media</em>, <em>Style</em>, or <em>Budget Tier</em>)
-                  doubles the number of potential cache variations.
-                  This relationship follows a simple formula:
-                  <code>2<sup>x</sup></code>, where <strong>x</strong> is the number of filters.
-                </p>
-
-                <p>
-                  Use the calculator below to experiment with your own filter setup and see how many combinations the site can
-                  <em>invoke</em>.
-                </p>
-
-                <q-separator spaced />
-                <DataCacheManagerStrategicUseTool />
-
+              <q-separator spaced />
+              <DataCacheManagerStrategicUseTool />
 
               <q-separator spaced />
 
@@ -82,6 +76,24 @@
               </div>
             </div>
           </div>
+
+        </q-card-section>
+        
+        <!-- 🧠 Strategic Use -->
+        <q-card-section>
+          <div class="text-h5 q-mb-sm">Smart Tool</div>
+          <div class="text-h6 q-mb-sm">Predictive Recaching</div>
+
+
+          <!-- 🔮 Coming soon -->
+          <div class="text-grey-7">
+            <p>
+              <strong>Coming soon:</strong> an advanced re-caching tool that automates this process,
+              intelligently rebuilding all relevant endpoints when new content is added.
+              It’s still in development and will require project-specific configuration.
+            </p>
+          </div>
+
         </q-card-section>
 
         <q-card-actions align="right">
