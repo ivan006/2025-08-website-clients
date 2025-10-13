@@ -9,25 +9,25 @@
               // { label: 'All', value: '' },
               { label: 'Fine Art', value: 'Fine Art' },
               { label: 'Sculptural Works', value: 'Sculptural Works' },
-              { label: 'New Media)', value: 'New Media' }
+              { label: 'New Media', value: 'New Media' }
             ]" type="radio" @update:model-value="resetAndFetch" class="q-pb-md text-weight-regular" />
           </q-expansion-item>
 
           <q-separator />
           <!-- 🌈 Theme -->
-          <q-expansion-item label="Style" class="text-weight-bold">
+          <q-expansion-item label="Style" class="text-weight-bold" default-opened>
             <q-option-group v-model="filterValsRef['Theme Name']" :options="[
-              { label: 'All', value: '' },
+              // { label: 'All', value: '' },
+              { label: 'Evocative', value: 'Evocative' },
               { label: 'Decorative', value: 'Decorative' },
-              { label: 'Evocative', value: 'Evocative' }
             ]" type="radio" @update:model-value="resetAndFetch" class="q-pb-md text-weight-regular" />
           </q-expansion-item>
 
           <q-separator />
           <!-- 🏅 Tier -->
-          <q-expansion-item label="Budget" class="text-weight-bold">
+          <q-expansion-item label="Budget" class="text-weight-bold" default-opened>
             <q-option-group v-model="filterValsRef['Tier Category']" :options="[
-              { label: 'All', value: '' },
+              // { label: 'All', value: '' },
               { label: 'Gold (Above 50k)', value: 'Gold Tier' },
               { label: 'Silver (10k-50k)', value: 'Silver Tier' },
               { label: 'Bronze (Below 10k)', value: 'Bronze Tier' }
@@ -38,26 +38,31 @@
 
       <template #content>
         <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
-        
+        <!-- <pre>{{ offsetTrail }}</pre> -->
         <div v-if="loading" class="text-center q-pa-md">Loading...</div>
         <div v-else-if="!items.length" class="text-center q-pa-md text-2ry-color">No artworks found.</div>
+        <div v-else >
+          <div class="text-center q-pa-sm text-1ry-color">
+            {{ currentRecordCount }} artworks found
+          </div>
 
-        <div v-else class="row q-col-gutter-lgx">
-          <div v-for="art in items" :key="art.id" class="col-6 col-md-2 q-pa-sm">
-            <q-card flat bordered class="text-1ry-color box-shadow-1ry">
-              <img :src="art['Image'] ? `https://capetownlists.co.za/?url=${encodeURIComponent(art['Image'])}` : ''"
-                ratio="1" class="rounded-borders" />
-              <q-card-section>
-                <div class="text-h6 font-1ry" style="min-height: 64px;">{{ art.Title }}</div>
-                <div class="text-subtitle2 text-2ry-color q-mt-xs">
-                  {{ art['Artist Name']?.[0] || 'Unknown Artist' }}
-                </div>
-                <div class="text-body1 q-mt-xs text-weight-bold">R{{ art.Price?.toLocaleString() }}</div>
-              </q-card-section>
-              <q-card-actions align="right">
-                <q-btn flat size="sm" label="View Details" class="bg-1ry-color" />
-              </q-card-actions>
-            </q-card>
+          <div class="row q-col-gutter-lgx">
+            <div v-for="art in items" :key="art.id" class="col-6 col-md-2 q-pa-sm">
+              <q-card flat bordered class="text-1ry-color box-shadow-1ry">
+                <img :src="art['Image'] ? `https://capetownlists.co.za/?url=${encodeURIComponent(art['Image'])}` : ''"
+                  ratio="1" class="rounded-borders" />
+                <q-card-section>
+                  <div class="text-h6 font-1ry" style="min-height: 64px;">{{ art.Title }}</div>
+                  <div class="text-subtitle2 text-2ry-color q-mt-xs">
+                    {{ art['Artist Name']?.[0] || 'Unknown Artist' }}
+                  </div>
+                  <div class="text-body1 q-mt-xs text-weight-bold">R{{ art.Price?.toLocaleString() }}</div>
+                </q-card-section>
+                <q-card-actions align="right">
+                  <q-btn flat size="sm" label="View Details" class="bg-1ry-color" />
+                </q-card-actions>
+              </q-card>
+            </div>
           </div>
         </div>
 
@@ -81,6 +86,7 @@
 
 <script>
 import Secondary_Page_Items from 'src/models/orm-api/Secondary_Page_Items'
+import Tertiary_Page_Items from 'src/models/orm-api/Tertiary_Page_Items' // 👈 new
 import { createMetaMixin } from 'quasar'
 import { buildSchemaItem, buildSeoConfig } from 'src/utils/seo'
 import SEODataViewer from 'src/controllers/SEODataViewer.vue'
@@ -93,19 +99,43 @@ export default {
   data() {
     return {
       items: [],
+      recordCounts: [], // 👈 stores 48 count records
       loading: false,
       filterValsRef: {
         'Media Category Name': 'Fine Art',
-        'Theme Name': '',
-        'Tier Category': '',
+        'Theme Name': 'Evocative',
+        'Tier Category': 'Gold Tier',
       },
       nextOffset: null,
-      offsetTrail: [null], // first page has null offset
+      offsetTrail: [null],
       currentPage: 0,
       options: { itemsPerPage: 12 },
     }
   },
+
   computed: {
+    // 👇 Finds the current combination’s precomputed total
+    currentRecordCount() {
+      const media = this.filterValsRef['Media Category Name']
+      const theme = this.filterValsRef['Theme Name']
+      const tier = this.filterValsRef['Tier Category']
+
+      return this.recordCounts.find(r => {
+        const f = r.fields
+        const mediaNames = f['Name (from Media Category)'] || []
+        const themeNames = f['Name (from Art Theme)'] || []
+        const tierNames  = f['Name (from Artist Tiers)'] || []
+
+        const mediaMatch = media ? mediaNames.includes(media) : mediaNames.length === 0
+        const themeMatch = theme ? themeNames.includes(theme) : themeNames.length === 0
+        const tierMatch  = tier  ? tierNames.includes(tier)  : tierNames.length === 0
+
+        return mediaMatch && themeMatch && tierMatch
+      })?.fields['Record Count'] || 0
+    },
+
+
+
     seoLdJson() {
       const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/')
       const products = this.items.map((item) =>
@@ -135,7 +165,19 @@ export default {
       return c
     },
   },
+
   methods: {
+    async fetchRecordCounts() {
+      try {
+        
+        const res = await Tertiary_Page_Items.FetchAll([], {}, {}, { limit: 100 })
+        this.recordCounts = res.response.data.records
+        console.log('✅ Record counts loaded:', this.recordCounts.length)
+      } catch (err) {
+        console.error('❌ Failed to load record counts:', err)
+      }
+    },
+
     async fetchData(offset = null) {
       this.loading = true
       try {
@@ -156,7 +198,6 @@ export default {
         const newOffset = data.offset || null
         this.nextOffset = newOffset
 
-        // ✅ Add new offset only if it's not already stored
         if (newOffset && !this.offsetTrail.includes(newOffset)) {
           this.offsetTrail.push(newOffset)
         }
@@ -197,8 +238,9 @@ export default {
     },
   },
 
-  mounted() {
-    this.fetchData()
+  async mounted() {
+    await this.fetchRecordCounts() // 👈 prefetch count table once
+    await this.fetchData()
   },
 }
 </script>
