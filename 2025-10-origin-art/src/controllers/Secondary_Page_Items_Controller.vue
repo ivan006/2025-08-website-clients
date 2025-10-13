@@ -7,9 +7,9 @@
           <q-expansion-item label="Media Type" class="text-weight-bold" default-opened>
             <q-option-group v-model="filterValsRef['Media Category Name']" :options="[
               // { label: 'All', value: '' },
-              { label: 'Fine Art (358)', value: 'Fine Art' },
-              { label: 'Sculptural Works (89)', value: 'Sculptural Works' },
-              { label: 'New Media (47)', value: 'New Media' }
+              { label: 'Fine Art', value: 'Fine Art' },
+              { label: 'Sculptural Works', value: 'Sculptural Works' },
+              { label: 'New Media', value: 'New Media' }
             ]" type="radio" @update:model-value="resetAndFetch" class="q-pb-md text-weight-regular" />
           </q-expansion-item>
 
