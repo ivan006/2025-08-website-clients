@@ -1,15 +1,15 @@
 <template>
-  <div class="container-mdx" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12); ">
+  <div class="container-mdx" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
     <catalogue-layout>
       <template #filters>
         <div>
           <!-- 🎨 Media Type -->
           <q-expansion-item label="Media Type" class="text-weight-bold" default-opened>
             <q-option-group v-model="filterValsRef['Media Category Name']" :options="[
-              { label: 'All', value: '' },
-              { label: 'Fine Art', value: 'Fine Art' },
-              { label: 'Sculptural Works', value: 'Sculptural Works' },
-              { label: 'New Media', value: 'New Media' }
+              // { label: 'All', value: '' },
+              { label: 'Fine Art (358)', value: 'Fine Art' },
+              { label: 'Sculptural Works (89)', value: 'Sculptural Works' },
+              { label: 'New Media (47)', value: 'New Media' }
             ]" type="radio" @update:model-value="resetAndFetch" class="q-pb-md text-weight-regular" />
           </q-expansion-item>
 
@@ -38,16 +38,7 @@
 
       <template #content>
         <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
-          <pre>{{offsetTrail}}</pre>
-
-          
-        <!-- ✅ Pagination buttons -->
-        <div class="text-center q-mt-lg">
-          <q-btn flat color="primary" label="Previous" icon="chevron_left" :disable="currentPage === 0"
-            @click="prevPage" class="q-mr-sm" />
-          <q-btn flat color="primary" label="Next" icon-right="chevron_right" :disable="!nextOffset"
-            @click="nextPage" />
-        </div>
+        
         <div v-if="loading" class="text-center q-pa-md">Loading...</div>
         <div v-else-if="!items.length" class="text-center q-pa-md text-2ry-color">No artworks found.</div>
 
@@ -70,11 +61,17 @@
           </div>
         </div>
 
-        <!-- ✅ Pagination buttons -->
-        <div class="text-center q-mt-lg">
-          <q-btn flat color="primary" label="Previous" icon="chevron_left" :disable="currentPage === 0"
-            @click="prevPage" class="q-mr-sm" />
-          <q-btn flat color="primary" label="Next" icon-right="chevron_right" :disable="!nextOffset"
+        <!-- ✅ Smart Pagination -->
+        <div class="text-center q-mt-lg flex flex-center q-gutter-sm">
+          <q-btn flat color="primary" icon="chevron_left" label="Previous" :disable="currentPage === 0"
+            @click="prevPage" />
+
+          <!-- <div>
+            <q-btn v-for="(off, idx) in offsetTrail" :key="idx" size="sm" flat round :label="idx + 1"
+              :color="idx === currentPage ? 'primary' : 'grey-6'" @click="goToPage(idx)" />
+          </div> -->
+
+          <q-btn flat color="primary" icon-right="chevron_right" label="Next" :disable="!nextOffset"
             @click="nextPage" />
         </div>
       </template>
@@ -83,7 +80,7 @@
 </template>
 
 <script>
-import Home_Page_Items from 'src/models/orm-api/Home_Page_Items'
+import Secondary_Page_Items from 'src/models/orm-api/Secondary_Page_Items'
 import { createMetaMixin } from 'quasar'
 import { buildSchemaItem, buildSeoConfig } from 'src/utils/seo'
 import SEODataViewer from 'src/controllers/SEODataViewer.vue'
@@ -98,12 +95,12 @@ export default {
       items: [],
       loading: false,
       filterValsRef: {
-        'Media Category Name': '',
+        'Media Category Name': 'Fine Art',
         'Theme Name': '',
         'Tier Category': '',
       },
       nextOffset: null,
-      offsetTrail: [null], // stores offsets for back navigation
+      offsetTrail: [null], // first page has null offset
       currentPage: 0,
       options: { itemsPerPage: 12 },
     }
@@ -148,7 +145,7 @@ export default {
           .map(([k, v]) => `({${k}}='${v.replace(/'/g, "\\'")}')`)
         const formula = parts.length ? `AND(${parts.join(',')})` : ''
 
-        const response = await Home_Page_Items.FetchAll([], {}, {}, {
+        const response = await Secondary_Page_Items.FetchAll([], {}, {}, {
           limit: this.options.itemsPerPage,
           filters: formula ? { filterByFormula: formula } : {},
           offset,
@@ -157,14 +154,14 @@ export default {
         const data = response.response.data
         this.items = data.records.map((r) => ({ id: r.id, ...r.fields }))
         const newOffset = data.offset || null
-
-        // ✅ Update nextOffset for next-page button
         this.nextOffset = newOffset
 
-        // ✅ Add only new, non-duplicate offsets
+        // ✅ Add new offset only if it's not already stored
         if (newOffset && !this.offsetTrail.includes(newOffset)) {
           this.offsetTrail.push(newOffset)
         }
+
+        console.log(`Page ${this.currentPage + 1} → Offset:`, offset, '→ Next:', newOffset)
       } catch (err) {
         console.error(err)
       }
@@ -187,13 +184,18 @@ export default {
       }
     },
 
+    async goToPage(pageIndex) {
+      this.currentPage = pageIndex
+      const offset = this.offsetTrail[pageIndex]
+      await this.fetchData(offset)
+    },
+
     async resetAndFetch() {
       this.offsetTrail = [null]
       this.currentPage = 0
       await this.fetchData()
     },
   },
-
 
   mounted() {
     this.fetchData()
