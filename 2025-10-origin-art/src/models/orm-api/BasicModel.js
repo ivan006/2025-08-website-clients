@@ -69,10 +69,14 @@ export default class BasicModel extends Model {
     });
 
     // ✅ Build query string
-    const queryString = new URLSearchParams(flatParams).toString();
+    const queryStringEncoded = new URLSearchParams(flatParams).toString();
+    const queryString = decodeURIComponent(queryStringEncoded);
+    
 
     // ✅ Encode the full inner URL
-    const encodedInner = encodeURIComponent(`${airtableUrl}?${queryString}`);
+    const encodedInnerString = `${airtableUrl}?${queryString}`;
+    // const encodedInner = encodedInnerString;
+    const encodedInner = encodeURIComponent(encodedInnerString);
 
     // ✅ Final proxy URL
     const finalUrl = `${proxyBase}${encodedInner}`;
@@ -97,12 +101,14 @@ export default class BasicModel extends Model {
     });
 
     // ✅ Build query string if any
-    const queryString = new URLSearchParams(flatParams).toString();
+    const queryStringEncoded = new URLSearchParams(flatParams).toString();
+    const queryString = decodeURIComponent(queryStringEncoded);
 
     // ✅ Encode full inner URL
-    const encodedInner = encodeURIComponent(
-      queryString ? `${airtableUrl}?${queryString}` : airtableUrl
-    );
+    
+    const encodedInnerString = queryString ? `${airtableUrl}?${queryString}` : airtableUrl;
+    const encodedInner = encodedInnerString;
+    // const encodedInner = encodeURIComponent(encodedInnerString);
 
     // ✅ Final proxy URL
     const finalUrl = `${proxyBase}${encodedInner}`;

@@ -1,8 +1,8 @@
 <template>
   <div>
     <!-- 🧰 Hidden Data Cache Manager dialog -->
-    <q-dialog v-model="show" persistent maximized transition-show="slide-up" transition-hide="slide-down">
-      <q-card style="max-height: 90vh; overflow-y: auto;">
+    <q-dialog v-model="show" >
+      <q-card style="max-height: 90vh; overflow-y: auto;  width: 900px; max-width: 80vw;">
         <q-card-section>
           <div class="text-h6">Data Cache Manager</div>
           <div class="text-caption text-grey">
@@ -39,10 +39,20 @@
             <span v-if="!requests.length">No requests captured yet.</span>
             <ul v-else>
               <li v-for="(url, i) in requests" :key="i">
-                <code>{{ url }}</code>
+                <!-- <code>{{ splitUrl(url) }}</code> -->
+                <code>
+                   <span
+                    v-for="(part, i) in coloredParts(url)"
+                    :key="i"
+                    :style="{ color: rainbow[i % rainbow.length], fontWeight: 'bold' }"
+                  >
+                    {{ part }}
+                  </span>
+                </code>
               </li>
             </ul>
           </div>
+          
         </q-card-section>
 
         <q-card-actions align="right">
@@ -63,11 +73,67 @@ export default {
       listening: false,
       requests: [],
       origFetchRef: null,
-      origXHROpenRef: null
+      origXHROpenRef: null,
+      
+      rainbow: [
+        
+        // '#b71c1c', // deep red
+        // '#e65100', // burnt orange
+        // '#f9a825', // golden yellow
+        // '#2e7d32', // dark green
+        // '#1565c0', // deep blue
+        // '#4527a0', // dark indigo
+        // '#6a1b9a'  // rich violet
+
+
+        
+        // '#1E88E5', // blue
+        // '#00ACC1', // cyan
+        // '#43A047', // green
+        // '#F9A825', // amber
+        // '#EF6C00', // orange
+        // '#E91E63', // pink
+        // '#8E24AA', // purple
+        // '#616161'  // grey
+
+        
+        '#1565C0', // deep blue
+        '#0277BD', // teal-blue
+        '#00897B', // dark turquoise
+        '#2E7D32', // forest green
+        '#EF6C00', // burnt orange
+        '#AD1457', // dark pink
+        '#6A1B9A', // deep purple
+        '#424242'  // charcoal grey
+      ],
     }
   },
 
   methods: {
+  coloredParts(arg) {
+    let newString = decodeURIComponent(arg)
+
+    newString = newString.replace(`https://capetownlists.co.za/?url=https://api.airtable.com/v0/appVY1Zwf71mOzczr/`, '');
+    // Split but keep the delimiters ( ?, /, & ) in the results using a capturing group
+    const array = newString.split(/([?/&=]+)/)
+
+    // Filter out empty strings and return full list including delimiters
+    return array.filter(p => p.length > 0)
+  },
+    splitUrl(arg) {
+      let newString = decodeURIComponent(arg)
+
+      newString = newString.replace(/[?]/g, ' ? ');
+      newString = newString.replace(/[/]/g, ' / ');
+      newString = newString.replace(/[&]/g, ' & ');
+
+      // let newString = arg
+      // newString = newString.replace("/", " / ");
+      // newString = newString.replace("&", " & ");
+      // newString = newString.replace("?", " ? ");
+        
+      return newString
+    },
     toggleInterception(active) {
       if (active) this.startIntercept()
       else this.stopIntercept()
