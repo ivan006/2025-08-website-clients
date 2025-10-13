@@ -12,34 +12,34 @@
 
         <!-- 🧭 Invoked Data -->
         <q-card-section>
-          <div class="text-h6 q-mb-sm">Invoked Data</div>
+          <div class="text-h6 q-mb-sm">Listener</div>
 
           
           <!-- Listener toggle under heading -->
-          <div class="row items-center q-gutter-sm q-mb-md">
+          <div class=" items-center q-gutter-sm q-mb-md">
               <q-toggle v-model="listening" label="Listen for requests" color="primary" dense
                   @update:model-value="toggleInterception" />
-              <div class="text-grey-7 text-caption">
-                  Toggle <strong>Listen</strong>, then browse the site to
-                  <strong>invoke</strong> data endpoints. Return here to view the results.
+              <div class="text-grey-7 ">
+                  To populate the listener list, turn on the listener and interact with the site’s 
+                  filters. This will prompt the site to request various relevant data endpoints. 
+                  Any endpoints you invoke while the listener is active will be added to the list when you return to this tool.
               </div>
           </div>
+          
+          <div class="text-h7 q-mb-sm">Listener List</div>
           <DataCacheManagerListenerList :requests="requests"/>
         </q-card-section>
 
         <!-- 🧠 Strategic Use -->
         <q-card-section>
-          <div class="text-h6 q-mb-sm">Strategic Use of the Tool</div>
+          <div class="text-h6 q-mb-sm">Strategic Use</div>
           
             <div class="q-pa-mdx q-mt-md text-body2 text-grey-8">
 
               <!-- 📘 Lesson text -->
               <div class="q-mb-md">
               <p>
-              <strong>A note on strategic tool use:</strong><br>
-              After using the <em>Listener</em> to invoke data across the site,
-              this section shows how to plan cache rebuilds more strategically —
-              ensuring that new artworks appear across all relevant filter combinations.
+               To populate the listener list strategically, ensuring new artworks appear across all relevant filter combinations.
               </p>
 
 

@@ -17,7 +17,7 @@
         <!-- 🧾 Endpoint list -->
         <div class="q-mt-md text-caption text-grey">
             <div v-if="!requests.length" class="q-mt-sm">
-                No requests captured yet. Turn on the listener and browse the site to invoke data.
+                No requests captured yet.
             </div>
 
             <div v-else>
