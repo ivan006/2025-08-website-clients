@@ -1,55 +1,37 @@
 <template>
   <div class="container-mdx" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12); ">
-     <catalogue-layout class="" >
+    <catalogue-layout class="">
       <template #filters>
         <div>
 
           <!-- 🎨 Media Type -->
           <q-expansion-item label="Media Type" class="text-weight-bold" default-opened>
-            <q-option-group
-              v-model="filterValsRef['Media Category Name']"
-              :options="[
-                { label: 'All', value: '' },
-                { label: 'Fine Art', value: 'Fine Art' },
-                { label: 'Sculptural Works', value: 'Sculptural Works' },
-                { label: 'New Media', value: 'New Media' }
-              ]"
-              type="radio"
-              @update:model-value="fetchData"
-              class="q-pb-md text-weight-regular"
-            />
+            <q-option-group v-model="filterValsRef['Media Category Name']" :options="[
+              { label: 'All', value: '' },
+              { label: 'Fine Art', value: 'Fine Art' },
+              { label: 'Sculptural Works', value: 'Sculptural Works' },
+              { label: 'New Media', value: 'New Media' }
+            ]" type="radio" @update:model-value="fetchData" class="q-pb-md text-weight-regular" />
           </q-expansion-item>
-          <q-separator  />
+          <q-separator />
           <!-- 🌈 Theme -->
           <q-expansion-item label="Style" class="text-weight-bold">
-            <q-option-group
-              v-model="filterValsRef['Theme Name']"
-              :options="[
-                { label: 'All', value: '' },
-                { label: 'Decorative', value: 'Decorative' },
-                { label: 'Evocative', value: 'Evocative' }
-              ]"
-              type="radio"
-              @update:model-value="fetchData"
-              class="q-pb-md text-weight-regular"
-            />
+            <q-option-group v-model="filterValsRef['Theme Name']" :options="[
+              { label: 'All', value: '' },
+              { label: 'Decorative', value: 'Decorative' },
+              { label: 'Evocative', value: 'Evocative' }
+            ]" type="radio" @update:model-value="fetchData" class="q-pb-md text-weight-regular" />
           </q-expansion-item>
 
-          <q-separator  />
+          <q-separator />
           <!-- 🏅 Tier -->
           <q-expansion-item label="Budget" class="text-weight-bold">
-            <q-option-group
-              v-model="filterValsRef['Tier Category']"
-              :options="[
-                { label: 'All', value: '' },
-                { label: 'Gold (Above 50k)', value: 'Gold Tier' },
-                { label: 'Silver (10k-50k)', value: 'Silver Tier' },
-                { label: 'Bronze (Below 10k)', value: 'Bronze Tier' }
-              ]"
-              type="radio"
-              @update:model-value="fetchData"
-              class="q-pb-md text-weight-regular"
-            />
+            <q-option-group v-model="filterValsRef['Tier Category']" :options="[
+              { label: 'All', value: '' },
+              { label: 'Gold (Above 50k)', value: 'Gold Tier' },
+              { label: 'Silver (10k-50k)', value: 'Silver Tier' },
+              { label: 'Bronze (Below 10k)', value: 'Bronze Tier' }
+            ]" type="radio" @update:model-value="fetchData" class="q-pb-md text-weight-regular" />
           </q-expansion-item>
 
         </div>
@@ -65,11 +47,8 @@
         <div v-else class="row q-col-gutter-lgx">
           <div v-for="art in items" :key="art.id" class="col-6  col-md-2 q-pa-sm">
             <q-card flat bordered class=" text-1ry-color box-shadow-1ry">
-              <img
-                :src="art['Image'] ? `https://capetownlists.co.za/?url=${encodeURIComponent(art['Image'])}` : ''"
-                ratio="1"
-                class="rounded-borders"
-              />
+              <img :src="art['Image'] ? `https://capetownlists.co.za/?url=${encodeURIComponent(art['Image'])}` : ''"
+                ratio="1" class="rounded-borders" />
               <q-card-section>
                 <div class="text-h6 font-1ry" style="min-height: 64px;">{{ art.Title }}</div>
                 <div class="text-subtitle2 text-2ry-color q-mt-xs">
@@ -85,13 +64,8 @@
         </div>
 
         <div class="text-center q-mt-lg">
-          <q-pagination
-            v-model="options.page"
-            :max="Math.ceil(totalItems / options.itemsPerPage)"
-            max-pages="7"
-            boundary-numbers
-            @update:model-value="fetchData"
-          />
+          <q-pagination v-model="options.page" :max="Math.ceil(totalItems / options.itemsPerPage)" max-pages="7"
+            boundary-numbers @update:model-value="fetchData" />
         </div>
       </template>
     </catalogue-layout>
@@ -107,10 +81,10 @@ import CatalogueLayout from 'src/controllers/CatalogueLayout.vue'
 
 export default {
   name: 'Catalogue_Page',
-  components: { 
+  components: {
     SEODataViewer,
     CatalogueLayout,
-   },
+  },
   mixins: [createMetaMixin(function () { return this.seoConfig })],
   data() {
     return {
@@ -185,10 +159,10 @@ export default {
   },
   mounted() {
 
-      this.fetchData()
+    this.fetchData()
     // setTimeout(function (){
     //   this.fetchData()
-                
+
     // }, 5000)
   },
 }
