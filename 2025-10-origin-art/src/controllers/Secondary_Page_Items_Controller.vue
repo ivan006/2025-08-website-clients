@@ -18,9 +18,9 @@
               >
                 <template v-slot:label="scope">
                   <div class="row items-center no-wrap justify-between q-gutter-x-sm">
-                    <div class="text-body1">{{ scope.label }}</div>
+                    <div class="">{{ scope.label }}</div>
 
-                      <!-- v-if="filterValsRef[filter.lookup] !== scope.value" -->
+                    <!-- v-if="filterValsRef[filter.lookup] !== scope.value" -->
                     <q-badge
                       color=""
                       transparent
