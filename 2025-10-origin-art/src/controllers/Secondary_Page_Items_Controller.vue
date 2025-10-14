@@ -21,12 +21,15 @@
                     <div class="">{{ scope.label }}</div>
 
                     <!-- v-if="filterValsRef[filter.lookup] !== scope.value" -->
+                     
+                      <!-- :class="filterValsRef[filter.lookup] !== scope.value ? `text-2ry-color` : `text-3ry-color`" -->
                     <q-badge
                       color=""
                       transparent
                       align="middle"
-                      class="q-ml-sm text-3ry-color"
-                      outline
+                      class="q-ml-sm text-4ry-color bg-3ry-color"
+                      
+                      size="small"
                     >
                       {{ getCount(scope.value, filter.table) }}
                     </q-badge>
