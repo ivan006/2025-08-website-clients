@@ -109,7 +109,7 @@ export default {
       nextOffset: null,
       offsetTrail: [null],
       currentPage: 0,
-      options: { itemsPerPage: 12 },
+      options: { itemsPerPage: 60 },
     }
   },
 
