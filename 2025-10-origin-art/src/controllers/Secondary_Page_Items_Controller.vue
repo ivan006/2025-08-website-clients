@@ -17,19 +17,24 @@
                 class="q-pb-md text-weight-regular"
               >
                 <template v-slot:label="scope">
-                  <div class="text-body1">{{ scope.label }}</div>
+                  <div class="row items-center no-wrap justify-between q-gutter-x-sm">
+                    <div class="text-body1">{{ scope.label }}</div>
+
+                      <!-- v-if="filterValsRef[filter.lookup] !== scope.value" -->
                     <q-badge
-                      v-if="scope.modelValue !== scope.value"
-                      color="grey-5"
+                      color=""
                       transparent
                       align="middle"
-                      class="q-ml-sm"
+                      class="q-ml-sm text-3ry-color"
+                      outline
                     >
                       {{ getCount(scope.value, filter.table) }}
                     </q-badge>
-                  <!-- {{ scope }} -->
-                  
+                  </div>
                 </template>
+
+
+
               </q-option-group>
             </q-expansion-item>
 
