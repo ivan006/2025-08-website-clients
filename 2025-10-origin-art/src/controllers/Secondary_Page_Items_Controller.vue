@@ -25,7 +25,7 @@
                       align="middle"
                       class="q-ml-sm"
                     >
-                      {{ getCount(scope.value, filter.lookup) }}
+                      {{ getCount(scope.value, filter.table) }}
                     </q-badge>
                   <!-- {{ scope }} -->
                   
@@ -202,14 +202,31 @@ export default {
     },
   },
 
-  methods: {
-    
-    getCount(value, lookup) {
-      // optional badge logic — replace with your real recordCounts if you want
-      const rec = this.recordCounts.find(r =>
-        (r.fields[`Name (from ${lookup})`] || []).includes(value)
-      )
-      return rec ? rec.fields['Record Count'] : 0
+  methods: {   
+    getCount(optionValue, groupKey) {
+      const media = this.filterValsRef['Media Category Name']
+      const theme = this.filterValsRef['Theme Name']
+      const tier  = this.filterValsRef['Tier Category']
+
+      const combo = {
+        media: groupKey === 'Media Category' ? optionValue : media,
+        theme: groupKey === 'Art Theme' ? optionValue : theme,
+        tier:  groupKey === 'Artist Tiers'  ? optionValue : tier,
+      }
+
+      const match = this.recordCounts.find(r => {
+        const f = r.fields
+        const mediaNames = f['Name (from Media Category)'] || []
+        const themeNames = f['Name (from Art Theme)'] || []
+        const tierNames  = f['Name (from Artist Tiers)'] || []
+
+        const mediaMatch = combo.media ? mediaNames.includes(combo.media) : mediaNames.length === 0
+        const themeMatch = combo.theme ? themeNames.includes(combo.theme) : themeNames.length === 0
+        const tierMatch  = combo.tier  ? tierNames.includes(combo.tier)   : tierNames.length === 0
+        return mediaMatch && themeMatch && tierMatch
+      })
+
+      return match?.fields['Record Count'] || 0
     },
     async fetchRecordCounts() {
       try {
