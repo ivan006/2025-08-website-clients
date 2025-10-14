@@ -3,38 +3,27 @@
     <catalogue-layout>
       <template #filters>
         <div>
-          <!-- 🎨 Media Type -->
-          <q-expansion-item label="Media Type" class="text-weight-bold" default-opened>
-            <q-option-group v-model="filterValsRef['Media Category Name']" :options="[
-              // { label: 'All', value: '' },
-              { label: 'Fine Art', value: 'Fine Art' },
-              { label: 'Sculptural Works', value: 'Sculptural Works' },
-              { label: 'New Media', value: 'New Media' }
-            ]" type="radio" @update:model-value="resetAndFetch" class="q-pb-md text-weight-regular" />
-          </q-expansion-item>
+          <template v-for="(filter, index) in filterGroups" :key="index">
+            <q-expansion-item
+              :label="filter.label"
+              class="text-weight-bold"
+              default-opened
+            >
+              <q-option-group
+                v-model="filterValsRef[filter.key]"
+                :options="filter.options"
+                type="radio"
+                @update:model-value="resetAndFetch"
+                class="q-pb-md text-weight-regular"
+              />
+            </q-expansion-item>
 
-          <q-separator />
-          <!-- 🌈 Theme -->
-          <q-expansion-item label="Style" class="text-weight-bold" default-opened>
-            <q-option-group v-model="filterValsRef['Theme Name']" :options="[
-              // { label: 'All', value: '' },
-              { label: 'Evocative', value: 'Evocative' },
-              { label: 'Decorative', value: 'Decorative' },
-            ]" type="radio" @update:model-value="resetAndFetch" class="q-pb-md text-weight-regular" />
-          </q-expansion-item>
-
-          <q-separator />
-          <!-- 🏅 Tier -->
-          <q-expansion-item label="Budget" class="text-weight-bold" default-opened>
-            <q-option-group v-model="filterValsRef['Tier Category']" :options="[
-              // { label: 'All', value: '' },
-              { label: 'Gold (Above 50k)', value: 'Gold Tier' },
-              { label: 'Silver (10k-50k)', value: 'Silver Tier' },
-              { label: 'Bronze (Below 10k)', value: 'Bronze Tier' }
-            ]" type="radio" @update:model-value="resetAndFetch" class="q-pb-md text-weight-regular" />
-          </q-expansion-item>
+            <!-- Add separator between groups -->
+            <q-separator v-if="index < filterGroups.length - 1" />
+          </template>
         </div>
       </template>
+
 
       <template #content>
         <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
@@ -110,6 +99,35 @@ export default {
       offsetTrail: [null],
       currentPage: 0,
       options: { itemsPerPage: 60 },
+      filterGroups: [
+        {
+          label: 'Media Type',
+          key: 'Media Category Name',
+          options: [
+            { label: 'Fine Art', value: 'Fine Art' },
+            { label: 'Sculptural Works', value: 'Sculptural Works' },
+            { label: 'New Media', value: 'New Media' },
+          ],
+        },
+        {
+          label: 'Style',
+          key: 'Theme Name',
+          options: [
+            { label: 'Evocative', value: 'Evocative' },
+            { label: 'Decorative', value: 'Decorative' },
+          ],
+        },
+        {
+          label: 'Budget',
+          key: 'Tier Category',
+          options: [
+            { label: 'Gold (Above 50k)', value: 'Gold Tier' },
+            { label: 'Silver (10k-50k)', value: 'Silver Tier' },
+            { label: 'Bronze (Below 10k)', value: 'Bronze Tier' },
+          ],
+        },
+      ],
+
     }
   },
 
