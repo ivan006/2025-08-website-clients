@@ -3,26 +3,41 @@
     <catalogue-layout>
       <template #filters>
         <div>
-          <template v-for="(filter, index) in filterGroups" :key="index">
+          <template v-for="(filter, fIdx) in filterGroups" :key="fIdx">
             <q-expansion-item
               :label="filter.label"
               class="text-weight-bold"
               default-opened
             >
               <q-option-group
-                v-model="filterValsRef[filter.key]"
+                v-model="filterValsRef[filter.lookup]"
                 :options="filter.options"
                 type="radio"
                 @update:model-value="resetAndFetch"
                 class="q-pb-md text-weight-regular"
-              />
+              >
+                <template v-slot:label="scope">
+                  <div class="text-body1">{{ scope.label }}</div>
+                    <q-badge
+                      v-if="scope.modelValue !== scope.value"
+                      color="grey-5"
+                      transparent
+                      align="middle"
+                      class="q-ml-sm"
+                    >
+                      {{ getCount(scope.value, filter.lookup) }}
+                    </q-badge>
+                  <!-- {{ scope }} -->
+                  
+                </template>
+              </q-option-group>
             </q-expansion-item>
 
-            <!-- Add separator between groups -->
-            <q-separator v-if="index < filterGroups.length - 1" />
+            <q-separator v-if="fIdx < filterGroups.length - 1" />
           </template>
         </div>
       </template>
+
 
 
       <template #content>
@@ -102,7 +117,8 @@ export default {
       filterGroups: [
         {
           label: 'Media Type',
-          key: 'Media Category Name',
+          lookup: 'Media Category Name',
+          table: 'Media Category',
           options: [
             { label: 'Fine Art', value: 'Fine Art' },
             { label: 'Sculptural Works', value: 'Sculptural Works' },
@@ -111,7 +127,8 @@ export default {
         },
         {
           label: 'Style',
-          key: 'Theme Name',
+          lookup: 'Theme Name',
+          table: 'Art Theme',
           options: [
             { label: 'Evocative', value: 'Evocative' },
             { label: 'Decorative', value: 'Decorative' },
@@ -119,7 +136,8 @@ export default {
         },
         {
           label: 'Budget',
-          key: 'Tier Category',
+          lookup: 'Tier Category',
+          table: 'Artist Tiers',
           options: [
             { label: 'Gold (Above 50k)', value: 'Gold Tier' },
             { label: 'Silver (10k-50k)', value: 'Silver Tier' },
@@ -185,6 +203,14 @@ export default {
   },
 
   methods: {
+    
+    getCount(value, lookup) {
+      // optional badge logic — replace with your real recordCounts if you want
+      const rec = this.recordCounts.find(r =>
+        (r.fields[`Name (from ${lookup})`] || []).includes(value)
+      )
+      return rec ? rec.fields['Record Count'] : 0
+    },
     async fetchRecordCounts() {
       try {
         
