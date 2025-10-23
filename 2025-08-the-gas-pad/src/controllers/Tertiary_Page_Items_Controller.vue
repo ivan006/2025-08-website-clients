@@ -92,6 +92,7 @@
                     <h3 class="r-font-h5 q-my-none q-py-xl text-center text-uppercase font-1ry" style="">{{ sub }}</h3>
 
                     <div class="row q-col-gutter-md justify-center">
+                      
                       <template v-for="item in products" :key="item.id" >
                         
                         <!--<q-avatar>-->
@@ -130,7 +131,7 @@
                                       </div>
 
                                       <div class="text-body2">
-                                        R{{item["Price"]}}.00
+                                        {{currency(item["Price"])}}
                                       </div>
                                     </div>
 
@@ -402,6 +403,16 @@ export default {
     }
   },
   methods: {
+
+    currency(num) {
+      let result = ""
+      if(num){
+        result = "R"+(Math.round(num * 100) / 100).toFixed(2);
+      } else {
+        result = "-"
+      }
+      return result
+    },
 
     isActive(item) {
       return item.URL === this.activeRoute;

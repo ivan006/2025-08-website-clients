@@ -63,7 +63,7 @@
                         </h3>
 
                         <h4 class="r-font-h6 q-my-xs">
-                          R{{item["Price"]}}.00
+                          {{currency(item["Price"])}}
                         </h4>
                       </div>
 
@@ -235,6 +235,17 @@ export default {
     },
   },
   methods: {
+
+
+    currency(num) {
+      let result = ""
+      if(num){
+        result = "R"+(Math.round(num * 100) / 100).toFixed(2);
+      } else {
+        result = "-"
+      }
+      return result
+    },
 
     isActive(item) {
       return item.URL === this.activeRoute;

@@ -70,10 +70,11 @@
                                 <div class="text-body2">
                                   {{item["Subtitle"]}}
                                 </div>
-
-                                <div class="text-body2">
-                                  R{{item["Price"]}}.00
-                                </div>
+                                <template v-if="item['Price']">
+                                  <div class="text-body2">
+                                    {{currency(item["Price"])}}
+                                  </div>
+                                </template>
                               </div>
 
 
@@ -109,6 +110,12 @@
       <div
         class="container-md "
       >
+
+        <div style="text-align:center; background:#fff7e6; color:#333; padding:8px 12px; border-radius:6px; margin-bottom:16px;">
+            <span v-html="html(parent.fields?.['Price Disclaimer'])"></span>
+        </div>
+
+
 
         <div class="row q-col-gutter-none">
           <template v-for="item in items" :key="item.id">
@@ -147,7 +154,7 @@
                             </div>
 
                             <div class="text-body2">
-                              R{{item["Price"]}}.00
+                              {{currency(item["Price"])}}
                             </div>
                           </div>
 
@@ -218,6 +225,8 @@ import Secondary_Page_Items from 'src/models/orm-api/Secondary_Page_Items'
 import {createMetaMixin} from "quasar";
 import {buildSchemaItem, buildSeoConfig} from "src/utils/seo";
 import SEODataViewer from "src/controllers/SEODataViewer.vue";
+import MarkdownIt from 'markdown-it'
+const md = new MarkdownIt()
 
 export default {
   name: 'Secondary_Page_Items_Controller',
@@ -343,6 +352,19 @@ export default {
     },
   },
   methods: {
+
+    html(string) {
+      return md.render(string)
+    },
+    currency(num) {
+      let result = ""
+      if(num){
+        result = "R"+(Math.round(num * 100) / 100).toFixed(2);
+      } else {
+        result = "-"
+      }
+      return result
+    },
 
     isActive(item) {
       return item.URL === this.activeRoute;

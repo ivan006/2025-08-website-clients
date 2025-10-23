@@ -42,7 +42,6 @@
                 {{item.fields?.['Subtitle']}}
                 </span>
               </h2>
-              
               <div class="gt-md q-py-xl"></div>
             </div>
           </div>
