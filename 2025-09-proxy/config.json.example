@@ -1,7 +1,0 @@
-{
-  "api.airtable.com": {
-    "headers": {
-      "Authorization": "Bearer xxxxxxxxxxxxxxxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-    }
-  }
-}
