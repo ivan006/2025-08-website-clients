@@ -23,11 +23,12 @@
                     <!-- v-if="filterValsRef[filter.lookup] !== scope.value" -->
                      
                       <!-- :class="filterValsRef[filter.lookup] !== scope.value ? `text-2ry-color` : `text-3ry-color`" -->
+                       <!-- text-4ry-color bg-3ry-color -->
                     <q-badge
                       color=""
                       transparent
                       align="middle"
-                      class="q-ml-sm text-4ry-color bg-3ry-color"
+                      class="q-ml-sm "
                       
                       size="small"
                     >
