@@ -1,31 +1,28 @@
 import { Model } from '@vuex-orm/core'
 
 export default class BasicModel extends Model {
+  static entityUrl = ''
 
-  static entityUrl = '';
+  /** ✅ Defaults (can be overridden in child models) **/
+  static get proxyBaseUrl() {
+    return import.meta.env.VITE_API_PROXY_URL
+  }
+
+  static get airtableBaseUrl() {
+    return import.meta.env.VITE_API_BACKEND_URL
+  }
 
   static baseUrl = import.meta.env.VITE_API_BACKEND_URL
-
   static defaultFlags = {}
 
   static mergeHeaders(headers) {
-    const result = {
-      ...headers,
-    };
-
-    // result['Authorization'] = `Bearer ${import.meta.env.VITE_API_AIRTABLE_KEY}`;
-
-    return result;
+    return { ...headers }
   }
-
-
 
   static customApiBase(moreHeaders) {
     this.apiConfig = {
       baseURL: "",
-      headers: {
-        ...moreHeaders,
-      },
+      headers: { ...moreHeaders },
     }
     return this.api()
   }
@@ -49,72 +46,45 @@ export default class BasicModel extends Model {
     moreHeaders = {},
     options = { page: 1, limit: 15, filters: {}, offset: null, clearPrimaryModelOnly: false }
   ) {
-    const proxyBase = import.meta.env.VITE_API_PROXY_URL;      // cache/proxy
-    const airtableBase = import.meta.env.VITE_API_BACKEND_URL; // real API
-    const headers = this.mergeHeaders(moreHeaders);
+    const proxyBase = this.proxyBaseUrl
+    const airtableBase = this.airtableBaseUrl
+    const headers = this.mergeHeaders(moreHeaders)
+    const airtableOffset = options.offset ? options.offset : undefined
+    const airtableUrl = `${airtableBase}${this.entityUrl}`
 
-    // ✅ Airtable offset is a token, not numeric — use it if provided
-    const airtableOffset = options.offset ? options.offset : undefined;
-
-    // ✅ Build Airtable base URL
-    const airtableUrl = `${airtableBase}${this.entityUrl}`;
-
-    // ✅ Flatten params safely
     const flatParams = this.flattenParams({
       limit: options.limit,
       ...(airtableOffset ? { offset: airtableOffset } : {}),
       ...flags,
       ...this.defaultFlags,
       ...options.filters,
-    });
+    })
 
-    // ✅ Encode query string (Airtable-safe)
-    const queryString = new URLSearchParams(flatParams).toString();
+    const queryString = new URLSearchParams(flatParams).toString()
+    const encodedInner = encodeURIComponent(`${airtableUrl}?${queryString}`)
+    const finalUrl = `${proxyBase}${encodedInner}`
 
-    // ✅ Build and encode full inner URL
-    const encodedInner = encodeURIComponent(`${airtableUrl}?${queryString}`);
-
-    // ✅ Final proxy URL (proxyBase should already end with "?url=")
-    const finalUrl = `${proxyBase}${encodedInner}`;
-
-    // ✅ Fire request
-    return this.customApiBase(headers).get(finalUrl, { save: false });
+    return this.customApiBase(headers).get(finalUrl, { save: false })
   }
 
-
-
   static FetchById(id, relationships = [], flags = {}, moreHeaders = {}) {
-    const proxyBase = import.meta.env.VITE_API_PROXY_URL;
-    const airtableBase = import.meta.env.VITE_API_BACKEND_URL;
-    const headers = this.mergeHeaders(moreHeaders);
+    const proxyBase = this.proxyBaseUrl
+    const airtableBase = this.airtableBaseUrl
+    const headers = this.mergeHeaders(moreHeaders)
 
-    // ✅ Build base Airtable URL
-    const airtableUrl = `${airtableBase}${this.entityUrl}/${id}`;
+    const airtableUrl = `${airtableBase}${this.entityUrl}/${id}`
 
-    // ✅ Flatten query params to prevent [object Object]
     const flatParams = this.flattenParams({
       ...flags,
       ...(relationships.length ? { with: relationships.join(',') } : {}),
-    });
+    })
 
-    // ✅ Build query string if any
-    const queryStringEncoded = new URLSearchParams(flatParams).toString();
-    const queryString = decodeURIComponent(queryStringEncoded);
+    const queryStringEncoded = new URLSearchParams(flatParams).toString()
+    const queryString = decodeURIComponent(queryStringEncoded)
 
-    // ✅ Encode full inner URL
+    const encodedInnerString = queryString ? `${airtableUrl}?${queryString}` : airtableUrl
+    const finalUrl = `${proxyBase}${encodedInnerString}`
 
-    const encodedInnerString = queryString ? `${airtableUrl}?${queryString}` : airtableUrl;
-    const encodedInner = encodedInnerString;
-    // const encodedInner = encodeURIComponent(encodedInnerString);
-
-    // ✅ Final proxy URL
-    const finalUrl = `${proxyBase}${encodedInner}`;
-
-    // ✅ Make the request through proxy
-    return this.customApiBase(headers).get(finalUrl, { save: false });
+    return this.customApiBase(headers).get(finalUrl, { save: false })
   }
-
-
-
-
 }

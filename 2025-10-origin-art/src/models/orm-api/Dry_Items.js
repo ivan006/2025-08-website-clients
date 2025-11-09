@@ -3,7 +3,18 @@ import BasicModel from './BasicModel'
 export default class Dry_Items extends BasicModel {
 
   static entity = 'Dry_Items';
-  static entityUrl = '/Firewood_Products';
+  static entityUrl = '/Art';
+
+  static get airtableBaseUrl() {
+    return 'https://api.airtable.com/v0/appWL8gDT9ZaqV8jY'
+  }
+  
+
+  static defaultFlags = {
+    view: "viwn7wDGK6yk5ZHOl",
+  }
+  
+  // static entityUrl = '/Artwork?view=viwRVEM6ePmPsrZE4';
 
 
 }
