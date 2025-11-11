@@ -6,11 +6,12 @@
     </div>
     <div v-show="!(loading || childLoading)">
 
+      
+      
 
-
-
+    
+      
       <Tertiary_Page_Items_Controller :parent="this.item" @loaded="childLoading=false" />
-
 
 
     </div>
@@ -21,7 +22,7 @@
 </template>
 
 <script>
-import Tertiary_Page from "src/models/orm-api/Tertiary_Page";
+import Secondary_Page from "src/models/orm-api/Secondary_Page";
 import Tertiary_Page_Items_Controller from "src/controllers/Tertiary_Page_Items_Controller.vue";
 
 export default {
@@ -32,7 +33,7 @@ export default {
   data(){
     return {
       loading: true,
-      childLoading: false,
+      childLoading: true,
       item: {},
     }
   },
@@ -40,10 +41,10 @@ export default {
 
     id() {
       // return this.$route.params.rId
-      return 'recmpTrAB2ygtIn9p'
+      return 'recHpBSy9dEXXwQDF'
     },
     superTableModel() {
-      return Tertiary_Page
+      return Secondary_Page
     },
   },
   methods: {
