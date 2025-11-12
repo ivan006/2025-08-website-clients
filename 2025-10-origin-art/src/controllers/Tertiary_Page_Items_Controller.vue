@@ -33,12 +33,12 @@
             <div v-for="art in items" :key="art.id" class="col-6 col-md-2 q-pa-sm">
               <q-card flat bordered class="text-1ry-color box-shadow-1ry">
                 <!-- <img
-                  :src="art.Attachments?.[0]?.url || art['Image Url'] || ''"
+                  :src="art.Attachments?.[0]?.thumbnails?.large?.url || art['Image Url'] || ''"
                   ratio="1"
                   class="rounded-borders"
                 /> -->
-                <img :src="art.Attachments?.[0]?.url ? `https://capetownlists.co.za/?url=${encodeURIComponent(art.Attachments?.[0]?.url)}` : ''"
-                  ratio="1" class="rounded-borders" />
+                <img :src="art.Attachments?.[0]?.thumbnails?.large?.url ? `https://capetownlists.co.za/?url=${encodeURIComponent(art.Attachments?.[0]?.thumbnails?.large?.url)}` : ''"
+                  ratio="1" class="rounded-borders"  style=" height: 200px; object-fit: contain ;"/>
                 <q-card-section>
                   <div class="text-h6 font-1ry" style="min-height: 64px;">{{ art.Title }}</div>
                   <div class="text-subtitle2 text-2ry-color q-mt-xs">
@@ -110,39 +110,43 @@ export default {
       },
       filterGroups: [
         {
-          label: 'Height',
-          lookup: 'Height Bracket',
-          options: [
-            { label: 'Large', value: 'Large' },
-            { label: 'Medium', value: 'Medium' },
-            { label: 'Small', value: 'Small' },
-          ],
-        },
-        {
-          label: 'Width',
-          lookup: 'Width Bracket',
-          options: [
-            { label: 'Large', value: 'Large' },
-            { label: 'Medium', value: 'Medium' },
-            { label: 'Small', value: 'Small' },
-          ],
-        },
-        {
           label: 'Medium',
           lookup: 'Name (from Medium)',
           options: [
+            { label: 'All', value: '' },
             { label: 'Fine Art', value: 'Fine Art' },
             { label: 'Sculptural Works', value: 'Sculptural Works' },
             { label: 'New Media', value: 'New Media' },
           ],
         },
         {
-          label: 'Price',
+          label: 'Price Range',
           lookup: 'Price Bracket',
           options: [
-            { label: 'Gold', value: 'Gold' },
-            { label: 'Silver', value: 'Silver' },
-            { label: 'Bronze', value: 'Bronze' },
+            { label: 'All', value: '' },
+            { label: 'Gold (Above 40k)', value: 'Gold' },
+            { label: 'Silver (12k-40k)', value: 'Silver' },
+            { label: 'Bronze (Below 12k)', value: 'Bronze' },
+          ],
+        },
+        {
+          label: 'Height',
+          lookup: 'Height Bracket',
+          options: [
+            { label: 'All', value: '' },
+            { label: 'Large (Above 80cm)', value: 'Large' },
+            { label: 'Medium (40cm-80cm)', value: 'Medium' },
+            { label: 'Small (Below 40cm)', value: 'Small' },
+          ],
+        },
+        {
+          label: 'Width',
+          lookup: 'Width Bracket',
+          options: [
+            { label: 'All', value: '' },
+            { label: 'Large (Above 60cm)', value: 'Large' },
+            { label: 'Medium (30cm-60cm)', value: 'Medium' },
+            { label: 'Small (Below 30cm)', value: 'Small' },
           ],
         },
       ],
@@ -161,7 +165,7 @@ export default {
           url: item['SEO URL'] ? window.location.origin + item['SEO URL'] : null,
           name: item['Title'] || '',
           description: item['Subtitle'] || '',
-          image: item.Attachments?.[0]?.url || item['Image Url'] || '',
+          image: item.Attachments?.[0]?.thumbnails?.large?.url || item['Image Url'] || '',
           price: item['Price'],
         })
       )
