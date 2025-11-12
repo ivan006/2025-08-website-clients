@@ -8,6 +8,10 @@ export default class Dry_Items extends BasicModel {
   static get airtableBaseUrl() {
     return 'https://api.airtable.com/v0/appWL8gDT9ZaqV8jY'
   }
+
+  static get proxyBaseUrl() {
+    return 'https://capetownlists.co.za/bound-cache.php?action=get&url='
+  }
   
 
   static defaultFlags = {

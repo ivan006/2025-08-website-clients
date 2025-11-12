@@ -53,7 +53,7 @@ export default class BasicModel extends Model {
     const airtableUrl = `${airtableBase}${this.entityUrl}`
 
     const flatParams = this.flattenParams({
-      limit: options.limit,
+      // limit: options.limit,
       ...(airtableOffset ? { offset: airtableOffset } : {}),
       ...flags,
       ...this.defaultFlags,
