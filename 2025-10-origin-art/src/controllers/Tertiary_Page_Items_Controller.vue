@@ -45,47 +45,78 @@
           </div>
           
 
-          <div class="row q-col-gutter-lgx">
-            <div v-for="art in items" :key="art.id" class="col-6 col-md-3 q-pa-sm">
-              <q-card flat bordered class="text-1ry-color box-shadow-1ry">
-                <!-- <img
-                  :src="art.Attachments?.[0]?.thumbnails?.large?.url || art['Image Url'] || ''"
-                  ratio="1"
-                  class="rounded-borders"
-                /> -->
-                <!-- <q-img :src="art.Attachments?.[0]?.thumbnails?.large?.url ? `https://capetownlists.co.za/?url=${encodeURIComponent(art.Attachments?.[0]?.thumbnails?.large?.url)}` : ''" -->
-                  <!-- ratio="1" class="rounded-borders"  style=" height: 150px; object-fit: contain ;" fit="contain"/> -->
-                  <q-img
-                    :src="art.Attachments?.[0]?.thumbnails?.large?.url
-                      ? `https://capetownlists.co.za/?url=${encodeURIComponent(art.Attachments?.[0]?.thumbnails?.large?.url)}`
-                      : ''"
-                    :placeholder-src="art.Attachments?.[0]?.thumbnails?.small?.url
-                      ? `https://capetownlists.co.za/?url=${encodeURIComponent(art.Attachments?.[0]?.thumbnails?.small?.url)}`
-                      : ''"
-                    ratio="1"
-                    class="rounded-borders"
-                    :style="{
-                      height: $q.screen.lt.md ? '150px' : '250px',
-                      objectFit: 'contain'
-                    }"
-                    fit="contain"
-                  />
+          <div class="row items-center no-wrap">
+            <!-- ◀️ Left Arrow Column -->
+            <div class="col-auto q-pr-sm">
+              <q-btn
+                flat
+                round
+                color="primary"
+                icon="chevron_left"
+                size="lg"
+                @click="prevPage"
+                :disable="currentPage === 0"
+              />
+              
+              <!-- <q-btn flat color="primary" icon="chevron_left" label="Previous"
+                :disable="currentPage === 0"
+                @click="prevPage" /> -->
+            </div>
 
-                <q-card-section>
-                  <div class="text-h6 font-1ry" style="min-height: 64px;">{{ art.Title }}</div>
-                  <div class="text-subtitle2 text-2ry-color q-mt-xs">
-                    {{ art['Artist Name']?.[0] || 'Unknown Artist' }}
-                  </div>
-                  <div class="text-body1 q-mt-xs text-weight-bold">
-                    R{{ art.Price?.toLocaleString() }}
-                  </div>
-                </q-card-section>
-                <q-card-actions align="right">
-                  <q-btn flat size="sm" label="View Details" class="bg-1ry-color" />
-                </q-card-actions>
-              </q-card>
+            <!-- 🖼️ Grid Column -->
+            <div class="col">
+              <div class="row q-col-gutter-lgx justify-center">
+                <div v-for="art in items" :key="art.id" class="col-6 col-md-3 q-pa-sm">
+                  <q-card flat bordered class="text-1ry-color box-shadow-1ry">
+                    <q-img
+                      :src="art.Attachments?.[0]?.thumbnails?.large?.url
+                        ? `https://capetownlists.co.za/?url=${encodeURIComponent(art.Attachments?.[0]?.thumbnails?.large?.url)}`
+                        : ''"
+                      :placeholder-src="art.Attachments?.[0]?.thumbnails?.small?.url
+                        ? `https://capetownlists.co.za/?url=${encodeURIComponent(art.Attachments?.[0]?.thumbnails?.small?.url)}`
+                        : ''"
+                      ratio="1"
+                      class="rounded-borders"
+                      :style="{ height: $q.screen.lt.md ? '150px' : '300px', objectFit: 'contain' }"
+                      fit="contain"
+                    />
+
+                    <q-card-section>
+                      <div class="text-h6 font-1ry" style="min-height: 64px;">{{ art.Title }}</div>
+                      <div class="text-subtitle2 text-2ry-color q-mt-xs">
+                        {{ art['Artist Name']?.[0] || 'Unknown Artist' }}
+                      </div>
+                      <div class="text-body1 q-mt-xs text-weight-bold">
+                        R{{ art.Price?.toLocaleString() }}
+                      </div>
+                    </q-card-section>
+                    <q-card-actions align="right">
+                      <q-btn flat size="sm" label="View Details" class="bg-1ry-color" />
+                    </q-card-actions>
+                  </q-card>
+                </div>
+              </div>
+            </div>
+
+            <!-- ▶️ Right Arrow Column -->
+            <div class="col-auto q-pl-sm">
+              <q-btn
+                flat
+                round
+                color="primary"
+                icon="chevron_right"
+                size="lg"
+                @click="nextPage"
+                :disable="currentPage >= totalPages - 1"
+              />
+              
+              <!-- <q-btn flat color="primary" icon-right="chevron_right" label="Next"
+                :disable="currentPage >= totalPages - 1"
+                @click="nextPage" /> -->
             </div>
           </div>
+
+
         </div>
 
         <!-- ✅ LOCAL PAGINATION -->
