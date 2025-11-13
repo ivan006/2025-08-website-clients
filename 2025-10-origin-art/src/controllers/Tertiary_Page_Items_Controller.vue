@@ -36,12 +36,14 @@
       <!-- ✅ CONTENT -->
       <template #content>
         <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
+        
         <div v-if="loading" class="text-center q-pa-md">Loading...</div>
         <div v-else-if="!items.length" class="text-center q-pa-md text-2ry-color">No artworks found.</div>
         <div v-else>
-          <div class="text-center q-pa-sm text-1ry-color">
+          <div ref="resultsTop" class="text-center q-pa-sm text-1ry-color">
             {{ totalFiltered }} artworks found
           </div>
+          
 
           <div class="row q-col-gutter-lgx">
             <div v-for="art in items" :key="art.id" class="col-6 col-md-3 q-pa-sm">
@@ -63,7 +65,7 @@
                     ratio="1"
                     class="rounded-borders"
                     :style="{
-                      height: $q.screen.lt.md ? '150px' : '300px',
+                      height: $q.screen.lt.md ? '150px' : '250px',
                       objectFit: 'contain'
                     }"
                     fit="contain"
@@ -131,7 +133,7 @@ export default {
       loading: false,
       totalFiltered: 0,
       currentPage: 0,
-      options: { itemsPerPage: 12 },
+      options: { itemsPerPage: 8 },
       filterValsRef: {
         'Height Bracket': '',
         'Width Bracket': '',
@@ -155,9 +157,9 @@ export default {
           lookup: 'Price Bracket',
           options: [
             { label: 'All', value: '' },
-            { label: 'Gold (Above 40k)', value: 'Gold' },
-            { label: 'Silver (12k-40k)', value: 'Silver' },
-            { label: 'Bronze (Below 12k)', value: 'Bronze' },
+            { label: 'Gold Tier (Above 40k)', value: 'Gold' },
+            { label: 'Silver Tier (12k-40k)', value: 'Silver' },
+            { label: 'Bronze Tier (Below 12k)', value: 'Bronze' },
           ],
         },
         {
@@ -285,21 +287,34 @@ export default {
       if (this.currentPage < this.totalPages - 1) {
         this.currentPage++
         await this.fetchData()
+        this.scrollToResultsTop()
       }
     },
+
     async prevPage() {
       if (this.currentPage > 0) {
         this.currentPage--
         await this.fetchData()
+        this.scrollToResultsTop()
       }
     },
+
     async goToPage(idx) {
       this.currentPage = idx
       await this.fetchData()
+      this.scrollToResultsTop()
+    },
+
+    scrollToResultsTop() {
+      this.$nextTick(() => {
+        const el = this.$refs.resultsTop
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      })
     },
     async resetAndFetch() {
       this.currentPage = 0
       await this.fetchData()
+      this.scrollToResultsTop()
     },
   },
 
