@@ -101,7 +101,7 @@ export default {
       loading: false,
       totalFiltered: 0,
       currentPage: 0,
-      options: { itemsPerPage: 60 },
+      options: { itemsPerPage: 12 },
       filterValsRef: {
         'Height Bracket': '',
         'Width Bracket': '',
@@ -117,6 +117,7 @@ export default {
             { label: 'Fine Art', value: 'Fine Art' },
             { label: 'Sculptural Works', value: 'Sculptural Works' },
             { label: 'New Media', value: 'New Media' },
+            { label: 'Merch Art', value: 'Merch Art' },
           ],
         },
         {
