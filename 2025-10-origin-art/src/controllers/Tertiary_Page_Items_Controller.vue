@@ -44,7 +44,7 @@
           </div>
 
           <div class="row q-col-gutter-lgx">
-            <div v-for="art in items" :key="art.id" class="col-6 col-md-2 q-pa-sm">
+            <div v-for="art in items" :key="art.id" class="col-6 col-md-3 q-pa-sm">
               <q-card flat bordered class="text-1ry-color box-shadow-1ry">
                 <!-- <img
                   :src="art.Attachments?.[0]?.thumbnails?.large?.url || art['Image Url'] || ''"
@@ -62,7 +62,10 @@
                       : ''"
                     ratio="1"
                     class="rounded-borders"
-                    style="height: 150px; object-fit: contain;"
+                    :style="{
+                      height: $q.screen.lt.md ? '150px' : '300px',
+                      objectFit: 'contain'
+                    }"
                     fit="contain"
                   />
 
