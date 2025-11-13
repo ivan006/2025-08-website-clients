@@ -47,7 +47,7 @@
 
           <div class="row items-center no-wrap">
             <!-- ◀️ Left Arrow Column -->
-            <div class="col-auto q-pr-sm">
+            <div v-if="!$q.screen.lt.md" class="col-auto q-pr-sm">
               <q-btn
                 flat
                 round
@@ -57,10 +57,6 @@
                 @click="prevPage"
                 :disable="currentPage === 0"
               />
-              
-              <!-- <q-btn flat color="primary" icon="chevron_left" label="Previous"
-                :disable="currentPage === 0"
-                @click="prevPage" /> -->
             </div>
 
             <!-- 🖼️ Grid Column -->
@@ -77,7 +73,7 @@
                         : ''"
                       ratio="1"
                       class="rounded-borders"
-                      :style="{ height: $q.screen.lt.md ? '150px' : '300px', objectFit: 'contain' }"
+                      :style="{ height: $q.screen.lt.md ? '150px' : '250px', objectFit: 'contain' }"
                       fit="contain"
                     />
 
@@ -99,7 +95,7 @@
             </div>
 
             <!-- ▶️ Right Arrow Column -->
-            <div class="col-auto q-pl-sm">
+            <div v-if="!$q.screen.lt.md" class="col-auto q-pl-sm">
               <q-btn
                 flat
                 round
@@ -109,12 +105,10 @@
                 @click="nextPage"
                 :disable="currentPage >= totalPages - 1"
               />
-              
-              <!-- <q-btn flat color="primary" icon-right="chevron_right" label="Next"
-                :disable="currentPage >= totalPages - 1"
-                @click="nextPage" /> -->
             </div>
           </div>
+
+
 
 
         </div>
