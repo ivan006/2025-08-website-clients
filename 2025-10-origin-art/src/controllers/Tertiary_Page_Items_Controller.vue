@@ -51,8 +51,8 @@
                   ratio="1"
                   class="rounded-borders"
                 /> -->
-                <img :src="art.Attachments?.[0]?.thumbnails?.large?.url ? `https://capetownlists.co.za/?url=${encodeURIComponent(art.Attachments?.[0]?.thumbnails?.large?.url)}` : ''"
-                  ratio="1" class="rounded-borders"  style=" height: 150px; object-fit: contain ;"/>
+                <q-img :src="art.Attachments?.[0]?.thumbnails?.large?.url ? `https://capetownlists.co.za/?url=${encodeURIComponent(art.Attachments?.[0]?.thumbnails?.large?.url)}` : ''"
+                  ratio="1" class="rounded-borders"  style=" height: 150px; object-fit: contain ;" fit="contain"/>
                 <q-card-section>
                   <div class="text-h6 font-1ry" style="min-height: 64px;">{{ art.Title }}</div>
                   <div class="text-subtitle2 text-2ry-color q-mt-xs">
