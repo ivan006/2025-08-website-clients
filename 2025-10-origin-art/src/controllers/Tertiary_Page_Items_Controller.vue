@@ -12,7 +12,21 @@
                 type="radio"
                 @update:model-value="resetAndFetch"
                 class="q-pb-md text-weight-regular"
-              />
+              >
+                <template v-slot:label="scope">
+                  <div class="row items-center no-wrap justify-between q-gutter-x-sm">
+                    <div>{{ scope.label }}</div>
+                    <q-badge
+                      transparent
+                      align="middle"
+                      size="sm"
+                    >
+                      {{ getCount(scope.value, filter.lookup) }}
+                    </q-badge>
+                  </div>
+                </template>
+              </q-option-group>
+
             </q-expansion-item>
             <q-separator v-if="fIdx < filterGroups.length - 1" />
           </template>
@@ -38,7 +52,7 @@
                   class="rounded-borders"
                 /> -->
                 <img :src="art.Attachments?.[0]?.thumbnails?.large?.url ? `https://capetownlists.co.za/?url=${encodeURIComponent(art.Attachments?.[0]?.thumbnails?.large?.url)}` : ''"
-                  ratio="1" class="rounded-borders"  style=" height: 200px; object-fit: contain ;"/>
+                  ratio="1" class="rounded-borders"  style=" height: 150px; object-fit: contain ;"/>
                 <q-card-section>
                   <div class="text-h6 font-1ry" style="min-height: 64px;">{{ art.Title }}</div>
                   <div class="text-subtitle2 text-2ry-color q-mt-xs">
@@ -189,6 +203,36 @@ export default {
   },
 
   methods: {
+    getCount(value, lookup) {
+      if (!this.allRecords.length) return 0;
+
+      // Current filter state
+      const current = this.filterValsRef;
+
+      // Compute active filters excluding the one we’re counting for
+      const activeFilters = Object.entries(current)
+        .filter(([key, val]) => key !== lookup && val);
+
+      // Step 1: narrow dataset by all *other* active filters
+      let subset = this.allRecords;
+      for (const [key, val] of activeFilters) {
+        subset = subset.filter(r => {
+          const field = r[key];
+          if (Array.isArray(field)) return field.includes(val);
+          return field === val;
+        });
+      }
+
+      // Step 2: now count occurrences for this specific filter’s option
+      if (value === '') return subset.length;
+      return subset.filter(r => {
+        const field = r[lookup];
+        if (Array.isArray(field)) return field.includes(value);
+        return field === value;
+      }).length;
+    },
+
+
     async fetchData() {
       this.loading = true
       try {
