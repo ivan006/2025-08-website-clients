@@ -162,23 +162,24 @@ export default {
 
       filterGroups: [
         {
-          label: 'Media',
+          label: 'Artist Type',
           lookup: 'Media',
           options: [
             { label: 'All', value: '' },
-            { label: 'Fine Art', value: 'Fine Art' },
-            { label: 'Sculpture', value: 'Sculpture' },
-            { label: 'New Media', value: 'New Media' },
+            { label: 'Fine Artists', value: 'Fine Art' },
+            { label: 'Sculptors', value: 'Sculptural Works' },
+            { label: 'New Media Artists', value: 'New Media' },
+            { label: 'Merch Artists', value: 'Merch Art' },
           ],
         },
         {
-          label: 'Avg. Price Tier',
+          label: 'Artist Level',
           lookup: 'Av. Price Tier',
           options: [
             { label: 'All', value: '' },
-            { label: 'Gold (40k+)', value: 'Gold' },
-            { label: 'Silver (12k–40k)', value: 'Silver' },
-            { label: 'Bronze (<12k)', value: 'Bronze' },
+            { label: 'Established Artists (Above 40k)', value: 'Gold' },
+            { label: 'Mid-Career Artists (12k–40k)', value: 'Silver' },
+            { label: 'Emerging Artists (Below 12k)', value: 'Bronze' },
           ],
         },
       ],
