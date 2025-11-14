@@ -177,9 +177,9 @@ export default {
           lookup: 'Av. Price Tier',
           options: [
             { label: 'All', value: '' },
-            { label: 'Established Artists (Above 40k)', value: 'Gold' },
-            { label: 'Mid-Career Artists (12k–40k)', value: 'Silver' },
-            { label: 'Emerging Artists (Below 12k)', value: 'Bronze' },
+            { label: 'Established (Av. Price 40k+)', value: 'Gold' },
+            { label: 'Mid-Career (Av. Price 12k–40k)', value: 'Silver' },
+            { label: 'Emerging (Av. Price <12k)', value: 'Bronze' },
           ],
         },
       ],
