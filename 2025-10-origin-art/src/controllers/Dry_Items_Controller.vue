@@ -2,9 +2,25 @@
   <div class="container-mdx" style="border-bottom: 1px solid rgba(0,0,0,0.12);">
     <catalogue-layout>
 
-      <!-- ✅ FILTERS -->
+      <!-- 🔎 FILTERS -->
       <template #filters>
         <div>
+          <!-- Search Filter -->
+          <q-expansion-item label="Search Name" class="text-weight-bold" default-opened>
+            <div class="q-pa-md">
+              <q-input
+                v-model="filterValsRef.search"
+                debounce="250"
+                outlined
+                placeholder="Type artist name..."
+                @update:model-value="resetAndFetch"
+              />
+            </div>
+          </q-expansion-item>
+
+          <q-separator />
+
+          <!-- Other Filters -->
           <template v-for="(filter, fIdx) in filterGroups" :key="fIdx">
             <q-expansion-item :label="filter.label" class="text-weight-bold" default-opened>
               <q-option-group
@@ -17,11 +33,7 @@
                 <template v-slot:label="scope">
                   <div class="row items-center no-wrap justify-between q-gutter-x-sm">
                     <div>{{ scope.label }}</div>
-                    <q-badge
-                      transparent
-                      align="middle"
-                      size="sm"
-                    >
+                    <q-badge transparent align="middle" size="sm">
                       {{ getCount(scope.value, filter.lookup) }}
                     </q-badge>
                   </div>
@@ -34,7 +46,7 @@
         </div>
       </template>
 
-      <!-- ✅ CONTENT -->
+      <!-- 🔥 CONTENT -->
       <template #content>
         <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
 
@@ -74,7 +86,7 @@
                       ratio="1"
                       class="rounded-borders"
                       :style="{ height: $q.screen.lt.md ? '150px' : '250px', objectFit: 'cover' }"
-                      fit="cover"
+                      fit="contain"
                     />
 
                     <q-card-section>
@@ -109,7 +121,7 @@
           </div>
         </div>
 
-        <!-- LOCAL PAGINATION -->
+        <!-- Pagination -->
         <div class="text-center q-mt-lg flex flex-center q-gutter-sm">
           <q-btn flat color="primary" icon="chevron_left" label="Previous"
             :disable="currentPage === 0" @click="prevPage" />
@@ -130,6 +142,7 @@
             @click="nextPage" />
         </div>
       </template>
+
     </catalogue-layout>
   </div>
 </template>
@@ -156,6 +169,7 @@ export default {
       options: { itemsPerPage: 8 },
 
       filterValsRef: {
+        search: '',
         Media: '',
         'Av. Price Tier': '',
       },
@@ -226,20 +240,40 @@ export default {
   },
 
   methods: {
+    /* 🔍 Token-based search */
+    matchesTokenSearch(name, query) {
+      if (!query) return true;
+
+      const nameTokens = (name || '').toLowerCase().split(/\s+/);
+      const queryTokens = query.toLowerCase().split(/\s+/);
+
+      return queryTokens.every(qt =>
+        nameTokens.some(nt => nt.includes(qt))
+      );
+    },
+
     getCount(value, lookup) {
       if (!this.allRecords.length) return 0;
 
       const current = this.filterValsRef;
 
-      // Apply other filters first
       let subset = this.allRecords;
+
+      // Apply other filters except the one we're counting
       for (const [key, val] of Object.entries(current)) {
-        if (key === lookup || !val) continue;
+        if (key === lookup || !val || key === 'search') continue;
 
         subset = subset.filter(r =>
           Array.isArray(r[key])
             ? r[key].includes(val)
             : r[key] === val
+        );
+      }
+
+      // Apply search filter separately
+      if (current.search) {
+        subset = subset.filter(r =>
+          this.matchesTokenSearch(r.Name, current.search)
         );
       }
 
@@ -260,17 +294,22 @@ export default {
           this.allRecords = res.response.data.records.map(r => ({ id: r.id, ...r.fields }))
         }
 
-        const { Media, 'Av. Price Tier': tier } = this.filterValsRef
+        let filtered = this.allRecords;
 
-        let filtered = this.allRecords
+        const { search, Media, 'Av. Price Tier': tier } = this.filterValsRef;
 
         if (Media)
-          filtered = filtered.filter(r => (r.Media || []).includes(Media))
+          filtered = filtered.filter(r => (r.Media || []).includes(Media));
 
         if (tier)
-          filtered = filtered.filter(r => r['Av. Price Tier'] === tier)
+          filtered = filtered.filter(r => r['Av. Price Tier'] === tier);
 
-        this.totalFiltered = filtered.length
+        if (search)
+          filtered = filtered.filter(r =>
+            this.matchesTokenSearch(r.Name, search)
+          );
+
+        this.totalFiltered = filtered.length;
 
         const start = this.currentPage * this.options.itemsPerPage
         const end = start + this.options.itemsPerPage
