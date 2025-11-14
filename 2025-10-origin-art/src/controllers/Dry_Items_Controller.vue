@@ -1,6 +1,7 @@
 <template>
   <div class="container-mdx" style="border-bottom: 1px solid rgba(0,0,0,0.12);">
     <catalogue-layout>
+
       <!-- ✅ FILTERS -->
       <template #filters>
         <div>
@@ -26,8 +27,8 @@
                   </div>
                 </template>
               </q-option-group>
-
             </q-expansion-item>
+
             <q-separator v-if="fIdx < filterGroups.length - 1" />
           </template>
         </div>
@@ -36,100 +37,94 @@
       <!-- ✅ CONTENT -->
       <template #content>
         <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
-        
+
         <div v-if="loading" class="text-center q-pa-md">Loading...</div>
-        <div v-else-if="!items.length" class="text-center q-pa-md text-2ry-color">No artworks found.</div>
+
+        <div v-else-if="!items.length" class="text-center q-pa-md text-2ry-color">
+          No artists found.
+        </div>
+
         <div v-else>
           <div ref="resultsTop" class="text-center q-pa-sm text-1ry-color">
-            {{ totalFiltered }} artworks found
+            {{ totalFiltered }} artists found
           </div>
-          
 
           <div class="row items-center no-wrap">
-            <!-- ◀️ Left Arrow Column -->
+            <!-- ◀️ Left Arrow -->
             <div v-if="!$q.screen.lt.md" class="col-auto q-pr-sm">
               <q-btn
-                flat
-                round
-                color="primary"
-                icon="chevron_left"
-                size="lg"
-                @click="prevPage"
-                :disable="currentPage === 0"
+                flat round color="primary" icon="chevron_left" size="lg"
+                @click="prevPage" :disable="currentPage === 0"
               />
             </div>
 
-            <!-- 🖼️ Grid Column -->
+            <!-- 🖼️ Grid -->
             <div class="col">
               <div class="row q-col-gutter-lgx justify-center">
-                <div v-for="art in items" :key="art.id" class="col-6 col-md-3 q-pa-sm">
+                <div v-for="artist in items" :key="artist.id" class="col-6 col-md-3 q-pa-sm">
                   <q-card flat bordered class="text-1ry-color box-shadow-1ry">
+
                     <q-img
-                      :src="art.Attachments?.[0]?.thumbnails?.large?.url
-                        ? `https://capetownlists.co.za/?url=${encodeURIComponent(art.Attachments?.[0]?.thumbnails?.large?.url)}`
+                      :src="artist.Attachments?.[0]?.thumbnails?.large?.url
+                        ? `https://capetownlists.co.za/?url=${encodeURIComponent(artist.Attachments?.[0]?.thumbnails?.large?.url)}`
                         : ''"
-                      :placeholder-src="art.Attachments?.[0]?.thumbnails?.small?.url
-                        ? `https://capetownlists.co.za/?url=${encodeURIComponent(art.Attachments?.[0]?.thumbnails?.small?.url)}`
+                      :placeholder-src="artist.Attachments?.[0]?.thumbnails?.small?.url
+                        ? `https://capetownlists.co.za/?url=${encodeURIComponent(artist.Attachments?.[0]?.thumbnails?.small?.url)}`
                         : ''"
                       ratio="1"
                       class="rounded-borders"
-                      :style="{ height: $q.screen.lt.md ? '150px' : '250px', objectFit: 'contain' }"
-                      fit="contain"
+                      :style="{ height: $q.screen.lt.md ? '150px' : '250px', objectFit: 'cover' }"
+                      fit="cover"
                     />
 
                     <q-card-section>
-                      <div class="text-h6 font-1ry" style="min-height: 64px;">{{ art.Title }}</div>
-                      <div class="text-subtitle2 text-2ry-color q-mt-xs">
-                        {{ art['Artist Name']?.[0] || 'Unknown Artist' }}
+                      <div class="text-h6 font-1ry" style="min-height: 64px;">
+                        {{ artist.Name }}
                       </div>
+
+                      <div class="text-subtitle2 text-2ry-color q-mt-xs">
+                        {{ artist['Count (Art)'] }} artworks
+                      </div>
+
                       <div class="text-body1 q-mt-xs text-weight-bold">
-                        R{{ art.Price?.toLocaleString() }}
+                        Avg Price: R{{ artist['Av. Price']?.toLocaleString() || '–' }}
                       </div>
                     </q-card-section>
+
                     <q-card-actions align="right">
-                      <q-btn flat size="sm" label="View Details" class="bg-1ry-color" />
+                      <q-btn flat size="sm" label="View Profile" class="bg-1ry-color" />
                     </q-card-actions>
                   </q-card>
                 </div>
               </div>
             </div>
 
-            <!-- ▶️ Right Arrow Column -->
+            <!-- ▶️ Right Arrow -->
             <div v-if="!$q.screen.lt.md" class="col-auto q-pl-sm">
               <q-btn
-                flat
-                round
-                color="primary"
-                icon="chevron_right"
-                size="lg"
-                @click="nextPage"
-                :disable="currentPage >= totalPages - 1"
+                flat round color="primary" icon="chevron_right" size="lg"
+                @click="nextPage" :disable="currentPage >= totalPages - 1"
               />
             </div>
           </div>
-
-
-
-
         </div>
 
-        <!-- ✅ LOCAL PAGINATION -->
+        <!-- LOCAL PAGINATION -->
         <div class="text-center q-mt-lg flex flex-center q-gutter-sm">
           <q-btn flat color="primary" icon="chevron_left" label="Previous"
-            :disable="currentPage === 0"
-            @click="prevPage" />
+            :disable="currentPage === 0" @click="prevPage" />
+
           <div>
             <q-btn
               v-for="n in totalPages"
               :key="n"
-              size="sm"
-              flat
-              round
+              size="sm" flat round
               :label="n"
               :color="n - 1 === currentPage ? 'primary' : 'grey-6'"
               @click="goToPage(n - 1)"
             />
           </div>
+
           <q-btn flat color="primary" icon-right="chevron_right" label="Next"
             :disable="currentPage >= totalPages - 1"
             @click="nextPage" />
@@ -147,7 +142,7 @@ import SEODataViewer from 'src/controllers/SEODataViewer.vue'
 import CatalogueLayout from 'src/controllers/CatalogueLayout.vue'
 
 export default {
-  name: 'Dry_Items_Controller',
+  name: 'ArtistsController',
   components: { SEODataViewer, CatalogueLayout },
   mixins: [createMetaMixin(function () { return this.seoConfig })],
 
@@ -159,52 +154,31 @@ export default {
       totalFiltered: 0,
       currentPage: 0,
       options: { itemsPerPage: 8 },
+
       filterValsRef: {
-        'Height Bracket': '',
-        'Width Bracket': '',
-        'Name (from Medium)': '',
-        'Price Bracket': '',
+        Media: '',
+        'Av. Price Tier': '',
       },
+
       filterGroups: [
         {
-          label: 'Medium',
-          lookup: 'Name (from Medium)',
+          label: 'Media',
+          lookup: 'Media',
           options: [
             { label: 'All', value: '' },
             { label: 'Fine Art', value: 'Fine Art' },
-            { label: 'Sculptural Works', value: 'Sculptural Works' },
+            { label: 'Sculpture', value: 'Sculpture' },
             { label: 'New Media', value: 'New Media' },
-            { label: 'Merch Art', value: 'Merch Art' },
           ],
         },
         {
-          label: 'Price Range',
-          lookup: 'Price Bracket',
+          label: 'Avg. Price Tier',
+          lookup: 'Av. Price Tier',
           options: [
             { label: 'All', value: '' },
-            { label: 'Gold Tier (Above 40k)', value: 'Gold' },
-            { label: 'Silver Tier (12k-40k)', value: 'Silver' },
-            { label: 'Bronze Tier (Below 12k)', value: 'Bronze' },
-          ],
-        },
-        {
-          label: 'Height',
-          lookup: 'Height Bracket',
-          options: [
-            { label: 'All', value: '' },
-            { label: 'Large (Above 80cm)', value: 'Large' },
-            { label: 'Medium (40cm-80cm)', value: 'Medium' },
-            { label: 'Small (Below 40cm)', value: 'Small' },
-          ],
-        },
-        {
-          label: 'Width',
-          lookup: 'Width Bracket',
-          options: [
-            { label: 'All', value: '' },
-            { label: 'Large (Above 60cm)', value: 'Large' },
-            { label: 'Medium (30cm-60cm)', value: 'Medium' },
-            { label: 'Small (Below 30cm)', value: 'Small' },
+            { label: 'Gold (40k+)', value: 'Gold' },
+            { label: 'Silver (12k–40k)', value: 'Silver' },
+            { label: 'Bronze (<12k)', value: 'Bronze' },
           ],
         },
       ],
@@ -215,29 +189,34 @@ export default {
     totalPages() {
       return Math.ceil(this.totalFiltered / this.options.itemsPerPage)
     },
+
     seoLdJson() {
-      const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/')
-      const products = this.items.map(item =>
+      const artists = this.items.map(a =>
         buildSchemaItem({
-          type: 'Product',
-          url: item['SEO URL'] ? window.location.origin + item['SEO URL'] : null,
-          name: item['Title'] || '',
-          description: item['Subtitle'] || '',
-          image: item.Attachments?.[0]?.thumbnails?.large?.url || item['Image Url'] || '',
-          price: item['Price'],
+          type: 'Person',
+          name: a.Name,
+          image: a.Attachments?.[0]?.thumbnails?.large?.url || '',
+          description: `${a['Count (Art)']} artworks`,
         })
       )
-      return { '@context': 'https://schema.org', '@type': 'ItemList', itemListElement: products }
+
+      return {
+        '@context': 'https://schema.org',
+        '@type': 'ItemList',
+        itemListElement: artists,
+      }
     },
+
     seoConfig() {
       const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/')
       return buildSeoConfig({
-        title: 'Art Catalogue',
-        description: 'Browse our collection of artworks across categories and styles.',
+        title: 'Artist Catalogue',
+        description: 'Browse our list of artists.',
         url,
         siteName: import.meta.env.VITE_API_SITE_TITLE,
       })
     },
+
     seoConfigMasked() {
       const c = { ...this.seoConfig }
       c.script = ''
@@ -249,61 +228,56 @@ export default {
     getCount(value, lookup) {
       if (!this.allRecords.length) return 0;
 
-      // Current filter state
       const current = this.filterValsRef;
 
-      // Compute active filters excluding the one we’re counting for
-      const activeFilters = Object.entries(current)
-        .filter(([key, val]) => key !== lookup && val);
-
-      // Step 1: narrow dataset by all *other* active filters
+      // Apply other filters first
       let subset = this.allRecords;
-      for (const [key, val] of activeFilters) {
-        subset = subset.filter(r => {
-          const field = r[key];
-          if (Array.isArray(field)) return field.includes(val);
-          return field === val;
-        });
+      for (const [key, val] of Object.entries(current)) {
+        if (key === lookup || !val) continue;
+
+        subset = subset.filter(r =>
+          Array.isArray(r[key])
+            ? r[key].includes(val)
+            : r[key] === val
+        );
       }
 
-      // Step 2: now count occurrences for this specific filter’s option
       if (value === '') return subset.length;
-      return subset.filter(r => {
-        const field = r[lookup];
-        if (Array.isArray(field)) return field.includes(value);
-        return field === value;
-      }).length;
+
+      return subset.filter(r =>
+        Array.isArray(r[lookup])
+          ? r[lookup].includes(value)
+          : r[lookup] === value
+      ).length;
     },
 
-
     async fetchData() {
-      this.loading = true
+      this.loading = true;
       try {
-        // 🧩 Fetch bound cache once
         if (!this.allRecords.length) {
           const res = await Ery_Items.FetchAll()
           this.allRecords = res.response.data.records.map(r => ({ id: r.id, ...r.fields }))
-          console.log('✅ Bound cache loaded:', this.allRecords.length)
         }
 
-        // 🧩 Apply client-side filters
-        const { 'Height Bracket': height, 'Width Bracket': width, 'Name (from Medium)': medium, 'Price Bracket': price } = this.filterValsRef
+        const { Media, 'Av. Price Tier': tier } = this.filterValsRef
 
         let filtered = this.allRecords
-        if (height) filtered = filtered.filter(r => r['Height Bracket'] === height)
-        if (width) filtered = filtered.filter(r => r['Width Bracket'] === width)
-        if (medium) filtered = filtered.filter(r => (r['Name (from Medium)'] || []).includes(medium))
-        if (price) filtered = filtered.filter(r => r['Price Bracket'] === price)
+
+        if (Media)
+          filtered = filtered.filter(r => (r.Media || []).includes(Media))
+
+        if (tier)
+          filtered = filtered.filter(r => r['Av. Price Tier'] === tier)
 
         this.totalFiltered = filtered.length
 
-        // 🧩 Local pagination
         const start = this.currentPage * this.options.itemsPerPage
         const end = start + this.options.itemsPerPage
         this.items = filtered.slice(start, end)
       } catch (err) {
-        console.error('❌ Failed to load bound cache:', err)
+        console.error('❌ Failed to load artists:', err)
       }
+
       this.loading = false
       this.$emit('loaded')
     },
@@ -336,6 +310,7 @@ export default {
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
       })
     },
+
     async resetAndFetch() {
       this.currentPage = 0
       await this.fetchData()
