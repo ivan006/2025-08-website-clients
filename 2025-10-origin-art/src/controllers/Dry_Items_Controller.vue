@@ -77,17 +77,18 @@
                   <q-card flat bordered class="text-1ry-color box-shadow-1ry">
 
                     <q-img
-                      :src="artist.Attachments?.[0]?.thumbnails?.large?.url
-                        ? `https://capetownlists.co.za/?url=${encodeURIComponent(artist.Attachments?.[0]?.thumbnails?.large?.url)}`
+                      :src="getArtistImage(artist)?.thumbnails?.large?.url
+                        ? `https://capetownlists.co.za/?url=${encodeURIComponent(getArtistImage(artist).thumbnails.large.url)}`
                         : ''"
-                      :placeholder-src="artist.Attachments?.[0]?.thumbnails?.small?.url
-                        ? `https://capetownlists.co.za/?url=${encodeURIComponent(artist.Attachments?.[0]?.thumbnails?.small?.url)}`
+                      :placeholder-src="getArtistImage(artist)?.thumbnails?.small?.url
+                        ? `https://capetownlists.co.za/?url=${encodeURIComponent(getArtistImage(artist).thumbnails.small.url)}`
                         : ''"
                       ratio="1"
                       class="rounded-borders"
                       :style="{ height: $q.screen.lt.md ? '150px' : '250px', objectFit: 'cover' }"
                       fit="contain"
                     />
+
 
                     <q-card-section>
                       <div class="text-h6 font-1ry" style="min-height: 64px;">
@@ -161,6 +162,12 @@ export default {
 
   data() {
     return {
+      attachmentMap: {
+        'Fine Art': 'Attachments_FA',
+        'New Media': 'Attachments_NM',
+        'Sculptural Works': 'Attachments_SW',
+        'Merch Art': 'Attachments_MA',
+      },
       allRecords: [],
       items: [],
       loading: false,
@@ -240,6 +247,27 @@ export default {
   },
 
   methods: {
+    getArtistImage(artist) {
+      const selected = this.filterValsRef.Media
+
+      // If no media selected → fallback to default Attachments
+      if (!selected) {
+        return artist.Attachments?.[0] || null
+      }
+
+      // Find matching field column for selected media
+      const field = this.attachmentMap[selected]
+
+      // If this media-type column exists and has images → use it
+      const imgs = artist[field]
+      if (imgs && imgs.length > 0) {
+        return imgs[0]
+      }
+
+      // Otherwise use the default Attachments
+      return artist.Attachments?.[0] || null
+    },
+
     /* 🔍 Token-based search */
     matchesTokenSearch(name, query) {
       if (!query) return true;
