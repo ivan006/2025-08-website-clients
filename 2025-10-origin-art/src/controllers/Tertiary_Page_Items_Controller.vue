@@ -87,8 +87,15 @@
                       </div>
                     </q-card-section>
                     <q-card-actions align="right">
-                      <q-btn flat size="sm" label="View Details" class="bg-1ry-color" />
+                      <q-btn
+                        flat
+                        size="sm"
+                        label="View Details"
+                        class="bg-1ry-color"
+                        @click="goToSingle(art)"
+                      />
                     </q-card-actions>
+
                   </q-card>
                 </div>
               </div>
@@ -246,6 +253,21 @@ export default {
   },
 
   methods: {
+    goToSingle(art) {
+      const slug = this.slugify(art.Title || 'artwork');
+      this.$router.push(`/firewood/${art.id}/${slug}`);
+    },
+
+    slugify(text) {
+      return text
+        ?.toString()
+        .toLowerCase()
+        .replace(/\s+/g, '-')        // Replace spaces with -
+        .replace(/[^\w-]+/g, '')     // Remove non-word characters
+        .replace(/--+/g, '-')        // Merge multiple -
+        .replace(/^-+|-+$/g, '');    // Trim - from start/end
+    },
+
     getCount(value, lookup) {
       if (!this.allRecords.length) return 0;
 

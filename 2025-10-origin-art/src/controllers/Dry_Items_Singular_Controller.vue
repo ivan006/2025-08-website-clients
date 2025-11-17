@@ -80,8 +80,7 @@ export default {
 
   computed: {
     id() {
-      // return this.$route.params.artId
-      return "recXggw5oIn4XoEaX"; // example ID
+      return this.$route.params.rId;
     },
 
     superTableModel() {
