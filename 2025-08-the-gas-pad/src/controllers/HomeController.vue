@@ -180,7 +180,6 @@
         </div>
       </div>
     </div>
-    <!--<HomeSEOController />-->
 
 
   </div>
@@ -189,7 +188,6 @@
 <script>
 import Home_Page from "src/models/orm-api/Home_Page";
 import { createMetaMixin } from 'quasar'
-import HomeSEOController from "src/controllers/HomeSEOController.vue";
 import Home_Page_Items_Controller from "src/controllers/Home_Page_Items_Controller.vue";
 import {buildSeoConfig} from "src/utils/seo";
 
