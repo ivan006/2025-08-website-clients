@@ -1,142 +1,136 @@
 <template>
-  <div
-    :style="this.item.fields?.['Banner Image']?.[0]?.url ? `background-image: url(https://capetownlists.co.za/?url=${encodeURIComponent(this.item.fields?.['Banner Image']?.[0]?.url)});` : ``"
-    style="
-    min-height: 50vh;
-    background-color: rgb(70,70,70);
-    background-position: center;
-    background-size: cover;
-    background-attachment: fixed;
+  <div class="container-xl q-py-xl">
 
-    background-color: rgba(0,0,0,.2);
-    background-blend-mode: darken;
-    "
-    class="ScaledParent "
-  >
-    <template v-if="loading">
-      <div class="text-center q-pa-xl">Loading...</div>
-    </template>
-    <template v-else>
+    <div v-if="loading" class="text-center q-pa-xl">
+      Loading...
+    </div>
 
-      <div class="q-py-xl">
+    <div v-else class="row q-col-gutter-xl">
 
-        <div
-          class="container-md"
-        >
-          <div class="row q-col-gutter-md  text-white">
-
-
-            <!--<div class="col-xl-1 col-md-1 col-sm-12 col-xs-12">-->
-
-
-            <!--</div>-->
-
-            <div class="col-xl-4 col-md-4 col-sm-12 col-xs-12">
-              <div class="row">
-                <div class="col-xl-12 col-md-12 col-sm-12 col-xs-12">
-                  
-                  <img
-                  src="~assets/square.webp"
-                  :style="this.item.fields?.['Image']?.[0]?.thumbnails?.large?.url ? `background-image: url(https://capetownlists.co.za/?url=${encodeURIComponent(this.item.fields?.['Image']?.[0]?.thumbnails?.large?.url)});` : ``"
-                  style="
-                    background-color: rgb(70,70,70);
-                    background-position: center;
-                    background-size: cover;
-                    border-radius: 100%;
-                    max-width: 100%;
-                    "
-                  />
-                </div>
-              </div>
-            </div>
-            <div class="col-xl-8 col-md-8 col-sm-12 col-xs-12  flex flex-center">
-              
-              <div class="q-pl-xl">
-                
-                <h1 class="r-r-font-h2 text-bold">
-                  <span class="text-weight-thin font-1ry text-uppercase" style="letter-spacing: 15px;">
-                    {{item.fields?.['Title']}}
-                  </span>
-                </h1>
-
-                
-                <h2 class="r-r-font-h3" >
-                  <span class="text-weight-light font-2ry text-uppercase" style="letter-spacing: 15px;">
-                    {{item.fields?.['Subtitle']}}
-                  </span>
-                </h2>
-              </div>
-            </div>
-          </div>
-        </div>
+      <!-- LEFT: IMAGE -->
+      <div class="col-12 col-md-6 flex flex-center">
+        <q-img
+          :src="mainImage"
+          :placeholder-src="placeholderImage"
+          fit="contain"
+          class="rounded-borders"
+          style="max-height: 90vh; width: 100%;"
+        />
       </div>
 
-      <!-- <div class=" bg-2ry-color " style="padding-top: 100px; padding-bottom: 100px;">
-        <div
-          class="container-md "
-        >
+      <!-- RIGHT: DETAILS -->
+      <div class="col-12 col-md-6 q-pl-md-lg">
 
-          <Tertiary_Page_Items_Controller :parent="this.item" />
+        <!-- Title -->
+        <div class="text-h4 font-1ry">{{ item.Title }}</div>
+
+        <!-- Subtitle / Artist Name -->
+        <div class="text-subtitle2 text-grey-7 q-mt-xs">
+          {{ item['Name (from Artist)']?.[0] || '' }}
         </div>
-      </div> -->
 
+        <!-- Specs -->
+        <div class="q-mt-xl text-body2">
+          <div class="row q-col-gutter-sm">
 
+            <div class="col-5 text-grey-7">Medium</div>
+            <div class="col-7">{{ medium }}</div>
 
-    </template>
+            <div class="col-5 text-grey-7 q-mt-sm">Height</div>
+            <div class="col-7 q-mt-sm">{{ item.Height }} cm</div>
 
+            <div class="col-5 text-grey-7 q-mt-sm">Width</div>
+            <div class="col-7 q-mt-sm">{{ item.Width }} cm</div>
 
+            <div class="col-5 text-grey-7 q-mt-sm">Artist</div>
+            <div class="col-7 q-mt-sm">
+              {{ item['Name (from Artist)']?.[0] }}
+            </div>
 
+            <div class="col-5 text-grey-7 q-mt-sm">Year</div>
+            <div class="col-7 q-mt-sm">{{ item.Year }}</div>
+
+          </div>
+        </div>
+
+        <!-- CTA BLOCK -->
+        <div class="q-mt-xl bg-grey-1 q-pa-lg rounded-borders text-body1">
+          <strong>Interested in this artwork?</strong><br>
+          WhatsApp us at <a href="https://wa.me/0987654321">098&nbsp;765&nbsp;4321</a> to learn more, request a call-back, or book an in-person meeting. You can also call us directly.
+
+        </div>
+
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import Dry_Items from "src/models/orm-api/Dry_Items";
+import Secondary_Page_Items from "src/models/orm-api/Secondary_Page_Items";
 
 export default {
-  name: "Dry_Controller",
-  components: {
-  },
-  data(){
+  name: "Artwork_Single_Controller",
+
+  data() {
     return {
       loading: true,
       item: {},
+    };
+  },
+
+  computed: {
+    id() {
+      // return this.$route.params.artId
+      return "recXggw5oIn4XoEaX"; // example ID
+    },
+
+    superTableModel() {
+      return Secondary_Page_Items;
+    },
+
+    medium() {
+      return this.item["Name (from Medium)"]?.[0] ||
+             this.item["Medium"]?.[0] ||
+             "";
+    },
+
+    mainImage() {
+      const att = this.item.Attachments?.[0];
+      return att?.thumbnails?.large?.url
+        ? `https://capetownlists.co.za/?url=${encodeURIComponent(att.thumbnails.large.url)}`
+        : this.item["Image Url"] || "";
+    },
+
+    placeholderImage() {
+      const att = this.item.Attachments?.[0];
+      return att?.thumbnails?.small?.url
+        ? `https://capetownlists.co.za/?url=${encodeURIComponent(att.thumbnails.small.url)}`
+        : "";
     }
   },
-  computed: {
 
-    id() {
-      // return this.$route.params.rId
-      return 'recCokU8M3eLMeuH0'
-    },
-    superTableModel() {
-      return Dry_Items
-    },
-  },
   methods: {
     fetchData() {
-      this.loading = true
+      this.loading = true;
+
       this.superTableModel
-        .FetchById(
-          this.id,
-          // this.relationships,
-          [],
-          { flags: {}, moreHeaders: {}, rels: [] }
-        )
-        .then((response) => {
-          this.item = response.response.data
-          this.loading = false
+        .FetchById(this.id, [], { flags: {}, moreHeaders: {}, rels: [] })
+        .then((res) => {
+          this.item = res.response.data.fields;
+          this.loading = false;
         })
-        .catch(() => {
-          this.loading = false
-        });
+        .catch(() => (this.loading = false));
     },
   },
-  mounted(){
+
+  mounted() {
     this.fetchData();
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
-
+.rounded-borders {
+  border-radius: 4px;
+}
 </style>
