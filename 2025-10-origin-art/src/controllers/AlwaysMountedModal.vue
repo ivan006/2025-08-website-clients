@@ -35,7 +35,7 @@
         bordered
         class="bg-white"
         style="
-          width: 700px;
+          width: 600px;
           max-width: 95vw;
           max-height: 90vh;
           overflow: hidden;

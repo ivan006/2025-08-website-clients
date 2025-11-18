@@ -50,16 +50,19 @@
             <div class="col-5 text-grey-7 q-mt-sm">Year</div>
             <div class="col-7 q-mt-sm">{{ item.Year }}</div>
 
+            <div class="col-5 text-grey-7 q-mt-sm">Inventory Code</div>
+            <div class="col-7 q-mt-sm">{{ item['Inv Code'] }}</div>
+
           </div>
         </div>
 
-        <div class="q-mt-xl q-pa-md text-body1">
+        <div class="q-mt-xl  text-body1">
 
           <strong>Interested in this artwork?</strong>
 
           <!-- WhatsApp text -->
           <div class="q-mt-sm">
-            You can contact us directly on WhatsApp using the number below.
+            Contact us on the number below.
           </div>
 
           <div 
@@ -68,6 +71,7 @@
               border: 1px solid rgba(0,0,0,0.15);
               font-size: 1.1rem;
               user-select: text;
+              display: inline-block;
             "
           >
             <a href="https://wa.me/0987654321" style="text-decoration:none; color: inherit;">
@@ -77,13 +81,13 @@
 
           <!-- Enquire text -->
           <div class="q-mt-lg">
-            If you’d prefer a call-back or would like to book an in-person or remote meeting, use the Enquire button below.
+            Or send an enquiry using the button below.
           </div>
 
           <q-btn 
             class="q-mt-md"
             color="primary"
-            label="Enquire"
+            label="Enquire Now"
             @click="showEnquiry = true"
           />
 
@@ -92,7 +96,7 @@
 
         <AlwaysMountedModal v-model="showEnquiry">
           <IframeWithLoader 
-            src="https://airtable.com/embed/appWL8gDT9ZaqV8jY/pagdRpra8CQue8ubu/form"
+            :src="`https://airtable.com/embed/appWL8gDT9ZaqV8jY/pagdRpra8CQue8ubu/form?prefill_Artwork%20Inventory%20Number=${item['Inv Code']}`"
           />
         </AlwaysMountedModal>
 
