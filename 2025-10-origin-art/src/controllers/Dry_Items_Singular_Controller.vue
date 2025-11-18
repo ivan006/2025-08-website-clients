@@ -1,12 +1,12 @@
 <template>
   <div class="container-xl q-py-xl">
 
+      <IframeWithLoader />
     <div v-if="loading" class="text-center q-pa-xl">
       Loading...
     </div>
 
     <div v-else class="row q-col-gutter-xl">
-
       <!-- LEFT: IMAGE -->
       <div class="col-12 col-md-6 flex flex-center">
         <q-img
@@ -17,6 +17,7 @@
           style="max-height: 90vh; width: 100%;"
         />
       </div>
+      
 
       <!-- RIGHT: DETAILS -->
       <div class="col-12 col-md-6 q-pl-md-lg">
@@ -67,10 +68,14 @@
 
 <script>
 import Secondary_Page_Items from "src/models/orm-api/Secondary_Page_Items";
+import IframeWithLoader from "src/controllers/IframeWithLoader.vue";
 
 export default {
   name: "Artwork_Single_Controller",
 
+  components: {
+    IframeWithLoader
+  },
   data() {
     return {
       loading: true,
