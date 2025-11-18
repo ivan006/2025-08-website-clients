@@ -60,10 +60,10 @@
 
         </div>
 
+        <IframeWithLoader src="https://airtable.com/embed/appWL8gDT9ZaqV8jY/pagdRpra8CQue8ubu/form"/>
       </div>
     </div>
     
-    <IframeWithLoader src="https://airtable.com/embed/appWL8gDT9ZaqV8jY/pagdRpra8CQue8ubu/form"/>
   </div>
 </template>
 
