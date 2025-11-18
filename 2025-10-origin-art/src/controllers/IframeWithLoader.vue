@@ -4,9 +4,7 @@
     <!-- LOADING OVERLAY -->
     <div
       v-if="loading"
-      class="loading-overlay flex flex-center"
-      style="
-      "
+      class="loading-overlay flex flex-center q-mt-xl"
     >
       <!-- <q-spinner color="primary" size="40px" /> -->
       Loading...
@@ -18,8 +16,9 @@
       :src="src"
       frameborder="0"
       width="100%"
-      height="850"
+      height="700px"
       style="background: transparent;"
+      :style="loading ? 'visibility: hidden;' : ''"
       @load="onLoad"
     ></iframe>
 
@@ -42,7 +41,7 @@ export default {
       // Add a 2-second delay before hiding loader
       setTimeout(() => {
         this.loading = false;
-      }, 3000); // change to 3000ms or 4000ms if needed
+      }, 1000); // change to 3000ms or 4000ms if needed
     }
   }
 }

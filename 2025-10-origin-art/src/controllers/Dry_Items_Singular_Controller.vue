@@ -53,14 +53,51 @@
           </div>
         </div>
 
-        <!-- CTA BLOCK -->
-        <div class="q-mt-xl bg-grey-1 q-pa-lg rounded-borders text-body1">
-          <strong>Interested in this artwork?</strong><br>
-          WhatsApp us at <a href="https://wa.me/0987654321">098&nbsp;765&nbsp;4321</a> to learn more, request a call-back, or book an in-person meeting. You can also call us directly.
+        <div class="q-mt-xl q-pa-md text-body1">
+
+          <strong>Interested in this artwork?</strong>
+
+          <!-- WhatsApp text -->
+          <div class="q-mt-sm">
+            You can contact us directly on WhatsApp using the number below.
+          </div>
+
+          <div 
+            class="q-mt-sm q-pa-sm rounded-borders"
+            style="
+              border: 1px solid rgba(0,0,0,0.15);
+              font-size: 1.1rem;
+              user-select: text;
+            "
+          >
+            <a href="https://wa.me/0987654321" style="text-decoration:none; color: inherit;">
+              098&nbsp;765&nbsp;4321
+            </a>
+          </div>
+
+          <!-- Enquire text -->
+          <div class="q-mt-lg">
+            If you’d prefer a call-back or would like to book an in-person or remote meeting, use the Enquire button below.
+          </div>
+
+          <q-btn 
+            class="q-mt-md"
+            color="primary"
+            label="Enquire"
+            @click="showEnquiry = true"
+          />
 
         </div>
 
-        <IframeWithLoader src="https://airtable.com/embed/appWL8gDT9ZaqV8jY/pagdRpra8CQue8ubu/form"/>
+
+        <AlwaysMountedModal v-model="showEnquiry">
+          <IframeWithLoader 
+            src="https://airtable.com/embed/appWL8gDT9ZaqV8jY/pagdRpra8CQue8ubu/form"
+          />
+        </AlwaysMountedModal>
+
+
+
       </div>
     </div>
     
@@ -70,17 +107,21 @@
 <script>
 import Secondary_Page_Items from "src/models/orm-api/Secondary_Page_Items";
 import IframeWithLoader from "src/controllers/IframeWithLoader.vue";
+import AlwaysMountedModal from "src/controllers/AlwaysMountedModal.vue";
 
 export default {
   name: "Artwork_Single_Controller",
 
   components: {
-    IframeWithLoader
+    IframeWithLoader,
+    AlwaysMountedModal
   },
   data() {
     return {
       loading: true,
       item: {},
+      showEnquiry: false,
+      dialogueVModel: true,
     };
   },
 
