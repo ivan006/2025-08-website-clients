@@ -1,39 +1,26 @@
 <template>
-  <div class="iframe-wrapper" style="position: relative; min-height: 300px;">
+  <div class="iframe-wrapper">
     
     <!-- LOADING OVERLAY -->
     <div
       v-if="loading"
       class="loading-overlay flex flex-center"
       style="
-        position:absolute;
-        top:0;
-        left:0;
-        right:0;
-        bottom:0;
-        background:white;
-        z-index:10;
       "
     >
-      <q-spinner color="primary" size="40px" />
-      <!-- If you're not using Quasar, replace the above with any spinner -->
+      <!-- <q-spinner color="primary" size="40px" /> -->
+      Loading...
     </div>
 
     <!-- IFRAME -->
-    <!-- <iframe
+    <iframe 
+      class="airtable-embed"
       :src="src"
       frameborder="0"
-      style="width:100%; height:100%;"
-    ></iframe> -->
-
-    
-    <iframe 
-        class="airtable-embed" src="https://airtable.com/embed/appWL8gDT9ZaqV8jY/pagdRpra8CQue8ubu/form" 
-        frameborder="0" 
-        onmousewheel="" 
-        width="100%" height="850" 
-        style="background: transparent; "
-        @load="onLoad"
+      width="100%"
+      height="850"
+      style="background: transparent;"
+      @load="onLoad"
     ></iframe>
 
   </div>
@@ -52,7 +39,10 @@ export default {
   },
   methods: {
     onLoad() {
-      this.loading = false;
+      // Add a 2-second delay before hiding loader
+      setTimeout(() => {
+        this.loading = false;
+      }, 3000); // change to 3000ms or 4000ms if needed
     }
   }
 }

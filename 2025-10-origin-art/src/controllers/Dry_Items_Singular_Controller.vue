@@ -1,7 +1,6 @@
 <template>
   <div class="container-xl q-py-xl">
 
-      <IframeWithLoader />
     <div v-if="loading" class="text-center q-pa-xl">
       Loading...
     </div>
@@ -63,6 +62,8 @@
 
       </div>
     </div>
+    
+    <IframeWithLoader src="https://airtable.com/embed/appWL8gDT9ZaqV8jY/pagdRpra8CQue8ubu/form"/>
   </div>
 </template>
 
