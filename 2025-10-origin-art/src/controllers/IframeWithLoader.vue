@@ -4,7 +4,8 @@
     <!-- LOADING OVERLAY -->
     <div
       v-if="loading"
-      class="loading-overlay flex flex-center q-mt-xl"
+      class=" flex flex-center "
+      style="height: 500px"
     >
       <!-- <q-spinner color="primary" size="40px" /> -->
       Loading...
@@ -16,9 +17,9 @@
       :src="src"
       frameborder="0"
       width="100%"
-      height="700px"
+      height="500px"
       style="background: transparent;"
-      :style="loading ? 'visibility: hidden;' : ''"
+      :style="loading ? 'display: none;' : ''"
       @load="onLoad"
     ></iframe>
 
