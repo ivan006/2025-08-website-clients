@@ -41,7 +41,7 @@ export default {
       // Add a 2-second delay before hiding loader
       setTimeout(() => {
         this.loading = false;
-      }, 1000); // change to 3000ms or 4000ms if needed
+      }, 2000); // change to 3000ms or 4000ms if needed
     }
   }
 }
