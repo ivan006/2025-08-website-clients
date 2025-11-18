@@ -24,9 +24,15 @@
         <!-- Title -->
         <div class="text-h4 font-1ry">{{ item.Title }}</div>
 
-        <!-- Subtitle / Artist Name -->
+        <!-- Artist -->
         <div class="text-subtitle2 text-grey-7 q-mt-xs">
           {{ item['Name (from Artist)']?.[0] || '' }}
+        </div>
+
+        <!-- Price -->
+        <div class="text-h6 text-weight-bold q-mt-sm">
+          R{{ Number(item.Price).toLocaleString('en-ZA', { minimumFractionDigits: 2 }) }}
+
         </div>
 
         <!-- Specs -->
@@ -42,11 +48,6 @@
             <div class="col-5 text-grey-7 q-mt-sm">Width</div>
             <div class="col-7 q-mt-sm">{{ item.Width }} cm</div>
 
-            <div class="col-5 text-grey-7 q-mt-sm">Artist</div>
-            <div class="col-7 q-mt-sm">
-              {{ item['Name (from Artist)']?.[0] }}
-            </div>
-
             <div class="col-5 text-grey-7 q-mt-sm">Year</div>
             <div class="col-7 q-mt-sm">{{ item.Year }}</div>
 
@@ -55,6 +56,7 @@
 
           </div>
         </div>
+
 
         <div class="q-mt-xl  text-body1">
 
