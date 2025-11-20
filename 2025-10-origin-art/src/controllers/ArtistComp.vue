@@ -79,6 +79,8 @@
 
         </div>
 
+        <ArtistArtworks  />
+
         <!-- Enquiry Modal -->
         <AlwaysMountedModal v-model="showEnquiry">
           <IframeWithLoader 
@@ -99,13 +101,15 @@
 import Artists from "src/models/orm-api/Artists";
 import IframeWithLoader from "src/controllers/IframeWithLoader.vue";
 import AlwaysMountedModal from "src/controllers/AlwaysMountedModal.vue";
+import ArtistArtworks from "src/controllers/ArtistArtworks.vue";
 
 export default {
   name: "ArtistComp",
 
   components: {
     IframeWithLoader,
-    AlwaysMountedModal
+    AlwaysMountedModal,
+    ArtistArtworks,
   },
 
   data() {
