@@ -204,9 +204,9 @@ export default {
           lookup: 'Av. Price Tier',
           options: [
             { label: 'All', value: '' },
-            { label: 'Established (Av. Price 40k+)', value: 'Gold' },
-            { label: 'Mid-Career (Av. Price 12k–40k)', value: 'Silver' },
-            { label: 'Emerging (Av. Price <12k)', value: 'Bronze' },
+            { label: 'Established (Avg Price 40k+)', value: 'Gold' },
+            { label: 'Mid-Career (Avg Price 12k–40k)', value: 'Silver' },
+            { label: 'Emerging (Avg Price <12k)', value: 'Bronze' },
           ],
         },
       ],
@@ -214,6 +214,7 @@ export default {
   },
 
   computed: {
+    
     totalPages() {
       return Math.ceil(this.totalFiltered / this.options.itemsPerPage)
     },

@@ -29,13 +29,14 @@
           {{ item.Name }}
         </div>
 
-        <!-- Price info -->
-        <div class="text-subtitle2 text-grey-7 q-mt-xs">
-          Average Price: R{{ Number(item['Av. Price']).toLocaleString('en-ZA') }}
+        <!-- ARTIST LEVEL -->
+        <div class="text-subtitle1 text-weight-bold q-mt-sm">
+          {{ prettyTier }}
         </div>
 
-        <div class="text-subtitle2 text-grey-7">
-          Tier: {{ item['Av. Price Tier'] }}
+        <!-- ARTIST TYPE(S) -->
+        <div class="text-grey-7 q-mt-xs">
+          {{ prettyMedia.join(', ') }}
         </div>
 
       </div>
@@ -96,6 +97,33 @@ export default {
         ? `https://capetownlists.co.za/?url=${encodeURIComponent(att.thumbnails.small.url)}`
         : "";
     },
+    
+    mediaLabelMap() {
+      return {
+        'Fine Art': 'Fine Artist',
+        'Sculptural Works': 'Sculptor',
+        'New Media': 'New Media Artist',
+        'Merch Art': 'Merch Artist'
+      }
+    },
+
+    tierLabelMap() {
+      return {
+        'Gold': 'Established (Avg Price 40k+)',
+        'Silver': 'Mid-Career (Avg Price 12k–40k)',
+        'Bronze': 'Emerging (Avg Price <12k)'
+      }
+    },
+
+    prettyMedia() {
+      const arr = this.item.Media || []
+      return arr.map(m => this.mediaLabelMap[m] || m)
+    },
+
+    prettyTier() {
+      const t = this.item['Av. Price Tier']
+      return this.tierLabelMap[t] || t
+    }
   },
 
   methods: {
