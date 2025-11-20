@@ -105,7 +105,13 @@
                     </q-card-section>
 
                     <q-card-actions align="right">
-                      <q-btn flat size="sm" label="View Profile" class="bg-1ry-color" />
+                      <q-btn
+                        flat
+                        size="sm"
+                        label="View Profile"
+                        class="bg-1ry-color"
+                        @click="goToSingle(artist)"
+                      />
                     </q-card-actions>
                   </q-card>
                 </div>
@@ -247,6 +253,20 @@ export default {
   },
 
   methods: {
+    goToSingle(artist) {
+      const slug = this.slugify(artist.Name || 'artist');
+      this.$router.push(`/artists/${artist.id}/${slug}`);
+    },
+
+    slugify(text) {
+      return text
+        ?.toString()
+        .toLowerCase()
+        .replace(/\s+/g, '-')        // Replace spaces with -
+        .replace(/[^\w-]+/g, '')     // Remove non-word characters
+        .replace(/--+/g, '-')        // Merge multiple -
+        .replace(/^-+|-+$/g, '');    // Trim - from start/end
+    },
     getArtistImage(artist) {
       const selected = this.filterValsRef.Media
 

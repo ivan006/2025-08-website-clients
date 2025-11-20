@@ -117,7 +117,7 @@
 </template>
 
 <script>
-import Artworks from "src/models/orm-api/Artworks";
+import Artists from "src/models/orm-api/Artists";
 import IframeWithLoader from "src/controllers/IframeWithLoader.vue";
 import AlwaysMountedModal from "src/controllers/AlwaysMountedModal.vue";
 
@@ -143,7 +143,7 @@ export default {
     },
 
     superTableModel() {
-      return Artworks;
+      return Artists;
     },
 
     medium() {
