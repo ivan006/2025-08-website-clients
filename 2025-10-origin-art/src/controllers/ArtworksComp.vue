@@ -255,7 +255,7 @@ export default {
   methods: {
     goToSingle(art) {
       const slug = this.slugify(art.Title || 'artwork');
-      this.$router.push(`/firewood/${art.id}/${slug}`);
+      this.$router.push(`/artworks/${art.id}/${slug}`);
     },
 
     slugify(text) {

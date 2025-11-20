@@ -1,8 +1,8 @@
 import BasicModel from './BasicModel'
 
-export default class Secondary_Page extends BasicModel {
+export default class ArtworksPage extends BasicModel {
 
-  static entity = 'Secondary_Page';
+  static entity = 'ArtworksPage';
   static entityUrl = '/Gas_Prices_Page';
 
 

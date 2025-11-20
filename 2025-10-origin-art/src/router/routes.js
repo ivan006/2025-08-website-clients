@@ -30,8 +30,8 @@ const routes = [
             },
           },
           {
-            path: '/pool-chem-and-equip',
-            name: '/pool-chem-and-equip',
+            path: '/artworks',
+            name: '/artworks',
             component: () => import('src/controllers/ArtworksPageComp.vue'),
             meta: {
               breadcrumbName: 'Pool Chem & Equip',
@@ -50,8 +50,8 @@ const routes = [
             },
           },
           {
-            path: '/firewood/:rId/:rName',
-            name: '/firewood/:rId/:rName',
+            path: '/artworks/:rId/:rName',
+            name: '/artworks/:rId/:rName',
             // path: '/home/:rId',
             // name: '/home/:rId',
             component: () => import('src/controllers/ArtistComp.vue'),

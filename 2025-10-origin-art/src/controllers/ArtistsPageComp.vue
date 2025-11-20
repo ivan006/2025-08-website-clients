@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import ArtworksPage from "src/models/orm-api/ArtistsPageComp";
+import ArtworksPage from "src/models/orm-api/ArtworksPage";
 import ArtistsComp from "src/controllers/ArtistsComp.vue";
 
 export default {
