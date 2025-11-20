@@ -11,7 +11,7 @@
 
     <div v-else>
 
-      <!-- GROUPED BY MEDIUM -->
+      <!-- PER-MEDIUM SECTIONS -->
       <div
         v-for="(group, mediaName) in grouped"
         :key="mediaName"
@@ -23,16 +23,12 @@
           {{ mediaName }}
         </div>
 
-        <!-- Grid -->
-        <div class="row q-col-gutter-lg">
-          <div
-            v-for="art in group"
-            :key="art.id"
-            class="col-6 col-md-3 q-pa-sm"
-          >
-            <ArtworkCard :art="art" />
-          </div>
-        </div>
+        <!-- PAGINATED GRID -->
+        <ArtworkPaginatedGrid
+          :items="group"
+          v-model:page="sectionPages[mediaName]"
+          :items-per-page="8"
+        />
 
       </div>
 
@@ -42,27 +38,28 @@
 </template>
 
 <script>
-import Artworks from "src/models/orm-api/Artworks"
-import ArtworkCard from "src/controllers/ArtworkCard.vue"
+import Artworks from 'src/models/orm-api/Artworks'
+import ArtworkPaginatedGrid from 'src/controllers/ArtworkPaginatedGrid.vue'
 
 export default {
-  name: "ArtistArtworks",
+  name: 'ArtistArtworks',
 
   components: {
-    ArtworkCard
+    ArtworkPaginatedGrid
   },
 
   props: {
     artistName: {
       type: String,
-      default: "Adilson De Oliveira"
+      default: 'Adilson De Oliveira'
     }
   },
 
   data() {
     return {
       loading: false,
-      items: []
+      items: [],
+      sectionPages: {}  // page trackers for each medium group
     }
   },
 
@@ -75,16 +72,21 @@ export default {
       const groups = {}
 
       this.items.forEach(art => {
-        const mediaArray = art['Name (from Medium)'] || ['Uncategorized']
+        const mediums = art['Name (from Medium)'] || ['Uncategorized']
 
-        mediaArray.forEach(m => {
+        mediums.forEach(m => {
           if (!groups[m]) groups[m] = []
           groups[m].push(art)
+
+          if (this.sectionPages[m] === undefined) {
+            this.sectionPages[m] = 0   // ✅ Vue 3 reactive assignment
+          }
         })
       })
 
       return groups
     }
+
   },
 
   methods: {
@@ -96,20 +98,22 @@ export default {
         {},
         {},
         {
-          limit: 60,
+          limit: 200,
           filters: {
             filterByFormula: this.filterFormula
           }
         }
       )
-        .then((res) => {
+        .then(res => {
           this.items = res.response.data.records.map(r => ({
             id: r.id,
             ...r.fields
           }))
           this.loading = false
         })
-        .catch(() => (this.loading = false))
+        .catch(() => {
+          this.loading = false
+        })
     }
   },
 
