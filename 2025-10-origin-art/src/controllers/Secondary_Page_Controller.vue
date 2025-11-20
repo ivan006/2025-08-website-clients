@@ -11,7 +11,7 @@
 
     
       
-      <Secondary_Page_Items_Controller :parent="this.item" @loaded="childLoading=false" />
+      <ArtworksPage_Items_Controller :parent="this.item" @loaded="childLoading=false" />
 
 
     </div>
@@ -22,13 +22,13 @@
 </template>
 
 <script>
-import Secondary_Page from "src/models/orm-api/ArtworksPage";
-import Secondary_Page_Items_Controller from "src/controllers/Secondary_Page_Items_Controller.vue";
+import ArtworksPage from "src/models/orm-api/ArtworksPage";
+import ArtworksPage_Items_Controller from "src/controllers/ArtworksPage_Items_Controller.vue";
 
 export default {
-  name: "Secondary_Page_Controller",
+  name: "ArtworksPage_Controller",
   components: {
-    Secondary_Page_Items_Controller
+    ArtworksPage_Items_Controller
   },
   data(){
     return {
@@ -44,7 +44,7 @@ export default {
       return 'recHpBSy9dEXXwQDF'
     },
     superTableModel() {
-      return Secondary_Page
+      return ArtworksPage
     },
   },
   methods: {

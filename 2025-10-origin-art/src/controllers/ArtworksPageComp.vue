@@ -26,7 +26,7 @@ import ArtworksPage from "src/models/orm-api/ArtworksPage";
 import ArtworksComp from "src/controllers/ArtworksComp.vue";
 
 export default {
-  name: "Dry_Controller",
+  name: "ArtworksPageComp",
   components: {
     ArtworksComp
   },
