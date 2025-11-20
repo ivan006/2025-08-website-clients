@@ -20,6 +20,16 @@ const routes = [
             },
           },
           {
+            path: '/artwork-old',
+            name: '/artwork-old',
+            component: () => import('src/controllers/Secondary_Page_Controller.vue'),
+            meta: {
+              breadcrumbName: 'Gas Prices',
+              breadcrumbParentName: '',
+              requiresAuth: false,
+            },
+          },
+          {
             path: '/artists',
             name: '/artists',
             component: () => import('src/controllers/ArtistsPageComp.vue'),
