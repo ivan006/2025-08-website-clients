@@ -29,26 +29,41 @@
           {{ item.Name }}
         </div>
 
-        <!-- ARTIST LEVEL -->
-      <q-badge
-        class="q-py-xs q-px-sm q-mt-sm"
-        :style="prettyTierStyle + '; font-size: 0.8rem; border-radius: 4px;'"
-      >
-        {{ prettyTier }}
-      </q-badge>
+        <!-- ARTIST LEVEL (label on left) -->
+        <div class="row items-center q-mt-sm">
+          <div class="text-grey-7 text-caption q-mr-sm" style="min-width: 90px;">
+            Artist Level:
+          </div>
 
-        <div class="q-mt-sm row q-gutter-sm">
           <q-badge
-            v-for="m in prettyMedia"
-            :key="m"
-            color="primary"
-            text-color="white"
             class="q-py-xs q-px-sm"
-            style="font-size: 0.75rem; border-radius: 4px;"
+            :style="prettyTierStyle + '; font-size: 0.8rem; border-radius: 4px;'"
           >
-            {{ m }}
+            {{ prettyTier }}
           </q-badge>
         </div>
+
+        <!-- ARTIST TYPE (multiple badges) -->
+        <div class="row items-center q-mt-sm">
+          <div class="text-grey-7 text-caption q-mr-sm" style="min-width: 90px;">
+            Media:
+          </div>
+
+          <div class="row q-gutter-sm">
+            <q-badge
+              v-for="m in prettyMedia"
+              :key="m"
+              color="primary"
+              text-color="white"
+              class="q-py-xs q-px-sm"
+              style="font-size: 0.75rem; border-radius: 4px;"
+            >
+              {{ m }}
+            </q-badge>
+          </div>
+        </div>
+
+
 
       </div>
 
