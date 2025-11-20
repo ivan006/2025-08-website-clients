@@ -1,12 +1,15 @@
 <template>
   <div class="container-xl q-py-xl">
 
+    <!-- LOADING -->
     <div v-if="loading" class="text-center q-pa-xl">
       Loading...
     </div>
 
+    <!-- PAGE -->
     <div v-else class="row q-col-gutter-xl">
-      <!-- LEFT: IMAGE -->
+      
+      <!-- =============== LEFT: MAIN IMAGE =============== -->
       <div class="col-12 col-md-6 flex flex-center">
         <q-img
           :src="mainImage"
@@ -16,60 +19,38 @@
           style="width: 100%; height: 600px;"
         />
       </div>
-      
 
-      <!-- RIGHT: DETAILS -->
+
+      <!-- =============== RIGHT: ARTIST DETAILS =============== -->
       <div class="col-12 col-md-6 q-pl-md-lg">
 
-        <!-- Title -->
-        <div class="text-h4 font-1ry">{{ item.Title }}</div>
-
-        <!-- Artist -->
-        <div class="text-subtitle2 text-grey-7 q-mt-xs">
-          {{ item['Name (from Artist)']?.[0] || '' }}
+        <!-- Artist Name -->
+        <div class="text-h4 font-1ry">
+          {{ item.Name }}
         </div>
 
-        <!-- Price -->
-        <div class="text-h6 text-weight-bold q-mt-sm">
-          R{{ Number(item.Price).toLocaleString('en-ZA', { minimumFractionDigits: 2 }) }}
-
+        <!-- Average Price -->
+        <div class="text-h6 q-mt-sm">
+          Average Price:
+          R{{ Number(item['Av. Price']).toLocaleString('en-ZA') }}
         </div>
 
-        <!-- Specs -->
-        <div class="q-mt-xl text-body2">
-          <div class="row q-col-gutter-sm">
-
-            <div class="col-5 text-grey-7">Medium</div>
-            <div class="col-7">{{ medium }}</div>
-
-            <div class="col-5 text-grey-7">Materials</div>
-            <div class="col-7">{{ item['Name (from Materials)'] || '-'}}</div>
-
-            <div class="col-5 text-grey-7 q-mt-sm">Height</div>
-            <div class="col-7 q-mt-sm">{{ item.Height }} cm</div>
-
-            <div class="col-5 text-grey-7 q-mt-sm">Width</div>
-            <div class="col-7 q-mt-sm">{{ item.Width }} cm</div>
-
-            <div class="col-5 text-grey-7 q-mt-sm">Year</div>
-            <div class="col-7 q-mt-sm">{{ item.Year }}</div>
-
-            <div class="col-5 text-grey-7 q-mt-sm">Inventory Code</div>
-            <div class="col-7 q-mt-sm">{{ item['Inv Code'] }}</div>
-
-          </div>
+        <!-- Price Tier -->
+        <div class="text-subtitle2 text-grey-7">
+          Tier: {{ item['Av. Price Tier'] }}
         </div>
 
 
-        <div class="q-mt-xl  text-body1">
+        <!-- CONTACT SECTION -->
+        <div class="q-mt-xl text-body1">
 
-          <strong>Interested in this artwork?</strong>
+          <strong>Interested in this artist's work?</strong>
 
-          <!-- WhatsApp text -->
           <div class="q-mt-sm">
             Contact us on the number below.
           </div>
 
+          <!-- Phone Box -->
           <div 
             class="q-mt-sm q-pa-sm rounded-borders"
             style="
@@ -84,7 +65,7 @@
             </a>
           </div>
 
-          <!-- Enquire text -->
+          <!-- Enquiry Button -->
           <div class="q-mt-lg">
             Or send an enquiry using the button below.
           </div>
@@ -98,23 +79,21 @@
 
         </div>
 
-
+        <!-- Enquiry Modal -->
         <AlwaysMountedModal v-model="showEnquiry">
           <IframeWithLoader 
-            :src="`https://airtable.com/embed/appWL8gDT9ZaqV8jY/pagdRpra8CQue8ubu/form?prefill_Artwork%20Inventory%20Number=${item['Inv Code']}`"
+            :src="`https://airtable.com/embed/appWL8gDT9ZaqV8jY/pagdRpra8CQue8ubu/form?prefill_Artist=${encodeURIComponent(item.Name)}`"
           />
-          <!-- <IframeWithLoader 
-            :src="`https://airtable.com/embed/appWL8gDT9ZaqV8jY/pagdRpra8CQue8ubu/form?prefill_Artwork=${id}`"
-          /> -->
         </AlwaysMountedModal>
 
-
-
       </div>
+
     </div>
-    
+
   </div>
 </template>
+
+
 
 <script>
 import Artists from "src/models/orm-api/Artists";
@@ -122,18 +101,18 @@ import IframeWithLoader from "src/controllers/IframeWithLoader.vue";
 import AlwaysMountedModal from "src/controllers/AlwaysMountedModal.vue";
 
 export default {
-  name: "ArtworkComp",
+  name: "ArtistComp",
 
   components: {
     IframeWithLoader,
     AlwaysMountedModal
   },
+
   data() {
     return {
       loading: true,
       item: {},
       showEnquiry: false,
-      dialogueVModel: true,
     };
   },
 
@@ -146,17 +125,11 @@ export default {
       return Artists;
     },
 
-    medium() {
-      return this.item["Name (from Medium)"]?.[0] ||
-             this.item["Medium"]?.[0] ||
-             "";
-    },
-
     mainImage() {
       const att = this.item.Attachments?.[0];
       return att?.thumbnails?.large?.url
         ? `https://capetownlists.co.za/?url=${encodeURIComponent(att.thumbnails.large.url)}`
-        : this.item["Image Url"] || "";
+        : "";
     },
 
     placeholderImage() {
@@ -164,7 +137,7 @@ export default {
       return att?.thumbnails?.small?.url
         ? `https://capetownlists.co.za/?url=${encodeURIComponent(att.thumbnails.small.url)}`
         : "";
-    }
+    },
   },
 
   methods: {
@@ -186,6 +159,8 @@ export default {
   },
 };
 </script>
+
+
 
 <style scoped>
 .rounded-borders {
