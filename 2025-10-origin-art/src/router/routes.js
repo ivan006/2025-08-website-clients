@@ -60,7 +60,7 @@ const routes = [
               breadcrumbParentName: '/artworks',
               requiresAuth: false,
             },
-          },
+          }
         ],
         meta: { requiresAuth: false }
       }
