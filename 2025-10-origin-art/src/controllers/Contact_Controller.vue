@@ -82,7 +82,6 @@
           class="container-md "
         >
 
-          <!-- <Tertiary_Page_Items_Controller :parent="this.item" /> -->
           <div class="q-pa-lg bg- text-dark">
             <div class="row q-col-gutter-xl justify-around text-center">
 
@@ -160,12 +159,10 @@
 
 <script>
 import Contact from "src/models/orm-api/Contact";
-// import Tertiary_Page_Items_Controller from "src/controllers/Tertiary_Page_Items_Controller.vue";
 
 export default {
   name: "Contact_Controller",
   components: {
-    // Tertiary_Page_Items_Controller
   },
   data(){
     return {
