@@ -156,7 +156,7 @@ import SEODataViewer from 'src/controllers/SEODataViewer.vue'
 import CatalogueLayout from 'src/controllers/CatalogueLayout.vue'
 
 export default {
-  name: 'ArtistsController',
+  name: 'ArtworksComp',
   components: { SEODataViewer, CatalogueLayout },
   mixins: [createMetaMixin(function () { return this.seoConfig })],
 

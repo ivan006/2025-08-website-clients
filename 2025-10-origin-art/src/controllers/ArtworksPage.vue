@@ -11,7 +11,7 @@
 
     
       
-      <Dry_Items_Controller :parent="this.item" @loaded="childLoading=false" />
+      <ArtworksComp :parent="this.item" @loaded="childLoading=false" />
 
 
     </div>
@@ -23,12 +23,12 @@
 
 <script>
 import Secondary_Page from "src/models/orm-api/Secondary_Page";
-import Dry_Items_Controller from "src/controllers/Artworks.vue";
+import ArtworksComp from "src/controllers/ArtworksComp.vue";
 
 export default {
   name: "Dry_Controller",
   components: {
-    Dry_Items_Controller
+    ArtworksComp
   },
   data(){
     return {

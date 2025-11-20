@@ -122,7 +122,7 @@ import IframeWithLoader from "src/controllers/IframeWithLoader.vue";
 import AlwaysMountedModal from "src/controllers/AlwaysMountedModal.vue";
 
 export default {
-  name: "Artwork_Single_Controller",
+  name: "ArtworkComp",
 
   components: {
     IframeWithLoader,
