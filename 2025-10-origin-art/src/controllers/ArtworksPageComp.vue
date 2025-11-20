@@ -11,7 +11,7 @@
 
     
       
-      <Tertiary_Page_Items_Controller :parent="this.item" @loaded="childLoading=false" />
+      <ArtworksComp :parent="this.item" @loaded="childLoading=false" />
 
 
     </div>
@@ -22,13 +22,13 @@
 </template>
 
 <script>
-import Secondary_Page from "src/models/orm-api/ArtworksPage";
-import Tertiary_Page_Items_Controller from "src/controllers/Tertiary_Page_Items_Controller.vue";
+import ArtworksPage from "src/models/orm-api/ArtworksPage";
+import ArtworksComp from "src/controllers/ArtworksComp.vue";
 
 export default {
   name: "Tertiary_Page_Controller",
   components: {
-    Tertiary_Page_Items_Controller
+    ArtworksComp
   },
   data(){
     return {
@@ -44,7 +44,7 @@ export default {
       return 'recHpBSy9dEXXwQDF'
     },
     superTableModel() {
-      return Secondary_Page
+      return ArtworksPage
     },
   },
   methods: {

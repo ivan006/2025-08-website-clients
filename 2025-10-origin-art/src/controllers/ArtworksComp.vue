@@ -147,7 +147,7 @@
 </template>
 
 <script>
-import Dry_Items from 'src/models/orm-api/Dry_Items'
+import ArtworksBoundCache from 'src/models/orm-api/ArtworksBoundCache'
 import { createMetaMixin } from 'quasar'
 import { buildSchemaItem, buildSeoConfig } from 'src/utils/seo'
 import SEODataViewer from 'src/controllers/SEODataViewer.vue'
@@ -303,7 +303,7 @@ export default {
       try {
         // 🧩 Fetch bound cache once
         if (!this.allRecords.length) {
-          const res = await Dry_Items.FetchAll()
+          const res = await ArtworksBoundCache.FetchAll()
           this.allRecords = res.response.data.records.map(r => ({ id: r.id, ...r.fields }))
           console.log('✅ Bound cache loaded:', this.allRecords.length)
         }

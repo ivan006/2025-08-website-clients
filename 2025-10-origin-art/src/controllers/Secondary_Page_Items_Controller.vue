@@ -99,7 +99,6 @@
 
 <script>
 import Secondary_Page_Items from 'src/models/orm-api/Secondary_Page_Items'
-import Tertiary_Page_Items from 'src/models/orm-api/Tertiary_Page_Items' // 👈 new
 import { createMetaMixin } from 'quasar'
 import { buildSchemaItem, buildSeoConfig } from 'src/utils/seo'
 import SEODataViewer from 'src/controllers/SEODataViewer.vue'
@@ -237,16 +236,7 @@ export default {
 
       return match?.fields['Record Count'] || 0
     },
-    async fetchRecordCounts() {
-      try {
-        
-        const res = await Tertiary_Page_Items.FetchAll([], {}, {}, { limit: 100 })
-        this.recordCounts = res.response.data.records
-        console.log('✅ Record counts loaded:', this.recordCounts.length)
-      } catch (err) {
-        console.error('❌ Failed to load record counts:', err)
-      }
-    },
+
 
     async fetchData(offset = null) {
       this.loading = true
@@ -309,7 +299,6 @@ export default {
   },
 
   async mounted() {
-    await this.fetchRecordCounts() // 👈 prefetch count table once
     await this.fetchData()
   },
 }

@@ -11,7 +11,7 @@
 
     
       
-      <ArtworksPage_Items_Controller :parent="this.item" @loaded="childLoading=false" />
+      <Secondary_Page_Items_Controller :parent="this.item" @loaded="childLoading=false" />
 
 
     </div>
@@ -23,12 +23,12 @@
 
 <script>
 import ArtworksPage from "src/models/orm-api/ArtworksPage";
-import ArtworksPage_Items_Controller from "src/controllers/ArtworksPage_Items_Controller.vue";
+import Secondary_Page_Items_Controller from "src/controllers/Secondary_Page_Items_Controller.vue";
 
 export default {
-  name: "ArtworksPage_Controller",
+  name: "Secondary_Page_Controller",
   components: {
-    ArtworksPage_Items_Controller
+    Secondary_Page_Items_Controller
   },
   data(){
     return {
