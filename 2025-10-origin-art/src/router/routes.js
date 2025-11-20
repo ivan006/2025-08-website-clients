@@ -12,7 +12,7 @@ const routes = [
           {
             path: '/',
             name: '/',
-            component: () => import('src/controllers/HomeController.vue'),
+            component: () => import('src/controllers/ArtworksPageComp.vue'),
             meta: {
               breadcrumbName: 'Home',
               breadcrumbParentName: '',
@@ -26,6 +26,28 @@ const routes = [
             meta: {
               breadcrumbName: 'Gas Prices',
               breadcrumbParentName: '',
+              requiresAuth: false,
+            },
+          },
+          // {
+          //   path: '/artworks',
+          //   name: '/artworks',
+          //   component: () => import('src/controllers/ArtworksPageComp.vue'),
+          //   meta: {
+          //     breadcrumbName: 'Artworks',
+          //     breadcrumbParentName: '',
+          //     requiresAuth: false,
+          //   },
+          // },
+          {
+            path: '/artworks/:rId/:rName',
+            name: '/artworks/:rId/:rName',
+            // path: '/home/:rId',
+            // name: '/home/:rId',
+            component: () => import('src/controllers/ArtworkComp.vue'),
+            meta: {
+              breadcrumbName: ':rId',
+              breadcrumbParentName: '/artworks',
               requiresAuth: false,
             },
           },
@@ -49,28 +71,6 @@ const routes = [
               requiresAuth: false,
             },
           },
-          {
-            path: '/artworks',
-            name: '/artworks',
-            component: () => import('src/controllers/ArtworksPageComp.vue'),
-            meta: {
-              breadcrumbName: 'Artworks',
-              breadcrumbParentName: '',
-              requiresAuth: false,
-            },
-          },
-          {
-            path: '/artworks/:rId/:rName',
-            name: '/artworks/:rId/:rName',
-            // path: '/home/:rId',
-            // name: '/home/:rId',
-            component: () => import('src/controllers/ArtworkComp.vue'),
-            meta: {
-              breadcrumbName: ':rId',
-              breadcrumbParentName: '/artworks',
-              requiresAuth: false,
-            },
-          }
         ],
         meta: { requiresAuth: false }
       }
