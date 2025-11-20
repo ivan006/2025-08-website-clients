@@ -1,18 +1,50 @@
 <template>
   <div>
 
-    <!-- GRID -->
-    <div class="row q-col-gutter-lgx justify-center">
-      <div
-        v-for="art in pagedItems"
-        :key="art.id"
-        class="col-6 col-md-3 q-pa-sm"
-      >
-        <ArtworkCard :art="art" />
+    <div class="row items-center no-wrap">
+
+      <!-- ◀️ LEFT ARROW -->
+      <div v-if="!$q.screen.lt.md" class="col-auto q-pr-sm">
+        <q-btn
+          flat
+          round
+          color="primary"
+          icon="chevron_left"
+          size="lg"
+          @click="updatePage(page - 1)"
+          :disable="page <= 0"
+        />
       </div>
+
+      <!-- GRID -->
+      <div class="col">
+        <div class="row q-col-gutter-lgx justify-center">
+          <div
+            v-for="art in pagedItems"
+            :key="art.id"
+            class="col-6 col-md-3 q-pa-sm"
+          >
+            <ArtworkCard :art="art" />
+          </div>
+        </div>
+      </div>
+
+      <!-- ▶️ RIGHT ARROW -->
+      <div v-if="!$q.screen.lt.md" class="col-auto q-pl-sm">
+        <q-btn
+          flat
+          round
+          color="primary"
+          icon="chevron_right"
+          size="lg"
+          @click="updatePage(page + 1)"
+          :disable="page >= totalPages - 1"
+        />
+      </div>
+
     </div>
 
-    <!-- PAGINATION -->
+    <!-- BOTTOM PAGINATION BUTTONS -->
     <div class="text-center q-mt-lg flex flex-center q-gutter-sm">
 
       <q-btn
@@ -57,7 +89,9 @@ import ArtworkCard from 'src/controllers/ArtworkCard.vue'
 export default {
   name: 'ArtworkPaginatedGrid',
 
-  components: { ArtworkCard },
+  components: {
+    ArtworkCard
+  },
 
   props: {
     items: { type: Array, required: true },
@@ -79,6 +113,7 @@ export default {
 
   methods: {
     updatePage(newPage) {
+      if (newPage < 0 || newPage >= this.totalPages) return
       this.$emit('update:page', newPage)
     }
   }
