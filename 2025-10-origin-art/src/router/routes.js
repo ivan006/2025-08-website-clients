@@ -32,10 +32,10 @@ const routes = [
           {
             path: '/artists/:rId/:rName',
             name: '/artists/:rId/:rName',
-            component: () => import('src/controllers/ArtworkComp.vue'),
+            component: () => import('src/controllers/ArtistComp.vue'),
             meta: {
               breadcrumbName: ':rId',
-              breadcrumbParentName: '/artworks',
+              breadcrumbParentName: '/artists',
               requiresAuth: false,
             },
           },
