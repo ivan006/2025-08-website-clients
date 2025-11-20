@@ -13,7 +13,7 @@
           :placeholder-src="placeholderImage"
           fit="contain"
           class="rounded-borders"
-          style="max-height: 90vh; width: 100%;"
+          style="width: 100%; height: 600px;"
         />
       </div>
       
@@ -41,6 +41,9 @@
 
             <div class="col-5 text-grey-7">Medium</div>
             <div class="col-7">{{ medium }}</div>
+
+            <div class="col-5 text-grey-7">Materials</div>
+            <div class="col-7">{{ item['Name (from Materials)'] || '-'}}</div>
 
             <div class="col-5 text-grey-7 q-mt-sm">Height</div>
             <div class="col-7 q-mt-sm">{{ item.Height }} cm</div>
@@ -100,6 +103,9 @@
           <IframeWithLoader 
             :src="`https://airtable.com/embed/appWL8gDT9ZaqV8jY/pagdRpra8CQue8ubu/form?prefill_Artwork%20Inventory%20Number=${item['Inv Code']}`"
           />
+          <!-- <IframeWithLoader 
+            :src="`https://airtable.com/embed/appWL8gDT9ZaqV8jY/pagdRpra8CQue8ubu/form?prefill_Artwork=${id}`"
+          /> -->
         </AlwaysMountedModal>
 
 
