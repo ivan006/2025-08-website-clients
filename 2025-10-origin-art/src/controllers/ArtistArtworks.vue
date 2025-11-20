@@ -9,16 +9,33 @@
       No artworks found for this artist.
     </div>
 
-    <div v-else class="row q-col-gutter-lg">
+    <div v-else>
+
+      <!-- GROUPED BY MEDIUM -->
       <div
-        v-for="art in items"
-        :key="art.id"
-        class="col-6 col-md-3 q-pa-sm"
+        v-for="(group, mediaName) in grouped"
+        :key="mediaName"
+        class="q-mb-xl"
       >
-        <ArtworkCard
-          :art="art"
-        />
+
+        <!-- Heading -->
+        <div class="text-h6 q-mb-md font-1ry">
+          {{ mediaName }}
+        </div>
+
+        <!-- Grid -->
+        <div class="row q-col-gutter-lg">
+          <div
+            v-for="art in group"
+            :key="art.id"
+            class="col-6 col-md-3 q-pa-sm"
+          >
+            <ArtworkCard :art="art" />
+          </div>
+        </div>
+
       </div>
+
     </div>
 
   </div>
@@ -52,11 +69,25 @@ export default {
   computed: {
     filterFormula() {
       return `AND(({Name (from Artist)}='${this.artistName}'))`
+    },
+
+    grouped() {
+      const groups = {}
+
+      this.items.forEach(art => {
+        const mediaArray = art['Name (from Medium)'] || ['Uncategorized']
+
+        mediaArray.forEach(m => {
+          if (!groups[m]) groups[m] = []
+          groups[m].push(art)
+        })
+      })
+
+      return groups
     }
   },
 
   methods: {
-
     fetchArtworks() {
       this.loading = true
 
@@ -72,7 +103,7 @@ export default {
         }
       )
         .then((res) => {
-          this.items = res.response.data.records.map((r) => ({
+          this.items = res.response.data.records.map(r => ({
             id: r.id,
             ...r.fields
           }))
@@ -87,4 +118,3 @@ export default {
   }
 }
 </script>
-

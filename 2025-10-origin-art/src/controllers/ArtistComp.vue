@@ -11,15 +11,19 @@
       <div class="column items-center text-center q-mb-md">
 
         <!-- Avatar -->
-        <q-avatar size="180px" >
-          <q-img
-            :src="mainImage"
-            :placeholder-src="placeholderImage"
-            :alt="item.Name"
-            style="object-fit: cover"
-          />
-        </q-avatar>
 
+        <q-img
+          :src="mainImage"
+          :placeholder-src="placeholderImage"
+          ratio="1"
+          :alt="item.Name"
+          style="width: 180px;"
+          fit="contain"
+        />
+        <!-- 
+          fit="cover"
+          fit="contain"
+        -->
         <!-- Name -->
         <div class="text-h5 font-1ry q-mt-md">
           {{ item.Name }}
