@@ -112,15 +112,22 @@ export default {
 
   methods: {
     updatePage(newPage) {
-      if (newPage < 0 || newPage >= this.totalPages) return
+        if (newPage < 0 || newPage >= this.totalPages) return
 
-      this.$emit('update:page', newPage)
+        this.$emit('update:page', newPage)
 
-      this.$nextTick(() => {
-        const el = this.$refs.top
-        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      })
+        this.$nextTick(() => {
+            const el = this.$refs.top
+            if (el) {
+            const top = el.getBoundingClientRect().top + window.scrollY
+            window.scrollTo({
+                top: top - 45,
+                behavior: 'smooth'
+            })
+            }
+        })
     }
+
   }
 }
 </script>
