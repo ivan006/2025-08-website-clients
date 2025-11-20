@@ -1,11 +1,11 @@
 <template>
-  <div class="container-xl q-py-xl">
+  <div class="container-xl q-py-lg">
 
     <div v-if="loading" class="text-center q-pa-xl">
       Loading...
     </div>
 
-    <div v-else class="row q-col-gutter-xl">
+    <div v-else class="row q-col-gutter-md">
       <!-- LEFT: IMAGE -->
       <div class="col-12 col-md-6 flex flex-center">
         <q-img
@@ -13,8 +13,9 @@
           :placeholder-src="placeholderImage"
           fit="contain"
           class="rounded-borders"
-          style="width: 100%; height: 600px;"
+          :style="{ height: cardHeight }"
         />
+          <!-- style="width: 100%; height: 600px;" -->
       </div>
       
 
@@ -164,6 +165,10 @@ export default {
       return att?.thumbnails?.small?.url
         ? `https://capetownlists.co.za/?url=${encodeURIComponent(att.thumbnails.small.url)}`
         : "";
+    },
+    
+    cardHeight() {
+      return this.$q.screen.lt.md ? "350px" : "600px";
     }
   },
 
