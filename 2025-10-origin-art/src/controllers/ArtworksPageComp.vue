@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import Secondary_Page from "src/models/orm-api/Secondary_Page";
+import ArtworksPage from "src/models/orm-api/ArtworksPage";
 import ArtworksComp from "src/controllers/ArtworksComp.vue";
 
 export default {
@@ -44,7 +44,7 @@ export default {
       return 'recHpBSy9dEXXwQDF'
     },
     superTableModel() {
-      return Secondary_Page
+      return ArtworksPage
     },
   },
   methods: {

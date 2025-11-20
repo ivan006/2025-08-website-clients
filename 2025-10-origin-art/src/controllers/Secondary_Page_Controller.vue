@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import Secondary_Page from "src/models/orm-api/Secondary_Page";
+import Secondary_Page from "src/models/orm-api/ArtworksPage";
 import Secondary_Page_Items_Controller from "src/controllers/Secondary_Page_Items_Controller.vue";
 
 export default {

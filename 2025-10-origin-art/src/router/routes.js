@@ -42,7 +42,7 @@ const routes = [
           {
             path: '/firewood',
             name: '/firewood',
-            component: () => import('src/controllers/ArtworksPage.vue'),
+            component: () => import('src/controllers/ArtworksPageComp.vue'),
             meta: {
               breadcrumbName: '',
               breadcrumbParentName: '',
