@@ -79,8 +79,6 @@
 
         </div>
 
-        <ArtistArtworks  />
-
         <!-- Enquiry Modal -->
         <AlwaysMountedModal v-model="showEnquiry">
           <IframeWithLoader 
@@ -90,7 +88,11 @@
 
       </div>
 
+
     </div>
+    
+      
+    <ArtistArtworks  />
 
   </div>
 </template>

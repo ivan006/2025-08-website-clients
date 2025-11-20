@@ -1,11 +1,13 @@
 <template>
   <div class="container-mdx" style="border-bottom: 1px solid rgba(0,0,0,0.12);">
     <catalogue-layout>
+
       <!-- ✅ FILTERS -->
       <template #filters>
         <div>
           <template v-for="(filter, fIdx) in filterGroups" :key="fIdx">
             <q-expansion-item :label="filter.label" class="text-weight-bold" default-opened>
+
               <q-option-group
                 v-model="filterValsRef[filter.lookup]"
                 :options="filter.options"
@@ -16,11 +18,7 @@
                 <template v-slot:label="scope">
                   <div class="row items-center no-wrap justify-between q-gutter-x-sm">
                     <div>{{ scope.label }}</div>
-                    <q-badge
-                      transparent
-                      align="middle"
-                      size="sm"
-                    >
+                    <q-badge transparent align="middle" size="sm">
                       {{ getCount(scope.value, filter.lookup) }}
                     </q-badge>
                   </div>
@@ -35,73 +33,40 @@
 
       <!-- ✅ CONTENT -->
       <template #content>
+
         <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
-        
+
         <div v-if="loading" class="text-center q-pa-md">Loading...</div>
         <div v-else-if="!items.length" class="text-center q-pa-md text-2ry-color">No artworks found.</div>
+
         <div v-else>
+
           <div ref="resultsTop" class="text-center q-pa-sm text-1ry-color">
             {{ totalFiltered }} artworks found
           </div>
-          
 
           <div class="row items-center no-wrap">
-            <!-- ◀️ Left Arrow Column -->
+
+            <!-- ◀️ LEFT -->
             <div v-if="!$q.screen.lt.md" class="col-auto q-pr-sm">
-              <q-btn
-                flat
-                round
-                color="primary"
-                icon="chevron_left"
-                size="lg"
-                @click="prevPage"
-                :disable="currentPage === 0"
-              />
+              <q-btn flat round color="primary" icon="chevron_left" size="lg"
+                     @click="prevPage" :disable="currentPage === 0"/>
             </div>
 
-            <!-- 🖼️ Grid Column -->
+            <!-- 🖼️ GRID -->
             <div class="col">
               <div class="row q-col-gutter-lgx justify-center">
-                <div v-for="art in items" :key="art.id" class="col-6 col-md-3 q-pa-sm">
-                  <q-card flat bordered class="text-1ry-color box-shadow-1ry">
-                    <q-img
-                      :src="art.Attachments?.[0]?.thumbnails?.large?.url
-                        ? `https://capetownlists.co.za/?url=${encodeURIComponent(art.Attachments?.[0]?.thumbnails?.large?.url)}`
-                        : ''"
-                      :placeholder-src="art.Attachments?.[0]?.thumbnails?.small?.url
-                        ? `https://capetownlists.co.za/?url=${encodeURIComponent(art.Attachments?.[0]?.thumbnails?.small?.url)}`
-                        : ''"
-                      ratio="1"
-                      class="rounded-borders"
-                      :style="{ height: $q.screen.lt.md ? '150px' : '250px', objectFit: 'contain' }"
-                      fit="contain"
-                    />
-
-                    <q-card-section>
-                      <div class="text-h6 font-1ry" style="min-height: 64px;">{{ art.Title }}</div>
-                      <div class="text-subtitle2 text-2ry-color q-mt-xs">
-                        {{ art['Artist Name']?.[0] || 'Unknown Artist' }}
-                      </div>
-                      <div class="text-body1 q-mt-xs text-weight-bold">
-                        R{{ art.Price?.toLocaleString() }}
-                      </div>
-                    </q-card-section>
-                    <q-card-actions align="right">
-                      <q-btn
-                        flat
-                        size="sm"
-                        label="View Details"
-                        class="bg-1ry-color"
-                        @click="goToSingle(art)"
-                      />
-                    </q-card-actions>
-
-                  </q-card>
+                <div
+                  v-for="art in items"
+                  :key="art.id"
+                  class="col-6 col-md-3 q-pa-sm"
+                >
+                  <ArtworkCard :art="art" @click="goToSingle(art)" />
                 </div>
               </div>
             </div>
 
-            <!-- ▶️ Right Arrow Column -->
+            <!-- ▶️ RIGHT -->
             <div v-if="!$q.screen.lt.md" class="col-auto q-pl-sm">
               <q-btn
                 flat
@@ -113,18 +78,17 @@
                 :disable="currentPage >= totalPages - 1"
               />
             </div>
+
           </div>
-
-
-
 
         </div>
 
-        <!-- ✅ LOCAL PAGINATION -->
+        <!-- 🔢 LOCAL PAGINATION -->
         <div class="text-center q-mt-lg flex flex-center q-gutter-sm">
           <q-btn flat color="primary" icon="chevron_left" label="Previous"
             :disable="currentPage === 0"
             @click="prevPage" />
+
           <div>
             <q-btn
               v-for="n in totalPages"
@@ -137,17 +101,21 @@
               @click="goToPage(n - 1)"
             />
           </div>
+
           <q-btn flat color="primary" icon-right="chevron_right" label="Next"
             :disable="currentPage >= totalPages - 1"
             @click="nextPage" />
         </div>
+
       </template>
+
     </catalogue-layout>
   </div>
 </template>
 
 <script>
 import ArtworksBoundCache from 'src/models/orm-api/ArtworksBoundCache'
+import ArtworkCard from 'src/controllers/ArtworkCard.vue'
 import { createMetaMixin } from 'quasar'
 import { buildSchemaItem, buildSeoConfig } from 'src/utils/seo'
 import SEODataViewer from 'src/controllers/SEODataViewer.vue'
@@ -155,7 +123,13 @@ import CatalogueLayout from 'src/controllers/CatalogueLayout.vue'
 
 export default {
   name: 'ArtworksComp',
-  components: { SEODataViewer, CatalogueLayout },
+
+  components: {
+    SEODataViewer,
+    CatalogueLayout,
+    ArtworkCard
+  },
+
   mixins: [createMetaMixin(function () { return this.seoConfig })],
 
   data() {
@@ -166,12 +140,14 @@ export default {
       totalFiltered: 0,
       currentPage: 0,
       options: { itemsPerPage: 8 },
+
       filterValsRef: {
         'Height Bracket': '',
         'Width Bracket': '',
         'Name (from Medium)': '',
         'Price Bracket': '',
       },
+
       filterGroups: [
         {
           label: 'Medium',
@@ -222,6 +198,7 @@ export default {
     totalPages() {
       return Math.ceil(this.totalFiltered / this.options.itemsPerPage)
     },
+
     seoLdJson() {
       const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/')
       const products = this.items.map(item =>
@@ -236,6 +213,7 @@ export default {
       )
       return { '@context': 'https://schema.org', '@type': 'ItemList', itemListElement: products }
     },
+
     seoConfig() {
       const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/')
       return buildSeoConfig({
@@ -245,6 +223,7 @@ export default {
         siteName: import.meta.env.VITE_API_SITE_TITLE,
       })
     },
+
     seoConfigMasked() {
       const c = { ...this.seoConfig }
       c.script = ''
@@ -254,13 +233,12 @@ export default {
 
   methods: {
     goToSingle(art) {
-      const slug = this.slugify(art.Title || 'artwork');
-      this.$router.push(`/artworks/${art.id}/${slug}`);
+      const slug = this.slugify(art.Title || 'artwork')
+      this.$router.push(`/artworks/${art.id}/${slug}`)
     },
 
     slugify(text) {
       return text
-        ?.toString()
         .toLowerCase()
         .replace(/\s+/g, '-')        // Replace spaces with -
         .replace(/[^\w-]+/g, '')     // Remove non-word characters
@@ -274,41 +252,37 @@ export default {
       // Current filter state
       const current = this.filterValsRef;
 
-      // Compute active filters excluding the one we’re counting for
       const activeFilters = Object.entries(current)
-        .filter(([key, val]) => key !== lookup && val);
+        .filter(([key, val]) => key !== lookup && val)
 
-      // Step 1: narrow dataset by all *other* active filters
-      let subset = this.allRecords;
+      let subset = this.allRecords
+
       for (const [key, val] of activeFilters) {
         subset = subset.filter(r => {
-          const field = r[key];
-          if (Array.isArray(field)) return field.includes(val);
-          return field === val;
-        });
+          const field = r[key]
+          if (Array.isArray(field)) return field.includes(val)
+          return field === val
+        })
       }
 
-      // Step 2: now count occurrences for this specific filter’s option
-      if (value === '') return subset.length;
-      return subset.filter(r => {
-        const field = r[lookup];
-        if (Array.isArray(field)) return field.includes(value);
-        return field === value;
-      }).length;
-    },
+      if (value === '') return subset.length
 
+      return subset.filter(r => {
+        const field = r[lookup]
+        if (Array.isArray(field)) return field.includes(value)
+        return field === value
+      }).length
+    },
 
     async fetchData() {
       this.loading = true
+
       try {
-        // 🧩 Fetch bound cache once
         if (!this.allRecords.length) {
           const res = await ArtworksBoundCache.FetchAll()
           this.allRecords = res.response.data.records.map(r => ({ id: r.id, ...r.fields }))
-          console.log('✅ Bound cache loaded:', this.allRecords.length)
         }
 
-        // 🧩 Apply client-side filters
         const { 'Height Bracket': height, 'Width Bracket': width, 'Name (from Medium)': medium, 'Price Bracket': price } = this.filterValsRef
 
         let filtered = this.allRecords
@@ -319,13 +293,14 @@ export default {
 
         this.totalFiltered = filtered.length
 
-        // 🧩 Local pagination
         const start = this.currentPage * this.options.itemsPerPage
         const end = start + this.options.itemsPerPage
         this.items = filtered.slice(start, end)
+
       } catch (err) {
         console.error('❌ Failed to load bound cache:', err)
       }
+
       this.loading = false
       this.$emit('loaded')
     },
@@ -358,6 +333,7 @@ export default {
         if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
       })
     },
+
     async resetAndFetch() {
       this.currentPage = 0
       await this.fetchData()
@@ -367,6 +343,6 @@ export default {
 
   async mounted() {
     await this.fetchData()
-  },
+  }
 }
 </script>
