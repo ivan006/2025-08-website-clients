@@ -40,9 +40,9 @@ const routes = [
             },
           },
           {
-            path: '/firewood',
-            name: '/firewood',
-            component: () => import('src/controllers/ArtworksPageComp.vue'),
+            path: '/artists',
+            name: '/artists',
+            component: () => import('src/controllers/ArtistsPageComp.vue'),
             meta: {
               breadcrumbName: '',
               breadcrumbParentName: '',
