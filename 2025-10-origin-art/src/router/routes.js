@@ -42,7 +42,7 @@ const routes = [
           {
             path: '/firewood',
             name: '/firewood',
-            component: () => import('src/controllers/Dry_Controller.vue'),
+            component: () => import('src/controllers/ArtworksPage.vue'),
             meta: {
               breadcrumbName: '',
               breadcrumbParentName: '',
@@ -54,7 +54,7 @@ const routes = [
             name: '/firewood/:rId/:rName',
             // path: '/home/:rId',
             // name: '/home/:rId',
-            component: () => import('src/controllers/Dry_Items_Singular_Controller.vue'),
+            component: () => import('src/controllers/Artwork.vue'),
             meta: {
               breadcrumbName: ':rId',
               breadcrumbParentName: '/',

@@ -23,7 +23,7 @@
 
 <script>
 import Secondary_Page from "src/models/orm-api/Secondary_Page";
-import Dry_Items_Controller from "src/controllers/Dry_Items_Controller.vue";
+import Dry_Items_Controller from "src/controllers/Artworks.vue";
 
 export default {
   name: "Dry_Controller",
