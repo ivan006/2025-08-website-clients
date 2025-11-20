@@ -61,36 +61,6 @@ const routes = [
               requiresAuth: false,
             },
           },
-          {
-            path: '/contact',
-            name: '/contact',
-            component: () => import('src/controllers/Contact_Controller.vue'),
-            meta: {
-              breadcrumbName: '',
-              breadcrumbParentName: '',
-              requiresAuth: false,
-            },
-          },
-          {
-            path: '/lists/TestEntity',
-            name: '/lists/TestEntity',
-            component: () => import('src/controllers/lists/test-entity/TestEntityListController.vue'),
-            meta: {
-              breadcrumbName: 'TestEntity',
-              breadcrumbParentName: '',
-              requiresAuth: false,
-            },
-          },
-          {
-            path: '/lists/TestEntity/:rId/:rName',
-            name: '/lists/TestEntity/:rId/:rName',
-            component: () => import('src/controllers/lists/test-entity/TestEntityReadController.vue'),
-            meta: {
-              breadcrumbName: ':rName',
-              breadcrumbParentName: '/lists/brands',
-              requiresAuth: false,
-            },
-          }
         ],
         meta: { requiresAuth: false }
       }

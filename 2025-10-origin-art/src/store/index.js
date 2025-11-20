@@ -7,7 +7,6 @@ import RouteLineage  from "src/models/RouteLineage";
 
 import Site from "src/models/orm-api/Site";
 import Site_Menu_Items from "src/models/orm-api/Site_Menu_Items";
-import TestEntity from "src/models/orm-api/TestEntity";
 
 
 
@@ -20,7 +19,6 @@ const database = new VuexORM.Database()
 database.register(RouteLineage)
 database.register(Site)
 database.register(Site_Menu_Items)
-database.register(TestEntity)
 
 
 
