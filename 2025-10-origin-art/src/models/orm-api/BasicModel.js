@@ -60,7 +60,8 @@ export default class BasicModel extends Model {
       ...options.filters,
     })
 
-    const queryString = new URLSearchParams(flatParams).toString()
+    const queryStringEncoded = new URLSearchParams(flatParams).toString()
+    const queryString = decodeURIComponent(queryStringEncoded)
     const encodedInner = encodeURIComponent(`${airtableUrl}?${queryString}`)
     const finalUrl = `${proxyBase}${encodedInner}`
 
@@ -82,8 +83,8 @@ export default class BasicModel extends Model {
     const queryStringEncoded = new URLSearchParams(flatParams).toString()
     const queryString = decodeURIComponent(queryStringEncoded)
 
-    const encodedInnerString = queryString ? `${airtableUrl}?${queryString}` : airtableUrl
-    const finalUrl = `${proxyBase}${encodedInnerString}`
+    const encodedInner = encodeURIComponent(`${airtableUrl}?${queryString}`)
+    const finalUrl = `${proxyBase}${encodedInner}`
 
     return this.customApiBase(headers).get(finalUrl, { save: false })
   }

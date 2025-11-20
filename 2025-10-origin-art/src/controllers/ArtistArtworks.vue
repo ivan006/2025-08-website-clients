@@ -1,17 +1,14 @@
 <template>
   <div class="q-mt-xl">
 
-    <!-- Loading -->
     <div v-if="loading" class="text-center q-pa-lg">
       Loading artworks...
     </div>
 
-    <!-- No results -->
     <div v-else-if="!items.length" class="text-center q-pa-lg text-grey-7">
       No artworks found for this artist.
     </div>
 
-    <!-- Artwork Grid -->
     <div v-else class="row q-col-gutter-lg">
       <div
         v-for="art in items"
@@ -33,7 +30,7 @@
             </div>
 
             <div class="text-subtitle2 text-grey-7">
-              {{ art['Artist Name']?.[0] }}
+              {{ art['Name (from Artist)']?.[0] }}
             </div>
 
             <div class="text-body1 text-weight-bold q-mt-xs">
@@ -65,7 +62,6 @@ export default {
   name: "ArtistArtworks",
 
   props: {
-    // not needed yet but ready for later
     artistName: {
       type: String,
       default: "Adilson De Oliveira"
@@ -79,6 +75,14 @@ export default {
     };
   },
 
+  computed: {
+    filterFormula() {
+      const safeName = this.artistName.replace(/ /g, "+");
+
+      return `AND(({Name (from Artist)}='${this.artistName}'))`;
+    }
+  },
+
   methods: {
     imageUrl(art) {
       const a = art.Attachments?.[0];
@@ -90,15 +94,19 @@ export default {
     fetchArtworks() {
       this.loading = true;
 
-      // Airtable formula: {Artist Name} contains "Artist"
-      const formula = `FIND("${this.artistName}", ARRAYJOIN({Artist Name}))`;
-
-      Artworks.FetchAll([], {}, {}, {
-        filters: { filterByFormula: formula },
-        limit: 60
-      })
+      Artworks.FetchAll(
+        [],
+        {},
+        {},
+        {
+          limit: 60,
+          filters: {
+            filterByFormula: this.filterFormula
+          }
+        }
+      )
         .then((res) => {
-          this.items = res.response.data.records.map(r => ({
+          this.items = res.response.data.records.map((r) => ({
             id: r.id,
             ...r.fields
           }));
