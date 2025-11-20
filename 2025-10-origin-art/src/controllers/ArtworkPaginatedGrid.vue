@@ -1,6 +1,5 @@
 <template>
-  <div>
-
+  <div ref="top">
     <div class="row items-center no-wrap">
 
       <!-- ◀️ LEFT ARROW -->
@@ -44,7 +43,7 @@
 
     </div>
 
-    <!-- BOTTOM PAGINATION BUTTONS -->
+    <!-- BOTTOM PAGINATION -->
     <div class="text-center q-mt-lg flex flex-center q-gutter-sm">
 
       <q-btn
@@ -114,7 +113,13 @@ export default {
   methods: {
     updatePage(newPage) {
       if (newPage < 0 || newPage >= this.totalPages) return
+
       this.$emit('update:page', newPage)
+
+      this.$nextTick(() => {
+        const el = this.$refs.top
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      })
     }
   }
 }
