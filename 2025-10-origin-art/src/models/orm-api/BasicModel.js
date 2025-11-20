@@ -82,7 +82,6 @@ export default class BasicModel extends Model {
 
     const queryStringEncoded = new URLSearchParams(flatParams).toString()
     const queryString = decodeURIComponent(queryStringEncoded)
-
     const encodedInner = encodeURIComponent(`${airtableUrl}?${queryString}`)
     const finalUrl = `${proxyBase}${encodedInner}`
 
