@@ -11,7 +11,7 @@
 
     
       
-      <ArtworksComp :parent="this.item" @loaded="childLoading=false" />
+      <ArtistsComp :parent="this.item" @loaded="childLoading=false" />
 
 
     </div>
@@ -22,13 +22,13 @@
 </template>
 
 <script>
-import ArtworksPage from "src/models/orm-api/ArtworksPage";
-import ArtworksComp from "src/controllers/ArtworksComp.vue";
+import ArtworksPage from "src/models/orm-api/ArtistsPageComp";
+import ArtistsComp from "src/controllers/ArtistsComp.vue";
 
 export default {
-  name: "ArtworksPageComp",
+  name: "ArtistsPageComp",
   components: {
-    ArtworksComp
+    ArtistsComp
   },
   data(){
     return {

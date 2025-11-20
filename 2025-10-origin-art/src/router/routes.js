@@ -54,7 +54,7 @@ const routes = [
             name: '/firewood/:rId/:rName',
             // path: '/home/:rId',
             // name: '/home/:rId',
-            component: () => import('src/controllers/ArtworkComp.vue'),
+            component: () => import('src/controllers/ArtistComp.vue'),
             meta: {
               breadcrumbName: ':rId',
               breadcrumbParentName: '/',
