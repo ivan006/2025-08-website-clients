@@ -30,13 +30,24 @@
         </div>
 
         <!-- ARTIST LEVEL -->
-        <div class="text-subtitle1 text-weight-bold q-mt-sm">
-          {{ prettyTier }}
-        </div>
+      <q-badge
+        class="q-py-xs q-px-sm q-mt-sm"
+        :style="prettyTierStyle + '; font-size: 0.8rem; border-radius: 4px;'"
+      >
+        {{ prettyTier }}
+      </q-badge>
 
-        <!-- ARTIST TYPE(S) -->
-        <div class="text-grey-7 q-mt-xs">
-          {{ prettyMedia.join(', ') }}
+        <div class="q-mt-sm row q-gutter-sm">
+          <q-badge
+            v-for="m in prettyMedia"
+            :key="m"
+            color="primary"
+            text-color="white"
+            class="q-py-xs q-px-sm"
+            style="font-size: 0.75rem; border-radius: 4px;"
+          >
+            {{ m }}
+          </q-badge>
         </div>
 
       </div>
@@ -109,10 +120,24 @@ export default {
 
     tierLabelMap() {
       return {
-        'Gold': 'Established (Avg Price 40k+)',
-        'Silver': 'Mid-Career (Avg Price 12k–40k)',
-        'Bronze': 'Emerging (Avg Price <12k)'
+        'Gold': 'Established Artist',
+        'Silver': 'Mid-Career Artist',
+        'Bronze': 'Emerging Artist'
       }
+    },
+
+    
+    tierGradientMap() {
+      return {
+        'Gold': 'background: linear-gradient(135deg, #F7D774, #DDAF3A); ',
+        'Silver': 'background: linear-gradient(135deg, #DCDCDC, #AFAFAF); ',
+        'Bronze': 'background: linear-gradient(135deg, #D6A77A, #A16B34); '
+      }
+    },
+
+    prettyTierStyle() {
+      const t = this.item['Av. Price Tier']
+      return this.tierGradientMap[t] || ''
     },
 
     prettyMedia() {
