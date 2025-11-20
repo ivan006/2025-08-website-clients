@@ -1,8 +1,8 @@
 import BasicModel from './BasicModel'
 
-export default class Ery_Items extends BasicModel {
+export default class ArtistsBoundCache extends BasicModel {
 
-  static entity = 'Ery_Items';
+  static entity = 'ArtistsBoundCache';
   static entityUrl = '/Artist';
 
   static get airtableBaseUrl() {

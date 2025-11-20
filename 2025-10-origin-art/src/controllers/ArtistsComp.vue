@@ -149,7 +149,7 @@
 </template>
 
 <script>
-import Ery_Items from 'src/models/orm-api/Ery_Items'
+import ArtistsBoundCache from 'src/models/orm-api/ArtistsBoundCache'
 import { createMetaMixin } from 'quasar'
 import { buildSchemaItem, buildSeoConfig } from 'src/utils/seo'
 import SEODataViewer from 'src/controllers/SEODataViewer.vue'
@@ -318,7 +318,7 @@ export default {
       this.loading = true;
       try {
         if (!this.allRecords.length) {
-          const res = await Ery_Items.FetchAll()
+          const res = await ArtistsBoundCache.FetchAll()
           this.allRecords = res.response.data.records.map(r => ({ id: r.id, ...r.fields }))
         }
 
