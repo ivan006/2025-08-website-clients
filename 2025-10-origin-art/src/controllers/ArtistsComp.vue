@@ -103,14 +103,14 @@
                         Avg Price: R{{ artist['Av. Price']?.toLocaleString() || '–' }}
                       </div>
                     </q-card-section>
-
+                    
                     <q-card-actions align="right">
                       <q-btn
                         flat
                         size="sm"
                         label="View Profile"
                         class="bg-1ry-color"
-                        @click="goToSingle(artist)"
+                        :to="`/artists/${artist.id}/${slugify(artist.Name || 'artist')}`"
                       />
                     </q-card-actions>
                   </q-card>

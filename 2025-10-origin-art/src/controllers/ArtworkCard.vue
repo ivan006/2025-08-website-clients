@@ -30,9 +30,10 @@
         size="sm"
         label="View Details"
         class="bg-1ry-color"
-        @click="goToSingle(art)"
+        :to="`/artworks/${art.id}/${slugify(art.Title || 'artwork')}`"
       />
     </q-card-actions>
+
 
   </q-card>
 </template>
@@ -69,11 +70,7 @@ export default {
     }
   },
   methods: {
-    
-    goToSingle(art) {
-      const slug = this.slugify(art.Title || 'artwork')
-      this.$router.push(`/artworks/${art.id}/${slug}`)
-    },
+
 
     slugify(text) {
       return text
