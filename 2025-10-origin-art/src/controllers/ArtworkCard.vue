@@ -30,7 +30,7 @@
         size="sm"
         label="View Details"
         class="bg-1ry-color"
-        @click="$emit('click', art)"
+        @click="goToSingle(art)"
       />
     </q-card-actions>
 
@@ -67,6 +67,22 @@ export default {
     cardHeight() {
       return this.$q.screen.lt.md ? "150px" : "250px";
     }
+  },
+  methods: {
+    
+    goToSingle(art) {
+      const slug = this.slugify(art.Title || 'artwork')
+      this.$router.push(`/artworks/${art.id}/${slug}`)
+    },
+
+    slugify(text) {
+      return text
+        .toLowerCase()
+        .replace(/\s+/g, '-')        // Replace spaces with -
+        .replace(/[^\w-]+/g, '')     // Remove non-word characters
+        .replace(/--+/g, '-')        // Merge multiple -
+        .replace(/^-+|-+$/g, '');    // Trim - from start/end
+    },
   }
 };
 </script>

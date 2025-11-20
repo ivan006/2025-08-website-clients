@@ -61,7 +61,7 @@
                   :key="art.id"
                   class="col-6 col-md-3 q-pa-sm"
                 >
-                  <ArtworkCard :art="art" @click="goToSingle(art)" />
+                  <ArtworkCard :art="art" />
                 </div>
               </div>
             </div>
@@ -232,19 +232,7 @@ export default {
   },
 
   methods: {
-    goToSingle(art) {
-      const slug = this.slugify(art.Title || 'artwork')
-      this.$router.push(`/artworks/${art.id}/${slug}`)
-    },
 
-    slugify(text) {
-      return text
-        .toLowerCase()
-        .replace(/\s+/g, '-')        // Replace spaces with -
-        .replace(/[^\w-]+/g, '')     // Remove non-word characters
-        .replace(/--+/g, '-')        // Merge multiple -
-        .replace(/^-+|-+$/g, '');    // Trim - from start/end
-    },
 
     getCount(value, lookup) {
       if (!this.allRecords.length) return 0;

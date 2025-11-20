@@ -15,40 +15,9 @@
         :key="art.id"
         class="col-6 col-md-3 q-pa-sm"
       >
-        <q-card flat bordered class="rounded-borders">
-
-          <q-img
-            :src="imageUrl(art)"
-            :ratio="1"
-            fit="contain"
-            class="rounded-borders"
-          />
-
-          <q-card-section>
-            <div class="text-h6 font-1ry" style="min-height: 60px;">
-              {{ art.Title }}
-            </div>
-
-            <div class="text-subtitle2 text-grey-7">
-              {{ art['Name (from Artist)']?.[0] }}
-            </div>
-
-            <div class="text-body1 text-weight-bold q-mt-xs">
-              R{{ Number(art.Price)?.toLocaleString('en-ZA') }}
-            </div>
-          </q-card-section>
-
-          <q-card-actions align="right">
-            <q-btn
-              size="sm"
-              flat
-              color="primary"
-              label="View Details"
-              :to="`/artwork/${art.id}`"
-            />
-          </q-card-actions>
-
-        </q-card>
+        <ArtworkCard
+          :art="art"
+        />
       </div>
     </div>
 
@@ -56,10 +25,15 @@
 </template>
 
 <script>
-import Artworks from "src/models/orm-api/Artworks";
+import Artworks from "src/models/orm-api/Artworks"
+import ArtworkCard from "src/controllers/ArtworkCard.vue"
 
 export default {
   name: "ArtistArtworks",
+
+  components: {
+    ArtworkCard
+  },
 
   props: {
     artistName: {
@@ -72,27 +46,19 @@ export default {
     return {
       loading: false,
       items: []
-    };
+    }
   },
 
   computed: {
     filterFormula() {
-      const safeName = this.artistName.replace(/ /g, "+");
-
-      return `AND(({Name (from Artist)}='${this.artistName}'))`;
+      return `AND(({Name (from Artist)}='${this.artistName}'))`
     }
   },
 
   methods: {
-    imageUrl(art) {
-      const a = art.Attachments?.[0];
-      return a?.thumbnails?.large?.url
-        ? `https://capetownlists.co.za/?url=${encodeURIComponent(a.thumbnails.large.url)}`
-        : "";
-    },
 
     fetchArtworks() {
-      this.loading = true;
+      this.loading = true
 
       Artworks.FetchAll(
         [],
@@ -109,21 +75,16 @@ export default {
           this.items = res.response.data.records.map((r) => ({
             id: r.id,
             ...r.fields
-          }));
-          this.loading = false;
+          }))
+          this.loading = false
         })
-        .catch(() => (this.loading = false));
+        .catch(() => (this.loading = false))
     }
   },
 
   mounted() {
-    this.fetchArtworks();
+    this.fetchArtworks()
   }
-};
+}
 </script>
 
-<style scoped>
-.rounded-borders {
-  border-radius: 4px;
-}
-</style>
