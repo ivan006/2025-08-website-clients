@@ -1,34 +1,59 @@
-<template>
+<template> 
   <div class="container-mdx" style="border-bottom: 1px solid rgba(0,0,0,0.12);">
     <catalogue-layout>
 
       <!-- FILTERS -->
       <template #filters>
         <div>
-          <template v-for="(filter, fIdx) in filterGroups" :key="fIdx">
-            <q-expansion-item :label="filter.label" class="text-weight-bold" default-opened>
+          <!-- MEDIUM -->
+          <q-expansion-item label="Medium" class="text-weight-bold" default-opened>
+            <q-option-group
+              v-model="routeMedium"
+              :options="mediumOptions"
+              type="radio"
+              @update:model-value="resetAndFetch"
+              class="q-pb-md text-weight-regular"
+            />
+          </q-expansion-item>
 
-              <q-option-group
-                v-model="filterValsRef[filter.lookup]"
-                :options="filter.options"
-                type="radio"
-                @update:model-value="resetAndFetch"
-                class="q-pb-md text-weight-regular"
-              >
-                <template v-slot:label="scope">
-                  <div class="row items-center no-wrap justify-between q-gutter-x-sm">
-                    <div>{{ scope.label }}</div>
-                    <q-badge transparent align="middle" size="sm">
-                      {{ getCount(scope.value, filter.lookup) }}
-                    </q-badge>
-                  </div>
-                </template>
-              </q-option-group>
+          <q-separator />
 
-            </q-expansion-item>
+          <!-- PRICE RANGE -->
+          <q-expansion-item label="Price Range" class="text-weight-bold" default-opened>
+            <q-option-group
+              v-model="routePriceRange"
+              :options="priceOptions"
+              type="radio"
+              @update:model-value="resetAndFetch"
+              class="q-pb-md text-weight-regular"
+            />
+          </q-expansion-item>
 
-            <q-separator v-if="fIdx < filterGroups.length - 1" />
-          </template>
+          <q-separator />
+
+          <!-- HEIGHT -->
+          <q-expansion-item label="Height" class="text-weight-bold" default-opened>
+            <q-option-group
+              v-model="filterValsRef['Height Bracket']"
+              :options="heightOptions"
+              type="radio"
+              @update:model-value="resetAndFetch"
+              class="q-pb-md text-weight-regular"
+            />
+          </q-expansion-item>
+
+          <q-separator />
+
+          <!-- WIDTH -->
+          <q-expansion-item label="Width" class="text-weight-bold" default-opened>
+            <q-option-group
+              v-model="filterValsRef['Width Bracket']"
+              :options="widthOptions"
+              type="radio"
+              @update:model-value="resetAndFetch"
+              class="q-pb-md text-weight-regular"
+            />
+          </q-expansion-item>
         </div>
       </template>
 
@@ -51,7 +76,6 @@
             {{ totalFiltered }} artworks found
           </div>
 
-          <!-- PAGINATED GRID -->
           <ArtworkPaginatedGrid
             :items="filteredItems"
             v-model:page="currentPage"
@@ -99,60 +123,88 @@ export default {
 
       options: { itemsPerPage: 8 },
 
+      /* Only height + width remain local */
       filterValsRef: {
         'Height Bracket': '',
-        'Width Bracket': '',
-        'Name (from Medium)': '',
-        'Price Bracket': '',
+        'Width Bracket': ''
       },
 
-      filterGroups: [
-        {
-          label: 'Medium',
-          lookup: 'Name (from Medium)',
-          options: [
-            { label: 'All', value: '' },
-            { label: 'Fine Art', value: 'Fine Art' },
-            { label: 'Sculptural Works', value: 'Sculptural Works' },
-            { label: 'New Media', value: 'New Media' },
-            { label: 'Merch Art', value: 'Merch Art' },
-          ],
-        },
-        {
-          label: 'Price Range',
-          lookup: 'Price Bracket',
-          options: [
-            { label: 'All', value: '' },
-            { label: 'Gold Tier (Above 30k)', value: 'Gold' },
-            { label: 'Silver Tier (12k-30k)', value: 'Silver' },
-            { label: 'Bronze Tier (Below 12k)', value: 'Bronze' },
-          ],
-        },
-        {
-          label: 'Height',
-          lookup: 'Height Bracket',
-          options: [
-            { label: 'All', value: '' },
-            { label: 'Large (Above 80cm)', value: 'Large' },
-            { label: 'Medium (40cm-80cm)', value: 'Medium' },
-            { label: 'Small (Below 40cm)', value: 'Small' },
-          ],
-        },
-        {
-          label: 'Width',
-          lookup: 'Width Bracket',
-          options: [
-            { label: 'All', value: '' },
-            { label: 'Large (Above 60cm)', value: 'Large' },
-            { label: 'Medium (30cm-60cm)', value: 'Medium' },
-            { label: 'Small (Below 30cm)', value: 'Small' },
-          ],
-        },
-      ]
+      mediumOptions: [
+        { label: 'All', value: 'all-media' },
+        { label: 'Fine Art', value: 'Fine Art' },
+        { label: 'Sculptural Works', value: 'Sculptural Works' },
+        { label: 'New Media', value: 'New Media' },
+        { label: 'Merch Art', value: 'Merch Art' }
+      ],
+
+      priceOptions: [
+        { label: 'All', value: 'all-price-ranges' },
+        { label: 'Gold Tier (Above 30k)', value: 'Gold' },
+        { label: 'Silver Tier (12k-30k)', value: 'Silver' },
+        { label: 'Bronze Tier (Below 12k)', value: 'Bronze' }
+      ],
+
+      heightOptions: [
+        { label: 'All', value: '' },
+        { label: 'Large (Above 80cm)', value: 'Large' },
+        { label: 'Medium (40cm-80cm)', value: 'Medium' },
+        { label: 'Small (Below 40cm)', value: 'Small' }
+      ],
+
+      widthOptions: [
+        { label: 'All', value: '' },
+        { label: 'Large (Above 60cm)', value: 'Large' },
+        { label: 'Medium (30cm-60cm)', value: 'Medium' },
+        { label: 'Small (Below 30cm)', value: 'Small' }
+      ],
+      mediumOptions: [
+        { label: 'all', value: 'all-media' },
+        { label: 'fine art', value: 'fine-art' },
+        { label: 'sculptural works', value: 'sculptural-works' },
+        { label: 'new media', value: 'new-media' },
+        { label: 'merch art', value: 'merch-art' }
+      ],
+      priceOptions: [
+        { label: 'all', value: 'all-price-ranges' },
+        { label: 'gold', value: 'gold' },
+        { label: 'silver', value: 'silver' },
+        { label: 'bronze', value: 'bronze' }
+      ],
+
+
     }
   },
 
   computed: {
+    routeMedium: {
+      get() {
+        return this.$route.params.medium || 'all-media'
+      },
+      set(val) {
+        this.$router.push({
+          params: {
+            ...this.$route.params,
+            medium: val
+          }
+        })
+      }
+    },
+
+    routePriceRange: {
+      get() {
+        return this.$route.params.priceRange || 'all-price-ranges'
+      },
+      set(val) {
+        this.$router.push({
+          params: {
+            ...this.$route.params,
+            priceRange: val
+          }
+        })
+      }
+    },
+
+
     seoLdJson() {
       const products = this.filteredItems.map(item =>
         buildSchemaItem({
@@ -184,37 +236,27 @@ export default {
     }
   },
 
+  watch: {
+    /* Re-run filtering whenever the URL changes */
+    '$route.params': {
+      handler() {
+        this.resetAndFetch()
+      },
+      deep: true
+    }
+  },
+
   methods: {
-    getCount(value, lookup) {
-      if (!this.allRecords.length) return 0
-
-      const current = this.filterValsRef
-
-      const activeFilters = Object.entries(current)
-        .filter(([key, val]) => key !== lookup && val)
-
-      let subset = this.allRecords
-
-      for (const [key, val] of activeFilters) {
-        subset = subset.filter(r => {
-          const field = r[key]
-          if (Array.isArray(field)) return field.includes(val)
-          return field === val
-        })
-      }
-
-      if (value === '') return subset.length
-
-      return subset.filter(r => {
-        const field = r[lookup]
-        if (Array.isArray(field)) return field.includes(value)
-        return field === value
-      }).length
+    slugify(str) {
+      return String(str)
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/(^-|-$)/g, "")
     },
-
     async fetchData() {
       this.loading = true
 
+      /* Load once */
       if (!this.allRecords.length) {
         const res = await ArtworksBoundCache.FetchAll([], {
           view: "viwn7wDGK6yk5ZHOl"
@@ -222,13 +264,30 @@ export default {
         this.allRecords = res.response.data.records.map(r => ({ id: r.id, ...r.fields }))
       }
 
-      const { 'Height Bracket': height, 'Width Bracket': width, 'Name (from Medium)': medium, 'Price Bracket': price } = this.filterValsRef
-
       let filtered = this.allRecords
-      if (height) filtered = filtered.filter(r => r['Height Bracket'] === height)
-      if (width) filtered = filtered.filter(r => r['Width Bracket'] === width)
-      if (medium) filtered = filtered.filter(r => (r['Name (from Medium)'] || []).includes(medium))
-      if (price) filtered = filtered.filter(r => r['Price Bracket'] === price)
+
+      /* URL filters */
+      const medium = this.routeMedium
+      const price = this.routePriceRange
+
+      if (medium && medium !== 'all-media') {
+        filtered = filtered.filter(r =>
+          (r['Name (from Medium)'] || []).includes(medium)
+        )
+      }
+
+      if (price && price !== 'all-price-ranges') {
+        filtered = filtered.filter(r =>
+          r['Price Bracket'] === price
+        )
+      }
+
+      /* LOCAL filters */
+      const h = this.filterValsRef['Height Bracket']
+      const w = this.filterValsRef['Width Bracket']
+
+      if (h) filtered = filtered.filter(r => r['Height Bracket'] === h)
+      if (w) filtered = filtered.filter(r => r['Width Bracket'] === w)
 
       this.filteredItems = filtered
       this.totalFiltered = filtered.length
