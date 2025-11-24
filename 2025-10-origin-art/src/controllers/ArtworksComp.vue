@@ -216,7 +216,9 @@ export default {
       this.loading = true
 
       if (!this.allRecords.length) {
-        const res = await ArtworksBoundCache.FetchAll()
+        const res = await ArtworksBoundCache.FetchAll([], {
+          view: "viwn7wDGK6yk5ZHOl"
+        })
         this.allRecords = res.response.data.records.map(r => ({ id: r.id, ...r.fields }))
       }
 

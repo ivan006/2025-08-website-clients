@@ -88,7 +88,7 @@
       <div class="text-1ry-color">
         
       
-        <Home_Page_Items_Controller  :parent="this.item" @loaded="childLoading=false"/>
+        <HomeItemsComp  :parent="this.item" @loaded="childLoading=false"/>
       </div>
 
 
@@ -202,7 +202,7 @@
 import Home_Page from "src/models/orm-api/Home_Page";
 import { createMetaMixin } from 'quasar'
 import HomeSEOController from "src/controllers/HomeSEOController.vue";
-import Home_Page_Items_Controller from "src/controllers/Home_Page_Items_Controller.vue";
+import HomeItemsComp from "src/controllers/HomeItemsComp.vue";
 import {buildSeoConfig} from "src/utils/seo";
 
 
@@ -210,7 +210,7 @@ import {buildSeoConfig} from "src/utils/seo";
 
 export default {
   name: "HomeController.vue",
-  components: {Home_Page_Items_Controller},
+  components: {HomeItemsComp},
   // mixins: [
 
   //   createMetaMixin(function () {

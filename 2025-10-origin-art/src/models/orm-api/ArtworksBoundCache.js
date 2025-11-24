@@ -15,7 +15,7 @@ export default class ArtworksBoundCache extends BasicModel {
   
 
   static defaultFlags = {
-    view: "viwn7wDGK6yk5ZHOl",
+    // view: "viwn7wDGK6yk5ZHOl",
   }
   
   // static entityUrl = '/Artwork?view=viwRVEM6ePmPsrZE4';

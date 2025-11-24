@@ -20,6 +20,16 @@ const routes = [
             },
           },
           {
+            path: '/home',
+            name: '/home',
+            component: () => import('src/controllers/HomeComp.vue'),
+            meta: {
+              breadcrumbName: 'Home',
+              breadcrumbParentName: '',
+              requiresAuth: false,
+            },
+          },
+          {
             path: '/artwork-old',
             name: '/artwork-old',
             component: () => import('src/controllers/Secondary_Page_Controller.vue'),
