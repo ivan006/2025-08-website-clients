@@ -46,12 +46,16 @@
                 flat
                 class="q-pa-md q-mb-xl bg-1ry-color text-1ry-color"
                 style="border-radius: 12px;"
+                :class="artistCardWidthClass(artworks.length)"
               >
 
                 <div class="row q-col-gutter-md items-center">
 
                   <!-- Artist Info -->
-                  <div class="column items-center items-md-start col-12 col-md-3">
+                  <div 
+                    class="column items-center items-md-start "
+                    :class="artCardWidthClass(artworks.length)"
+                  >
                     <h3 class="text-h5 q-mb-sm font-1ry">{{ artistName }}</h3>
 
                     <div class="text-body1 text-2ry-color q-mb-xs">
@@ -232,6 +236,21 @@ export default {
   },
 
   methods: {
+    
+
+    artistCardWidthClass(count) {
+      if (count >= 3) return 'col-12 col-md-12';
+      if (count === 2) return 'offset-md-2 col-md-8 col-12 ';
+      if (count === 1) return 'offset-md-3 col-md-6 col-12';
+      return 'col-12';
+    },
+    
+    artCardWidthClass(count) {
+      if (count >= 3) return 'col-md-3 col-12';
+      if (count === 2) return 'col-md-4 col-12';
+      if (count === 1) return 'col-md-6 col-12';
+      return 'col-12';
+    },
     largeUrl(u) {
       return u[0].thumbnails?.small?.url ? `https://capetownlists.co.za/?url=${encodeURIComponent(u[0].thumbnails?.large?.url)}` : "";
     },
