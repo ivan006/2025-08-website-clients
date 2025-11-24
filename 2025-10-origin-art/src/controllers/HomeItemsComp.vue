@@ -8,7 +8,7 @@
   </template>
 
   <template v-else>
-
+    <pre>{{ groupedArtworks }}</pre>
     
     <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
     <!-- LEVEL 1: MEDIA -->
@@ -178,27 +178,54 @@ export default {
 
     /* ---------------------- GROUPING LOGIC ---------------------- */
     groupedArtworks() {
+      const MEDIA_ORDER = [
+        "Fine Art",
+        "Sculptural Works",
+        "New Media",
+        "Merch Art"
+      ]
+
+      const TIER_ORDER = ["Gold", "Silver", "Bronze"]
+
       const result = {}
 
       this.items.forEach(art => {
-        const medias = art['Name (from Medium)'] || ['Uncategorized']
-        const tier =
-          art['Av. Price Tier (from Artist)']?.[0] || 'Uncategorized'
-        const artist =
-          art['Name (from Artist)']?.[0] || 'Unknown Artist'
+        const medias = art["Name (from Medium)"] || []
+        const rawTier = art["Av. Price Tier (from Artist)"]?.[0]
+        const artist = art["Name (from Artist)"]?.[0] || "Unknown Artist"
+
+        // Skip invalid tier
+        if (!TIER_ORDER.includes(rawTier)) return
 
         medias.forEach(media => {
-          if (!result[media]) result[media] = {}
-          if (!result[media][tier]) result[media][tier] = {}
-          if (!result[media][tier][artist])
-            result[media][tier][artist] = []
+          // Skip invalid media
+          if (!MEDIA_ORDER.includes(media)) return
 
-          result[media][tier][artist].push(art)
+          if (!result[media]) result[media] = {}
+          if (!result[media][rawTier]) result[media][rawTier] = {}
+          if (!result[media][rawTier][artist])
+            result[media][rawTier][artist] = []
+
+          result[media][rawTier][artist].push(art)
         })
       })
 
-      return result
+      // Sort MEDIA + TIER levels
+      const sortedMedia = {}
+
+      MEDIA_ORDER.forEach(media => {
+        if (result[media]) {
+          sortedMedia[media] = Object.fromEntries(
+            Object.entries(result[media]).sort(
+              (a, b) => TIER_ORDER.indexOf(a[0]) - TIER_ORDER.indexOf(b[0])
+            )
+          )
+        }
+      })
+
+      return sortedMedia
     }
+
   },
 
   methods: {
