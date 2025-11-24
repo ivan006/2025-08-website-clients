@@ -12,16 +12,6 @@ const routes = [
           {
             path: '/',
             name: '/',
-            component: () => import('src/controllers/ArtworksPageComp.vue'),
-            meta: {
-              breadcrumbName: 'Home',
-              breadcrumbParentName: '',
-              requiresAuth: false,
-            },
-          },
-          {
-            path: '/home',
-            name: '/home',
             component: () => import('src/controllers/HomeComp.vue'),
             meta: {
               breadcrumbName: 'Home',
@@ -35,6 +25,16 @@ const routes = [
             component: () => import('src/controllers/Secondary_Page_Controller.vue'),
             meta: {
               breadcrumbName: 'Gas Prices',
+              breadcrumbParentName: '',
+              requiresAuth: false,
+            },
+          },
+          {
+            path: '/artworks',
+            name: '/artworks',
+            component: () => import('src/controllers/ArtworksPageComp.vue'),
+            meta: {
+              breadcrumbName: 'Artworks',
               breadcrumbParentName: '',
               requiresAuth: false,
             },

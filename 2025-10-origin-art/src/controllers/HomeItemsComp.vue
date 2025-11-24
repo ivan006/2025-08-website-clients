@@ -188,8 +188,8 @@ export default {
 
       // ⭐ Criteria mapping for titles
       const TIER_LABELS = {
-        Gold: "Gold (Above 40k)",
-        Silver: "Silver (12k–40k)",
+        Gold: "Gold (Above 30k)",
+        Silver: "Silver (12k–30k)",
         Bronze: "Bronze (Below 12k)"
       }
 

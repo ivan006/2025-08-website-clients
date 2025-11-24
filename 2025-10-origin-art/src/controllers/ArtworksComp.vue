@@ -123,8 +123,8 @@ export default {
           lookup: 'Price Bracket',
           options: [
             { label: 'All', value: '' },
-            { label: 'Gold Tier (Above 40k)', value: 'Gold' },
-            { label: 'Silver Tier (12k-40k)', value: 'Silver' },
+            { label: 'Gold Tier (Above 30k)', value: 'Gold' },
+            { label: 'Silver Tier (12k-30k)', value: 'Silver' },
             { label: 'Bronze Tier (Below 12k)', value: 'Bronze' },
           ],
         },
