@@ -127,7 +127,7 @@ export default {
   data() {
     return {
       loading: false,
-      items: []
+      items: [],
     }
   },
 
@@ -180,6 +180,13 @@ export default {
       const MEDIA_ORDER = ["Fine Art", "Sculptural Works", "New Media", "Merch Art"]
       const TIER_ORDER = ["Gold", "Silver", "Bronze"]
 
+      // ⭐ Criteria mapping for titles
+      const TIER_LABELS = {
+        Gold: "Gold (Above 40k)",
+        Silver: "Silver (12k–40k)",
+        Bronze: "Bronze (Below 12k)"
+      }
+
       const result = {}
 
       this.items.forEach(art => {
@@ -190,10 +197,7 @@ export default {
         const artist = art["Name (from Artist)"]?.[0] || "Unknown Artist"
 
         medias.forEach(media => {
-          // skip invalid media
           if (!MEDIA_ORDER.includes(media)) return 
-
-          // skip invalid tier
           if (!TIER_ORDER.includes(tier)) return 
 
           if (!result[media]) result[media] = {}
@@ -204,7 +208,7 @@ export default {
         })
       })
 
-      // Sort media + tiers into the right order
+      // ⭐ Now sort AND replace tier keys with label objects
       const sorted = {}
 
       MEDIA_ORDER.forEach(media => {
@@ -213,7 +217,7 @@ export default {
 
           TIER_ORDER.forEach(tier => {
             if (result[media][tier]) {
-              sorted[media][tier] = result[media][tier]
+              sorted[media][TIER_LABELS[tier]] = result[media][tier]
             }
           })
         }
@@ -221,6 +225,7 @@ export default {
 
       return sorted
     }
+
 
   },
 
