@@ -1,50 +1,82 @@
 <template>
+  <div class="row justify-center">
 
-  <div class="row justify-center" >
-    <!--style="justify-content: right;"-->
-    <template v-if="!items.length">
-      <template v-if="loading">
-        <div class="text-center q-pa-md">Loading...</div>
-      </template>
-      <template v-else>
-        <div class="text-center q-pa-md text-grey-5">None</div>
-      </template>
+    <!-- Loading / Empty States -->
+    <template v-if="loading">
+      <div class="text-center q-pa-md">Loading...</div>
     </template>
+
+    <template v-else-if="!nestedMenu.length">
+      <div class="text-center q-pa-md text-grey-5">None</div>
+    </template>
+
+    <!-- ROOT MENU ITEMS -->
     <template v-else>
-      <template v-for="item in items" :key="item.id">
+      <template v-for="item in nestedMenu" :key="item.id">
 
-        <!--:tag="true ? 'a' : 'router-link'"-->
-        <!--target="_blank"-->
-        <!--:href="item.id"-->
-
-
-        <!--@click="clickRow(item)"-->
         <q-item
           clickable
-          :to="{path: item.URL, hash: item.Hash}"
-          :active-class="'q-item--highlighted'"
+          :to="item.url"
           class="q-pl-lg r-font-h5x text-uppercase font-1ry"
-          :style="isActive(item) ? 'border-bottom: black solid 5px;' : 'border-bottom: rgba(0,0,0,0) solid 5px;'"
+          @mouseover="openMenu(item.id)"
+          @mouseleave="closeMenu(item.id)"
+          :style="isActive(item) ? 'border-bottom: black solid 5px;' : 'border-bottom: transparent solid 5px;'"
         >
-          <!--<q-item-section avatar v-if="props.icon" style="width: 20px;">-->
-          <!--  <q-icon :name="props.icon" />-->
-          <!--</q-item-section>-->
-
           <q-item-section>
-            <q-item-label :style="isActive(item) ? 'font-weight: bold;': ''">
-              <!--<template v-if="props.icon">-->
-              <!--  <q-icon  :name="props.icon" size="sm" style="opacity: 50%" />-->
-              <!--</template>-->
-              {{ item.Label }}
+            <q-item-label :style="isActive(item) ? 'font-weight: bold;' : ''">
+              {{ item.label }}
             </q-item-label>
-            <!--<q-item-label v-if="props.caption" caption>{{ props.caption }}</q-item-label>-->
           </q-item-section>
+
+          <!-- Only show dropdown if children exist -->
+          <q-menu
+            v-if="item.children.length"
+            v-model="openMenus[item.id]"
+            anchor="bottom left"
+            self="top left"
+            transition-show="jump-down"
+            transition-hide="jump-up"
+          >
+            <div class="row q-pa-md mega-wrapper">
+
+              <!-- Level 1 children -->
+              <div
+                class="col column q-pr-xl"
+                v-for="child in item.children"
+                :key="child.id"
+                style="min-width: 200px;"
+              >
+
+                <!-- Parent category heading -->
+                <div class="text-weight-bold q-mb-sm">
+                  <router-link :to="child.url" class="text-dark">
+                    {{ child.label }}
+                  </router-link>
+                </div>
+
+                <!-- Level 2 children (tiers) -->
+                <router-link
+                  v-for="grand in child.children"
+                  :key="grand.id"
+                  :to="grand.url"
+                  class="q-mb-xs text-grey-8 block"
+                >
+                  {{ grand.label }}
+                </router-link>
+
+              </div>
+
+            </div>
+          </q-menu>
+
         </q-item>
+
       </template>
     </template>
-  </div>
 
+  </div>
 </template>
+
 
 <script>
 import Site_Menu_Items from 'src/models/orm-api/Site_Menu_Items'
@@ -62,6 +94,7 @@ export default {
   },
   data(){
     return {
+      openMenus: {},
       activeRoute: this.$route.path,
       items: [],
       loading: false,
@@ -118,6 +151,7 @@ export default {
         .filter(node => node.parentIds.length === 0)
 
       const result = roots.map(root => buildTree(root))
+      console.log(result)
       return result
     },
 
@@ -132,6 +166,17 @@ export default {
     },
   },
   methods: {
+    openMenu(id) {
+      this.openMenus = { ...this.openMenus, [id]: true }
+    },
+    closeMenu(id) {
+      this.openMenus = { ...this.openMenus, [id]: false }
+    },
+
+
+    // isActive(item) {
+    //   return this.$route.path === item.url
+    // },
     isActive(item) {
       return item.URL === this.activeRoute && item.Hash == null;
     },
