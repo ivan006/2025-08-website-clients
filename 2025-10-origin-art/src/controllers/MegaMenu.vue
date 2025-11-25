@@ -9,7 +9,7 @@
       @mouseenter="item.children?.length && show(item.id)"
     >
 
-      <!-- No-children → pure link -->
+      <!-- Normal top-level -->
       <router-link
         v-if="!item.children || !item.children.length"
         :to="item.url"
@@ -18,7 +18,7 @@
         {{ item.label }}
       </router-link>
 
-      <!-- Has children → hoverable label -->
+      <!-- Has children -->
       <span
         v-else
         class="text-primary text-weight-medium cursor-pointer"
@@ -26,62 +26,67 @@
         {{ item.label }}
       </span>
 
-      <!-- Mega menu (ONLY IF has children) -->
+      <!-- Mega menu -->
       <q-menu
         v-if="item.children && item.children.length"
         v-model="openMenus[item.id]"
         persistent
-        anchor="bottom left"
-        self="top left"
+        anchor="bottom middle" 
+        self="top middle"       
         transition-show="fade"
         transition-hide="fade"
-        :content-style="{ minWidth: '900px', maxWidth: '1000px' }"
+        fit    
+        :content-style="{ padding: '0', width: '100vw' }"  
       >
 
-        <q-card
-          flat
-          class="q-pa-lg"
-          :style="{ width: '100%' }"
-          @mouseleave="hide(item.id)"
-        >
+        <!-- FULL WIDTH BACKGROUND -->
+        <div class="bg-white" style="width: 100vw;" @mouseleave="hide(item.id)">
 
-          <div class="row q-col-gutter-xl">
+          <!-- CENTERED CONTAINER -->
+          <div class="container-md q-py-xl">
 
-            <!-- Level 2 columns -->
-            <div
-              v-for="mid in item.children"
-              :key="mid.id"
-              class="col-3"
-            >
-              <div class="text-bold q-mb-xs">
-                {{ mid.label }}
-                <router-link :to="mid.url" class="q-ml-sm text-primary">(All)</router-link>
+            <div class="row q-col-gutter-xl">
+
+              <!-- Level 2 columns -->
+              <div
+                v-for="mid in item.children"
+                :key="mid.id"
+                class="col-3"
+              >
+                <div class="text-bold q-mb-xs">
+                  {{ mid.label }}
+                  <router-link :to="mid.url" class="q-ml-sm text-primary">(All)</router-link>
+                </div>
+
+                <!-- Level 3 -->
+                <q-list dense padding>
+                  <q-item
+                    v-for="leaf in mid.children"
+                    :key="leaf.id"
+                    clickable
+                    :to="leaf.url"
+                    class="q-pl-none"
+                  >
+                    <q-item-section>{{ leaf.label }}</q-item-section>
+                  </q-item>
+                </q-list>
               </div>
-
-              <!-- Level 3 -->
-              <q-list dense padding>
-                <q-item
-                  v-for="leaf in mid.children"
-                  :key="leaf.id"
-                  clickable
-                  :to="leaf.url"
-                  class="q-pl-none"
-                >
-                  <q-item-section>{{ leaf.label }}</q-item-section>
-                </q-item>
-              </q-list>
 
             </div>
 
           </div>
 
-        </q-card>
+        </div>
+
       </q-menu>
 
     </div>
 
   </div>
 </template>
+
+
+
 
 <script>
 import menuData from "./menu.json"
