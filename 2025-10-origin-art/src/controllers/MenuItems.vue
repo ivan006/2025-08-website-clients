@@ -11,6 +11,7 @@
       </template>
     </template>
     <template v-else>
+      <pre>{{ items }}</pre>
       <template v-for="item in items" :key="item.id">
 
         <!--:tag="true ? 'a' : 'router-link'"-->
@@ -76,6 +77,49 @@ export default {
     }
   },
   computed: {
+    nestedMenu() {
+      const flat = this.items  // whatever name you're using
+      if (!flat || !flat.length) return []
+
+      // Step 1: index by Airtable record id
+      const map = {}
+      flat.forEach(rec => {
+        map[rec.id] = {
+          id: rec.id,
+          label: rec.fields.Label,
+          url: rec.fields.URL,
+          slug: rec.fields.Slug,
+          children: [],
+          parentIds: rec.fields.Parent || [],
+          childIds: rec.fields.Site_Menu_Items || []
+        }
+      })
+
+      // Step 2: link children into parents
+      flat.forEach(rec => {
+        const node = map[rec.id]
+
+        // Add children from "Site_Menu_Items"
+        node.childIds.forEach(childId => {
+          if (map[childId]) {
+            map[rec.id].children.push(map[childId])
+          }
+        })
+
+        // Add children from parent reference
+        node.parentIds.forEach(parentId => {
+          if (map[parentId]) {
+            map[parentId].children.push(map[rec.id])
+          }
+        })
+      })
+
+      // Step 3: return ONLY root nodes (those without a parent)
+      const roots = Object.values(map).filter(node => node.parentIds.length === 0)
+
+      return roots
+    },
+
     superTableModel() {
       return Site_Menu_Items
     },
