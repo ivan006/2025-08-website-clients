@@ -129,21 +129,6 @@ export default {
         'Width Bracket': ''
       },
 
-      mediumOptions: [
-        { label: 'All', value: 'all-media' },
-        { label: 'Fine Art', value: 'Fine Art' },
-        { label: 'Sculptural Works', value: 'Sculptural Works' },
-        { label: 'New Media', value: 'New Media' },
-        { label: 'Merch Art', value: 'Merch Art' }
-      ],
-
-      priceOptions: [
-        { label: 'All', value: 'all-price-ranges' },
-        { label: 'Gold Tier (Above 30k)', value: 'Gold' },
-        { label: 'Silver Tier (12k-30k)', value: 'Silver' },
-        { label: 'Bronze Tier (Below 12k)', value: 'Bronze' }
-      ],
-
       heightOptions: [
         { label: 'All', value: '' },
         { label: 'Large (Above 80cm)', value: 'Large' },
@@ -157,19 +142,25 @@ export default {
         { label: 'Medium (30cm-60cm)', value: 'Medium' },
         { label: 'Small (Below 30cm)', value: 'Small' }
       ],
+
+
       mediumOptions: [
-        { label: 'all', value: 'all-media' },
-        { label: 'fine art', value: 'fine-art' },
-        { label: 'sculptural works', value: 'sculptural-works' },
-        { label: 'new media', value: 'new-media' },
-        { label: 'merch art', value: 'merch-art' }
+        { label: 'All', value: 'all-media' },
+        { label: 'Fine Art', value: 'fine-art' },
+        { label: 'Sculptural Works', value: 'sculptural-works' },
+        { label: 'New Media', value: 'new-media' },
+        { label: 'Merch Art', value: 'merch-art' }
       ],
+
+
       priceOptions: [
-        { label: 'all', value: 'all-price-ranges' },
-        { label: 'gold', value: 'gold' },
-        { label: 'silver', value: 'silver' },
-        { label: 'bronze', value: 'bronze' }
+        { label: 'All', value: 'all-price-ranges' },
+        { label: 'Gold Tier (Above 30k)', value: 'gold' },
+        { label: 'Silver Tier (12k-30k)', value: 'silver' },
+        { label: 'Bronze Tier (Below 12k)', value: 'bronze' }
       ],
+
+
 
 
     }
@@ -270,17 +261,16 @@ export default {
       const medium = this.routeMedium
       const price = this.routePriceRange
 
-      if (medium && medium !== 'all-media') {
+      if (medium !== 'all-media') {
         filtered = filtered.filter(r =>
-          (r['Name (from Medium)'] || []).includes(medium)
+          (r['Name (from Medium)'] || []).map(x => x.toLowerCase()).includes(medium.replace('-', ' '))
         )
       }
 
-      if (price && price !== 'all-price-ranges') {
-        filtered = filtered.filter(r =>
-          r['Price Bracket'] === price
-        )
+      if (price !== 'all-price-ranges') {
+        filtered = filtered.filter(r => r['Price Bracket'].toLowerCase() === price)
       }
+
 
       /* LOCAL filters */
       const h = this.filterValsRef['Height Bracket']
