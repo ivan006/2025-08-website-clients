@@ -20,81 +20,76 @@
           clickable
           :to="item.url"
           class="q-pl-lg text-uppercase"
-          @mouseover="openMenu(item.id)"
-          @mouseleave="closeMenu(item.id)"
+          @mouseenter="openMenu(item.id)"
           :style="{
-            borderBottom: isActive(item)
-              ? '5px solid black'
-              : '5px solid transparent',
+            borderBottom: isActive(item) ? '5px solid black' : '5px solid transparent',
             fontWeight: isActive(item) ? 'bold' : 'normal'
           }"
         >
-
           <q-item-section>
-            <q-item-label>
-              {{ item.label }}
-            </q-item-label>
+            <q-item-label>{{ item.label }}</q-item-label>
           </q-item-section>
+        </q-item>
+        
+        <q-menu
+          v-if="item.children.length"
+          v-model="openMenus[item.id]"
+          anchor="bottom left"
+          self="top left"
+          transition-show="jump-down"
+          transition-hide="jump-up"
+          persistent
+        >
+          <div
+            class="row q-pa-md"
+            :style="{ minWidth:'650px', columnGap:'40px' }"
 
-          <!-- Dropdown -->
-          <q-menu
-            v-if="item.children.length"
-            v-model="openMenus[item.id]"
-            anchor="bottom left"
-            self="top left"
-            transition-show="jump-down"
-            transition-hide="jump-up"
+            @mouseenter="forceStayOpen(item.id)" 
+            @mouseleave="closeMenu(item.id)" 
           >
+           
+            <!-- Category column -->
             <div
-              class="row q-pa-md"
-              @mouseenter="openMenu(item.id)"    
-              @mouseleave="closeMenu(item.id)"   
-              :style="{ minWidth: '650px', columnGap: '40px' }"
+              v-for="child in item.children"
+              :key="child.id"
+              class="column"
+              :style="{ minWidth: '200px' }"
             >
 
-              <!-- Category column -->
-              <div
-                v-for="child in item.children"
-                :key="child.id"
-                class="column"
-                :style="{ minWidth: '200px' }"
+              <!-- Parent Label -->
+              <router-link
+                :to="child.url"
+                :style="{
+                  fontWeight: 'bold',
+                  color: 'black',
+                  marginBottom: '8px',
+                  display: 'block',
+                  textDecoration: 'none'
+                }"
               >
+                {{ child.label }}
+              </router-link>
 
-                <!-- Parent Label -->
-                <router-link
-                  :to="child.url"
-                  :style="{
-                    fontWeight: 'bold',
-                    color: 'black',
-                    marginBottom: '8px',
-                    display: 'block',
-                    textDecoration: 'none'
-                  }"
-                >
-                  {{ child.label }}
-                </router-link>
-
-                <!-- Tier Levels -->
-                <router-link
-                  v-for="grand in child.children"
-                  :key="grand.id"
-                  :to="grand.url"
-                  :style="{
-                    color: '#555',
-                    marginBottom: '6px',
-                    display: 'block',
-                    textDecoration: 'none'
-                  }"
-                >
-                  {{ grand.label }}
-                </router-link>
-
-              </div>
+              <!-- Tier Levels -->
+              <router-link
+                v-for="grand in child.children"
+                :key="grand.id"
+                :to="grand.url"
+                :style="{
+                  color: '#555',
+                  marginBottom: '6px',
+                  display: 'block',
+                  textDecoration: 'none'
+                }"
+              >
+                {{ grand.label }}
+              </router-link>
 
             </div>
-          </q-menu>
+          </div>
+        </q-menu>
 
-        </q-item>
+        
 
       </template>
     </template>
@@ -193,11 +188,18 @@ export default {
     },
   },
   methods: {
+
+
     openMenu(id) {
-      this.openMenus = { ...this.openMenus, [id]: true }
+      this.openMenus[id] = true
     },
+
+    forceStayOpen(id) {
+      this.openMenus[id] = true
+    },
+
     closeMenu(id) {
-      this.openMenus = { ...this.openMenus, [id]: false }
+      this.openMenus[id] = false
     },
 
 
