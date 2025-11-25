@@ -252,7 +252,9 @@ export default {
         const res = await ArtworksBoundCache.FetchAll([], {
           view: "viwn7wDGK6yk5ZHOl"
         })
-        this.allRecords = res.response.data.records.map(r => ({ id: r.id, ...r.fields }))
+        this.allRecords = res.response.data.records
+          .map(r => ({ id: r.id, ...r.fields }))
+          .filter(r => !r.Hide)   // ignore items where Hide === true (or truthy)
       }
 
       let filtered = this.allRecords
