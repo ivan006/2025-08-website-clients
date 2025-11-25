@@ -9,7 +9,7 @@
       @mouseenter="item.children?.length && show(item.id)"
     >
 
-      <!-- Normal clickable top-level (no children) -->
+      <!-- No-children → pure link -->
       <router-link
         v-if="!item.children || !item.children.length"
         :to="item.url"
@@ -18,7 +18,7 @@
         {{ item.label }}
       </router-link>
 
-      <!-- Has children → hover to open -->
+      <!-- Has children → hoverable label -->
       <span
         v-else
         class="text-primary text-weight-medium cursor-pointer"
@@ -26,8 +26,9 @@
         {{ item.label }}
       </span>
 
-      <!-- Mega menu -->
+      <!-- Mega menu (ONLY IF has children) -->
       <q-menu
+        v-if="item.children && item.children.length"
         v-model="openMenus[item.id]"
         persistent
         anchor="bottom left"
@@ -37,7 +38,6 @@
         :content-style="{ minWidth: '900px', maxWidth: '1000px' }"
       >
 
-        <!-- Closing is handled here, not on top item -->
         <q-card
           flat
           class="q-pa-lg"
@@ -47,7 +47,7 @@
 
           <div class="row q-col-gutter-xl">
 
-            <!-- Level 2 -->
+            <!-- Level 2 columns -->
             <div
               v-for="mid in item.children"
               :key="mid.id"
@@ -83,7 +83,6 @@
   </div>
 </template>
 
-
 <script>
 import menuData from "./menu.json"
 
@@ -93,7 +92,7 @@ export default {
   data() {
     return {
       menuData,
-      openMenus: {} // { id: true/false }
+      openMenus: {}
     }
   },
 

@@ -49,7 +49,7 @@
               <MegaMenu />
 
               <!--<q-btn flat round dense icon="whatshot" />-->
-              <MenuItems @loaded="childLoading=false" />
+              <!-- <MenuItems @loaded="childLoading=false" /> -->
 
             </div>
           </div>
@@ -102,7 +102,7 @@ export default {
   components: {
     FooterController,
     // BreadcrumbsComp,
-    MenuItems,
+    // MenuItems,
     DataCacheManager,
     MegaMenu,
   },
@@ -111,7 +111,7 @@ export default {
     return {
       siteTitle: 'Lorum Ipsum',
       loading: true,
-      childLoading: true,
+      childLoading: false,
       item: {},
     }
   },
