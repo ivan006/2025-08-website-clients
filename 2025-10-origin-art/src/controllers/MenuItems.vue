@@ -1,34 +1,42 @@
 <template>
+
   <div class="row justify-center">
 
-    <!-- Loading / Empty States -->
+    <!-- Loading -->
     <template v-if="loading">
       <div class="text-center q-pa-md">Loading...</div>
     </template>
 
+    <!-- Empty -->
     <template v-else-if="!nestedMenu.length">
       <div class="text-center q-pa-md text-grey-5">None</div>
     </template>
 
-    <!-- ROOT MENU ITEMS -->
+    <!-- Menu -->
     <template v-else>
       <template v-for="item in nestedMenu" :key="item.id">
 
         <q-item
           clickable
           :to="item.url"
-          class="q-pl-lg r-font-h5x text-uppercase font-1ry"
+          class="q-pl-lg text-uppercase"
           @mouseover="openMenu(item.id)"
           @mouseleave="closeMenu(item.id)"
-          :style="isActive(item) ? 'border-bottom: black solid 5px;' : 'border-bottom: transparent solid 5px;'"
+          :style="{
+            borderBottom: isActive(item)
+              ? '5px solid black'
+              : '5px solid transparent',
+            fontWeight: isActive(item) ? 'bold' : 'normal'
+          }"
         >
+
           <q-item-section>
-            <q-item-label :style="isActive(item) ? 'font-weight: bold;' : ''">
+            <q-item-label>
               {{ item.label }}
             </q-item-label>
           </q-item-section>
 
-          <!-- Only show dropdown if children exist -->
+          <!-- Dropdown -->
           <q-menu
             v-if="item.children.length"
             v-model="openMenus[item.id]"
@@ -37,29 +45,46 @@
             transition-show="jump-down"
             transition-hide="jump-up"
           >
-            <div class="row q-pa-md mega-wrapper">
+            <div
+              class="row q-pa-md"
+              @mouseenter="openMenu(item.id)"    
+              @mouseleave="closeMenu(item.id)"   
+              :style="{ minWidth: '650px', columnGap: '40px' }"
+            >
 
-              <!-- Level 1 children -->
+              <!-- Category column -->
               <div
-                class="col column q-pr-xl"
                 v-for="child in item.children"
                 :key="child.id"
-                style="min-width: 200px;"
+                class="column"
+                :style="{ minWidth: '200px' }"
               >
 
-                <!-- Parent category heading -->
-                <div class="text-weight-bold q-mb-sm">
-                  <router-link :to="child.url" class="text-dark">
-                    {{ child.label }}
-                  </router-link>
-                </div>
+                <!-- Parent Label -->
+                <router-link
+                  :to="child.url"
+                  :style="{
+                    fontWeight: 'bold',
+                    color: 'black',
+                    marginBottom: '8px',
+                    display: 'block',
+                    textDecoration: 'none'
+                  }"
+                >
+                  {{ child.label }}
+                </router-link>
 
-                <!-- Level 2 children (tiers) -->
+                <!-- Tier Levels -->
                 <router-link
                   v-for="grand in child.children"
                   :key="grand.id"
                   :to="grand.url"
-                  class="q-mb-xs text-grey-8 block"
+                  :style="{
+                    color: '#555',
+                    marginBottom: '6px',
+                    display: 'block',
+                    textDecoration: 'none'
+                  }"
                 >
                   {{ grand.label }}
                 </router-link>
@@ -75,7 +100,9 @@
     </template>
 
   </div>
+
 </template>
+
 
 
 <script>
