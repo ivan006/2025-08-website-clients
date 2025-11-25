@@ -1,7 +1,7 @@
 <template>
 
   <div class="row justify-center">
-
+    
     <!-- Loading -->
     <template v-if="loading">
       <div class="text-center q-pa-md">Loading...</div>
@@ -218,12 +218,12 @@ export default {
     },
 
 
-    // isActive(item) {
-    //   return this.$route.path === item.url
-    // },
     isActive(item) {
-      return item.URL === this.activeRoute && item.Hash == null;
+      return this.$route.path === item.url
     },
+    // isActive(item) {
+    //   return item.URL === this.activeRoute && item.Hash == null;
+    // },
 
     // clickRow(item) {
     //

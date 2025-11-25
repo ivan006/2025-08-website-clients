@@ -46,6 +46,7 @@
             <div
               class="col-12 col-md-auto q-my-lgx text-center"
             >
+              <MegaMenu />
 
               <!--<q-btn flat round dense icon="whatshot" />-->
               <MenuItems @loaded="childLoading=false" />
@@ -93,6 +94,7 @@ import Site_Menu_Items from "src/models/orm-api/Site_Menu_Items";
 import Site from "src/models/orm-api/Site";
 import FooterController from "src/controllers/FooterController.vue";
 import DataCacheManager from 'src/controllers/DataCacheManager.vue'
+import MegaMenu from 'src/controllers/MegaMenu.vue'
 
 
 export default {
@@ -101,7 +103,8 @@ export default {
     FooterController,
     // BreadcrumbsComp,
     MenuItems,
-    DataCacheManager
+    DataCacheManager,
+    MegaMenu,
   },
 
   data(){
