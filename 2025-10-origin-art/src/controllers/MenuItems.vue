@@ -11,7 +11,6 @@
       </template>
     </template>
     <template v-else>
-      <pre>{{ items }}</pre>
       <template v-for="item in items" :key="item.id">
 
         <!--:tag="true ? 'a' : 'router-link'"-->
@@ -77,47 +76,49 @@ export default {
     }
   },
   computed: {
-    nestedMenu() {
-      const flat = this.items  // whatever name you're using
-      if (!flat || !flat.length) return []
 
-      // Step 1: index by Airtable record id
+    nestedMenu() {
+      const items = this.items
+      if (!items || !items.length) return []
+
+      // Step 1 — index by id
       const map = {}
-      flat.forEach(rec => {
-        map[rec.id] = {
-          id: rec.id,
-          label: rec.fields.Label,
-          url: rec.fields.URL,
-          slug: rec.fields.Slug,
-          children: [],
-          parentIds: rec.fields.Parent || [],
-          childIds: rec.fields.Site_Menu_Items || []
+      items.forEach(item => {
+        map[item.id] = {
+          id: item.id,
+          label: item.Label,
+          url: item.URL,
+          slug: item.Slug,
+          parentIds: item.Parent || [],
+          childIds: item.Site_Menu_Items || []
         }
       })
 
-      // Step 2: link children into parents
-      flat.forEach(rec => {
-        const node = map[rec.id]
+      // Step 2 — recursive builder
+      const buildTree = (node) => {
+        const children = []
 
-        // Add children from "Site_Menu_Items"
+        // Children defined explicitly in Site_Menu_Items
         node.childIds.forEach(childId => {
-          if (map[childId]) {
-            map[rec.id].children.push(map[childId])
+          if (map[childId]) children.push(buildTree(map[childId]))
+        })
+
+        // Children defined implicitly via Parent reference
+        Object.values(map).forEach(n => {
+          if (n.parentIds.includes(node.id)) {
+            children.push(buildTree(n))
           }
         })
 
-        // Add children from parent reference
-        node.parentIds.forEach(parentId => {
-          if (map[parentId]) {
-            map[parentId].children.push(map[rec.id])
-          }
-        })
-      })
+        return { ...node, children }
+      }
 
-      // Step 3: return ONLY root nodes (those without a parent)
-      const roots = Object.values(map).filter(node => node.parentIds.length === 0)
+      // Step 3 — return only root nodes (those with no Parent)
+      const roots = Object.values(map)
+        .filter(node => node.parentIds.length === 0)
 
-      return roots
+      const result = roots.map(root => buildTree(root))
+      return result
     },
 
     superTableModel() {
