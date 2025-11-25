@@ -14,6 +14,7 @@
 
     <!-- Menu -->
     <template v-else>
+      
       <template v-for="item in nestedMenu" :key="item.id">
 
         <q-item
@@ -49,6 +50,7 @@
           >
            
             <!-- Category column -->
+            <!-- Category column -->
             <div
               v-for="child in item.children"
               :key="child.id"
@@ -56,29 +58,41 @@
               :style="{ minWidth: '200px' }"
             >
 
-              <!-- Parent Label -->
-              <router-link
-                :to="child.url"
+              <!-- Parent label (not clickable) -->
+              <!-- Parent label + All link inline -->
+              <div
                 :style="{
                   fontWeight: 'bold',
-                  color: 'black',
-                  marginBottom: '8px',
-                  display: 'block',
-                  textDecoration: 'none'
+                  marginBottom: '6px'
                 }"
               >
-                {{ child.label }}
-              </router-link>
+                <span :style="{ color: 'black' }">
+                  {{ child.label }}
+                </span>
 
-              <!-- Tier Levels -->
+                <router-link
+                  :to="child.url"
+                  :style="{
+                    marginLeft: '6px',
+                    color: '#777',
+                    fontSize: '12px',
+                    textDecoration: 'none'
+                  }"
+                >
+                  (All)
+                </router-link>
+              </div>
+
+
+              <!-- Child tiers -->
               <router-link
                 v-for="grand in child.children"
                 :key="grand.id"
                 :to="grand.url"
                 :style="{
-                  color: '#555',
-                  marginBottom: '6px',
                   display: 'block',
+                  marginBottom: '6px',
+                  color: '#555',
                   textDecoration: 'none'
                 }"
               >
@@ -86,6 +100,7 @@
               </router-link>
 
             </div>
+
           </div>
         </q-menu>
 
