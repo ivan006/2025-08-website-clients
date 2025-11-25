@@ -17,9 +17,17 @@
             </span>
 
             <!-- Mega menu -->
-            <q-menu v-if="item.children && item.children.length" v-model="openMenus[item.id]" persistent
-                anchor="bottom middle" self="top middle" transition-show="fade" transition-hide="fade" fit
-                :content-style="{ padding: '0', width: '100vw' }">
+            <q-menu
+                v-if="item.children && item.children.length"
+                v-model="openMenus[item.id]"
+                persistent
+                anchor="bottom middle" 
+                self="top middle"       
+                transition-show="fade"
+                transition-hide="fade"
+                fit    
+                :content-style="{ padding: '0', width: '100vw' }"  
+            >
 
                 <!-- FULL WIDTH BACKGROUND -->
                 <div class="bg-white" style="width: 100vw;" @mouseleave="hide(item.id)">
