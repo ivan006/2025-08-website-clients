@@ -1,7 +1,7 @@
 <template>
 
   <div class="row justify-center">
-    
+
     <!-- Loading -->
     <template v-if="loading">
       <div class="text-center q-pa-md">Loading...</div>
@@ -14,114 +14,155 @@
 
     <!-- Menu -->
     <template v-else>
-      
+
       <template v-for="item in nestedMenu" :key="item.id">
 
+        <!-- ROOT ITEMS -->
         <q-item
           clickable
-          :to="item.url"
+          :to="!item.children.length ? item.url : undefined"
           class="q-pl-lg text-uppercase"
-          @mouseenter="openMenu(item.id)"
+          @mouseenter="item.children.length && openMenu(item.id)"
           :style="{
             borderBottom: isActive(item) ? '5px solid black' : '5px solid transparent',
-            fontWeight: isActive(item) ? 'bold' : 'normal'
+            fontWeight: isActive(item) ? 'bold' : 'normal',
+            color: '#1a1a1a'
           }"
         >
           <q-item-section>
             <q-item-label>{{ item.label }}</q-item-label>
           </q-item-section>
         </q-item>
-        
+
+        <!-- MEGA MENU (ONLY IF HAS CHILDREN) -->
         <q-menu
           v-if="item.children.length"
           v-model="openMenus[item.id]"
           anchor="bottom left"
           self="top left"
-          transition-show="jump-down"
-          transition-hide="jump-up"
+          transition-show="fade"
+          transition-hide="fade"
           persistent
+          :content-style="{
+            padding:'0',
+            borderRadius:'12px',
+            boxShadow:'0 6px 20px rgba(0,0,0,0.15)'
+          }"
         >
-          <div
-            class="row q-pa-md"
-            :style="{ minWidth:'650px', columnGap:'40px' }"
 
-            @mouseenter="forceStayOpen(item.id)" 
-            @mouseleave="closeMenu(item.id)" 
+          <!-- POINTER NOTCH -->
+          <div
+            :style="{
+              width:'0',
+              height:'0',
+              borderLeft:'12px solid transparent',
+              borderRight:'12px solid transparent',
+              borderBottom:'12px solid white',
+              marginLeft:'50px'
+            }"
+          ></div>
+
+          <!-- MAIN MEGA BOX -->
+          <div
+            class="row"
+            @mouseenter="forceStayOpen(item.id)"
+            @mouseleave="closeMenu(item.id)"
+            :style="{
+              minWidth:'750px',
+              padding:'24px 32px',
+              columnGap:'50px',
+              background:'white',
+              borderRadius:'10px'
+            }"
           >
-           
-            <!-- Category column -->
-            <!-- Category column -->
+
+            <!-- Level 2 Columns -->
             <div
               v-for="child in item.children"
               :key="child.id"
               class="column"
-              :style="{ minWidth: '200px' }"
+              :style="{ minWidth:'180px' }"
             >
 
-              <!-- Parent label (not clickable) -->
-              <!-- Parent label + All link inline -->
+              <!-- Category Name -->
               <div
                 :style="{
-                  fontWeight: 'bold',
-                  marginBottom: '6px'
+                  fontWeight:'600',
+                  marginBottom:'14px',
+                  color:'#444',
+                  fontSize:'15px'
                 }"
               >
-                <span :style="{ color: 'black' }">
-                  {{ child.label }}
-                </span>
+                {{ child.label }}
 
                 <router-link
                   :to="child.url"
                   :style="{
-                    marginLeft: '6px',
-                    color: '#777',
-                    fontSize: '12px',
-                    textDecoration: 'none'
+                    marginLeft:'6px',
+                    color:'#999',
+                    fontSize:'12px',
+                    textDecoration:'none'
                   }"
                 >
                   (All)
                 </router-link>
               </div>
 
-
-              <!-- Child tiers -->
+              <!-- Level 3 items -->
               <router-link
                 v-for="grand in child.children"
                 :key="grand.id"
                 :to="grand.url"
                 :style="{
-                  display: 'block',
-                  marginBottom: '6px',
-                  color: '#555',
-                  textDecoration: 'none'
+                  display:'block',
+                  marginBottom:'10px',
+                  color:'#666',
+                  fontSize:'14px',
+                  textDecoration:'none',
+                  paddingLeft:'14px',
+                  position:'relative'
                 }"
+                @mouseenter="forceStayOpen(item.id)"
               >
+
+                <!-- Chevron bullet -->
+                <span
+                  :style="{
+                    position:'absolute',
+                    left:'0',
+                    top:'5px',
+                    width:'6px',
+                    height:'6px',
+                    borderRight:'2px solid #888',
+                    borderBottom:'2px solid #888',
+                    transform:'rotate(-45deg)',
+                    opacity:'0.6'
+                  }"
+                ></span>
+
                 {{ grand.label }}
+
               </router-link>
 
             </div>
 
           </div>
+
         </q-menu>
 
-        
-
       </template>
+
     </template>
 
   </div>
 
 </template>
 
-
-
 <script>
 import Site_Menu_Items from 'src/models/orm-api/Site_Menu_Items'
 
 export default {
   name: 'MenuItems',
-  components: {
-  },
 
   props: {
     fetchFlags: {
@@ -129,22 +170,22 @@ export default {
       default: () => ({})
     }
   },
-  data(){
+
+  data() {
     return {
-      openMenus: {},
+      openMenus: {},       // tracked by id
       activeRoute: this.$route.path,
       items: [],
       loading: false,
       loadingError: false,
       options: {
         page: 1,
-        itemsPerPage: 100,
-        sortBy: [],
-        groupBy: [],
+        itemsPerPage: 100
       },
-      filterValsRef: {},
+      filterValsRef: {}
     }
   },
+
   computed: {
 
     nestedMenu() {
@@ -164,16 +205,16 @@ export default {
         }
       })
 
-      // Step 2 — recursive builder
+      // Step 2 — recursive tree builder
       const buildTree = (node) => {
         const children = []
 
-        // Children defined explicitly in Site_Menu_Items
+        // Child relations → explicit
         node.childIds.forEach(childId => {
           if (map[childId]) children.push(buildTree(map[childId]))
         })
 
-        // Children defined implicitly via Parent reference
+        // Parent relations → implicit
         Object.values(map).forEach(n => {
           if (n.parentIds.includes(node.id)) {
             children.push(buildTree(n))
@@ -183,151 +224,84 @@ export default {
         return { ...node, children }
       }
 
-      // Step 3 — return only root nodes (those with no Parent)
-      const roots = Object.values(map)
-        .filter(node => node.parentIds.length === 0)
-
-      const result = roots.map(root => buildTree(root))
-      console.log(result)
-      return result
-    },
-
-    superTableModel() {
-      return Site_Menu_Items
-    },
-    filterValsComp() {
-      const result = {
-        ...this.filterValsRef,
-      };
-      return result;
-    },
+      // Step 3 — return roots
+      const roots = Object.values(map).filter(n => n.parentIds.length === 0)
+      return roots.map(root => buildTree(root))
+    }
   },
+
   methods: {
 
-
+    // ---- ARTIFLEX MEGA MENU LOGIC ----
     openMenu(id) {
-      // close ALL menus
+      // Close all menus first
       this.openMenus = {}
 
-      // reopen ONLY this one IF it has children
+      // Find the hovered item
       const item = this.nestedMenu.find(i => i.id === id)
+
+      // Open ONLY if it has children
       if (item && item.children && item.children.length) {
         this.openMenus = { [id]: true }
       }
     },
 
     forceStayOpen(id) {
-      this.openMenus[id] = true
+      this.openMenus = { ...this.openMenus, [id]: true }
     },
 
     closeMenu(id) {
-      this.openMenus[id] = false
+      this.openMenus = { ...this.openMenus, [id]: false }
     },
-
 
     isActive(item) {
       return this.$route.path === item.url
     },
-    // isActive(item) {
-    //   return item.URL === this.activeRoute && item.Hash == null;
-    // },
 
-    // clickRow(item) {
-    //
-    //   this.$router.push({
-    //     path: item.URL
-    //     // name: '/lists/brands/:rId/:rName',
-    //     // params: {
-    //     //   rId: pVal,
-    //     //   rName: item.name,
-    //     // },
-    //   })
-    // },
-    colClasses(baseWidth = 12) {
-      baseWidth = +baseWidth
-
-
-      // Coefficients for each breakpoint
-      const coefficients = {
-        lg: 1,   // Large screens
-        md: 1.5, // Medium screens
-        sm: 2,   // Small screens
-        xs: 4    // Extra small screens
-      };
-
-      // Rounding function to the nearest value from the set [1, 2, 3, 4, 6, 12]
-      function roundToNearestSet(value) {
-        // return Math.min(Math.round(value), 12)
-        const set = [1, 2, 3, 4, 6, 12];
-        return set.reduce((prev, curr) => (Math.abs(curr - value) < Math.abs(prev - value) ? curr : prev));
-      }
-
-      // Calculate widths based on coefficients and round them
-      const lg = roundToNearestSet(baseWidth * coefficients.lg);
-      const md = roundToNearestSet(baseWidth * coefficients.md);
-      const sm = roundToNearestSet(baseWidth * coefficients.sm);
-      const xs = roundToNearestSet(baseWidth * coefficients.xs);
-
-      return `col-${lg} col-lg-${lg} col-md-${md} col-sm-${sm} col-xs-${xs}`;
-    },
-
+    // Fetch data
     async fetchData() {
       try {
+        this.loading = true
+        this.loadingError = false
 
-        this.loading = true;
-        this.loadingError = false;
-        let rules = [];
-
-
-        let extraHeaderComputed = {};
-        let flagsComputed = {
-          // view: "viwd5NTAtsGwAryxx"
-        };
-
-        const response = await this.superTableModel.FetchAll(
-          // =========================
+        const response = await Site_Menu_Items.FetchAll(
           [],
           {
-            ...rules,
-            ...flagsComputed,
-            /// -----------------------
-            ...this.fetchFlags,
+            ...this.fetchFlags
           },
-          extraHeaderComputed,
+          {},
           {
             page: this.options.page,
             limit: this.options.itemsPerPage,
-            //============================
-            filters: this.filterValsComp,
-            clearPrimaryModelOnly: false,
-          },
-        );
+            filters: this.filterValsRef,
+            clearPrimaryModelOnly: false
+          }
+        )
 
         this.$emit('loaded')
 
-        this.items = response.response.data.records.map(record => {
-          return {
-            id: record.id,
-            createdTime: record.createdTime,
-            ...record.fields
-          };
-        });
+        this.items = response.response.data.records.map(record => ({
+          id: record.id,
+          createdTime: record.createdTime,
+          ...record.fields
+        }))
 
+        this.loading = false
 
-        this.loading = false;
-
-      } catch (error) {
-        this.loading = false;
-        this.loadingError = true;
+      } catch (err) {
+        this.loading = false
+        this.loadingError = true
       }
-    },
+    }
   },
-  mounted(){
-    this.fetchData();
+
+  mounted() {
+    this.fetchData()
   },
+
   watch: {
-    '$route.path'(newPath) {
-      this.activeRoute = newPath;
+    '$route.path'(val) {
+      this.activeRoute = val
     }
   }
 }
