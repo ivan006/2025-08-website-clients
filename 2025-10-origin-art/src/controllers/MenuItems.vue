@@ -206,7 +206,14 @@ export default {
 
 
     openMenu(id) {
-      this.openMenus[id] = true
+      // close ALL menus
+      this.openMenus = {}
+
+      // reopen ONLY this one IF it has children
+      const item = this.nestedMenu.find(i => i.id === id)
+      if (item && item.children && item.children.length) {
+        this.openMenus = { [id]: true }
+      }
     },
 
     forceStayOpen(id) {

@@ -46,10 +46,10 @@
             <div
               class="col-12 col-md-auto q-my-lgx text-center"
             >
-              <MegaMenu />
+              <!-- <MegaMenu /> -->
 
               <!--<q-btn flat round dense icon="whatshot" />-->
-              <!-- <MenuItems @loaded="childLoading=false" /> -->
+              <MenuItems @loaded="childLoading=false" />
 
             </div>
           </div>
@@ -102,9 +102,9 @@ export default {
   components: {
     FooterController,
     // BreadcrumbsComp,
-    // MenuItems,
+    MenuItems,
     DataCacheManager,
-    MegaMenu,
+    // MegaMenu,
   },
 
   data(){
