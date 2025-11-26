@@ -22,7 +22,7 @@
           clickable
           :to="!item.children.length ? item.url : undefined"
           class="q-pl-lg text-uppercase"
-          @mouseenter="item.children.length && openMenu(item.id)"
+          @mouseenter="handleRootHover(item)"
           :style="{
             borderBottom: isActive(item) ? '5px solid black' : '5px solid transparent',
             fontWeight: isActive(item) ? 'bold' : 'normal',
@@ -65,8 +65,7 @@
           <!-- MAIN MEGA BOX -->
           <div
             class="row"
-            @mouseenter="forceStayOpen(item.id)"
-            @mouseleave="closeMenu(item.id)"
+            @mouseleave="hide(item.id)"
             :style="{
               minWidth:'750px',
               padding:'24px 32px',
@@ -231,18 +230,13 @@ export default {
   },
 
   methods: {
-
-    // ---- ARTIFLEX MEGA MENU LOGIC ----
-    openMenu(id) {
-      // Close all menus first
+    handleRootHover(item) {
+      // Close all dropdowns first
       this.openMenus = {}
 
-      // Find the hovered item
-      const item = this.nestedMenu.find(i => i.id === id)
-
-      // Open ONLY if it has children
-      if (item && item.children && item.children.length) {
-        this.openMenus = { [id]: true }
+      // Only open if there are children
+      if (item.children && item.children.length > 0) {
+        this.openMenus = { [item.id]: true }
       }
     },
 
