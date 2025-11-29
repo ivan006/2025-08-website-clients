@@ -1,78 +1,91 @@
 <template>
   <div class="row items-center no-wrap">
 
-    <!-- Top-level items -->
+    <!-- ROOT ITEMS -->
     <div
       v-for="item in menuData"
       :key="item.id"
       class=" relative-position"
       @mouseenter="handleRootHover(item)"
-      :style="{ padding:'8px 0' }"
+      @mouseleave="hoverId = null"
     >
     <!-- q-mx-lg -->
 
-      <!-- No-children → pure link -->
+      <!-- ROOT: NO CHILDREN -->
       <router-link
-      
         v-if="!item.children || !item.children.length"
         :to="item.url"
+        @mouseenter="hoverId = item.id"
         :style="{
           textTransform:'uppercase',
           fontSize:'15px',
-          fontWeight: '500',
+          fontWeight: isActive(item) ? '700' : '400',
           borderBottom: isActive(item)
             ? '5px solid black'
             : '5px solid transparent',
-          padding:'6px 14px',
           color:'#1a1a1a',
           textDecoration:'none',
-          display:'inline-block'
+          display:'inline-block',
         }"
       >
-          <!-- fontWeight: isActive(item) ? '700' : '500', -->
-        {{ item.label }}
+        <div
+          :style="{
+            padding:'8px 20px',
+            backgroundColor: hoverId === item.id ? '#f2f2f2' : 'transparent',
+            transition:'background-color 120ms ease'
+          }"
+        >
+          {{ item.label }}
+        </div>
       </router-link>
 
-      <!-- Has children → hoverable label -->
+      <!-- ROOT: HAS CHILDREN -->
       <span
         v-else
+        @mouseenter="hoverId = item.id"
         @click.stop
         @mousedown.stop
         @mouseup.stop
         :style="{
           textTransform:'uppercase',
           fontSize:'15px',
-          fontWeight: '500',
-          borderBottom: openMenus[item.id]
+          borderBottom: isActive(item)
             ? '5px solid black'
             : '5px solid transparent',
-          padding:'6px 4px',
           color:'#1a1a1a',
           display:'inline-flex',
           alignItems:'center',
           gap:'4px',
-          cursor:'default'
+          cursor:'default',
         }"
       >
           <!-- fontWeight: openMenus[item.id] ? '700' : '500', -->
-
-        {{ item.label }}
-
-        <!-- CARET ICON -->
-        <q-icon
-          name="keyboard_arrow_down"
+        <div
           :style="{
-            fontSize:'18px',
-            transition:'transform 150ms ease',
-            transform: openMenus[item.id] ? 'rotate(180deg)' : 'rotate(0deg)',
-            marginTop: '-4px'
+            padding:'8px 20px',
+            backgroundColor: hoverId === item.id ? '#f2f2f2' : 'transparent',
+            transition:'background-color 120ms ease'
           }"
-        />
+        >
+          {{ item.label }}
+
+          <!-- CARET -->
+          <q-icon
+            name="keyboard_arrow_down"
+            :style="{
+              fontSize:'18px',
+              lineHeight:'1',
+              verticalAlign:'middle',
+              transition:'transform 150ms ease',
+              transform: openMenus[item.id]
+                ? 'rotate(180deg) translateY(1px)'
+                : 'rotate(0deg) translateY(-1px)'
+            }"
+          />
+        </div>
       </span>
 
-
-
-      <!-- Mega menu (ONLY IF has children) -->
+      <!-- MEGA MENU -->
       <q-menu
         v-if="item.children && item.children.length"
         v-model="openMenus[item.id]"
@@ -96,35 +109,33 @@
             borderLeft:'12px solid transparent',
             borderRight:'12px solid transparent',
             borderBottom:'12px solid white',
-            marginLeft:'30px'
+            marginLeft:'40px'
           }"
         ></div>
 
-        <!-- MAIN MEGA DROPDOWN -->
+        <!-- WHITE DROPDOWN BOX -->
         <q-card
           flat
           class="q-pa-lg"
           :style="{
-            width: '100%',
-            background: 'white',
-            borderRadius: '10px',
-            padding: '28px 36px'
+            width:'100%',
+            background:'white',
+            borderRadius:'10px',
+            padding:'28px 36px'
           }"
           @mouseleave="hide(item.id)"
         >
 
           <div
             class="row"
-            :style="{ columnGap:'50px', minWidth:'850px' }"
+            :style="{ minWidth:'850px', columnGap:'50px' }"
           >
 
-            <!-- Level 2 columns -->
+            <!-- LEVEL 2 -->
             <div
               v-for="mid in item.children"
               :key="mid.id"
-              :style="{
-                minWidth:'190px'
-              }"
+              :style="{ minWidth:'190px' }"
             >
               <div
                 :style="{
@@ -149,7 +160,7 @@
                 </router-link>
               </div>
 
-              <!-- Level 3 -->
+              <!-- LEVEL 3 LINKS -->
               <router-link
                 v-for="leaf in mid.children"
                 :key="leaf.id"
@@ -165,7 +176,7 @@
                 }"
               >
 
-                <!-- Chevron bullet -->
+                <!-- bullet -->
                 <span
                   :style="{
                     position:'absolute',
@@ -188,12 +199,15 @@
           </div>
 
         </q-card>
+
       </q-menu>
 
     </div>
 
   </div>
 </template>
+
+
 
 <script>
 import menuData from "./menu.json"
@@ -204,7 +218,8 @@ export default {
   data() {
     return {
       menuData,
-      openMenus: {}
+      openMenus: {},
+      hoverId: null
     }
   },
 
@@ -213,11 +228,9 @@ export default {
     isActive(item) {
       return this.$route.path === item.url
     },
-    handleRootHover(item) {
-      // Close all menus
-      this.openMenus = {}
 
-      // Open only if it has children
+    handleRootHover(item) {
+      this.openMenus = {}
       if (item.children && item.children.length) {
         this.openMenus = { [item.id]: true }
       }
