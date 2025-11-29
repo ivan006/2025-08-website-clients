@@ -49,7 +49,7 @@
               <MegaMenu />
 
               <!--<q-btn flat round dense icon="whatshot" />-->
-              <!-- <MenuItems @loaded="childLoading=false" /> -->
+              <MenuItems @loaded="childLoading=false" />
 
             </div>
           </div>
@@ -89,7 +89,7 @@ import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 // import BreadcrumbsComp from 'src/controllers/BreadcrumbsComp.vue';
 import VueCookies from 'vue-cookies';
-// import MenuItems from 'src/controllers/MenuItems.vue';
+import MenuItems from 'src/controllers/MenuItems.vue';
 import Site_Menu_Items from "src/models/orm-api/Site_Menu_Items";
 import Site from "src/models/orm-api/Site";
 import FooterController from "src/controllers/FooterController.vue";
@@ -102,7 +102,7 @@ export default {
   components: {
     FooterController,
     // BreadcrumbsComp,
-    // MenuItems,
+    MenuItems,
     DataCacheManager,
     MegaMenu,
   },

@@ -5,10 +5,11 @@
     <div
       v-for="item in menuData"
       :key="item.id"
-      class="q-mx-lg relative-position"
+      class=" relative-position"
       @mouseenter="handleRootHover(item)"
       :style="{ padding:'8px 0' }"
     >
+    <!-- q-mx-lg -->
 
       <!-- No-children → pure link -->
       <router-link
@@ -18,16 +19,17 @@
         :style="{
           textTransform:'uppercase',
           fontSize:'15px',
-          fontWeight: isActive(item) ? '700' : '500',
+          fontWeight: '500',
           borderBottom: isActive(item)
             ? '5px solid black'
             : '5px solid transparent',
-          padding:'6px 4px',
+          padding:'6px 14px',
           color:'#1a1a1a',
           textDecoration:'none',
           display:'inline-block'
         }"
       >
+          <!-- fontWeight: isActive(item) ? '700' : '500', -->
         {{ item.label }}
       </router-link>
 
@@ -35,21 +37,40 @@
       <span
         v-else
         @click.stop
-        class="cursor-pointer"
+        @mousedown.stop
+        @mouseup.stop
         :style="{
           textTransform:'uppercase',
           fontSize:'15px',
-          fontWeight: openMenus[item.id] ? '700' : '500',
+          fontWeight: '500',
           borderBottom: openMenus[item.id]
             ? '5px solid black'
             : '5px solid transparent',
           padding:'6px 4px',
           color:'#1a1a1a',
-          display:'inline-block'
+          display:'inline-flex',
+          alignItems:'center',
+          gap:'4px',
+          cursor:'default'
         }"
       >
+          <!-- fontWeight: openMenus[item.id] ? '700' : '500', -->
+
         {{ item.label }}
+
+        <!-- CARET ICON -->
+        <q-icon
+          name="keyboard_arrow_down"
+          :style="{
+            fontSize:'18px',
+            transition:'transform 150ms ease',
+            transform: openMenus[item.id] ? 'rotate(180deg)' : 'rotate(0deg)',
+            marginTop: '-4px'
+          }"
+        />
       </span>
+
+
 
       <!-- Mega menu (ONLY IF has children) -->
       <q-menu
