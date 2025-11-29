@@ -22,14 +22,27 @@
           :to="!item.children.length ? item.url : undefined"
           class="q-pl-lg text-uppercase"
           @mouseenter="handleRootHover(item)"
+          @click.stop
           :style="{
             borderBottom: isActive(item) ? '5px solid black' : '5px solid transparent',
             fontWeight: isActive(item) ? 'bold' : 'normal',
             color: '#1a1a1a'
           }"
-        >
+          >
           <q-item-section>
-            <q-item-label>{{ item.label }}</q-item-label>
+            <q-item-label>
+              {{ item.label }}
+
+            
+              <q-icon
+                v-if="item.children.length"
+                name="keyboard_arrow_down"
+                style="font-size:18px; line-height:15px; margin-top:-2px;"
+                :style="openMenu
+                  ? 'transform:rotate(180deg); transition:150ms;'
+                  : 'transform:rotate(0deg); transition:150ms;'"
+              />
+            </q-item-label>
           </q-item-section>
         </q-item>
 
