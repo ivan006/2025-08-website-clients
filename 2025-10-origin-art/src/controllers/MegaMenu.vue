@@ -3,10 +3,10 @@
 
     <!-- Top-level items -->
     <div
-        v-for="item in menuData"
-        :key="item.id"
-        class="q-mx-md relative-position"
-        @mouseenter="handleRootHover(item)"
+      v-for="item in menuData"
+      :key="item.id"
+      class="q-mx-md relative-position"
+      @mouseenter="handleRootHover(item)"
     >
 
       <!-- No-children → pure link -->
@@ -14,6 +14,7 @@
         v-if="!item.children || !item.children.length"
         :to="item.url"
         class="text-primary text-weight-medium"
+        :style="{ fontSize:'15px', padding:'6px 0', display:'inline-block' }"
       >
         {{ item.label }}
       </router-link>
@@ -22,6 +23,7 @@
       <span
         v-else
         class="text-primary text-weight-medium cursor-pointer"
+        :style="{ fontSize:'15px', padding:'6px 0', display:'inline-block' }"
       >
         {{ item.label }}
       </span>
@@ -35,41 +37,107 @@
         self="top left"
         transition-show="fade"
         transition-hide="fade"
-        :content-style="{ minWidth: '900px', maxWidth: '1000px' }"
+        :content-style="{
+          padding:'0',
+          borderRadius:'12px',
+          boxShadow:'0 6px 20px rgba(0,0,0,0.15)'
+        }"
       >
 
+        <!-- POINTER NOTCH -->
+        <div
+          :style="{
+            width:'0',
+            height:'0',
+            borderLeft:'12px solid transparent',
+            borderRight:'12px solid transparent',
+            borderBottom:'12px solid white',
+            marginLeft:'30px'
+          }"
+        ></div>
+
+        <!-- MAIN MEGA DROPDOWN -->
         <q-card
           flat
           class="q-pa-lg"
-          :style="{ width: '100%' }"
+          :style="{
+            width: '100%',
+            background: 'white',
+            borderRadius: '10px',
+            padding: '28px 36px'
+          }"
           @mouseleave="hide(item.id)"
         >
 
-          <div class="row q-col-gutter-xl">
+          <div
+            class="row"
+            :style="{ columnGap:'50px', minWidth:'850px' }"
+          >
 
             <!-- Level 2 columns -->
             <div
               v-for="mid in item.children"
               :key="mid.id"
-              class="col-3"
+              :style="{
+                minWidth:'190px'
+              }"
             >
-              <div class="text-bold q-mb-xs">
+              <div
+                :style="{
+                  fontSize:'15px',
+                  fontWeight:'600',
+                  color:'#444',
+                  marginBottom:'12px'
+                }"
+              >
                 {{ mid.label }}
-                <router-link :to="mid.url" class="q-ml-sm text-primary">(All)</router-link>
+
+                <router-link
+                  :to="mid.url"
+                  :style="{
+                    marginLeft:'6px',
+                    color:'#888',
+                    fontSize:'12px',
+                    textDecoration:'none'
+                  }"
+                >
+                  (All)
+                </router-link>
               </div>
 
               <!-- Level 3 -->
-              <q-list dense padding>
-                <q-item
-                  v-for="leaf in mid.children"
-                  :key="leaf.id"
-                  clickable
-                  :to="leaf.url"
-                  class="q-pl-none"
-                >
-                  <q-item-section>{{ leaf.label }}</q-item-section>
-                </q-item>
-              </q-list>
+              <router-link
+                v-for="leaf in mid.children"
+                :key="leaf.id"
+                :to="leaf.url"
+                :style="{
+                  display:'block',
+                  marginBottom:'10px',
+                  color:'#555',
+                  fontSize:'14px',
+                  paddingLeft:'16px',
+                  textDecoration:'none',
+                  position:'relative'
+                }"
+              >
+
+                <!-- Chevron bullet -->
+                <span
+                  :style="{
+                    position:'absolute',
+                    left:'0',
+                    top:'5px',
+                    width:'6px',
+                    height:'6px',
+                    borderRight:'2px solid #888',
+                    borderBottom:'2px solid #888',
+                    transform:'rotate(-45deg)',
+                    opacity:'0.5'
+                  }"
+                ></span>
+
+                {{ leaf.label }}
+              </router-link>
 
             </div>
 
@@ -98,17 +166,17 @@ export default {
 
   methods: {
     handleRootHover(item) {
-        // close all menus first
-        this.openMenus = {}
+      // Close all menus
+      this.openMenus = {}
 
-        // then open this item's menu IF it has children
-        if (item.children && item.children.length) {
+      // Open only if it has children
+      if (item.children && item.children.length) {
         this.openMenus = { [item.id]: true }
-        }
+      }
     },
 
     hide(id) {
-        this.openMenus = { ...this.openMenus, [id]: false }
+      this.openMenus = { ...this.openMenus, [id]: false }
     }
   }
 }

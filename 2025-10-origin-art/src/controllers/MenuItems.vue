@@ -1,7 +1,6 @@
 <template>
 
   <div class="row justify-center">
-
     <!-- Loading -->
     <template v-if="loading">
       <div class="text-center q-pa-md">Loading...</div>
@@ -35,9 +34,10 @@
         </q-item>
 
         <!-- MEGA MENU (ONLY IF HAS CHILDREN) -->
+         <pre>{{ item.id }}</pre>
         <q-menu
           v-if="item.children.length"
-          v-model="openMenus[item.id]"
+          v-model="openMenu"
           anchor="bottom left"
           self="top left"
           transition-show="fade"
@@ -121,7 +121,6 @@
                   paddingLeft:'14px',
                   position:'relative'
                 }"
-                @mouseenter="forceStayOpen(item.id)"
               >
 
                 <!-- Chevron bullet -->
@@ -172,7 +171,7 @@ export default {
 
   data() {
     return {
-      openMenus: {},       // tracked by id
+      openMenu: false,       // tracked by id
       activeRoute: this.$route.path,
       items: [],
       loading: false,
@@ -231,21 +230,18 @@ export default {
 
   methods: {
     handleRootHover(item) {
-      // Close all dropdowns first
-      this.openMenus = {}
-
-      // Only open if there are children
-      if (item.children && item.children.length > 0) {
-        this.openMenus = { [item.id]: true }
-      }
+        // close all menus first
+        this.openMenu = false
+        console.log(item)
+        // then open this item's menu IF it has children
+        if (item.children && item.children.length) {
+          this.openMenu = true
+        }
     },
 
-    forceStayOpen(id) {
-      this.openMenus = { ...this.openMenus, [id]: true }
-    },
-
-    closeMenu(id) {
-      this.openMenus = { ...this.openMenus, [id]: false }
+    hide(id) {
+      console.log(id)
+        this.openMenu = false
     },
 
     isActive(item) {

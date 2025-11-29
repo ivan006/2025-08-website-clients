@@ -46,7 +46,7 @@
             <div
               class="col-12 col-md-auto q-my-lgx text-center"
             >
-              <!-- <MegaMenu /> -->
+              <MegaMenu />
 
               <!--<q-btn flat round dense icon="whatshot" />-->
               <MenuItems @loaded="childLoading=false" />
@@ -104,7 +104,7 @@ export default {
     // BreadcrumbsComp,
     MenuItems,
     DataCacheManager,
-    // MegaMenu,
+    MegaMenu,
   },
 
   data(){
