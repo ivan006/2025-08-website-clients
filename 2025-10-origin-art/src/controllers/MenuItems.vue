@@ -34,7 +34,6 @@
         </q-item>
 
         <!-- MEGA MENU (ONLY IF HAS CHILDREN) -->
-         <pre>{{ item.id }}</pre>
         <q-menu
           v-if="item.children.length"
           v-model="openMenu"

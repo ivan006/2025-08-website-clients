@@ -5,16 +5,28 @@
     <div
       v-for="item in menuData"
       :key="item.id"
-      class="q-mx-md relative-position"
+      class="q-mx-lg relative-position"
       @mouseenter="handleRootHover(item)"
+      :style="{ padding:'8px 0' }"
     >
 
       <!-- No-children → pure link -->
       <router-link
+      
         v-if="!item.children || !item.children.length"
         :to="item.url"
-        class="text-primary text-weight-medium"
-        :style="{ fontSize:'15px', padding:'6px 0', display:'inline-block' }"
+        :style="{
+          textTransform:'uppercase',
+          fontSize:'15px',
+          fontWeight: isActive(item) ? '700' : '500',
+          borderBottom: isActive(item)
+            ? '5px solid black'
+            : '5px solid transparent',
+          padding:'6px 4px',
+          color:'#1a1a1a',
+          textDecoration:'none',
+          display:'inline-block'
+        }"
       >
         {{ item.label }}
       </router-link>
@@ -22,8 +34,19 @@
       <!-- Has children → hoverable label -->
       <span
         v-else
-        class="text-primary text-weight-medium cursor-pointer"
-        :style="{ fontSize:'15px', padding:'6px 0', display:'inline-block' }"
+        @click.stop
+        class="cursor-pointer"
+        :style="{
+          textTransform:'uppercase',
+          fontSize:'15px',
+          fontWeight: openMenus[item.id] ? '700' : '500',
+          borderBottom: openMenus[item.id]
+            ? '5px solid black'
+            : '5px solid transparent',
+          padding:'6px 4px',
+          color:'#1a1a1a',
+          display:'inline-block'
+        }"
       >
         {{ item.label }}
       </span>
@@ -165,6 +188,10 @@ export default {
   },
 
   methods: {
+
+    isActive(item) {
+      return this.$route.path === item.url
+    },
     handleRootHover(item) {
       // Close all menus
       this.openMenus = {}
