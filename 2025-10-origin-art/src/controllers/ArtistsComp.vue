@@ -8,13 +8,8 @@
           <!-- Search Filter -->
           <q-expansion-item label="Search Name" class="text-weight-bold" default-opened>
             <div class="q-pa-md">
-              <q-input
-                v-model="filterValsRef.search"
-                debounce="250"
-                outlined
-                placeholder="Type artist name..."
-                @update:model-value="resetAndFetch"
-              />
+              <q-input v-model="filterValsRef.search" debounce="250" outlined placeholder="Type artist name..."
+                @update:model-value="resetAndFetch" />
             </div>
           </q-expansion-item>
 
@@ -23,13 +18,8 @@
           <!-- Other Filters -->
           <template v-for="(filter, fIdx) in filterGroups" :key="fIdx">
             <q-expansion-item :label="filter.label" class="text-weight-bold" default-opened>
-              <q-option-group
-                v-model="filterValsRef[filter.lookup]"
-                :options="filter.options"
-                type="radio"
-                @update:model-value="resetAndFetch"
-                class="q-pb-md text-weight-regular"
-              >
+              <q-option-group v-model="filterValsRef[filter.lookup]" :options="filter.options" type="radio"
+                @update:model-value="resetAndFetch" class="q-pb-md text-weight-regular">
                 <template v-slot:label="scope">
                   <div class="row items-center no-wrap justify-between q-gutter-x-sm">
                     <div>{{ scope.label }}</div>
@@ -64,10 +54,8 @@
           <div class="row items-center no-wrap">
             <!-- ◀️ Left Arrow -->
             <div v-if="!$q.screen.lt.md" class="col-auto q-pr-sm">
-              <q-btn
-                flat round color="primary" icon="chevron_left" size="lg"
-                @click="prevPage" :disable="currentPage === 0"
-              />
+              <q-btn flat round color="primary" icon="chevron_left" size="lg" @click="prevPage"
+                :disable="currentPage === 0" />
             </div>
 
             <!-- 🖼️ Grid -->
@@ -76,18 +64,12 @@
                 <div v-for="artist in items" :key="artist.id" class="col-6 col-md-3 q-pa-sm">
                   <q-card flat bordered class="text-1ry-color box-shadow-1ry">
 
-                    <q-img
-                      :src="getArtistImage(artist)?.thumbnails?.large?.url
-                        ? `https://capetownlists.co.za/?url=${encodeURIComponent(getArtistImage(artist).thumbnails.large.url)}`
-                        : ''"
-                      :placeholder-src="getArtistImage(artist)?.thumbnails?.small?.url
-                        ? `https://capetownlists.co.za/?url=${encodeURIComponent(getArtistImage(artist).thumbnails.small.url)}`
-                        : ''"
-                      ratio="1"
-                      class="rounded-borders"
-                      :style="{ height: $q.screen.lt.md ? '150px' : '250px', objectFit: 'cover' }"
-                      fit="contain"
-                    />
+                    <q-img :src="getArtistImage(artist)?.thumbnails?.large?.url
+                      ? `https://capetownlists.co.za/?url=${encodeURIComponent(getArtistImage(artist).thumbnails.large.url)}`
+                      : ''" :placeholder-src="getArtistImage(artist)?.thumbnails?.small?.url
+                          ? `https://capetownlists.co.za/?url=${encodeURIComponent(getArtistImage(artist).thumbnails.small.url)}`
+                          : ''" ratio="1" class="rounded-borders"
+                      :style="{ height: $q.screen.lt.md ? '150px' : '250px', objectFit: 'cover' }" fit="contain" />
 
 
                     <q-card-section>
@@ -103,15 +85,10 @@
                         Avg Price: R{{ artist['Av. Price']?.toLocaleString() || '–' }}
                       </div>
                     </q-card-section>
-                    
+
                     <q-card-actions align="right">
-                      <q-btn
-                        flat
-                        size="sm"
-                        label="View Profile"
-                        class="bg-1ry-color"
-                        :to="`/artists/${artist.id}/${slugify(artist.Name || 'artist')}`"
-                      />
+                      <q-btn flat size="sm" label="View Profile" class="bg-1ry-color"
+                        :to="`/artists/${artist.id}/${slugify(artist.Name || 'artist')}`" />
                     </q-card-actions>
                   </q-card>
                 </div>
@@ -120,32 +97,23 @@
 
             <!-- ▶️ Right Arrow -->
             <div v-if="!$q.screen.lt.md" class="col-auto q-pl-sm">
-              <q-btn
-                flat round color="primary" icon="chevron_right" size="lg"
-                @click="nextPage" :disable="currentPage >= totalPages - 1"
-              />
+              <q-btn flat round color="primary" icon="chevron_right" size="lg" @click="nextPage"
+                :disable="currentPage >= totalPages - 1" />
             </div>
           </div>
         </div>
 
         <!-- Pagination -->
         <div class="text-center q-mt-lg flex flex-center q-gutter-sm">
-          <q-btn flat color="primary" icon="chevron_left" label="Previous"
-            :disable="currentPage === 0" @click="prevPage" />
+          <q-btn flat color="primary" icon="chevron_left" label="Previous" :disable="currentPage === 0"
+            @click="prevPage" />
 
           <div>
-            <q-btn
-              v-for="n in totalPages"
-              :key="n"
-              size="sm" flat round
-              :label="n"
-              :color="n - 1 === currentPage ? 'primary' : 'grey-6'"
-              @click="goToPage(n - 1)"
-            />
+            <q-btn v-for="n in totalPages" :key="n" size="sm" flat round :label="n"
+              :color="n - 1 === currentPage ? 'primary' : 'grey-6'" @click="goToPage(n - 1)" />
           </div>
 
-          <q-btn flat color="primary" icon-right="chevron_right" label="Next"
-            :disable="currentPage >= totalPages - 1"
+          <q-btn flat color="primary" icon-right="chevron_right" label="Next" :disable="currentPage >= totalPages - 1"
             @click="nextPage" />
         </div>
       </template>
@@ -214,7 +182,7 @@ export default {
   },
 
   computed: {
-    
+
     totalPages() {
       return Math.ceil(this.totalFiltered / this.options.itemsPerPage)
     },
