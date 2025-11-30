@@ -62,8 +62,8 @@ const routes = [
             },
           },
           {
-            path: '/all-artists/:medium/:priceRange',
-            name: '/all-artists/:medium/:priceRange',
+            path: '/all-artists/:artistType/:artistLevel',
+            name: '/all-artists/:artistType/:artistLevel',
             component: () => import('src/controllers/ArtistsPageComp.vue'),
             meta: {
               breadcrumbName: '',
