@@ -1,4 +1,4 @@
-<template> 
+<template>
   <div class="container-mdx" style="border-bottom: 1px solid rgba(0,0,0,0.12);">
     <catalogue-layout>
 
@@ -7,52 +7,32 @@
         <div>
           <!-- MEDIUM -->
           <q-expansion-item label="Medium" class="text-weight-bold" default-opened>
-            <q-option-group
-              v-model="routeMedium"
-              :options="mediumOptions"
-              type="radio"
-              @update:model-value="resetAndFetch"
-              class="q-pb-md text-weight-regular"
-            />
+            <q-option-group v-model="routeMedium" :options="mediumOptions" type="radio"
+              @update:model-value="resetAndFetch" class="q-pb-md text-weight-regular" />
           </q-expansion-item>
 
           <q-separator />
 
           <!-- PRICE RANGE -->
           <q-expansion-item label="Price Range" class="text-weight-bold" default-opened>
-            <q-option-group
-              v-model="routePriceRange"
-              :options="priceOptions"
-              type="radio"
-              @update:model-value="resetAndFetch"
-              class="q-pb-md text-weight-regular"
-            />
+            <q-option-group v-model="routePriceRange" :options="priceOptions" type="radio"
+              @update:model-value="resetAndFetch" class="q-pb-md text-weight-regular" />
           </q-expansion-item>
 
           <q-separator />
 
           <!-- HEIGHT -->
           <q-expansion-item label="Height" class="text-weight-bold" default-opened>
-            <q-option-group
-              v-model="filterValsRef['Height Bracket']"
-              :options="heightOptions"
-              type="radio"
-              @update:model-value="resetAndFetch"
-              class="q-pb-md text-weight-regular"
-            />
+            <q-option-group v-model="filterValsRef['Height Bracket']" :options="heightOptions" type="radio"
+              @update:model-value="resetAndFetch" class="q-pb-md text-weight-regular" />
           </q-expansion-item>
 
           <q-separator />
 
           <!-- WIDTH -->
           <q-expansion-item label="Width" class="text-weight-bold" default-opened>
-            <q-option-group
-              v-model="filterValsRef['Width Bracket']"
-              :options="widthOptions"
-              type="radio"
-              @update:model-value="resetAndFetch"
-              class="q-pb-md text-weight-regular"
-            />
+            <q-option-group v-model="filterValsRef['Width Bracket']" :options="widthOptions" type="radio"
+              @update:model-value="resetAndFetch" class="q-pb-md text-weight-regular" />
           </q-expansion-item>
         </div>
       </template>
@@ -76,11 +56,8 @@
             {{ totalFiltered }} artworks found
           </div>
 
-          <ArtworkPaginatedGrid
-            :items="filteredItems"
-            v-model:page="currentPage"
-            :items-per-page="options.itemsPerPage"
-          />
+          <ArtworkPaginatedGrid :items="filteredItems" v-model:page="currentPage"
+            :items-per-page="options.itemsPerPage" />
 
         </div>
 
