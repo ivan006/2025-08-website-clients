@@ -42,7 +42,7 @@
 
         <div v-if="loading" class="text-center q-pa-md">Loading...</div>
 
-        <div v-else-if="!items.length" class="text-center q-pa-md text-2ry-color">
+        <div v-else-if="!filteredItems.length" class="text-center q-pa-md text-2ry-color">
           No artists found.
         </div>
 
@@ -51,71 +51,17 @@
             {{ totalFiltered }} artists found
           </div>
 
-          <div class="row items-center no-wrap">
-            <!-- ◀️ Left Arrow -->
-            <div v-if="!$q.screen.lt.md" class="col-auto q-pr-sm">
-              <q-btn flat round color="primary" icon="chevron_left" size="lg" @click="prevPage"
-                :disable="currentPage === 0" />
-            </div>
-
-            <!-- 🖼️ Grid -->
-            <div class="col">
-              <div class="row q-col-gutter-lgx justify-center">
-                <div v-for="artist in items" :key="artist.id" class="col-6 col-md-3 q-pa-sm">
-                  <q-card flat bordered class="text-1ry-color box-shadow-1ry">
-
-                    <q-img :src="getArtistImage(artist)?.thumbnails?.large?.url
-                      ? `https://capetownlists.co.za/?url=${encodeURIComponent(getArtistImage(artist).thumbnails.large.url)}`
-                      : ''" :placeholder-src="getArtistImage(artist)?.thumbnails?.small?.url
-                          ? `https://capetownlists.co.za/?url=${encodeURIComponent(getArtistImage(artist).thumbnails.small.url)}`
-                          : ''" ratio="1" class="rounded-borders"
-                      :style="{ height: $q.screen.lt.md ? '150px' : '250px', objectFit: 'cover' }" fit="contain" />
-
-
-                    <q-card-section>
-                      <div class="text-h6 font-1ry" style="min-height: 64px;">
-                        {{ artist.Name }}
-                      </div>
-
-                      <div class="text-subtitle2 text-2ry-color q-mt-xs">
-                        {{ artist['Count (Art)'] }} artworks
-                      </div>
-
-                      <div class="text-body1 q-mt-xs text-weight-bold">
-                        Avg Price: R{{ artist['Av. Price']?.toLocaleString() || '–' }}
-                      </div>
-                    </q-card-section>
-
-                    <q-card-actions align="right">
-                      <q-btn flat size="sm" label="View Profile" class="bg-1ry-color"
-                        :to="`/artists/${artist.id}/${slugify(artist.Name || 'artist')}`" />
-                    </q-card-actions>
-                  </q-card>
-                </div>
-              </div>
-            </div>
-
-            <!-- ▶️ Right Arrow -->
-            <div v-if="!$q.screen.lt.md" class="col-auto q-pl-sm">
-              <q-btn flat round color="primary" icon="chevron_right" size="lg" @click="nextPage"
-                :disable="currentPage >= totalPages - 1" />
-            </div>
-          </div>
+          <ItemsPaginatedGrid
+            :items="filteredItems"
+            v-model:page="currentPage"
+            :items-per-page="options.itemsPerPage"
+          >
+            <template #item="{ item }">
+              <ArtistCard :artist="item" />
+            </template>
+          </ItemsPaginatedGrid>
         </div>
 
-        <!-- Pagination -->
-        <div class="text-center q-mt-lg flex flex-center q-gutter-sm">
-          <q-btn flat color="primary" icon="chevron_left" label="Previous" :disable="currentPage === 0"
-            @click="prevPage" />
-
-          <div>
-            <q-btn v-for="n in totalPages" :key="n" size="sm" flat round :label="n"
-              :color="n - 1 === currentPage ? 'primary' : 'grey-6'" @click="goToPage(n - 1)" />
-          </div>
-
-          <q-btn flat color="primary" icon-right="chevron_right" label="Next" :disable="currentPage >= totalPages - 1"
-            @click="nextPage" />
-        </div>
       </template>
 
     </catalogue-layout>
@@ -128,10 +74,17 @@ import { createMetaMixin } from 'quasar'
 import { buildSchemaItem, buildSeoConfig } from 'src/utils/seo'
 import SEODataViewer from 'src/controllers/SEODataViewer.vue'
 import CatalogueLayout from 'src/controllers/CatalogueLayout.vue'
+import ItemsPaginatedGrid from 'src/controllers/ItemsPaginatedGrid.vue'
+import ArtistCard from 'src/controllers/ArtistCard.vue'
 
 export default {
   name: 'ArtistsComp',
-  components: { SEODataViewer, CatalogueLayout },
+  components: { 
+    SEODataViewer, 
+    CatalogueLayout,
+    ArtistCard,
+    ItemsPaginatedGrid,
+  },
   mixins: [createMetaMixin(function () { return this.seoConfig })],
 
   data() {
@@ -143,7 +96,7 @@ export default {
         'Merch Art': 'Attachments_MA',
       },
       allRecords: [],
-      items: [],
+      filteredItems: [],
       loading: false,
       totalFiltered: 0,
       currentPage: 0,
@@ -188,7 +141,7 @@ export default {
     },
 
     seoLdJson() {
-      const artists = this.items.map(a =>
+      const artists = this.filteredItems.map(a =>
         buildSchemaItem({
           type: 'Person',
           name: a.Name,
@@ -326,11 +279,10 @@ export default {
             this.matchesTokenSearch(r.Name, search)
           );
 
-        this.totalFiltered = filtered.length;
 
-        const start = this.currentPage * this.options.itemsPerPage
-        const end = start + this.options.itemsPerPage
-        this.items = filtered.slice(start, end)
+
+        this.filteredItems = filtered
+        this.totalFiltered = filtered.length;
       } catch (err) {
         console.error('❌ Failed to load artists:', err)
       }
@@ -339,27 +291,6 @@ export default {
       this.$emit('loaded')
     },
 
-    async nextPage() {
-      if (this.currentPage < this.totalPages - 1) {
-        this.currentPage++
-        await this.fetchData()
-        this.scrollToResultsTop()
-      }
-    },
-
-    async prevPage() {
-      if (this.currentPage > 0) {
-        this.currentPage--
-        await this.fetchData()
-        this.scrollToResultsTop()
-      }
-    },
-
-    async goToPage(idx) {
-      this.currentPage = idx
-      await this.fetchData()
-      this.scrollToResultsTop()
-    },
 
     scrollToResultsTop() {
       this.$nextTick(() => {

@@ -1,80 +1,80 @@
 <template>
     <q-card flat bordered class="text-1ry-color box-shadow-1ry rounded-borders">
 
+        <!-- IMAGE -->
         <q-img :src="largeUrl" :placeholder-src="smallUrl" ratio="1" class="rounded-borders"
-            :style="{ height: cardHeight, objectFit: 'contain' }" fit="contain" />
+            :style="{ height: $q.screen.lt.md ? '150px' : '250px', objectFit: 'cover' }" fit="contain" />
 
+        <!-- TEXT -->
         <q-card-section>
             <div class="text-h6 font-1ry" style="min-height: 64px;">
-                {{ art.Title }}
+                {{ artist.Name }}
             </div>
 
             <div class="text-subtitle2 text-2ry-color q-mt-xs">
-                {{ artistName }}
+                {{ artist['Count (Art)'] }} artworks
             </div>
 
             <div class="text-body1 q-mt-xs text-weight-bold">
-                R{{ Number(art.Price)?.toLocaleString() }}
+                Avg Price: R{{ artist['Av. Price']?.toLocaleString() || '–' }}
             </div>
         </q-card-section>
 
+        <!-- BUTTON -->
         <q-card-actions align="right">
-            <q-btn flat size="sm" label="View Details" class="bg-1ry-color"
-                :to="`/artworks/${art.id}/${slugify(art.Title || 'artwork')}`" />
+            <q-btn flat size="sm" label="View Profile" class="bg-1ry-color" :to="artistProfileUrl" />
         </q-card-actions>
-
-
     </q-card>
 </template>
 
+
 <script>
 export default {
-    name: "ArtworkCard",
+    name: 'ArtistCard',
 
     props: {
-        art: { type: Object, required: true },
+        artist: { type: Object, required: true },
     },
 
     computed: {
-        attachments() {
-            return this.art.Attachments?.[0] || {};
-        },
-
         largeUrl() {
-            const u = this.attachments.thumbnails?.large?.url;
-            return u ? `https://capetownlists.co.za/?url=${encodeURIComponent(u)}` : "";
+            const img = this.getPrimaryImage()
+            const url = img?.thumbnails?.large?.url
+            return url ? `https://capetownlists.co.za/?url=${encodeURIComponent(url)}` : ''
         },
 
         smallUrl() {
-            const u = this.attachments.thumbnails?.small?.url;
-            return u ? `https://capetownlists.co.za/?url=${encodeURIComponent(u)}` : "";
+            const img = this.getPrimaryImage()
+            const url = img?.thumbnails?.small?.url
+            return url ? `https://capetownlists.co.za/?url=${encodeURIComponent(url)}` : ''
         },
 
-        artistName() {
-            return this.art["Name (from Artist)"]?.[0] || "Unknown Artist";
-        },
-
-        cardHeight() {
-            return this.$q.screen.lt.md ? "150px" : "250px";
+        artistProfileUrl() {
+            return `/artists/${this.artist.id}/${this.slugify(this.artist.Name || 'artist')}`
         }
     },
+
     methods: {
-
-
-        slugify(text) {
-            return text
-                .toLowerCase()
-                .replace(/\s+/g, '-')        // Replace spaces with -
-                .replace(/[^\w-]+/g, '')     // Remove non-word characters
-                .replace(/--+/g, '-')        // Merge multiple -
-                .replace(/^-+|-+$/g, '');    // Trim - from start/end
+        getPrimaryImage() {
+            // choose first available image source
+            return (
+                this.artist.Attachments?.[0] ||
+                this.artist.Attachments_FA?.[0] ||
+                this.artist.Attachments_SW?.[0] ||
+                this.artist.Attachments_NM?.[0] ||
+                this.artist.Attachments_MA?.[0] ||
+                null
+            )
         },
-    }
-};
-</script>
 
-<style scoped>
-.rounded-borders {
-    border-radius: 4px;
+        slugify(str) {
+            return String(str)
+                .toLowerCase()
+                .replace(/\s+/g, '-')
+                .replace(/[^\w-]+/g, '')
+                .replace(/--+/g, '-')
+                .replace(/^-+|-+$/g, '')
+        }
+    }
 }
-</style>
+</script>
