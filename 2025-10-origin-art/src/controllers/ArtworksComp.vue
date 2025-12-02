@@ -56,8 +56,18 @@
             {{ totalFiltered }} artworks found
           </div>
 
-          <ArtworkPaginatedGrid :items="filteredItems" v-model:page="currentPage"
-            :items-per-page="options.itemsPerPage" />
+          <!-- <ArtworkPaginatedGrid :items="filteredItems" v-model:page="currentPage"
+            :items-per-page="options.itemsPerPage" /> -->
+          <ItemsPaginatedGrid
+            :items="filteredItems"
+            v-model:page="currentPage"
+            :items-per-page="options.itemsPerPage"
+          >
+            <template #item="{ item }">
+              <ArtworkCard :art="item" />
+            </template>
+          </ItemsPaginatedGrid>
+
 
         </div>
 
@@ -69,13 +79,14 @@
 
 <script>
 import ArtworksBoundCache from 'src/models/orm-api/ArtworksBoundCache'
-import ArtworkPaginatedGrid from 'src/controllers/ArtworkPaginatedGrid.vue'
+import ItemsPaginatedGrid from 'src/controllers/ItemsPaginatedGrid.vue'
 
 import { createMetaMixin } from 'quasar'
 import { buildSchemaItem, buildSeoConfig } from 'src/utils/seo'
 
 import SEODataViewer from 'src/controllers/SEODataViewer.vue'
 import CatalogueLayout from 'src/controllers/CatalogueLayout.vue'
+import ArtworkCard from 'src/controllers/ArtworkCard.vue'
 
 export default {
   name: 'ArtworksComp',
@@ -83,7 +94,8 @@ export default {
   components: {
     SEODataViewer,
     CatalogueLayout,
-    ArtworkPaginatedGrid
+    ItemsPaginatedGrid,
+    ArtworkCard
   },
 
   mixins: [createMetaMixin(function () { return this.seoConfig })],

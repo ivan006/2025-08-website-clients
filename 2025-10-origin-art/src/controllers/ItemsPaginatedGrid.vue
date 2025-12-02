@@ -11,8 +11,9 @@
             <!-- GRID -->
             <div class="col">
                 <div class="row q-col-gutter-lgx justify-center">
-                    <div v-for="art in pagedItems" :key="art.id" class="col-6 col-md-3 q-pa-sm">
-                        <ArtworkCard :art="art" />
+                    <div v-for="item in pagedItems" :key="item.id" class="col-6 col-md-3 q-pa-sm">
+                        <!-- SLOT FOR CUSTOM CARD -->
+                        <slot name="item" :item="item" />
                     </div>
                 </div>
             </div>
@@ -40,19 +41,12 @@
                 @click="updatePage(page + 1)" />
 
         </div>
-
     </div>
 </template>
 
 <script>
-import ArtworkCard from 'src/controllers/ArtworkCard.vue'
-
 export default {
-    name: 'ArtworkPaginatedGrid',
-
-    components: {
-        ArtworkCard
-    },
+    name: 'ItemsPaginatedGrid',
 
     props: {
         items: { type: Array, required: true },
@@ -89,7 +83,6 @@ export default {
                 }
             })
         }
-
     }
 }
 </script>
