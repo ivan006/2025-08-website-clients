@@ -16,23 +16,45 @@
           <q-separator />
 
           <!-- Other Filters -->
-          <template v-for="(filter, fIdx) in filterGroups" :key="fIdx">
-            <q-expansion-item :label="filter.label" class="text-weight-bold" default-opened>
-              <q-option-group v-model="filterValsRef[filter.lookup]" :options="filter.options" type="radio"
-                @update:model-value="resetAndFetch" class="q-pb-md text-weight-regular">
-                <template v-slot:label="scope">
-                  <div class="row items-center no-wrap justify-between q-gutter-x-sm">
-                    <div>{{ scope.label }}</div>
-                    <q-badge transparent align="middle" size="sm">
-                      {{ getCount(scope.value, filter.lookup) }}
-                    </q-badge>
-                  </div>
-                </template>
-              </q-option-group>
-            </q-expansion-item>
+          <!-- ARTIST TYPE -->
+          <q-expansion-item label="Artist Type" class="text-weight-bold" default-opened>
+            <q-option-group
+              v-model="routeArtistType"
+              :options="artistTypeOptions"
+              type="radio"
+              @update:model-value="resetAndFetch"
+              class="q-pb-md text-weight-regular"
+            />
+          </q-expansion-item>
 
-            <q-separator v-if="fIdx < filterGroups.length - 1" />
-          </template>
+          <q-separator />
+
+          <!-- ARTIST LEVEL -->
+          <q-expansion-item label="Artist Level" class="text-weight-bold" default-opened>
+            <q-option-group
+              v-model="routeArtistLevel"
+              :options="artistLevelOptions"
+              type="radio"
+              @update:model-value="resetAndFetch"
+              class="q-pb-md text-weight-regular"
+            />
+          </q-expansion-item>
+
+          <q-separator />
+
+          <!-- SEARCH -->
+          <q-expansion-item label="Search Name" class="text-weight-bold" default-opened>
+            <div class="q-pa-md">
+              <q-input
+                v-model="filterValsRef.search"
+                outlined
+                debounce="250"
+                placeholder="Type artist name..."
+                @update:model-value="resetAndFetch"
+              />
+            </div>
+          </q-expansion-item>
+
         </div>
       </template>
 
@@ -108,33 +130,52 @@ export default {
         'Av. Price Tier': '',
       },
 
-      filterGroups: [
-        {
-          label: 'Artist Type',
-          lookup: 'Media',
-          options: [
-            { label: 'All', value: '' },
-            { label: 'Fine Artists', value: 'Fine Art' },
-            { label: 'Sculptors', value: 'Sculptural Works' },
-            { label: 'New Media Artists', value: 'New Media' },
-            { label: 'Merch Artists', value: 'Merch Art' },
-          ],
-        },
-        {
-          label: 'Artist Level',
-          lookup: 'Av. Price Tier',
-          options: [
-            { label: 'All', value: '' },
-            { label: 'Established (Avg Price 40k+)', value: 'Gold' },
-            { label: 'Mid-Career (Avg Price 12k–40k)', value: 'Silver' },
-            { label: 'Emerging (Avg Price <12k)', value: 'Bronze' },
-          ],
-        },
-      ],
+    artistTypeOptions: [
+      { label: 'All', value: 'all-types' },
+      { label: 'Fine Artists', value: 'fine-art' },
+      { label: 'Sculptors', value: 'sculptural-works' },
+      { label: 'New Media Artists', value: 'new-media' },
+      { label: 'Merch Artists', value: 'merch-art' },
+    ],
+
+    artistLevelOptions: [
+      { label: 'All', value: 'all-levels' },
+      { label: 'Established (40k+)', value: 'gold' },
+      { label: 'Mid-Career (12k–40k)', value: 'silver' },
+      { label: 'Emerging (<12k)', value: 'bronze' },
+    ],
     }
   },
 
   computed: {
+    routeArtistType: {
+      get() {
+        return this.$route.params.artistType || 'all-types'
+      },
+      set(val) {
+        this.$router.push({
+          params: {
+            ...this.$route.params,
+            artistType: val
+          }
+        })
+      }
+    },
+
+    routeArtistLevel: {
+      get() {
+        return this.$route.params.artistLevel || 'all-levels'
+      },
+      set(val) {
+        this.$router.push({
+          params: {
+            ...this.$route.params,
+            artistLevel: val
+          }
+        })
+      }
+    },
+
 
     totalPages() {
       return Math.ceil(this.totalFiltered / this.options.itemsPerPage)
@@ -172,6 +213,16 @@ export default {
       c.script = ''
       return c
     },
+  },
+
+  watch: {
+    '$route.params': {
+      handler() {
+        this.resetAndFetch()
+      },
+      deep: true
+    }
+
   },
 
   methods: {
@@ -266,18 +317,41 @@ export default {
 
         let filtered = this.allRecords;
 
-        const { search, Media, 'Av. Price Tier': tier } = this.filterValsRef;
+        const search = this.filterValsRef.search
 
-        if (Media)
-          filtered = filtered.filter(r => (r.Media || []).includes(Media));
+        const type = this.routeArtistType     // slug
+        const level = this.routeArtistLevel   // slug
 
-        if (tier)
-          filtered = filtered.filter(r => r['Av. Price Tier'] === tier);
+        // Artist Type → Media lookup
+        if (type !== 'all-types') {
+          const humanReadable = {
+            'fine-art': 'Fine Art',
+            'sculptural-works': 'Sculptural Works',
+            'new-media': 'New Media',
+            'merch-art': 'Merch Art'
+          }[type]
 
-        if (search)
+          filtered = filtered.filter(r => (r.Media || []).includes(humanReadable))
+        }
+
+        // Artist Level → tier lookup
+        if (level !== 'all-levels') {
+          const tierMap = {
+            gold: 'Gold',
+            silver: 'Silver',
+            bronze: 'Bronze'
+          }[level]
+
+          filtered = filtered.filter(r => r['Av. Price Tier'] === tierMap)
+        }
+
+        // search
+        if (search) {
           filtered = filtered.filter(r =>
             this.matchesTokenSearch(r.Name, search)
-          );
+          )
+        }
+
 
 
 
