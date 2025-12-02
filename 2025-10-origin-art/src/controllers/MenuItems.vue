@@ -38,7 +38,7 @@
                 v-if="item.children.length"
                 name="keyboard_arrow_down"
                 style="font-size:18px; line-height:15px; margin-top:-2px;"
-                :style="openMenu
+                :style="openMenuId === item.id
                   ? 'transform:rotate(180deg); transition:150ms;'
                   : 'transform:rotate(0deg); transition:150ms;'"
               />

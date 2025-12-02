@@ -2,6 +2,56 @@
   <div
   >
 
+    <!-- TOP CONTACT BAR -->
+    <!-- 🔥 TOP CONTACT + SOCIAL BAR -->
+    <!-- 🔥 TOP CONTACT + SOCIAL BAR (taller version) -->
+    <div
+      class="bg-white"
+      style="
+        border-bottom: 1px solid rgba(0,0,0,0.08);
+        padding: 10px 0;       /* taller */
+      "
+    >
+      <div class="container-md">
+        <div class="row justify-between items-center">
+
+          <!-- LEFT: PHONE -->
+          <div class="row items-center q-gutter-sm">
+
+            <q-icon
+              name="mdi-phone-outline"
+              size="20px"
+              style="opacity: 0.85;"
+            />
+
+            <span
+              class="text-body1"
+              style="font-weight: 500; letter-spacing: 0.3px;"
+            >
+              {{ this.item.fields?.['Phone Number'] }}
+            </span>
+
+          </div>
+
+          <!-- RIGHT: SOCIAL -->
+          <div class="row items-center q-gutter-lg">
+
+            <a :href="this.item.fields?.['Facebook URL']" target="_blank" style="color: #000;">
+              <q-icon name="mdi-facebook" size="20px" style="opacity: 0.85;" />
+            </a>
+
+            <a :href="this.item.fields?.['Instagram URL']" target="_blank" style="color: #000;">
+              <q-icon name="mdi-instagram" size="20px" style="opacity: 0.85;" />
+            </a>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+
+
 
     <q-toolbar class="q-py-md bg-whit text-" style="margin-bottom: -0px; background-color: rgba(255,255,255,1.0); border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
 

@@ -138,6 +138,10 @@ export default {
   },
 
   computed: {
+
+    cardHeight() {
+      return this.$q.screen.lt.md ? "150px" : "250px";
+    },
     /* ---------------------- SEO JSON-LD ---------------------- */
     seoLdJson() {
       const products = this.items.map(item =>
