@@ -123,7 +123,7 @@ export default {
       },
 
     artistTypeOptions: [
-      { label: 'All', value: 'all-types' },
+      { label: 'All', value: 'all-media' },
       { label: 'Fine Artists', value: 'fine-art' },
       { label: 'Sculptors', value: 'sculptural-works' },
       { label: 'New Media Artists', value: 'new-media' },
@@ -131,7 +131,7 @@ export default {
     ],
 
     artistLevelOptions: [
-      { label: 'All', value: 'all-levels' },
+      { label: 'All', value: 'all-price-ranges' },
       { label: 'Established (40k+)', value: 'gold' },
       { label: 'Mid-Career (12k–40k)', value: 'silver' },
       { label: 'Emerging (<12k)', value: 'bronze' },
@@ -142,7 +142,7 @@ export default {
   computed: {
     routeArtistType: {
       get() {
-        return this.$route.params.artistType || 'all-types'
+        return this.$route.params.artistType || 'all-media'
       },
       set(val) {
         this.$router.push({
@@ -156,7 +156,7 @@ export default {
 
     routeArtistLevel: {
       get() {
-        return this.$route.params.artistLevel || 'all-levels'
+        return this.$route.params.artistLevel || 'all-price-ranges'
       },
       set(val) {
         this.$router.push({
@@ -315,7 +315,7 @@ export default {
         const level = this.routeArtistLevel   // slug
 
         // Artist Type → Media lookup
-        if (type !== 'all-types') {
+        if (type !== 'all-media') {
           const humanReadable = {
             'fine-art': 'Fine Art',
             'sculptural-works': 'Sculptural Works',
@@ -327,7 +327,7 @@ export default {
         }
 
         // Artist Level → tier lookup
-        if (level !== 'all-levels') {
+        if (level !== 'all-price-ranges') {
           const tierMap = {
             gold: 'Gold',
             silver: 'Silver',
