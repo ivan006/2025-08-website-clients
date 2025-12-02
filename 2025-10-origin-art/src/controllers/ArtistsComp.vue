@@ -5,15 +5,20 @@
       <!-- 🔎 FILTERS -->
       <template #filters>
         <div>
-          <!-- Search Filter -->
+
+
+          <!-- SEARCH -->
           <q-expansion-item label="Search Name" class="text-weight-bold" default-opened>
             <div class="q-pa-md">
-              <q-input v-model="filterValsRef.search" debounce="250" outlined placeholder="Type artist name..."
-                @update:model-value="resetAndFetch" />
+              <q-input
+                v-model="filterValsRef.search"
+                outlined
+                debounce="250"
+                placeholder="Type artist name..."
+                @update:model-value="resetAndFetch"
+              />
             </div>
           </q-expansion-item>
-
-          <q-separator />
 
           <!-- Other Filters -->
           <!-- ARTIST TYPE -->
@@ -41,19 +46,6 @@
           </q-expansion-item>
 
           <q-separator />
-
-          <!-- SEARCH -->
-          <q-expansion-item label="Search Name" class="text-weight-bold" default-opened>
-            <div class="q-pa-md">
-              <q-input
-                v-model="filterValsRef.search"
-                outlined
-                debounce="250"
-                placeholder="Type artist name..."
-                @update:model-value="resetAndFetch"
-              />
-            </div>
-          </q-expansion-item>
 
         </div>
       </template>

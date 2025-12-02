@@ -49,7 +49,8 @@
         <!-- MEGA MENU (ONLY IF HAS CHILDREN) -->
         <q-menu
           v-if="item.children.length"
-          v-model="openMenu"
+          :model-value="openMenuId === item.id"
+          @update:model-value="val => openMenuId = val ? item.id : null"
           anchor="bottom left"
           self="top left"
           transition-show="fade"
@@ -183,7 +184,7 @@ export default {
 
   data() {
     return {
-      openMenu: false,       // tracked by id
+      openMenuId: null,
       activeRoute: this.$route.path,
       items: [],
       loading: false,
@@ -242,18 +243,17 @@ export default {
 
   methods: {
     handleRootHover(item) {
-        // close all menus first
-        this.openMenu = false
-        console.log(item)
-        // then open this item's menu IF it has children
-        if (item.children && item.children.length) {
-          this.openMenu = true
-        }
+      if (item.children?.length) {
+        this.openMenuId = item.id   // open only this one
+      } else {
+        this.openMenuId = null
+      }
     },
 
     hide(id) {
-      console.log(id)
-        this.openMenu = false
+      if (this.openMenuId === id) {
+        this.openMenuId = null
+      }
     },
 
     isActive(item) {
