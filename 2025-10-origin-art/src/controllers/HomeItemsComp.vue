@@ -9,12 +9,11 @@
 
   <template v-else>
 
-    
     <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
-    <!-- LEVEL 1: MEDIA -->
-    <div v-for="(tiers, mediaName) in groupedArtworks" :key="mediaName">
 
-      <!-- Media Header -->
+    <div v-for="(arts, mediaName) in groupedByMedia" :key="mediaName">
+
+      <!-- MEDIA HEADER -->
       <div class="bg-1ry-color q-py-lg">
         <div class="container-md">
           <h2 class="text-h3 text-center q-mt-xl font-1ry">
@@ -23,96 +22,55 @@
         </div>
       </div>
 
-      <!-- LEVEL 2: TIER -->
-      <div v-for="(artists, tierName) in tiers" :key="tierName">
-        
-        <div class="bg-3ry-color">
-          <div class="container-md q-py-lg">
-            <h4 class="text-h4 text-center font-1ry text-white q-my-lg">
-              {{ tierName }} - {{ mediaName }}
-            </h4>
-          </div>
-        </div>
+      <!-- GRID OF ARTWORKS -->
+      <div class="bg-2ry-color">
+        <div class="container-md q-py-xl">
+          <div class="row q-col-gutter-lg justify-center">
 
-        <!-- LEVEL 3: ARTIST -->
-        <div class="bg-2ry-color">
-          <div class="container-md q-py-xl">
+            <div
+              v-for="art in arts"
+              :key="art.id"
+              class="col-6 col-md-3 q-pa-sm"
+            >
+              <q-card flat bordered class="box-shadow-1ry bg-white rounded-borders">
 
-            <div class="row">
-              
-              <q-card
-                v-for="(artworks, artistName) in artists"
-                :key="artistName"
-                flat
-                class="q-pa-md q-mb-xl bg-1ry-color text-1ry-color"
-                style="border-radius: 12px;"
-                :class="artistCardWidthClass(artworks.length)"
-              >
+                <q-img
+                  :src="largeUrl(art.Attachments)"
+                  :placeholder-src="smallUrl(art.Attachments)"
+                  ratio="1"
+                  class="rounded-borders"
+                  :style="{ height: cardHeight, objectFit: 'cover' }"
+                  fit="cover"
+                />
 
-                <div class="row q-col-gutter-md items-center">
+                <q-card-section class="text-center">
 
-                  <!-- Artist Info -->
-                  <div 
-                    class="column items-center items-md-start "
-                    :class="artCardWidthClass(artworks.length)"
-                  >
-                    <h3 class="text-h5 q-mb-sm font-1ry">{{ artistName }}</h3>
-
-                    <div class="text-body1 text-2ry-color q-mb-xs">
-                      Tier:
-                      <q-badge outline class="q-px-sm q-py-xs" style="border-radius: 8px;">
-                        {{ tierName }}
-                      </q-badge>
-                    </div>
-
-                    <q-btn flat size="md" class="q-mt-xs text-3ry-color" label="View All Works"/>
+                  <div class="text-h6 font-1ry">{{ art.Title }}</div>
+                  <div class="text-body1 text-2ry-color">
+                    R{{ art.Price?.toLocaleString() }}
                   </div>
 
-                  <!-- First 3 artworks -->
-                  <div
-                    v-for="art in artworks.slice(0, 3)"
-                    :key="art.id"
-                    class="col-12 col-md-3"
-                  >
-                    <!-- <img
-                      :src="art.Attachments?.[0]?.thumbnails?.large?.url 
-                              ? `https://capetownlists.co.za/?url=${encodeURIComponent(art.Attachments[0].thumbnails.large.url)}`
-                              : art['Image Url']"
-                      style="height: 200px; border-radius: 10px; width: 100%; object-fit: cover;"
-                    > -->
+                  <q-btn
+                    flat
+                    size="md"
+                    class="q-mt-xs text-3ry-color"
+                    label="Read More"
+                    :to="art['SEO URL']"
+                  />
 
-                    <q-img
-                      :src="largeUrl(art['Attachments'])"
-                      :placeholder-src="smallUrl(art['Attachments'])"
-                      ratio="1"
-                      class="rounded-borders"
-                      :style="{ height: cardHeight, objectFit: 'contain' }"
-                      fit="contain"
-                    />
-                    <!-- <pre>{{ art }}</pre> -->
-
-                    <div class="q-pt-sm text-center">
-                      <div class="text-h6 font-1ry">{{ art.Title }}</div>
-                      <div class="text-body1 text-2ry-color">R{{ art.Price.toLocaleString() }}</div>
-
-                      <q-btn flat size="md" class="q-mt-xs text-3ry-color" label="Read More" />
-                    </div>
-                  </div>
-
-                </div>
-
+                </q-card-section>
               </q-card>
             </div>
 
           </div>
         </div>
-
       </div>
 
     </div>
 
   </template>
 </template>
+
 
 
 <script>
@@ -186,55 +144,36 @@ export default {
     },
 
     /* ---------------------- GROUPING LOGIC ---------------------- */
-    groupedArtworks() {
-      const MEDIA_ORDER = ["Fine Art", "Sculptural Works", "New Media", "Merch Art"]
-      const TIER_ORDER = ["Gold", "Silver", "Bronze"]
-
-      // ⭐ Criteria mapping for titles
-      const TIER_LABELS = {
-        Gold: "Gold (Above 30k)",
-        Silver: "Silver (12k–30k)",
-        Bronze: "Bronze (Below 12k)"
-      }
+    groupedByMedia() {
+      const MEDIA_ORDER = [
+        "Fine Art",
+        "Sculptural Works",
+        "New Media",
+        "Merch Art"
+      ]
 
       const result = {}
 
       this.items.forEach(art => {
         const medias = art["Name (from Medium)"] || []
-        const tierRaw = art["Av. Price Tier (from Artist)"]
-        const tier = Array.isArray(tierRaw) ? tierRaw[0] : tierRaw
-
-        const artist = art["Name (from Artist)"]?.[0] || "Unknown Artist"
 
         medias.forEach(media => {
-          if (!MEDIA_ORDER.includes(media)) return 
-          if (!TIER_ORDER.includes(tier)) return 
+          if (!MEDIA_ORDER.includes(media)) return
 
-          if (!result[media]) result[media] = {}
-          if (!result[media][tier]) result[media][tier] = {}
-          if (!result[media][tier][artist]) result[media][tier][artist] = []
-
-          result[media][tier][artist].push(art)
+          if (!result[media]) result[media] = []
+          result[media].push(art)
         })
       })
 
-      // ⭐ Now sort AND replace tier keys with label objects
+      // Sort by media order
       const sorted = {}
-
-      MEDIA_ORDER.forEach(media => {
-        if (result[media]) {
-          sorted[media] = {}
-
-          TIER_ORDER.forEach(tier => {
-            if (result[media][tier]) {
-              sorted[media][TIER_LABELS[tier]] = result[media][tier]
-            }
-          })
-        }
+      MEDIA_ORDER.forEach(m => {
+        if (result[m]) sorted[m] = result[m]
       })
 
       return sorted
     }
+
 
 
   },
