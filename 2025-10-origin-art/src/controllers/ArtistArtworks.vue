@@ -36,12 +36,15 @@
         </div>
 
         <!-- PAGINATED GRID -->
-        <ArtworkPaginatedGrid
-          :items="group"
-          v-model:page="sectionPages[mediaName]"
-          :items-per-page="8"
-          class="bg-2ry-color q-pa-sm"
-        />
+         
+        <div class="container-xl bg-2ry-color q-py-md">
+          
+          <ArtworkPaginatedGrid
+            :items="group"
+            v-model:page="sectionPages[mediaName]"
+            :items-per-page="8"
+          />
+        </div>
 
       </div>
 

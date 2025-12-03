@@ -72,12 +72,10 @@
       <q-separator class="q-my-md" />
       
       
-      <div class="text-1ry-color">
+      <ArtistArtworks :artistName="item.Name" />
+      <!-- <div class="text-1ry-color">
         
-        <div class="container-xl">
-          <ArtistArtworks :artistName="item.Name" />
-        </div>
-      </div>
+      </div> -->
 
     </div>
 
