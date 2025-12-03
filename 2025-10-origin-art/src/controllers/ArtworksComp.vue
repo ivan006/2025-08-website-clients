@@ -291,31 +291,85 @@ export default {
   },
 
   methods: {
-    getCount(value, lookup) {
-      if (!this.allRecords.length) return 0
+    getCount(optionValue, lookupKey) {
+      if (!this.allRecords?.length) return 0;
 
-      const current = this.filterValsRef
+      let subset = [...this.allRecords];
 
-      const activeFilters = Object.entries(current)
-        .filter(([key, val]) => key !== lookup && val)
+      const activeMedium = this.routeMedium;
+      const activePrice = this.routePriceRange;
+      const activeHeight = this.filterValsRef['Height Bracket'];
+      const activeWidth = this.filterValsRef['Width Bracket'];
 
-      let subset = this.allRecords
+      const mediumMap = {
+        'fine-art': 'Fine Art',
+        'sculptural-works': 'Sculptural Works',
+        'new-media': 'New Media',
+        'merch-art': 'Merch Art'
+      };
 
-      for (const [key, val] of activeFilters) {
-        subset = subset.filter(r => {
-          const field = r[key]
-          if (Array.isArray(field)) return field.includes(val)
-          return field === val
-        })
+      const priceMap = { gold: 'Gold', silver: 'Silver', bronze: 'Bronze' };
+
+      // --------------------------
+      // Apply all OTHER filters
+      // --------------------------
+
+      // Medium filter
+      if (lookupKey !== 'medium' && activeMedium !== 'all-media') {
+        const expected = mediumMap[activeMedium];
+        subset = subset.filter(r =>
+          (r['Name (from Medium)'] || []).includes(expected)
+        );
       }
 
-      if (value === '') return subset.length
-        return subset.filter(r => {
-        const field = r[lookup]
-        if (Array.isArray(field)) return field.includes(value)
-        return field === value
-      }).length
+      // Price filter
+      if (lookupKey !== 'price' && activePrice !== 'all-price-ranges') {
+        const expected = priceMap[activePrice];
+        subset = subset.filter(r => r['Price Bracket'] === expected);
+      }
+
+      // Height
+      if (lookupKey !== 'height' && activeHeight) {
+        subset = subset.filter(r => r['Height Bracket'] === activeHeight);
+      }
+
+      // Width
+      if (lookupKey !== 'width' && activeWidth) {
+        subset = subset.filter(r => r['Width Bracket'] === activeWidth);
+      }
+
+
+      // --------------------------
+      // COUNT FOR THIS SPECIFIC OPTION
+      // --------------------------
+
+      switch (lookupKey) {
+        case 'medium':
+          if (optionValue === 'all-media') return subset.length;
+          return subset.filter(r =>
+            (r['Name (from Medium)'] || []).includes(mediumMap[optionValue])
+          ).length;
+
+        case 'price':
+          if (optionValue === 'all-price-ranges') return subset.length;
+          return subset.filter(r =>
+            r['Price Bracket'] === priceMap[optionValue]
+          ).length;
+
+        case 'height':
+          return optionValue
+            ? subset.filter(r => r['Height Bracket'] === optionValue).length
+            : subset.length;
+
+        case 'width':
+          return optionValue
+            ? subset.filter(r => r['Width Bracket'] === optionValue).length
+            : subset.length;
+      }
+
+      return 0;
     },
+
     slugify(str) {
       return String(str)
         .toLowerCase()
