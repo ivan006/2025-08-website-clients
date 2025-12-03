@@ -6,7 +6,6 @@
       <template #filters>
         <div>
 
-
           <!-- SEARCH -->
           <q-expansion-item label="Search Name" class="text-weight-bold" default-opened>
             <div class="q-pa-md">
@@ -29,8 +28,25 @@
               type="radio"
               @update:model-value="resetAndFetch"
               class="q-pb-md text-weight-regular"
-            />
+            >
+              <template v-slot:label="scope">
+                <div class="row items-center no-wrap justify-between q-gutter-x-sm">
+                  <div>{{ scope.label }}</div>
+
+                  <q-badge
+                    transparent
+                    align="middle"
+                    size="sm"
+                    class="bg-primary text-white"
+                  >
+                    {{ getCount(scope.value, 'type') }}
+                  </q-badge>
+                </div>
+              </template>
+            </q-option-group>
           </q-expansion-item>
+
+
 
           <q-separator />
 
@@ -42,8 +58,25 @@
               type="radio"
               @update:model-value="resetAndFetch"
               class="q-pb-md text-weight-regular"
-            />
+            >
+              <template v-slot:label="scope">
+                <div class="row items-center no-wrap justify-between q-gutter-x-sm">
+                  <div>{{ scope.label }}</div>
+
+                  <q-badge
+                    transparent
+                    align="middle"
+                    size="sm"
+                    class="bg-primary text-white"
+                  >
+                    {{ getCount(scope.value, 'level') }}
+                  </q-badge>
+                </div>
+              </template>
+            </q-option-group>
           </q-expansion-item>
+
+
 
           <q-separator />
 
@@ -265,39 +298,91 @@ export default {
       );
     },
 
-    getCount(value, lookup) {
-      if (!this.allRecords.length) return 0;
+    getCount(optionValue, lookupKey) {
+      if (!this.allRecords?.length) return 0;
 
-      const current = this.filterValsRef;
+      const search = this.filterValsRef?.search?.toLowerCase() || '';
 
-      let subset = this.allRecords;
+      // Start with all records
+      let subset = [...this.allRecords];
 
-      // Apply other filters except the one we're counting
-      for (const [key, val] of Object.entries(current)) {
-        if (key === lookup || !val || key === 'search') continue;
+      const activeType = this.routeArtistType;
+      const activeLevel = this.routeArtistLevel;
 
+      /* -------------------------------
+      APPLY ACTIVE FILTERS (except the one being counted)
+      ------------------------------- */
+
+      // If counting ARTIST TYPE, ignore activeType
+      if (lookupKey !== 'type' && activeType !== 'all-media') {
+        const map = {
+          'fine-art': 'Fine Art',
+          'sculptural-works': 'Sculptural Works',
+          'new-media': 'New Media',
+          'merch-art': 'Merch Art'
+        };
+
+        const expected = map[activeType];
+        subset = subset.filter(r => (r.Media || []).includes(expected));
+      }
+
+      // If counting ARTIST LEVEL, ignore activeLevel
+      if (lookupKey !== 'level' && activeLevel !== 'all-price-ranges') {
+        const tierMap = {
+          gold: 'Gold',
+          silver: 'Silver',
+          bronze: 'Bronze'
+        };
+
+        const expected = tierMap[activeLevel];
+        subset = subset.filter(r => r['Av. Price Tier'] === expected);
+      }
+
+      // Apply search filter
+      if (search) {
         subset = subset.filter(r =>
-          Array.isArray(r[key])
-            ? r[key].includes(val)
-            : r[key] === val
+          (r.Name || '').toLowerCase().includes(search)
         );
       }
 
-      // Apply search filter separately
-      if (current.search) {
-        subset = subset.filter(r =>
-          this.matchesTokenSearch(r.Name, current.search)
-        );
+      /* -------------------------------
+      CALCULATE COUNT FOR THIS OPTION
+      ------------------------------- */
+
+      // All option returns the whole subset
+      if (optionValue === 'all-media' || optionValue === 'all-price-ranges') {
+        return subset.length;
       }
 
-      if (value === '') return subset.length;
+      // Count for specific ARTIST TYPE
+      if (lookupKey === 'type') {
+        const map = {
+          'fine-art': 'Fine Art',
+          'sculptural-works': 'Sculptural Works',
+          'new-media': 'New Media',
+          'merch-art': 'Merch Art'
+        };
 
-      return subset.filter(r =>
-        Array.isArray(r[lookup])
-          ? r[lookup].includes(value)
-          : r[lookup] === value
-      ).length;
+        const expected = map[optionValue];
+        return subset.filter(r => (r.Media || []).includes(expected)).length;
+      }
+
+      // Count for specific ARTIST LEVEL
+      if (lookupKey === 'level') {
+        const tierMap = {
+          gold: 'Gold',
+          silver: 'Silver',
+          bronze: 'Bronze'
+        };
+
+        const expected = tierMap[optionValue];
+        return subset.filter(r => r['Av. Price Tier'] === expected).length;
+      }
+
+      return 0;
     },
+
+
 
     async fetchData() {
       this.loading = true;
