@@ -22,6 +22,7 @@
           :to="!item.children.length ? item.url : undefined"
           class="q-pl-lg text-uppercase"
           @mouseenter="handleRootHover(item)"
+          @mouseleave="scheduleClose(item.id)"
           @click.stop
           :style="{
             borderBottom: isActive(item) ? '5px solid black' : '5px solid transparent',
@@ -78,7 +79,8 @@
           <!-- MAIN MEGA BOX -->
           <div
             class="row"
-            @mouseleave="hide(item.id)"
+            @mouseenter="clearCloseTimer(closeTimer)"
+            @mouseleave="scheduleClose(item.id)"
             :style="{
               minWidth:'750px',
               padding:'24px 32px',
@@ -242,20 +244,29 @@ export default {
   },
 
   methods: {
+
+    clearCloseTimer() {
+      clearTimeout(this.closeTimer);
+    },
+
     handleRootHover(item) {
+      clearTimeout(this.closeTimer);
       if (item.children?.length) {
-        this.openMenuId = item.id   // open only this one
+        this.openMenuId = item.id;
       } else {
-        this.openMenuId = null
+        this.openMenuId = null;
       }
     },
 
-    hide(id) {
-      if (this.openMenuId === id) {
-        this.openMenuId = null
-      }
-    },
+    scheduleClose(id) {
+      clearTimeout(this.closeTimer);
 
+      this.closeTimer = setTimeout(() => {
+        if (this.openMenuId === id) {
+          this.openMenuId = null;
+        }
+      }, 120); // ← MAGIC NUMBER (works perfectly)
+    },
     isActive(item) {
       return this.$route.path === item.url
     },
