@@ -88,7 +88,7 @@
       <div class="text-1ry-color">
         
       
-        <HomeItemsComp  :parent="this.item" @loaded="childLoading=false"/>
+        <HomeItemsOldComp  :parent="this.item" @loaded="childLoading=false"/>
       </div>
 
 
@@ -202,15 +202,15 @@
 import Home_Page from "src/models/orm-api/Home_Page";
 import { createMetaMixin } from 'quasar'
 import HomeSEOController from "src/controllers/HomeSEOController.vue";
-import HomeItemsComp from "src/controllers/HomeItemsComp.vue";
+import HomeItemsOldComp from "src/controllers/HomeItemsOldComp.vue";
 import {buildSeoConfig} from "src/utils/seo";
 
 
 
 
 export default {
-  name: "HomeController.vue",
-  components: {HomeItemsComp},
+  name: "HomeOldComp",
+  components: {HomeItemsOldComp},
   // mixins: [
 
   //   createMetaMixin(function () {
