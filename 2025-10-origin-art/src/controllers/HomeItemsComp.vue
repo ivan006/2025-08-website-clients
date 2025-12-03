@@ -44,7 +44,7 @@
                   ratio="1"
                   class="rounded-borders"
                   :style="{ height: cardHeight, objectFit: 'cover' }"
-                  fit="cover"
+                  fit="contain"
                 />
 
                 <q-card-section class="text-center">
