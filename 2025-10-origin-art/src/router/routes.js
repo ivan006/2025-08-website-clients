@@ -12,7 +12,7 @@ const routes = [
           {
             path: '/',
             name: '/',
-            component: () => import('src/controllers/HomeComp.vue'),
+            component: () => import('src/controllers/HomeOldComp.vue'),
             meta: {
               breadcrumbName: 'Home',
               breadcrumbParentName: '',
