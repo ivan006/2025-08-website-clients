@@ -1,8 +1,15 @@
 <template>
   <div
+    :style="this.item.fields?.['Image']?.[0]?.url ? `background-image: url(https://capetownlists.co.za/?url=${encodeURIComponent(this.item.fields?.['Image']?.[0]?.url)});` : ``"
     style="
+    min-height: 100vh;
+    background-color: rgb(70,70,70);
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
 
-
+    background-color: rgba(0,0,0,.5);
+    background-blend-mode: darken;
     padding-top: 0px;
     "
     class="ScaledParent"
@@ -11,70 +18,41 @@
       <div class="text-center q-pa-xl">Loading...</div>
     </div>
     <div v-show="!(loading || childLoading)">
-      
-      <!-- <div class="bg-3ry-color ">
+
+      <div class="q-py-xl">
+
         <div
-          :style="this.item.fields?.['Image']?.[0]?.url ? `background-image: url(https://capetownlists.co.za/?url=${encodeURIComponent(this.item.fields?.['Image']?.[0]?.url)});` : ``"
-          style="
-          min-height: 400px;
-          background-color: rgb(70,70,70);
-          background-position: center;
-          
-          background-size: 100% auto; /* height fills, width scales proportionally */
-          image-rendering: crisp-edges; /* optional, prevents blurring */
-          background-attachment: scroll;
-
-          background-color: rgba(0,0,0,.0);
-          background-blend-mode: darken;
-
-          background-repeat: no-repeat;
-          image-rendering: -webkit-optimize-contrast;
-          image-rendering: crisp-edges;
-
-
-
-          padding-top: 0px;
-          
-          "
-          class="ScaledParent ssection-blur"
+          class="container-md text-white"
         >
           
-          <div class="q-py-xl">
-
-            <div
-              class="container-md text-white"
-            >
+          <div class="row q-col-gutter-md justify-center">
+        
+            <div class="col-xl-8 col-md-8 col-12 ">
               
-              <div class="row q-col-gutter-md justify-center">
-            
-                <div class="col-xl-8 col-md-8 col-12 text-shadow-dark-1ryd">
-                  
-                  <div class="gt-md q-py-xl"></div>
-                  
-                  <h1 class="text-center r-font-h2 text-bold">
-                    <span class="text-weight-thin font-1ry text-uppercase bg-3ry-color" style="letter-spacing: 15px; padding: 0 0.6em; box-decoration-break: clone; border-radius: 200px;">
-                      {{item.fields?.['Title']}}
-                    </span>
-                  </h1>
+              <div class="gt-md q-py-xl"></div>
+              
+              <h1 class="text-center r-font-h2 text-bold">
+                <span class="text-weight-thin font-1ry text-uppercase" style="letter-spacing: 15px;">
+                  {{item.fields?.['Title']}}
+                </span>
+              </h1>
 
 
-                  <h2 class="text-center r-font-h4" >
-                    <span class="text-weight-thin font-2ry text-uppercase bg-3ry-color" style="letter-spacing: 15px; padding: 0 0.6em; box-decoration-break: clone; border-radius: 200px;" >
-                      <span v-html="item.fields?.['Subtitle']"></span>
-                    </span>
-                  </h2>
-                  
-                  <div class="gt-md q-py-xl"></div>
-                </div>
-              </div>
+              <h2 class="text-center r-font-h4" >
+                <span class="text-weight-light font-2ry text-uppercase" style="letter-spacing: 15px;">
+                {{item.fields?.['Subtitle']}}
+                </span>
+              </h2>
+              
+              <div class="gt-md q-py-xl"></div>
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
 
 
 
-<!--       
+      
       <div class=" bg-white text- q-py-xl">
         <div
           class="container-md "
@@ -84,16 +62,21 @@
             {{item.fields?.['List Section Title']}}
           </h2>
         </div>
-      </div> -->
-      <div class="text-1ry-color">
-        
+      </div>
+
       
-        <HomeItemsComp  :parent="this.item" @loaded="childLoading=false"/>
+      <div class="bg-2ry-color" >
+        <div
+          class="container-md q-py-xl"
+        >
+
+          <HomeItemsComp :parent="this.item" @loaded="childLoading=false"/>
+        </div>
       </div>
 
 
       
-      <!-- <div class=" bg-white text- q-py-xl" id="contact">
+      <div class=" bg-white text- q-py-xl" id="contact">
         <div
           class="container-md "
         >
@@ -109,9 +92,11 @@
           class="container-md q-py-xl"
         >
 
+          <!-- <Tertiary_Page_Items_Controller :parent="this.item" /> -->
           <div class=" bg- text-dark">
             <div class="row q-col-gutter-md justify-around text-center">
 
+              <!-- Phone -->
               <div class="col-md-4 col-6 ">
                 
                 <q-card class="q-ma-sm bg-white" style="border-radius: 10px;" flat>
@@ -141,6 +126,7 @@
                 </q-card>
               </div>
 
+              <!-- Opening Hours -->
               <div class="col-md-4 col-12">
                 
                 <q-card class="q-ma-sm bg-white" style="border-radius: 10px;" flat>
@@ -155,6 +141,7 @@
                 </q-card>
               </div>
 
+              <!-- Address & Directions -->
               <div class="col-6 col-md-6 col-12">
                 
                 <q-card class="q-ma-sm bg-white text-" style="border-radius: 10px;" flat >
@@ -170,6 +157,7 @@
 
               </div>
 
+            <!-- Map -->
             <div class="q-mt-md">
               
               <q-card class="q-ma-sm bg-white" style="border-radius: 10px;" flat>
@@ -190,9 +178,8 @@
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
     </div>
-    <!--<HomeSEOController />-->
 
 
   </div>
@@ -201,7 +188,6 @@
 <script>
 import Home_Page from "src/models/orm-api/Home_Page";
 import { createMetaMixin } from 'quasar'
-import HomeSEOController from "src/controllers/HomeSEOController.vue";
 import HomeItemsComp from "src/controllers/HomeItemsComp.vue";
 import {buildSeoConfig} from "src/utils/seo";
 

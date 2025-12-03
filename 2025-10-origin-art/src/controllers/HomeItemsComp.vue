@@ -1,234 +1,305 @@
 <template>
-  <template v-if="loading">
-    <div class="text-center q-pa-md">Loading...</div>
+  <template v-if="!items.length">
+    <template v-if="loading">
+      <div class="text-center q-pa-md">Loading...</div>
+    </template>
+    <template v-else>
+      <div class="text-center q-pa-md text-grey-5">None</div>
+    </template>
   </template>
-
-  <template v-else-if="!items.length">
-    <div class="text-center q-pa-md text-2ry-color">None</div>
-  </template>
-
   <template v-else>
-
     <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
+    
+    <div class="row q-col-gutter-md justify-around">
+      <!--<div class="row justify-center" >-->
 
-    <div v-for="(arts, mediaName) in groupedByMedia" :key="mediaName">
+      <template v-for="item in items" :key="item.id">
 
-    <!-- MEDIA HEADER -->
-    <div style="background: #ffffff;">
-      <div class="container-md q-pt-md q-pb-md">
-        <h2
-          class="text-h5 text-center font-1ry"
-          style="margin: 0; font-weight: 500;"
-        >
-          {{ mediaName }}
-        </h2>
-      </div>
-    </div>
+        <!--<q-avatar>-->
+        <!--  <img :src="item">-->
+        <!--</q-avatar>-->
+        <div class="col-xl-4 col-md-4 col-12">
+          <div class="">
 
+           
+            <q-card class="q-ma-sm" style="border-radius: 10px;">
+              <q-card-section class="q-pa-none">
+                
 
-      <!-- GRID OF ARTWORKS -->
-      <div class="bg-2ry-color">
-        <div class="container-md q-py-xl">
-          <div class="row q-col-gutter-lg justify-center">
-
-            <div
-              v-for="art in arts"
-              :key="art.id"
-              class="col-6 col-md-3 q-pa-sm"
-            >
-              <q-card flat bordered class="box-shadow-1ry bg-white rounded-borders">
-
-                <q-img
-                  :src="largeUrl(art.Attachments)"
-                  :placeholder-src="smallUrl(art.Attachments)"
-                  ratio="1"
-                  class="rounded-borders"
-                  :style="{ height: cardHeight, objectFit: 'cover' }"
-                  fit="contain"
-                />
-
-                <q-card-section class="text-center">
-
-                  <div class="text-h6 font-1ry">{{ art.Title }}</div>
-                  <div class="text-body1 text-2ry-color">
-                    R{{ art.Price?.toLocaleString() }}
+                <div>
+                  <div
+                  :style="item?.['Image']?.[0]?.thumbnails?.large?.url ? `background-image: url(https://capetownlists.co.za/?url=${encodeURIComponent(item?.['Image']?.[0]?.thumbnails?.large?.url)});` : ``"
+                  style="
+                    background-position: center;
+                    background-size: cover;
+                    border-radius: 10px 10px 0 0 ;
+                    max-width: 100%;
+                    height: 200px;
+                    "
+                  >
                   </div>
+                  <!--<img src="https://cdn.quasar.dev/img/avatar.png">-->
+                </div>
+                
+                <div class=" q-py-lg q-px-md text-center ">
 
+                  <!-- <div class="lt-md q-mt-lg"></div> -->
+
+                  <h2 class="r-font-h4 font-1ry text- q-my-md text-uppercase">
+                    {{item["Title"]}}
+                  </h2>
+
+                  <h3 class="r-font-h6 q-my-md font-2ry text-weight-light">
+                    {{item["Subtitle"]}}
+                  </h3>
+                  
+          
                   <q-btn
-                    flat
+                    :to="item['SEO URL']"
+                    color="green"
                     size="md"
-                    class="q-mt-xs text-3ry-color"
-                    label="Read More"
-                    :to="art['SEO URL']"
-                  />
+                    unelevated
+                    class="q-my-md q-px-lg"
+                    style="border-radius: 100px;"
+                    
+                    no-caps
+                  >
+                    <!-- {{ item["Button Text"] }} -->
+                    Learn More
+                  </q-btn>
 
-                </q-card-section>
-              </q-card>
-            </div>
+                  
 
+
+                
+                </div>
+                
+              </q-card-section>
+            </q-card>
+
+            <!--<pre>-->
+            <!--  {{item}}-->
+            <!--</pre>-->
           </div>
         </div>
-      </div>
+      </template>
 
     </div>
 
   </template>
+
+
 </template>
 
-
-
 <script>
-import ArtworksBoundCache from 'src/models/orm-api/ArtworksBoundCache'
-import { createMetaMixin } from 'quasar'
-import { buildSchemaItem, buildSeoConfig } from 'src/utils/seo'
-import SEODataViewer from 'src/controllers/SEODataViewer.vue'
+import Home_Page_Items from 'src/models/orm-api/Home_Page_Items'
+import {createMetaMixin} from "quasar";
+import {buildSchemaItem, buildSeoConfig} from "src/utils/seo";
+import SEODataViewer from "src/controllers/SEODataViewer.vue";
 
 export default {
-  name: 'ArtistGroupedView',
-
+  name: 'HomeItemsComp',
   components: {
     SEODataViewer
   },
+  
+  mixins: [
+    createMetaMixin(function () {
 
-  mixins: [createMetaMixin(function () { return this.seoConfig })],
+      return this.seoConfig;
 
-  data() {
+    })
+  ],
+
+  props: {
+    fetchFlags: {
+      type: Object,
+      default: () => ({})
+    },
+    parent: {
+      type: Object,
+      default: () => ({})
+    },
+  },
+  data(){
     return {
-      loading: false,
+      activeRoute: this.$route.path,
       items: [],
+      loading: false,
+      loadingError: false,
+      options: {
+        page: 1,
+        itemsPerPage: 100,
+        sortBy: [],
+        groupBy: [],
+      },
+      filterValsRef: {}
     }
   },
-
   computed: {
+    
+    seoLdJson(){
+      
 
-    cardHeight() {
-      return this.$q.screen.lt.md ? "150px" : "250px";
-    },
-    /* ---------------------- SEO JSON-LD ---------------------- */
-    seoLdJson() {
-      const products = this.items.map(item =>
-        buildSchemaItem({
-          type: 'Product',
-          url: item['SEO URL'] ? window.location.origin + item['SEO URL'] : null,
-          name: item.Title || '',
-          description: item.Subtitle || '',
-          image:
-            item.Attachments?.[0]?.thumbnails?.large?.url ||
-            item['Image Url'] ||
-            '',
-          price: item.Price
-        })
-      )
 
-      return {
-        '@context': 'https://schema.org',
-        '@type': 'ItemList',
-        itemListElement: products
+      const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/');
+      const siteName = import.meta.env.VITE_API_SITE_TITLE;
+
+      let image = ""
+      if (this.parent?.fields?.['Image']?.[0]?.url) {
+        image = `https://capetownlists.co.za/?url=${encodeURIComponent(this.parent?.fields?.['Image']?.[0]?.url)}`;
       }
-    },
 
-    /* ---------------------- SEO META ---------------------- */
-    seoConfig() {
-      const url =
-        window.location.origin +
-        (this.$route?.fullPath.split('#')[0] || '/')
 
-      return buildSeoConfig({
-        title: 'Artist Works',
-        description: 'Browse grouped artworks by media, tier, and artist.',
+      const schema = buildSchemaItem({
+        type: this.parent.fields?.['SEO Type'],
+        name: this.parent.fields?.['Title'] || siteName,
+        description: this.parent.fields?.['Subtitle'] || '',
         url,
-        siteName: import.meta.env.VITE_API_SITE_TITLE
-      })
-    },
-
-    seoConfigMasked() {
-      const c = { ...this.seoConfig }
-      c.script = ''
-      return c
-    },
-
-    /* ---------------------- GROUPING LOGIC ---------------------- */
-    groupedByMedia() {
-      const MEDIA_ORDER = [
-        "Fine Art",
-        "Sculptural Works",
-        "New Media",
-        "Merch Art"
-      ]
-
-      const result = {}
-
-      this.items.forEach(art => {
-        const medias = art["Name (from Medium)"] || []
-
-        medias.forEach(media => {
-          if (!MEDIA_ORDER.includes(media)) return
-
-          if (!result[media]) result[media] = []
-          result[media].push(art)
-        })
+        image,
+        extras: {
+          telephone: this.parent.fields?.['Phone Number'] || "",
+          email: this.parent.fields?.['Email Address'] || "",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: this.parent.fields?.['Address'] || "",
+            addressLocality: "Cape Town",
+            addressRegion: "Western Cape",
+            addressCountry: "ZA"
+          },
+          openingHours: this.parent.fields?.['Opening Hours'] 
+            ? this.parent.fields['Opening Hours'].split('\n').map(line => line.trim())
+            : []
+        }
       })
 
-      // Sort by media order
-      const sorted = {}
-      MEDIA_ORDER.forEach(m => {
-        if (result[m]) sorted[m] = result[m]
-      })
 
-      return sorted
-    }
+      const products = this.items.map((item) => {
 
+        const newItem = buildSchemaItem({
+          type: item['SEO Type'],
+          url: item['SEO URL'] ? window.location.origin + item['SEO URL'] : null,
+          name: item['Title'] || '',
+          description: item['Subtitle'] || '',
+          image: item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${encodeURIComponent(item?.['Image']?.[0]?.url)}` : "",
+          price: item['Price'],
+          extras: {
+            category: item['Category'],
+          }
+        });
+        // console.log(newItem)
 
+        return newItem;
+      });
 
-  },
-
-  methods: {
-    
-
-    artistCardWidthClass(count) {
-      if (count >= 3) return 'col-12 col-md-12';
-      if (count === 2) return 'offset-md-2 col-md-8 col-12 ';
-      if (count === 1) return 'offset-md-3 col-md-6 col-12';
-      return 'col-12';
-    },
-    
-    artCardWidthClass(count) {
-      if (count >= 3) return 'col-md-3 col-12';
-      if (count === 2) return 'col-md-4 col-12';
-      if (count === 1) return 'col-md-6 col-12';
-      return 'col-12';
-    },
-    largeUrl(u) {
-      return u[0].thumbnails?.small?.url ? `https://capetownlists.co.za/?url=${encodeURIComponent(u[0].thumbnails?.large?.url)}` : "";
-    },
-
-    smallUrl(u) {
-      return u[0].thumbnails?.small?.url ? `https://capetownlists.co.za/?url=${encodeURIComponent(u[0].thumbnails?.small?.url)}` : "";
-    },
-    async fetchData() {
-      this.loading = true
-
-      try {
-        const res = await ArtworksBoundCache.FetchAll([], {
-          view: 'viw3kGBDVemlmpxwd'
-        })
-
-        this.items = res.response.data.records.map(r => ({
-          id: r.id,
-          ...r.fields
-        }))
-      } catch (err) {
-        console.error('❌ Failed to load artworks:', err)
+      // Only add itemListElement if provided
+      if (products.length > 0) {
+        schema.itemListElement = products;
       }
 
-      this.loading = false
-      this.$emit('loaded')
-    }
-  },
+      return schema;
+    },
+    seoConfig(){
 
-  async mounted() {
-    await this.fetchData()
+      const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/');
+      const siteName = import.meta.env.VITE_API_SITE_TITLE;
+
+      let image = ""
+      if (this.parent?.fields?.['Image']?.[0]?.url) {
+        image = `https://capetownlists.co.za/?url=${encodeURIComponent(this.parent?.fields?.['Image']?.[0]?.url)}`;
+      }
+
+     return buildSeoConfig({
+        title: null,
+        description: this.parent.fields?.['Subtitle'] || '',
+        url,
+        image: image || `${window.location.origin}/og-default.jpg`,
+        siteName,
+        type: this.parent.fields?.['SEO Type'],
+        schema: this.seoLdJson
+      });
+    },
+    
+    seoConfigMasked(){
+      const seoConfigMasked = { ...this.seoConfig }
+      seoConfigMasked.script = ""
+      return seoConfigMasked
+    },
+  
+    
+    superTableModel() {
+      return Home_Page_Items
+    },
+    filterValsComp() {
+      const result = {
+        ...this.filterValsRef,
+      };
+      return result;
+    },
+  },
+  methods: {
+
+    isActive(item) {
+      return item.URL === this.activeRoute;
+    },
+
+    async fetchData() {
+      try {
+
+        this.loading = true;
+        this.loadingError = false;
+        let rules = [];
+
+
+        let extraHeaderComputed = {};
+        let flagsComputed = {};
+
+        const response = await this.superTableModel.FetchAll(
+          // =========================
+          [],
+          {
+            ...rules,
+            ...flagsComputed,
+            /// -----------------------
+            ...this.fetchFlags,
+          },
+          extraHeaderComputed,
+          {
+            page: this.options.page,
+            limit: this.options.itemsPerPage,
+            //============================
+            filters: this.filterValsComp,
+            clearPrimaryModelOnly: false,
+          },
+        );
+
+        this.$emit('loaded')
+
+
+        this.items = response.response.data.records.map(record => {
+          return {
+            id: record.id,
+            createdTime: record.createdTime,
+            ...record.fields
+          };
+        });
+
+
+        this.loading = false;
+
+      } catch (error) {
+        this.loading = false;
+        this.loadingError = true;
+      }
+    },
+  },
+  mounted(){
+    this.fetchData();
+  },
+  watch: {
+    '$route.path'(newPath) {
+      this.activeRoute = newPath;
+    }
   }
 }
 </script>
-
