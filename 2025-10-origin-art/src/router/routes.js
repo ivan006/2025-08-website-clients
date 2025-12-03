@@ -12,6 +12,16 @@ const routes = [
           {
             path: '/',
             name: '/',
+            component: () => import('src/controllers/HomeComp.vue'),
+            meta: {
+              breadcrumbName: 'Home',
+              breadcrumbParentName: '',
+              requiresAuth: false,
+            },
+          },
+          {
+            path: '/home-old',
+            name: '/home-old',
             component: () => import('src/controllers/HomeOldComp.vue'),
             meta: {
               breadcrumbName: 'Home',

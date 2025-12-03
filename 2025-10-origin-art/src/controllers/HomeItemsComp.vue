@@ -267,7 +267,7 @@ export default {
 
       try {
         const res = await ArtworksBoundCache.FetchAll([], {
-          view: 'viw4c8kfHaMDrB0aC'
+          view: 'viw3kGBDVemlmpxwd'
         })
 
         this.items = res.response.data.records.map(r => ({

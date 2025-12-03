@@ -7,7 +7,7 @@ export default class Home_Page_Items extends BasicModel {
 
   
   static defaultFlags = {
-    view: "viw9Yme6JVV0ZElia",
+    // view: "viw9Yme6JVV0ZElia",
   }
   
   // static entityUrl = '/Artwork?view=viwRVEM6ePmPsrZE4';
