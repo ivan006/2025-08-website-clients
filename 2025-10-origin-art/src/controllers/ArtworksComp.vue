@@ -7,33 +7,97 @@
         <div>
           <!-- MEDIUM -->
           <q-expansion-item label="Medium" class="text-weight-bold" default-opened>
-            <q-option-group v-model="routeMedium" :options="mediumOptions" type="radio"
-              @update:model-value="resetAndFetch" class="q-pb-md text-weight-regular" />
+            <q-option-group
+              v-model="routeMedium"
+              :options="mediumOptions"
+              type="radio"
+              @update:model-value="resetAndFetch"
+              class="q-pb-md text-weight-regular"
+            >
+              <template v-slot:label="scope">
+                <div class="row items-center no-wrap justify-between q-gutter-x-sm">
+                  <div>{{ scope.label }}</div>
+                  <q-badge transparent align="middle" size="sm">
+                    {{ getCount(scope.value, 'medium') }}
+                  </q-badge>
+                </div>
+              </template>
+            </q-option-group>
           </q-expansion-item>
+
+
 
           <q-separator />
 
           <!-- PRICE RANGE -->
           <q-expansion-item label="Price Range" class="text-weight-bold" default-opened>
-            <q-option-group v-model="routePriceRange" :options="priceOptions" type="radio"
-              @update:model-value="resetAndFetch" class="q-pb-md text-weight-regular" />
+            <q-option-group
+              v-model="routePriceRange"
+              :options="priceOptions"
+              type="radio"
+              @update:model-value="resetAndFetch"
+              class="q-pb-md text-weight-regular"
+            >
+              <template v-slot:label="scope">
+                <div class="row items-center no-wrap justify-between q-gutter-x-sm">
+                  <div>{{ scope.label }}</div>
+                  <q-badge transparent align="middle" size="sm">
+                    {{ getCount(scope.value, 'price') }}
+                  </q-badge>
+                </div>
+              </template>
+            </q-option-group>
           </q-expansion-item>
+
+
 
           <q-separator />
 
           <!-- HEIGHT -->
           <q-expansion-item label="Height" class="text-weight-bold" default-opened>
-            <q-option-group v-model="filterValsRef['Height Bracket']" :options="heightOptions" type="radio"
-              @update:model-value="resetAndFetch" class="q-pb-md text-weight-regular" />
+            <q-option-group
+              v-model="filterValsRef['Height Bracket']"
+              :options="heightOptions"
+              type="radio"
+              @update:model-value="resetAndFetch"
+              class="q-pb-md text-weight-regular"
+            >
+              <template v-slot:label="scope">
+                <div class="row items-center no-wrap justify-between q-gutter-x-sm">
+                  <div>{{ scope.label }}</div>
+                  <q-badge transparent align="middle" size="sm">
+                    {{ getCount(scope.value, 'height') }}
+                  </q-badge>
+                </div>
+              </template>
+            </q-option-group>
           </q-expansion-item>
+
+
 
           <q-separator />
 
           <!-- WIDTH -->
           <q-expansion-item label="Width" class="text-weight-bold" default-opened>
-            <q-option-group v-model="filterValsRef['Width Bracket']" :options="widthOptions" type="radio"
-              @update:model-value="resetAndFetch" class="q-pb-md text-weight-regular" />
+            <q-option-group
+              v-model="filterValsRef['Width Bracket']"
+              :options="widthOptions"
+              type="radio"
+              @update:model-value="resetAndFetch"
+              class="q-pb-md text-weight-regular"
+            >
+              <template v-slot:label="scope">
+                <div class="row items-center no-wrap justify-between q-gutter-x-sm">
+                  <div>{{ scope.label }}</div>
+                  <q-badge transparent align="middle" size="sm">
+                    {{ getCount(scope.value, 'width') }}
+                  </q-badge>
+                </div>
+              </template>
+            </q-option-group>
           </q-expansion-item>
+
+
         </div>
       </template>
 
@@ -227,6 +291,31 @@ export default {
   },
 
   methods: {
+    getCount(value, lookup) {
+      if (!this.allRecords.length) return 0
+
+      const current = this.filterValsRef
+
+      const activeFilters = Object.entries(current)
+        .filter(([key, val]) => key !== lookup && val)
+
+      let subset = this.allRecords
+
+      for (const [key, val] of activeFilters) {
+        subset = subset.filter(r => {
+          const field = r[key]
+          if (Array.isArray(field)) return field.includes(val)
+          return field === val
+        })
+      }
+
+      if (value === '') return subset.length
+        return subset.filter(r => {
+        const field = r[lookup]
+        if (Array.isArray(field)) return field.includes(value)
+        return field === value
+      }).length
+    },
     slugify(str) {
       return String(str)
         .toLowerCase()
