@@ -1,5 +1,5 @@
 <template>
-  <div class="q-mt-xl">
+  <div class="">
 
     <div v-if="loading" class="text-center q-pa-lg">
       Loading artworks...
@@ -10,17 +10,29 @@
     </div>
 
     <div v-else>
-
+      
       <!-- PER-MEDIUM SECTIONS -->
       <div
         v-for="(group, mediaName) in grouped"
         :key="mediaName"
-        class="q-mb-xl"
+        class=""
       >
 
         <!-- Heading -->
-        <div class="text-h6 q-mb-md font-1ry">
+        <!-- <div class="text-h6 q-mb-md font-1ry">
           {{ mediaName }}
+        </div> -->
+        
+        <!-- MEDIA HEADER -->
+        <div style="background: #ffffff;">
+          <div class="container-md q-pt-md q-pb-md">
+            <h2
+              class="text-h5 text-center font-1ry"
+              style="margin: 0; font-weight: 500;"
+            >
+              {{ mediaName }}
+            </h2>
+          </div>
         </div>
 
         <!-- PAGINATED GRID -->
@@ -28,6 +40,7 @@
           :items="group"
           v-model:page="sectionPages[mediaName]"
           :items-per-page="8"
+          class="bg-2ry-color q-pa-sm"
         />
 
       </div>
