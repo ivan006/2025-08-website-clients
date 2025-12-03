@@ -13,14 +13,18 @@
 
     <div v-for="(arts, mediaName) in groupedByMedia" :key="mediaName">
 
-      <!-- MEDIA HEADER -->
-      <div class="bg-1ry-color q-py-lg">
-        <div class="container-md">
-          <h2 class="text-h3 text-center q-mt-xl font-1ry">
-            {{ mediaName }}
-          </h2>
-        </div>
+    <!-- MEDIA HEADER -->
+    <div style="background: #ffffff;">
+      <div class="container-md q-pt-md q-pb-md">
+        <h2
+          class="text-h5 text-center font-1ry"
+          style="margin: 0; font-weight: 500;"
+        >
+          {{ mediaName }}
+        </h2>
       </div>
+    </div>
+
 
       <!-- GRID OF ARTWORKS -->
       <div class="bg-2ry-color">
