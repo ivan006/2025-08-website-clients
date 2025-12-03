@@ -5,8 +5,7 @@
     min-height: 100vh;
     background-color: rgb(70,70,70);
     background-position: center;
-    background-size: cover;
-    background-attachment: fixed;
+    background-size: contain;
 
     background-color: rgba(0,0,0,.5);
     background-blend-mode: darken;
@@ -14,6 +13,8 @@
     "
     class="ScaledParent"
   >
+    <!-- background-size: cover; -->
+    <!-- background-attachment: fixed; -->
     <div v-show="loading || childLoading">
       <div class="text-center q-pa-xl">Loading...</div>
     </div>
@@ -73,6 +74,8 @@
           <HomeItemsComp :parent="this.item" @loaded="childLoading=false"/>
         </div>
       </div>
+
+      
 
 
       
@@ -222,7 +225,7 @@ export default {
   data(){
     return {
       loading: true,
-      childLoading: true,
+      childLoading: false,
       item: {},
     }
   },

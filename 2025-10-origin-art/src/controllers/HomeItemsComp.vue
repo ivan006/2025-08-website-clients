@@ -65,7 +65,7 @@
                     no-caps
                   >
                     <!-- {{ item["Button Text"] }} -->
-                    Learn More
+                    Explore
                   </q-btn>
 
                   
