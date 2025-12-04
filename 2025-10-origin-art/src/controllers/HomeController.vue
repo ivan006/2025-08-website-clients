@@ -20,7 +20,7 @@
           background-color: rgb(70,70,70);
           background-position: center;
           
-          background-size: 100% auto; /* height fills, width scales proportionally */
+          background-size: cover; /* height fills, width scales proportionally */
           image-rendering: crisp-edges; /* optional, prevents blurring */
           background-attachment: scroll;
 
@@ -138,13 +138,14 @@
         </div>
       </div> -->
   
+      
       <div class=" bg-white text- q-py-xl">
         <div
           class="container-md "
         >
 
           <h2 class="r-font-h3 text-center q-my-none text-uppercase font-1ry">
-            {{item.fields?.['List Section Title']}}
+            {{item.fields?.['List Section Title']}} 
           </h2>
         </div>
       </div>
