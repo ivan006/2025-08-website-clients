@@ -31,7 +31,7 @@
           }"
           >
           <q-item-section>
-            <q-item-label>
+            <q-item-label class="text-weight-bold " style="color: #666;">
               {{ item.label }}
 
             
@@ -77,7 +77,6 @@
           ></div>
 
           <!-- MAIN MEGA BOX -->
-          <!-- MAIN MEGA BOX -->
           <div
             class="row"
             @mouseenter="clearCloseTimer(closeTimer)"
@@ -93,26 +92,53 @@
           >
 
             <!-- SECTION: solo children (no sub-items) -->
+            <!-- SOLO ITEMS (no subchildren) -->
             <div
               v-if="grouped[item.id].solo.length"
-              class="column"
-              :style="{ flex:'0 0 auto', minWidth:'180px', marginBottom:'20px' }"
+              class="column q-mb-xlx"
+              :style="{
+                flex:'0 0 auto',
+                minWidth:'220px',
+                paddingBottom:'10px'
+              }"
             >
               <router-link
                 v-for="solo in grouped[item.id].solo"
                 :key="solo.id"
                 :to="solo.url"
+                @click="scheduleClose(item.id)"
                 :style="{
-                  display:'block',
-                  marginBottom:'12px',
-                  fontWeight:'600',
-                  color:'#444',
-                  textDecoration:'none'
+                  display:'flex',
+                  alignItems:'center',
+                  gap:'10px',
+                  padding:'6px 0',
+                  color:'#333',
+                  fontSize:'15px',
+                  fontWeight:'500',
+                  textDecoration:'none',
+                  opacity:'0.85',
+                  transition:'opacity 150ms'
                 }"
+                @mouseenter="$event.target.style.opacity = '1'"
+                @mouseleave="$event.target.style.opacity = '0.85'"
               >
+                <!-- Chevron bullet -->
+                <span
+                  :style="{
+                    display:'inline-block',
+                    width:'6px',
+                    height:'6px',
+                    borderRight:'2px solid #888',
+                    borderBottom:'2px solid #888',
+                    transform:'rotate(-45deg)',
+                    marginTop:'2px'
+                  }"
+                ></span>
+
                 {{ solo.label }}
               </router-link>
             </div>
+
 
             <!-- SECTION: children that *have* subchildren -->
             <div
@@ -306,7 +332,7 @@ export default {
         if (this.openMenuId === id) {
           this.openMenuId = null;
         }
-      }, 100000120); // ← MAGIC NUMBER (works perfectly)
+      }, 120); // ← MAGIC NUMBER (works perfectly)
     },
     isActive(item) {
       return this.$route.path === item.url
