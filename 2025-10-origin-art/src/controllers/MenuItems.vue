@@ -78,88 +78,111 @@
 
           <!-- MAIN MEGA BOX -->
           <div
-            class="row"
+            class="column"
             @mouseenter="clearCloseTimer(closeTimer)"
             @mouseleave="scheduleClose(item.id)"
             :style="{
               minWidth:'750px',
               padding:'24px 32px',
-              columnGap:'50px',
               background:'white',
               borderRadius:'10px'
             }"
           >
 
-            <!-- Level 2 Columns -->
-            <div
-              v-for="child in item.children"
-              :key="child.id"
-              class="column"
-              :style="{ minWidth:'180px' }"
-            >
+            <!-- 🔹 FIRST GROUP: Level-2 items that have NO Level-3 children -->
+            <div v-if="item.children.some(c => !c.children.length)" class="q-mb-lg">
 
-              <!-- Category Name -->
-              <div
-                :style="{
-                  fontWeight:'600',
-                  marginBottom:'14px',
-                  color:'#444',
-                  fontSize:'15px'
-                }"
-              >
-                {{ child.label }}
-
-                <router-link
-                  :to="child.url"
-                  :style="{
-                    marginLeft:'6px',
-                    color:'#999',
-                    fontSize:'12px',
-                    textDecoration:'none'
-                  }"
-                >
-                  (All)
-                </router-link>
-              </div>
-
-              <!-- Level 3 items -->
               <router-link
-                v-for="grand in child.children"
-                :key="grand.id"
-                :to="grand.url"
+                v-for="solo in item.children.filter(c => !c.children.length)"
+                :key="solo.id"
+                :to="solo.url"
+                class="q-mb-md"
                 :style="{
-                  display:'block',
-                  marginBottom:'10px',
-                  color:'#666',
-                  fontSize:'14px',
-                  textDecoration:'none',
-                  paddingLeft:'14px',
-                  position:'relative'
+                  display: 'block',
+                  fontWeight: '600',
+                  fontSize: '15px',
+                  color: '#444',
+                  textDecoration: 'none'
                 }"
               >
-
-                <!-- Chevron bullet -->
-                <span
-                  :style="{
-                    position:'absolute',
-                    left:'0',
-                    top:'5px',
-                    width:'6px',
-                    height:'6px',
-                    borderRight:'2px solid #888',
-                    borderBottom:'2px solid #888',
-                    transform:'rotate(-45deg)',
-                    opacity:'0.6'
-                  }"
-                ></span>
-
-                {{ grand.label }}
-
+                {{ solo.label }}
               </router-link>
 
             </div>
 
+
+            <!-- 🔹SECOND GROUP: columns for items WITH Level-3 -->
+            <div class="row" style="column-gap:50px">
+
+              <div
+                v-for="child in item.children.filter(c => c.children.length)"
+                :key="child.id"
+                class="column"
+                :style="{ minWidth:'180px' }"
+              >
+                <!-- Category Name -->
+                <div
+                  :style="{
+                    fontWeight:'600',
+                    marginBottom:'14px',
+                    color:'#444',
+                    fontSize:'15px'
+                  }"
+                >
+                  {{ child.label }}
+
+                  <router-link
+                    :to="child.url"
+                    :style="{
+                      marginLeft:'6px',
+                      color:'#999',
+                      fontSize:'12px',
+                      textDecoration:'none'
+                    }"
+                  >
+                    (All)
+                  </router-link>
+                </div>
+
+                <!-- Level 3 items -->
+                <router-link
+                  v-for="grand in child.children"
+                  :key="grand.id"
+                  :to="grand.url"
+                  :style="{
+                    display:'block',
+                    marginBottom:'10px',
+                    color:'#666',
+                    fontSize:'14px',
+                    textDecoration:'none',
+                    paddingLeft:'14px',
+                    position:'relative'
+                  }"
+                >
+                  <span
+                    :style="{
+                      position:'absolute',
+                      left:'0',
+                      top:'5px',
+                      width:'6px',
+                      height:'6px',
+                      borderRight:'2px solid #888',
+                      borderBottom:'2px solid #888',
+                      transform:'rotate(-45deg)',
+                      opacity:'0.6'
+                    }"
+                  ></span>
+
+                  {{ grand.label }}
+                </router-link>
+
+              </div>
+
+            </div>
+
           </div>
+
+
 
         </q-menu>
 
@@ -265,7 +288,7 @@ export default {
         if (this.openMenuId === id) {
           this.openMenuId = null;
         }
-      }, 120); // ← MAGIC NUMBER (works perfectly)
+      }, 100000120); // ← MAGIC NUMBER (works perfectly)
     },
     isActive(item) {
       return this.$route.path === item.url
