@@ -5,7 +5,7 @@
     <div
       v-if="loading"
       class=" flex flex-center "
-      style="height: 500px"
+      style="height: 700px"
     >
       <!-- <q-spinner color="primary" size="40px" /> -->
       Loading...
@@ -17,7 +17,7 @@
       :src="src"
       frameborder="0"
       width="100%"
-      height="500px"
+      height="700px"
       style="background: transparent;"
       :style="loading ? 'display: none;' : ''"
       @load="onLoad"
