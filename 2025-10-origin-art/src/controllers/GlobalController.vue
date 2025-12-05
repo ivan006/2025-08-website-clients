@@ -53,7 +53,7 @@
 
 
 
-    <q-toolbar class="q-py-md bg-whit text-" style="margin-bottom: -0px; background-color: rgba(255,255,255,1.0); border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
+    <q-toolbar class="q-py-md q-px-none bg-whit text-" style="margin-bottom: -0px; background-color: rgba(255,255,255,1.0); border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
 
       <div class="container-md  ">
         <div v-show="loading || childLoading">

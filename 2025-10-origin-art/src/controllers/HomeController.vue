@@ -16,7 +16,6 @@
         <div
           :style="this.item.fields?.['Image']?.[0]?.url ? `background-image: url(https://capetownlists.co.za/?url=${encodeURIComponent(this.item.fields?.['Image']?.[0]?.url)});` : ``"
           style="
-          min-height: 400px;
           background-color: rgb(70,70,70);
           background-position: center;
           
@@ -40,6 +39,7 @@
           "
           class="ScaledParent ssection-blur"
         >
+          <!-- min-height: 400px; -->
           <div class="q-py-xl">
 
             <div
@@ -48,24 +48,24 @@
               
               <div class="row q-col-gutter-md justify-center">
             
-                <div class="col-xl-8 col-md-8 col-12 ">
+                <div class="col-xl-6 col-md-6 col-12 ">
                   
-                  <div class="gt-md q-py-xl"></div>
+                  <div class="gt-md q-py-lg"></div>
                   
-                  <h1 class="text-center r-font-h2 text-bold">
+                  <h1 class="text-center r-font-h3 text-bold">
                     <span class="text-weight-thin font-1ry text-uppercase" style="letter-spacing: 15px;">
                       {{item.fields?.['Title']}}
                     </span>
                   </h1>
 
 
-                  <h2 class="text-center r-font-h4" >
-                    <span class="text-weight-light font-2ry text-uppercase" style="letter-spacing: 15px;">
+                  <h2 class="text-center text-subtitle2" >
+                    <span class="text-weight-light font-2ry text-uppercase" style="letter-spacing: 10px;">
                     {{item.fields?.['Subtitle']}}
                     </span>
                   </h2>
                   
-                  <div class="gt-md q-py-xl"></div>
+                  <div class="gt-md q-py-lg"></div>
                 </div>
               </div>
             </div>
