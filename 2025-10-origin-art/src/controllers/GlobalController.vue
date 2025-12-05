@@ -63,7 +63,7 @@
           <div class="row justify-between items-center  q-py-mdx ">
 
             <div
-              class="col-12 col-md-auto text-center"
+              class="col-12x col-md-auto text-center"
             >
 
               <!--<q-btn flat round dense icon="menu" class="q-mr-sm" />-->
@@ -94,7 +94,7 @@
               <!--</q-toolbar-title>-->
             </div>
             <div
-              class="col-12 col-md-auto q-my-lgx text-center"
+              class="col-12x col-md-auto q-my-lgx text-center"
             >
               <!-- <MegaMenu /> -->
 
