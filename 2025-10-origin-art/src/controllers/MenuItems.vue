@@ -17,123 +17,84 @@
       <template v-for="item in nestedMenu" :key="item.id">
 
         <!-- ROOT ITEMS -->
-        <q-item
-          clickable
-          :to="!item.children.length ? item.url : undefined"
-          class="q-pl-lg text-uppercase"
-          @mouseenter="handleRootHover(item)"
-          @mouseleave="scheduleClose(item.id)"
-          @click.stop
-          :style="{
+        <q-item clickable :to="!item.children.length ? item.url : undefined" class="q-pl-lg text-uppercase"
+          @mouseenter="handleRootHover(item)" @mouseleave="scheduleClose(item.id)" @click.stop :style="{
             borderBottom: isActive(item) ? '5px solid black' : '5px solid transparent',
             fontWeight: isActive(item) ? 'bold' : 'normal',
             color: '#1a1a1a'
-          }"
-          >
+          }">
           <q-item-section>
             <q-item-label class="text-weight-bold " style="color: #666;">
               {{ item.label }}
 
-            
-              <q-icon
-                v-if="item.children.length"
-                name="keyboard_arrow_down"
-                style="font-size:18px; line-height:15px; margin-top:-2px;"
-                :style="openMenuId === item.id
+
+              <q-icon v-if="item.children.length" name="keyboard_arrow_down"
+                style="font-size:18px; line-height:15px; margin-top:-2px;" :style="openMenuId === item.id
                   ? 'transform:rotate(180deg); transition:150ms;'
-                  : 'transform:rotate(0deg); transition:150ms;'"
-              />
+                  : 'transform:rotate(0deg); transition:150ms;'" />
             </q-item-label>
           </q-item-section>
         </q-item>
 
         <!-- MEGA MENU (ONLY IF HAS CHILDREN) -->
-        <q-menu
-          v-if="item.children.length"
-          :model-value="openMenuId === item.id"
-          @update:model-value="val => openMenuId = val ? item.id : null"
-          anchor="bottom left"
-          self="top left"
-          transition-show="fade"
-          transition-hide="fade"
-          persistent
-          :content-style="{
-            padding:'0',
-            borderRadius:'12px',
-            boxShadow:'0 6px 20px rgba(0,0,0,0.15)'
-          }"
-        >
+        <q-menu v-if="item.children.length" :model-value="openMenuId === item.id"
+          @update:model-value="val => openMenuId = val ? item.id : null" anchor="bottom left" self="top left"
+          transition-show="fade" transition-hide="fade" persistent :content-style="{
+            padding: '0',
+            borderRadius: '12px',
+            boxShadow: '0 6px 20px rgba(0,0,0,0.15)'
+          }">
 
           <!-- POINTER NOTCH -->
-          <div
-            :style="{
-              width:'0',
-              height:'0',
-              borderLeft:'12px solid transparent',
-              borderRight:'12px solid transparent',
-              borderBottom:'12px solid white',
-              marginLeft:'50px'
-            }"
-          ></div>
+          <div :style="{
+            width: '0',
+            height: '0',
+            borderLeft: '12px solid transparent',
+            borderRight: '12px solid transparent',
+            borderBottom: '12px solid white',
+            marginLeft: '50px'
+          }"></div>
 
           <!-- MAIN MEGA BOX -->
-          <div
-            class="row"
-            @mouseenter="clearCloseTimer(closeTimer)"
-            @mouseleave="scheduleClose(item.id)"
-            :style="{
-              padding:'24px 32px',
-              columnGap:'50px',
-              background:'white',
-              borderRadius:'10px',
-              width:'auto',
-              maxWidth:'95vw'
-            }"
-          >
+          <div class="row" @mouseenter="clearCloseTimer(closeTimer)" @mouseleave="scheduleClose(item.id)" :style="{
+            padding: '24px 32px',
+            columnGap: '50px',
+            background: 'white',
+            borderRadius: '10px',
+            width: 'auto',
+            maxWidth: '95vw'
+          }">
 
             <!-- SECTION: solo children (no sub-items) -->
             <!-- SOLO ITEMS (no subchildren) -->
-            <div
-              v-if="grouped[item.id].solo.length"
-              class="column q-mb-xlx"
-              :style="{
-                flex:'0 0 auto',
-                minWidth:'220px',
-                paddingBottom:'10px'
-              }"
-            >
-              <router-link
-                v-for="solo in grouped[item.id].solo"
-                :key="solo.id"
-                :to="solo.url"
-                @click="scheduleClose(item.id)"
-                :style="{
-                  display:'flex',
-                  alignItems:'center',
-                  gap:'10px',
-                  padding:'6px 0',
-                  color:'#333',
-                  fontSize:'15px',
-                  fontWeight:'500',
-                  textDecoration:'none',
-                  opacity:'0.85',
-                  transition:'opacity 150ms'
-                }"
-                @mouseenter="$event.target.style.opacity = '1'"
-                @mouseleave="$event.target.style.opacity = '0.85'"
-              >
+            <div v-if="grouped[item.id].solo.length" class="column q-mb-xlx" :style="{
+              flex: '0 0 auto',
+              minWidth: '220px',
+              paddingBottom: '10px'
+            }">
+              <router-link v-for="solo in grouped[item.id].solo" :key="solo.id" :to="solo.url"
+                @click="scheduleClose(item.id)" :style="{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '10px',
+                  padding: '6px 0',
+                  color: '#333',
+                  fontSize: '15px',
+                  fontWeight: '500',
+                  textDecoration: 'none',
+                  opacity: '0.85',
+                  transition: 'opacity 150ms'
+                }" @mouseenter="$event.target.style.opacity = '1'" @mouseleave="$event.target.style.opacity = '0.85'">
                 <!-- Chevron bullet -->
-                <span
-                  :style="{
-                    display:'inline-block',
-                    width:'6px',
-                    height:'6px',
-                    borderRight:'2px solid #888',
-                    borderBottom:'2px solid #888',
-                    transform:'rotate(-45deg)',
-                    marginTop:'2px'
-                  }"
-                ></span>
+                <span :style="{
+                  display: 'inline-block',
+                  width: '6px',
+                  height: '6px',
+                  borderRight: '2px solid #888',
+                  borderBottom: '2px solid #888',
+                  transform: 'rotate(-45deg)',
+                  marginTop: '2px'
+                }"></span>
 
                 {{ solo.label }}
               </router-link>
@@ -141,64 +102,48 @@
 
 
             <!-- SECTION: children that *have* subchildren -->
-            <div
-              v-for="child in grouped[item.id].cols"
-              :key="child.id"
-              class="column"
-              :style="{ flex:'0 0 auto', minWidth:'180px' }"
-            >
+            <div v-for="child in grouped[item.id].cols" :key="child.id" class="column"
+              :style="{ flex: '0 0 auto', minWidth: '180px' }">
 
               <!-- Category Name -->
-              <div
-                :style="{
-                  fontWeight:'600',
-                  marginBottom:'14px',
-                  color:'#444',
-                  fontSize:'15px'
-                }"
-              >
+              <div :style="{
+                fontWeight: '600',
+                marginBottom: '14px',
+                color: '#444',
+                fontSize: '15px'
+              }">
                 {{ child.label }}
-                <router-link
-                  :to="child.url"
-                  :style="{
-                    marginLeft:'6px',
-                    color:'#999',
-                    fontSize:'12px',
-                    textDecoration:'none'
-                  }"
-                >
+                <router-link :to="child.url" :style="{
+                  marginLeft: '6px',
+                  color: '#999',
+                  fontSize: '12px',
+                  textDecoration: 'none'
+                }">
                   (All)
                 </router-link>
               </div>
 
               <!-- Sub-items -->
-              <router-link
-                v-for="grand in child.children"
-                :key="grand.id"
-                :to="grand.url"
-                :style="{
-                  display:'block',
-                  marginBottom:'10px',
-                  color:'#666',
-                  fontSize:'14px',
-                  textDecoration:'none',
-                  paddingLeft:'14px',
-                  position:'relative'
-                }"
-              >
-                <span
-                  :style="{
-                    position:'absolute',
-                    left:'0',
-                    top:'5px',
-                    width:'6px',
-                    height:'6px',
-                    borderRight:'2px solid #888',
-                    borderBottom:'2px solid #888',
-                    transform:'rotate(-45deg)',
-                    opacity:'0.6'
-                  }"
-                ></span>
+              <router-link v-for="grand in child.children" :key="grand.id" :to="grand.url" :style="{
+                display: 'block',
+                marginBottom: '10px',
+                color: '#666',
+                fontSize: '14px',
+                textDecoration: 'none',
+                paddingLeft: '14px',
+                position: 'relative'
+              }">
+                <span :style="{
+                  position: 'absolute',
+                  left: '0',
+                  top: '5px',
+                  width: '6px',
+                  height: '6px',
+                  borderRight: '2px solid #888',
+                  borderBottom: '2px solid #888',
+                  transform: 'rotate(-45deg)',
+                  opacity: '0.6'
+                }"></span>
 
                 {{ grand.label }}
               </router-link>
