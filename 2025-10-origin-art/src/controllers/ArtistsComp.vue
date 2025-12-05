@@ -1,6 +1,8 @@
 <template>
   <div class="container-mdx" style="border-bottom: 1px solid rgba(0,0,0,0.12);">
-    <catalogue-layout>
+    <catalogue-layout
+      :mobileTitle="mobileFiltersLabel"
+    >
 
       <!-- 🔎 FILTERS -->
       <template #filters>
@@ -173,6 +175,17 @@ export default {
   },
 
   computed: {
+    mobileFiltersLabel() {
+      const parts = [];
+
+      if (this.filterValsRef.search?.trim()) parts.push('Search');
+      if (this.routeArtistType !== 'all-media') parts.push('Artist Type');
+      if (this.routeArtistLevel !== 'all-price-ranges') parts.push('Artist Level');
+
+      if (parts.length === 0) return '';
+      if (parts.length === 1) return `1 Selected Filter`;
+      return `${parts.length} Selected Filters`;
+    },
     routeArtistType: {
       get() {
         return this.$route.params.artistType || 'all-media'

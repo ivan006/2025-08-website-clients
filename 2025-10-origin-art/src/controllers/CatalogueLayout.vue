@@ -2,11 +2,11 @@
   <div>
     <!-- 📱 Sticky bar on mobile -->
     <div
-      class="q-pa-sm bg-grey-2x bg-white flex justify-between items-center q-mb-mdx"
+      class="q-pa-sm q-pl-md bg-grey-2x bg-white flex justify-between items-center q-mb-mdx"
       style="position: sticky; top: 0; z-index: 3; border-bottom: 1px solid rgba(0, 0, 0, 0.12);"
       v-if="$q.screen.lt.md"
     >
-      <div class="text-subtitle1">
+      <div class="text-subtitle1 ">
          {{ mobileTitle }}
       </div>
       <q-btn flat color="primary" class="text-3ry-color" label="Filters" @click="showFilters = true" />

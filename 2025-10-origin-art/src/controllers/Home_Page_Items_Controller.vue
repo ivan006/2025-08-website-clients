@@ -56,7 +56,7 @@
           
                   <q-btn
                     :to="item['SEO URL']"
-                    color="green"
+                    color="grey-8"
                     size="md"
                     unelevated
                     class="q-my-sm q-px-lg"

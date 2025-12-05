@@ -1,6 +1,8 @@
 <template>
   <div class="container-mdx" style="border-bottom: 1px solid rgba(0,0,0,0.12);">
-    <catalogue-layout>
+    <catalogue-layout
+      :mobileTitle="mobileFiltersLabel"
+    >
 
       <!-- FILTERS -->
       <template #filters>
@@ -220,6 +222,19 @@ export default {
   },
 
   computed: {
+    mobileFiltersLabel() {
+      const parts = [];
+
+      if (this.routeMedium !== 'all-media') parts.push('Medium');
+      if (this.routePriceRange !== 'all-price-ranges') parts.push('Price');
+      if (this.filterValsRef['Height Bracket']) parts.push('Height');
+      if (this.filterValsRef['Width Bracket']) parts.push('Width');
+
+      if (parts.length === 0) return '';
+      if (parts.length === 1) return `1 Selected Filter`;
+
+      return `${parts.length} Selected Filters`;
+    },
     routeMedium: {
       get() {
         return this.$route.params.medium || 'all-media'

@@ -184,7 +184,7 @@
                 <q-card class="q-ma-smx bg-white" style="border-radius: 10px;" flat>
                   <q-card-section>
                     
-                    <q-icon name="call" size="48px" color="green" />
+                    <q-icon name="call" size="48px" color="grey-8" />
                     <h5 class="r-font-h6 q-my-md text-uppercase font-1ry">Call Us</h5>
                     <p class="text-body1">
                       {{item.fields?.['Phone Number']}}
@@ -199,7 +199,7 @@
                 <q-card class="q-ma-smx bg-white" style="border-radius: 10px;" flat>
                   <q-card-section>
                     
-                    <q-icon name="mail" size="48px" color="green" />
+                    <q-icon name="mail" size="48px" color="grey-8" />
                     <h5 class="r-font-h6 q-my-md text-uppercase font-1ry">Email Us</h5>
                     <p class="text-body1">
                       {{item.fields?.['Email Address']}}
@@ -214,7 +214,7 @@
                 <q-card class="q-ma-smx bg-white" style="border-radius: 10px;" flat>
                   <q-card-section>
                   
-                    <q-icon name="schedule" size="48px" color="green" />
+                    <q-icon name="schedule" size="48px" color="grey-8" />
                     <h5 class="r-font-h6 q-my-md text-uppercase font-1ry ">Opening Hours</h5>
                      <p class="text-body2" style="white-space: pre-line;">
                         {{item.fields?.['Opening Hours']}}
@@ -228,7 +228,7 @@
                 
                 <q-card class="q-ma-smx bg-white text-" style="border-radius: 10px;" flat >
                   <q-card-section>
-                    <q-icon class="text" name="place" size="48px" color="green" />
+                    <q-icon class="text" name="place" size="48px" color="grey-8" />
                     <h5 class="r-font-h6 q-my-md text-uppercase font-1ry">Find Us</h5>
                     <p class="text-body1" style="white-space: pre-line;">
                         {{item.fields?.['Address']}}
@@ -288,7 +288,7 @@
                 <q-card class="q-ma-sm bg-white" style="border-radius: 10px;" flat>
                   <q-card-section>
                     
-                    <q-icon name="call" size="48px" color="green" />
+                    <q-icon name="call" size="48px" color="grey-8" />
                     <h5 class="q-my-md text-uppercase font-1ry">Call Us</h5>
                     <p class="text-body1">
                       {{item.fields?.['Phone Number']}}
@@ -303,7 +303,7 @@
                 <q-card class="q-ma-sm bg-white" style="border-radius: 10px;" flat>
                   <q-card-section>
                     
-                    <q-icon name="mail" size="48px" color="green" />
+                    <q-icon name="mail" size="48px" color="grey-8" />
                     <h5 class="q-my-md text-uppercase font-1ry">Email Us</h5>
                     <p class="text-body1">
                       {{item.fields?.['Email Address']}}
@@ -317,7 +317,7 @@
                 <q-card class="q-ma-sm bg-white" style="border-radius: 10px;" flat>
                   <q-card-section>
                   
-                    <q-icon name="schedule" size="48px" color="green" />
+                    <q-icon name="schedule" size="48px" color="grey-8" />
                     <h5 class="q-my-md text-uppercase font-1ry">Opening Hours</h5>
                      <p class="text-body1" style="white-space: pre-line;">
                         {{item.fields?.['Opening Hours']}}
@@ -330,7 +330,7 @@
                 
                 <q-card class="q-ma-sm bg-white text-" style="border-radius: 10px;" flat >
                   <q-card-section>
-                    <q-icon class="text" name="place" size="48px" color="green" />
+                    <q-icon class="text" name="place" size="48px" color="grey-8" />
                     <h5 class="q-my-md text-uppercase font-1ry">Find Us</h5>
                     <p class="text-body1" style="white-space: pre-line;">
                         {{item.fields?.['Address']}}
