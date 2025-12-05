@@ -10,16 +10,6 @@ const routes = [
         // redirect: to => { return '/home' },
         children: [
           {
-            path: '/2',
-            name: '/2',
-            component: () => import('src/controllers/HomeComp.vue'),
-            meta: {
-              breadcrumbName: 'Home',
-              breadcrumbParentName: '',
-              requiresAuth: false,
-            },
-          },
-          {
             path: '/',
             name: '/',
             component: () => import('src/controllers/HomeController.vue'),

@@ -71,7 +71,7 @@
           class="container-md q-py-xl"
         >
 
-          <HomeItemsComp :parent="this.item" @loaded="childLoading=false"/>
+          <HomeItemsCompOld :parent="this.item" @loaded="childLoading=false"/>
         </div>
       </div>
 
@@ -191,15 +191,15 @@
 <script>
 import Home_Page from "src/models/orm-api/Home_Page";
 import { createMetaMixin } from 'quasar'
-import HomeItemsComp from "src/controllers/HomeItemsComp.vue";
+import HomeItemsCompOld from "src/controllers/HomeItemsCompOld.vue";
 import {buildSeoConfig} from "src/utils/seo";
 
 
 
 
 export default {
-  name: "HomeController.vue",
-  components: {HomeItemsComp},
+  name: "HomeCompOld",
+  components: {HomeItemsCompOld},
   // mixins: [
 
   //   createMetaMixin(function () {
