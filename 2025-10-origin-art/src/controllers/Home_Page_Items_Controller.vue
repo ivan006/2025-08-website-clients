@@ -10,7 +10,7 @@
   <template v-else>
     <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
     
-    <div class="row q-col-gutter-md justify-around">
+    <div class="row q-col-gutter-lg justify-around">
       <!--<div class="row justify-center" >-->
 
       <template v-for="item in items" :key="item.id">
@@ -18,11 +18,11 @@
         <!--<q-avatar>-->
         <!--  <img :src="item">-->
         <!--</q-avatar>-->
-        <div class="col-xl-4 col-md-4 col-12">
+        <div class="col-xl-6 col-md-6 col-6">
           <div class="">
 
            
-            <q-card class="q-ma-sm" style="border-radius: 10px;">
+            <q-card class="q-ma-smx" style="border-radius: 10px;" flat>
               <q-card-section class="q-pa-none">
                 
 
@@ -34,24 +34,24 @@
                     background-size: cover;
                     border-radius: 10px 10px 0 0 ;
                     max-width: 100%;
-                    height: 200px;
+                    height: 150px;
                     "
                   >
                   </div>
                   <!--<img src="https://cdn.quasar.dev/img/avatar.png">-->
                 </div>
                 
-                <div class=" q-py-lg q-px-md text-center ">
+                <div class=" q-py-sm q-px-md text-center ">
 
                   <!-- <div class="lt-md q-mt-lg"></div> -->
 
-                  <h2 class="r-font-h4 font-1ry text- q-my-md text-uppercase">
+                  <h2 class="r-font-h4 font-1ry text- q-my-sm text-uppercase">
                     {{item["Title"]}}
                   </h2>
 
-                  <h3 class="r-font-h6 q-my-md font-2ry text-weight-light">
+                  <p class="text-subtitle1 q-my-sm font-2ry text-weight-light">
                     {{item["Subtitle"]}}
-                  </h3>
+                  </p>
                   
           
                   <q-btn
@@ -59,7 +59,7 @@
                     color="green"
                     size="md"
                     unelevated
-                    class="q-my-md q-px-lg"
+                    class="q-my-sm q-px-lg"
                     style="border-radius: 100px;"
                     
                     no-caps

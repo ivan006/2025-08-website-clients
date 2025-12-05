@@ -43,7 +43,7 @@
           <div class="q-py-xl">
 
             <div
-              class="container-md text-white"
+              class="container-sm text-white"
             >
               
               <div class="row q-col-gutter-md justify-center">
@@ -95,7 +95,7 @@
           <!-- <div class="q-py-xl">
 
             <div
-              class="container-md text-white"
+              class="container-sm text-white"
             >
               
               <div class="row q-col-gutter-md justify-center">
@@ -129,7 +129,7 @@
 <!--       
       <div class=" bg-white text- q-py-xl">
         <div
-          class="container-md "
+          class="container-sm "
         >
 
           <h2 class="r-font-h3 text-center q-my-none text-uppercase font-1ry">
@@ -139,9 +139,9 @@
       </div> -->
   
       
-      <div class=" bg-white text- q-py-xl">
+      <div class=" bg-white text- q-py-md">
         <div
-          class="container-md "
+          class="container-sm "
         >
 
           <h2 class="r-font-h3 text-center q-my-none text-uppercase font-1ry">
@@ -151,16 +151,16 @@
       </div>
       <div class="bg-2ry-color" >
         <div
-          class="container-md q-py-xl"
+          class="container-sm q-py-lg"
         >
 
           <Home_Page_Items_Controller  :parent="this.item" @loaded="childLoading=false"/>
         </div>
       </div>
          
-      <div class=" bg-white text- q-py-xl" id="contact">
+      <div class=" bg-white text- q-py-md" id="contact">
         <div
-          class="container-md "
+          class="container-sm "
         >
 
           <h2 class="r-font-h3 text-center q-my-none text-uppercase font-1ry">
@@ -171,21 +171,21 @@
       </div>
       <div class="  bg-2ry-color" >
         <div
-          class="container-md q-py-xl"
+          class="container-sm q-py-lg"
         >
 
           <!-- <Tertiary_Page_Items_Controller :parent="this.item" /> -->
           <div class=" bg- text-dark">
-            <div class="row q-col-gutter-md justify-around text-center">
+            <div class="row q-col-gutter-lg justify-around text-center">
 
               <!-- Phone -->
-              <div class="col-md-4 col-6 ">
+              <div class="col-md-6 col-6 ">
                 
-                <q-card class="q-ma-sm bg-white" style="border-radius: 10px;" flat>
+                <q-card class="q-ma-smx bg-white" style="border-radius: 10px;" flat>
                   <q-card-section>
                     
                     <q-icon name="call" size="48px" color="green" />
-                    <h5 class="q-my-md text-uppercase font-1ry">Call Us</h5>
+                    <h5 class="r-font-h6 q-my-md text-uppercase font-1ry">Call Us</h5>
                     <p class="text-body1">
                       {{item.fields?.['Phone Number']}}
                     </p>
@@ -194,13 +194,13 @@
               </div>
 
               
-              <div class="col-md-4 col-6 ">
+              <div class="col-md-6 col-6 ">
                 
-                <q-card class="q-ma-sm bg-white" style="border-radius: 10px;" flat>
+                <q-card class="q-ma-smx bg-white" style="border-radius: 10px;" flat>
                   <q-card-section>
                     
                     <q-icon name="mail" size="48px" color="green" />
-                    <h5 class="q-my-md text-uppercase font-1ry">Email Us</h5>
+                    <h5 class="r-font-h6 q-my-md text-uppercase font-1ry">Email Us</h5>
                     <p class="text-body1">
                       {{item.fields?.['Email Address']}}
                     </p>
@@ -209,14 +209,14 @@
               </div>
 
               <!-- Opening Hours -->
-              <div class="col-md-4 col-12">
+              <div class="col-md-6 col-6">
                 
-                <q-card class="q-ma-sm bg-white" style="border-radius: 10px;" flat>
+                <q-card class="q-ma-smx bg-white" style="border-radius: 10px;" flat>
                   <q-card-section>
                   
                     <q-icon name="schedule" size="48px" color="green" />
-                    <h5 class="q-my-md text-uppercase font-1ry">Opening Hours</h5>
-                     <p class="text-body1" style="white-space: pre-line;">
+                    <h5 class="r-font-h6 q-my-md text-uppercase font-1ry ">Opening Hours</h5>
+                     <p class="text-body2" style="white-space: pre-line;">
                         {{item.fields?.['Opening Hours']}}
                       </p>
                   </q-card-section>
@@ -224,12 +224,12 @@
               </div>
 
               <!-- Address & Directions -->
-              <div class="col-6 col-md-6 col-12">
+              <div class="col-6 col-md-6 col-6">
                 
-                <q-card class="q-ma-sm bg-white text-" style="border-radius: 10px;" flat >
+                <q-card class="q-ma-smx bg-white text-" style="border-radius: 10px;" flat >
                   <q-card-section>
                     <q-icon class="text" name="place" size="48px" color="green" />
-                    <h5 class="q-my-md text-uppercase font-1ry">Find Us</h5>
+                    <h5 class="r-font-h6 q-my-md text-uppercase font-1ry">Find Us</h5>
                     <p class="text-body1" style="white-space: pre-line;">
                         {{item.fields?.['Address']}}
                     </p>
@@ -266,7 +266,7 @@
       
       <!-- <div class=" bg-white text- q-py-xl" id="contact">
         <div
-          class="container-md "
+          class="container-sm "
         >
 
           <h2 class="r-font-h3 text-center q-my-none text-uppercase font-1ry">
@@ -277,7 +277,7 @@
       </div>
       <div class="  bg-2ry-color" >
         <div
-          class="container-md q-py-xl"
+          class="container-sm q-py-xl"
         >
 
           <div class=" bg- text-dark">
