@@ -139,7 +139,7 @@
       </div> -->
   
       
-      <div class=" bg-white text- q-py-md">
+      <!-- <div class=" bg-white text- q-py-md">
         <div
           class="container-sm "
         >
@@ -148,7 +148,7 @@
             {{item.fields?.['List Section Title']}} 
           </h2>
         </div>
-      </div>
+      </div> -->
       <div class="bg-2ry-color" >
         <div
           class="container-sm q-py-lg"
