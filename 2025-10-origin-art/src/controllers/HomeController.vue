@@ -31,7 +31,7 @@
           image-rendering: crisp-edges;
 
 
-          background-color: rgba(0,0,0,.5);
+          background-color: rgba(0,0,0,.3);
           background-blend-mode: darken;
 
           padding-top: 0px;

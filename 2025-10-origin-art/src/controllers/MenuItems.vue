@@ -17,7 +17,7 @@
       <template v-for="item in nestedMenu" :key="item.id">
 
         <!-- ROOT ITEMS -->
-        <q-item clickable :to="!item.children.length ? item.url : undefined" class="q-pl-lg text-uppercase"
+        <q-item clickable :to="{path: !item.children.length ? item.url : undefined, hash: item.Hash}" class="q-pl-lg text-uppercase"
           @mouseenter="handleRootHover(item)" @mouseleave="scheduleClose(item.id)" @click.stop :style="{
             borderBottom: isActive(item) ? '5px solid black' : '5px solid transparent',
             fontWeight: isActive(item) ? 'bold' : 'normal',
@@ -226,7 +226,8 @@ export default {
           url: item.URL,
           slug: item.Slug,
           parentIds: item.Parent || [],
-          childIds: item.Site_Menu_Items || []
+          childIds: item.Site_Menu_Items || [],
+          Hash: item.Hash || []
         }
       })
 
