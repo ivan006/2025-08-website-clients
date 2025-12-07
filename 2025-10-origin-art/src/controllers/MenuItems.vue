@@ -17,11 +17,12 @@
       <template v-for="item in nestedMenu" :key="item.id">
 
         <!-- ROOT ITEMS -->
-        <q-item clickable :to="{path: !item.children.length ? item.url : undefined, hash: item.Hash}" class="q-pl-lg text-uppercase"
+        <q-item clickable :to="{path: !item.children.length ? item.url : undefined, hash: item.Hash}" class="q-pl-lg text-uppercase "
           @mouseenter="handleRootHover(item)" @mouseleave="scheduleClose(item.id)" @click.stop :style="{
             borderBottom: isActive(item) ? '5px solid black' : '5px solid transparent',
             fontWeight: isActive(item) ? 'bold' : 'normal',
-            color: '#1a1a1a'
+            color: '#1a1a1a',
+            paddingLeft: '16px'
           }">
           <q-item-section>
             <q-item-label class="text-weight-bold " style="color: #666;">
@@ -281,7 +282,7 @@ export default {
       }, 120); // ← MAGIC NUMBER (works perfectly)
     },
     isActive(item) {
-      return this.$route.path === item.url
+      return item.URL === this.activeRoute && item.Hash == null;
     },
 
     // Fetch data
