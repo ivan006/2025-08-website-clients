@@ -28,7 +28,7 @@ export default {
 
       this.artworks = res.response.data.records
         .map(r => ({ id: r.id, ...r.fields }))
-        .filter(r => !r.Hide); // respect your Hide flag
+        .filter(r => !r.Hide);
     },
 
     escape(str) {
@@ -38,28 +38,33 @@ export default {
         .replace(/>/g, "&gt;");
     },
 
+    fullURL(path) {
+      return this.escape(window.location.origin + path);
+    },
+
+    iso(field) {
+      if (!field) return new Date().toISOString().split("T")[0];
+      return new Date(field).toISOString().split("T")[0];
+    },
+
     buildXML() {
-      const base = window.location.origin;
+      let urls = [];
 
-      const urls = this.artworks
-        .map(a => {
-          const loc = this.escape(base + (a["SEO URL"] || `/artwork/${a.id}`));
+      this.artworks.forEach(a => {
+        const url = a["SEO URL"]
+          ? this.fullURL(a["SEO URL"])
+          : this.fullURL(`/artwork/${a.id}`);
 
-          const lastmod = a["Last Modified"]
-            ? new Date(a["Last Modified"]).toISOString().split("T")[0]
-            : new Date().toISOString().split("T")[0];
-
-          return `
+        urls.push(`
   <url>
-    <loc>${loc}</loc>
-    <lastmod>${lastmod}</lastmod>
-  </url>`;
-        })
-        .join("");
+    <loc>${url}</loc>
+    <lastmod>${this.iso(a["Last Modified"])}</lastmod>
+  </url>`);
+      });
 
       this.xml = `<?xml version="1.0" encoding="UTF-8"?>  
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls}
+${urls.join("\n")}
 </urlset>`;
     }
   }
@@ -67,7 +72,6 @@ ${urls}
 </script>
 
 <style>
-/* Ensures browser displays raw XML */
 pre {
   white-space: pre-wrap;
   font-size: 14px;
