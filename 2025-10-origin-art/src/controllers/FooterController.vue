@@ -66,12 +66,9 @@
         <div class="col-12 col-md-3">
           <div class="text-h6 text-weight-bold">Newsletter</div>
 
-          <a
-            :href="item.fields?.['Subscribe Link']"
-            target="_blank"
+          <a :href="item.fields?.['Subscribe Link']" target="_blank"
             class="q-mt-sm bg-white text-dark q-pa-sm rounded-borders full-width flex items-center justify-between"
-            style="text-decoration:none;"
-          >
+            style="text-decoration:none;">
             <span>Subscribe</span>
             <q-icon name="mdi-send" />
           </a>
