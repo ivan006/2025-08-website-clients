@@ -1,5 +1,5 @@
 <template>
-  <div class="container-mdx" style="border-bottom: 1px solid rgba(0,0,0,0.12);">
+  <div class="container-mdx" style="">
     <catalogue-layout
       :mobileTitle="mobileFiltersLabel"
     >

@@ -31,7 +31,7 @@
           </div>
 
           <!-- ARTIST LEVEL (label on left) -->
-          <div class="row items-center q-mt-sm">
+          <!-- <div class="row items-center q-mt-sm">
             <div class="text-grey-7 text-caption q-mr-sm" style="min-width: 90px;">
               Artist Level:
             </div>
@@ -42,13 +42,13 @@
             >
               {{ prettyTier }}
             </q-badge>
-          </div>
+          </div> -->
 
           <!-- ARTIST TYPE (multiple badges) -->
           <div class="row items-center q-mt-sm">
-            <div class="text-grey-7 text-caption q-mr-sm" style="min-width: 90px;">
+            <!-- <div class="text-grey-7 text-caption q-mr-sm" style="min-width: 90px;">
               Media:
-            </div>
+            </div> -->
 
             <div class="row q-gutter-sm">
               <q-badge

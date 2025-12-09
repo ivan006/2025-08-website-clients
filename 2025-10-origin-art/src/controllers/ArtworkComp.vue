@@ -80,8 +80,8 @@
               display: inline-block;
             "
           >
-            <a href="https://wa.me/0987654321" style="text-decoration:none; color: inherit;">
-              098&nbsp;765&nbsp;4321
+            <a href="https://wa.me/+27826009693" style="text-decoration:none; color: inherit;">
+              +27 82 600 9693
             </a>
           </div>
 
@@ -92,7 +92,7 @@
 
           <q-btn 
             class="q-mt-md"
-            color="primary"
+            color="dark"
             label="Enquire Now"
             @click="showEnquiry = true"
           />

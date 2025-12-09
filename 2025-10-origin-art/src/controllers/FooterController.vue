@@ -1,6 +1,7 @@
 <template>
   <div class="bg-blackx text-whitex">
 
+          <q-separator />
     <div class="container-md q-py-xl">
 
       <div v-if="loading" class="text-center q-pa-xl">Loading...</div>
