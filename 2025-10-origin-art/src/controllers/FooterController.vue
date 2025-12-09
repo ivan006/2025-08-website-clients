@@ -1,103 +1,139 @@
 <template>
-  <div class="bg-white">
-    <div class="container-md">
-      <template v-if="loading">
-        <div class="text-center q-pa-xl">Loading...</div>
-      </template>
-      <template v-else>
+  <div class="bg-dark text-white">
 
-        <div class="row justify-between  q-py-md items-center">
+    <div class="container-md q-py-xl">
 
-          <div class="col-12 col-md-auto text-center">
+      <div v-if="loading" class="text-center q-pa-xl">Loading...</div>
 
-            <img
-              :src="this.item.fields?.['Footer Logo'][0].thumbnails.large.url ? `https://capetownlists.co.za/?url=${encodeURIComponent(this.item.fields?.['Footer Logo'][0].thumbnails.large.url)}` : ''"
-              style="height: 100px;">
+      <div v-else class="row q-col-gutter-lg">
+
+        <!-- COLUMN 1 — BRAND -->
+        <div class="col-12 col-md-3">
+          <div class="text-h6 text-weight-bold">
+            {{ item.fields?.['Site Title'] || 'Origin Art' }}
           </div>
-          <div class="col-12 col-md-auto text-center">
-            <div class="text-center">
 
-              {{ item.fields?.['Copyright Text'] }}
-            </div>
+          <div class="q-mt-sm" style="opacity: .8;">
+            Fresh contemporary art from South Africa, curated with intention.
           </div>
-          <div class="col-12 col-md-auto text-center">
-            <div class="row no-wrap justify-center q-my-lg">
-              <!--<a :href="this.item.fields?.['Facebook Link']" target="_blank" style="height: 16px; width: 16px;" class="q-mx-sm">-->
-              <!--  <svg style="fill: rgb(255, 255, 255);" data-v-f03d3c87="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="c-icon c-icon&#45;&#45;md" role="presentation"><path data-v-f03d3c87="" d="M6.2965 3.7118v1.9264H5V8h1.2965v7H8.96V8h1.7883s.1669-1.134.2517-2.3702H8.9704V4.0184c0-.2408.2909-.56.5779-.56H11V1H9.0265c-2.7952 0-2.73 2.359-2.73 2.7118Z"></path></svg>-->
-              <!--</a>-->
-              <a href="https://www.instagram.com/the_gas_pad/" target="_blank" style="height: 16px; width: 16px;"
-                class="q-mx-sm">
-                <svg style="fill: rgb(0, 0, 0);" data-v-f03d3c87="" xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 16 16" class="c-icon c-icon--md" role="presentation">
-                  <path data-v-f03d3c87="" fill-rule="evenodd" clip-rule="evenodd"
-                    d="M7.7163 2c-1.6296 0-1.8336.0072-2.4732.036-.4978.01-.9904.104-1.4568.2784a2.9448 2.9448 0 0 0-1.0632.6924A2.9448 2.9448 0 0 0 2.0307 4.07a4.4126 4.4126 0 0 0-.2784 1.4568c-.0288.6396-.036.8436-.036 2.4732s.0072 1.8336.036 2.4732c.01.4978.104.9904.2784 1.4568a2.945 2.945 0 0 0 .6924 1.0632 2.945 2.945 0 0 0 1.0632.6924c.4664.1743.959.2685 1.4568.2784.6396.0288.84.036 2.4732.036s1.8336-.0072 2.4732-.036a4.4124 4.4124 0 0 0 1.4568-.2784 3.0688 3.0688 0 0 0 1.7556-1.7556 4.4124 4.4124 0 0 0 .2784-1.4568c.0288-.6396.036-.84.036-2.4732s-.0072-1.8336-.036-2.4732a4.4123 4.4123 0 0 0-.2784-1.4568 2.945 2.945 0 0 0-.6924-1.0632 2.945 2.945 0 0 0-1.0632-.6924 4.4126 4.4126 0 0 0-1.4568-.2784C9.5499 2.0072 9.3459 2 7.7163 2Zm0 2.9184a3.0816 3.0816 0 1 0 0 6.1632 3.0816 3.0816 0 0 0 0-6.1632Zm0 5.082A2.0004 2.0004 0 1 1 9.7167 8a2.0016 2.0016 0 0 1-2.0004 2.0004Zm3.9228-5.2032a.72.72 0 1 1-1.44 0 .72.72 0 0 1 1.44 0Z">
-                  </path>
-                </svg>
-              </a>
-              <!--<a :href="this.item.fields?.['TikTok Link']" target="_blank" style="height: 16px; width: 16px;" class="q-mx-sm">-->
-              <!--  <svg style="fill: rgb(255, 255, 255);" data-v-f03d3c87="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="c-icon c-icon&#45;&#45;md" role="presentation"><path data-v-f03d3c87="" d="M13.9592 6.6463a3.7426 3.7426 0 0 1-3.479-1.6677v5.7371a4.2621 4.2621 0 0 1-7.2677 3.0439 4.2617 4.2617 0 0 1-.934-4.6474 4.262 4.262 0 0 1 3.9397-2.6361c.0893 0 .1758 0 .2638.0125V8.582a2.3428 2.3428 0 0 0-.2638-.025 2.1645 2.1645 0 1 0 0 4.3261c1.2016 0 2.2622-.942 2.2622-2.138L8.5013 1h2.0096a3.7327 3.7327 0 0 0 3.4483 3.3242v2.3221Z"></path></svg>-->
-              <!--</a>-->
-            </div>
 
+          <!-- SOCIAL -->
+          <div class="row q-mt-md q-gutter-md">
+            <a :href="item.fields?.['Facebook URL']" target="_blank" class="text-white">
+              <q-icon name="mdi-facebook" size="20px" />
+            </a>
+            <a :href="item.fields?.['Instagram URL']" target="_blank" class="text-white">
+              <q-icon name="mdi-instagram" size="20px" />
+            </a>
           </div>
         </div>
-      </template>
+
+
+        <!-- COLUMN 2 — CONTACT -->
+        <div class="col-6 col-md-3">
+          <div class="text-h6 text-weight-bold">Contact</div>
+
+          <div class="q-mt-sm" style="opacity:.8;">
+            {{ item.fields?.['Address'] }}
+          </div>
+
+          <div class="q-mt-sm">
+            📞 {{ item.fields?.['Phone Number'] }}
+          </div>
+
+          <div class="q-mt-xs">
+            ✉️ <a :href="'mailto:' + item.fields?.['Email']" class="text-white">
+              {{ item.fields?.['Email'] }}
+            </a>
+          </div>
+        </div>
+
+
+        <!-- COLUMN 3 — LINKS -->
+        <div class="col-6 col-md-3">
+          <div class="text-h6 text-weight-bold">Quick Links</div>
+
+          <div class="column q-mt-sm" style="opacity:.8;">
+            <router-link class="text-white q-mt-xs" to="/artists">Artists</router-link>
+            <router-link class="text-white q-mt-xs" to="/artworks">Artworks</router-link>
+            <router-link class="text-white q-mt-xs" to="/about">About</router-link>
+            <router-link class="text-white q-mt-xs" to="/contact">Contact</router-link>
+          </div>
+        </div>
+
+
+        <!-- COLUMN 4 — NEWSLETTER -->
+        <div class="col-12 col-md-3">
+          <div class="text-h6 text-weight-bold">Newsletter</div>
+
+          <a
+            :href="item.fields?.['Subscribe Link']"
+            target="_blank"
+            class="q-mt-sm bg-white text-dark q-pa-sm rounded-borders full-width flex items-center justify-between"
+            style="text-decoration:none;"
+          >
+            <span>Subscribe</span>
+            <q-icon name="mdi-send" />
+          </a>
+        </div>
+
+      </div>
     </div>
+
+
+    <!-- COPYRIGHT STRIP -->
+    <div class="bg-black text-white q-py-sm">
+      <div class="container-md flex items-center justify-between">
+        <div style="opacity:.6; font-size:13px;">
+          {{ item.fields?.['Copyright Text'] }}
+        </div>
+
+        <div style="opacity:.6; font-size:13px;">English ▾</div>
+      </div>
+    </div>
+
   </div>
-
-
-
 </template>
 
+
 <script>
-// import MenuItems from 'src/controllers/MenuItems.vue';
-import Site_Menu_Items from "src/models/orm-api/Site_Menu_Items";
 import Site from "src/models/orm-api/Site";
 
 export default {
   name: 'FooterController',
-  components: {
-    // BreadcrumbsComp,
-    // MenuItems
-  },
-
   data() {
     return {
       loading: true,
       item: {},
-    }
+    };
   },
-  computed: {
 
+  computed: {
     id() {
-      // return this.$route.params.rId
-      return 'reci1Y5KdKFBkz3T1'
+      return 'reci1Y5KdKFBkz3T1';
     },
     superTableModel() {
-      return Site
+      return Site;
     },
   },
+
   methods: {
     fetchData() {
-      this.loading = true
+      this.loading = true;
       this.superTableModel
-        .FetchById(
-          this.id,
-          // this.relationships,
-          [],
-          { flags: {}, moreHeaders: {}, rels: [] }
-        )
+        .FetchById(this.id, [], { flags: {}, moreHeaders: {}, rels: [] })
         .then((response) => {
-          this.item = response.response.data
-          this.loading = false
+          this.item = response.response.data;
+          this.loading = false;
         })
         .catch(() => {
-          this.loading = false
+          this.loading = false;
         });
     },
   },
+
   mounted() {
     this.fetchData();
-  }
+  },
 };
 </script>
