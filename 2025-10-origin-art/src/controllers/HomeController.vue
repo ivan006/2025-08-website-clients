@@ -52,15 +52,15 @@
                   
                   <div class="gt-md q-py-lg"></div>
                   
-                  <h1 class="text-center r-font-h3 text-bold">
-                    <span class="text-weight-thin font-1ry text-uppercase" style="letter-spacing: 15px;">
+                  <h1 class="text-center r-font-h3 text-bold ">
+                    <span class="text-weight-bold font-1ry text-uppercase" style="letter-spacing: 15px;">
                       {{item.fields?.['Title']}}
                     </span>
                   </h1>
 
 
                   <h2 class="text-center text-subtitle2" >
-                    <span class="text-weight-light font-2ry text-uppercase" style="letter-spacing: 10px;">
+                    <span class="text-weight-lightx font-2ry text-uppercase" style="letter-spacing: 10px;">
                     {{item.fields?.['Subtitle']}}
                     </span>
                   </h2>

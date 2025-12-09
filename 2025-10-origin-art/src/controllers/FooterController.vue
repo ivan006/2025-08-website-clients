@@ -39,10 +39,10 @@
 
           <!-- SOCIAL ICONS -->
           <div class="row q-mt-md q-gutter-md">
-            <a :href="item.fields?.['Facebook URL']" target="_blank" class="text-whitex">
+            <a :href="item.fields?.['Facebook URL']" target="_blank" class="text-dark">
               <q-icon name="mdi-facebook" size="22px" />
             </a>
-            <a :href="item.fields?.['Instagram URL']" target="_blank" class="text-whitex">
+            <a :href="item.fields?.['Instagram URL']" target="_blank" class="text-dark">
               <q-icon name="mdi-instagram" size="22px" />
             </a>
           </div>
