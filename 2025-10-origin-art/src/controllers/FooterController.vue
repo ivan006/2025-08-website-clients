@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-dark text-white">
+  <div class="bg-blackx text-whitex">
 
     <div class="container-md q-py-xl">
 
@@ -7,67 +7,65 @@
 
       <div v-else class="row q-col-gutter-lg">
 
-        <!-- COLUMN 1 — BRAND -->
-        <div class="col-12 col-md-3">
-          <div class="text-h6 text-weight-bold">
-            {{ item.fields?.['Site Title'] || 'Origin Art' }}
-          </div>
+        <!-- COLUMN 1 — LOGO + SOCIALS -->
+        <div class="col-12 col-md-3 flex column items-start">
 
-          <div class="q-mt-sm" style="opacity: .8;">
-            Fresh contemporary art from South Africa, curated with intention.
-          </div>
+          <img :src="item.fields?.['Logo Image']?.[0]?.thumbnails?.large?.url
+            ? 'https://capetownlists.co.za/?url=' + encodeURIComponent(item.fields['Logo Image'][0].thumbnails.large.url)
+            : ''" alt="Logo Image" style="height: 90px;" />
 
-          <!-- SOCIAL -->
-          <div class="row q-mt-md q-gutter-md">
-            <a :href="item.fields?.['Facebook URL']" target="_blank" class="text-white">
-              <q-icon name="mdi-facebook" size="20px" />
-            </a>
-            <a :href="item.fields?.['Instagram URL']" target="_blank" class="text-white">
-              <q-icon name="mdi-instagram" size="20px" />
-            </a>
-          </div>
         </div>
 
 
-        <!-- COLUMN 2 — CONTACT -->
-        <div class="col-6 col-md-3">
-          <div class="text-h6 text-weight-bold">Contact</div>
+        <!-- COLUMN 2 — CONTACT INFO -->
+        <div class="col-12 col-md-3">
+          <div class="text-h6 text-weight-bold font-1ry">Contact</div>
 
-          <div class="q-mt-sm" style="opacity:.8;">
-            {{ item.fields?.['Address'] }}
-          </div>
+ 
 
+          <!-- Phone -->
           <div class="q-mt-sm">
-            📞 {{ item.fields?.['Phone Number'] }}
+             {{ item.fields?.['Phone Number'] }}
           </div>
 
+          <!-- Email -->
           <div class="q-mt-xs">
-            ✉️ <a :href="'mailto:' + item.fields?.['Email']" class="text-white">
+            
+            <a :href="'mailto:' + item.fields?.['Email']" class="text-dark">
               {{ item.fields?.['Email'] }}
             </a>
           </div>
-        </div>
 
-
-        <!-- COLUMN 3 — LINKS -->
-        <div class="col-6 col-md-3">
-          <div class="text-h6 text-weight-bold">Quick Links</div>
-
-          <div class="column q-mt-sm" style="opacity:.8;">
-            <router-link class="text-white q-mt-xs" to="/artists">Artists</router-link>
-            <router-link class="text-white q-mt-xs" to="/artworks">Artworks</router-link>
-            <router-link class="text-white q-mt-xs" to="/about">About</router-link>
-            <router-link class="text-white q-mt-xs" to="/contact">Contact</router-link>
+          <!-- SOCIAL ICONS -->
+          <div class="row q-mt-md q-gutter-md">
+            <a :href="item.fields?.['Facebook URL']" target="_blank" class="text-whitex">
+              <q-icon name="mdi-facebook" size="22px" />
+            </a>
+            <a :href="item.fields?.['Instagram URL']" target="_blank" class="text-whitex">
+              <q-icon name="mdi-instagram" size="22px" />
+            </a>
           </div>
         </div>
 
 
-        <!-- COLUMN 4 — NEWSLETTER -->
+        <!-- COLUMN 2 — CONTACT INFO -->
         <div class="col-12 col-md-3">
-          <div class="text-h6 text-weight-bold">Newsletter</div>
+          <div class="text-h6 text-weight-bold font-1ry">Address</div>
+
+          <!-- Address -->
+          <div class="q-mt-sm" style="white-space: pre-line; opacity:.8;">
+            {{ item.fields?.['Address'] }}
+          </div>
+
+        </div>
+
+
+        <!-- COLUMN 3 — NEWSLETTER -->
+        <div class="col-12 col-md-3">
+          <div class="text-h6 text-weight-bold font-1ry">Newsletter</div>
 
           <a :href="item.fields?.['Subscribe Link']" target="_blank"
-            class="q-mt-sm bg-white text-dark q-pa-sm rounded-borders full-width flex items-center justify-between"
+            class="q-mt-md bg-dark text-white q-pa-sm rounded-borders full-width flex items-center justify-between"
             style="text-decoration:none;">
             <span>Subscribe</span>
             <q-icon name="mdi-send" />
@@ -79,18 +77,17 @@
 
 
     <!-- COPYRIGHT STRIP -->
-    <div class="bg-black text-white q-py-sm">
-      <div class="container-md flex items-center justify-between">
+    <div class="bg-grey-2 text-whitex q-py-sm">
+      <div class="container-md flex items-center justify-center text-center">
         <div style="opacity:.6; font-size:13px;">
           {{ item.fields?.['Copyright Text'] }}
         </div>
-
-        <div style="opacity:.6; font-size:13px;">English ▾</div>
       </div>
     </div>
 
   </div>
 </template>
+
 
 
 <script>

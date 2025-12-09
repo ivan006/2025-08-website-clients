@@ -251,8 +251,9 @@
                       frameborder="0"
                       style="border:0"
                       allowfullscreen
-                      src="https://www.google.com/maps/embed/v1/place?key=AIzaSyApw7uDtsYbaB0YzeB-xkWSz__rVRLi6VQ&q=52+Main+Rd,+Diep+River,+Cape+Town,+7800,+South+Africa">
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3311.1808007588993!2d18.423585899999996!3d-33.910745999999996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1dcc6715b38f74dd%3A0x56bfcc0d5b5bdd08!2sOrigin%20Art!5e0!3m2!1sen!2sza!4v1765308424127!5m2!1sen!2sza">
                     </iframe>
+
                   </q-card-section>
                 </q-card>
 
