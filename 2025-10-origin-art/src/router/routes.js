@@ -92,8 +92,9 @@ const routes = [
             },
           },
           {
-            path: '/all-artists/:artistType/:artistLevel',
-            name: '/all-artists/:artistType/:artistLevel',
+            // path: '/all-artists/:artistType/:artistLevel',
+            path: '/all-artists/:artistType',
+            name: '/all-artists/:artistType',
             component: () => import('src/controllers/ArtistsPageComp.vue'),
             meta: {
               breadcrumbName: '',

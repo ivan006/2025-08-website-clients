@@ -15,9 +15,9 @@
                 {{ artist['Count (Art)'] }} artworks
             </div>
 
-            <div class="text-body1 q-mt-xs text-weight-bold">
+            <!-- <div class="text-body1 q-mt-xs text-weight-bold">
                 Avg Price: R{{ artist['Av. Price']?.toLocaleString() || '–' }}
-            </div>
+            </div> -->
         </q-card-section>
 
         <!-- BUTTON -->

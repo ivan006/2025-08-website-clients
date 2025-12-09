@@ -50,10 +50,10 @@
 
 
 
-          <q-separator />
+          <!-- <q-separator /> -->
 
           <!-- ARTIST LEVEL -->
-          <q-expansion-item label="Artist Level" class="text-weight-bold" default-opened>
+          <!-- <q-expansion-item label="Artist Level" class="text-weight-bold" default-opened>
             <q-option-group
               v-model="routeArtistLevel"
               :options="artistLevelOptions"
@@ -76,11 +76,11 @@
                 </div>
               </template>
             </q-option-group>
-          </q-expansion-item>
+          </q-expansion-item> -->
 
 
 
-          <q-separator />
+          <!-- <q-separator /> -->
 
         </div>
       </template>
@@ -180,7 +180,7 @@ export default {
 
       if (this.filterValsRef.search?.trim()) parts.push('Search');
       if (this.routeArtistType !== 'all-media') parts.push('Artist Type');
-      if (this.routeArtistLevel !== 'all-price-ranges') parts.push('Artist Level');
+      // if (this.routeArtistLevel !== 'all-price-ranges') parts.push('Artist Level');
 
       if (parts.length === 0) return '';
       if (parts.length === 1) return `1 Selected Filter`;
@@ -200,19 +200,19 @@ export default {
       }
     },
 
-    routeArtistLevel: {
-      get() {
-        return this.$route.params.artistLevel || 'all-price-ranges'
-      },
-      set(val) {
-        this.$router.push({
-          params: {
-            ...this.$route.params,
-            artistLevel: val
-          }
-        })
-      }
-    },
+    // routeArtistLevel: {
+    //   get() {
+    //     return this.$route.params.artistLevel || 'all-price-ranges'
+    //   },
+    //   set(val) {
+    //     this.$router.push({
+    //       params: {
+    //         ...this.$route.params,
+    //         artistLevel: val
+    //       }
+    //     })
+    //   }
+    // },
 
 
     totalPages() {
@@ -320,7 +320,7 @@ export default {
       let subset = [...this.allRecords];
 
       const activeType = this.routeArtistType;
-      const activeLevel = this.routeArtistLevel;
+      // const activeLevel = this.routeArtistLevel;
 
       /* -------------------------------
       APPLY ACTIVE FILTERS (except the one being counted)
@@ -339,17 +339,17 @@ export default {
         subset = subset.filter(r => (r.Media || []).includes(expected));
       }
 
-      // If counting ARTIST LEVEL, ignore activeLevel
-      if (lookupKey !== 'level' && activeLevel !== 'all-price-ranges') {
-        const tierMap = {
-          gold: 'Gold',
-          silver: 'Silver',
-          bronze: 'Bronze'
-        };
+      // // If counting ARTIST LEVEL, ignore activeLevel
+      // if (lookupKey !== 'level' && activeLevel !== 'all-price-ranges') {
+      //   const tierMap = {
+      //     gold: 'Gold',
+      //     silver: 'Silver',
+      //     bronze: 'Bronze'
+      //   };
 
-        const expected = tierMap[activeLevel];
-        subset = subset.filter(r => r['Av. Price Tier'] === expected);
-      }
+      //   const expected = tierMap[activeLevel];
+      //   subset = subset.filter(r => r['Av. Price Tier'] === expected);
+      // }
 
       // Apply search filter
       if (search) {
@@ -410,7 +410,7 @@ export default {
         const search = this.filterValsRef.search
 
         const type = this.routeArtistType     // slug
-        const level = this.routeArtistLevel   // slug
+        // const level = this.routeArtistLevel   // slug
 
         // Artist Type → Media lookup
         if (type !== 'all-media') {
@@ -424,16 +424,16 @@ export default {
           filtered = filtered.filter(r => (r.Media || []).includes(humanReadable))
         }
 
-        // Artist Level → tier lookup
-        if (level !== 'all-price-ranges') {
-          const tierMap = {
-            gold: 'Gold',
-            silver: 'Silver',
-            bronze: 'Bronze'
-          }[level]
+        // // Artist Level → tier lookup
+        // if (level !== 'all-price-ranges') {
+        //   const tierMap = {
+        //     gold: 'Gold',
+        //     silver: 'Silver',
+        //     bronze: 'Bronze'
+        //   }[level]
 
-          filtered = filtered.filter(r => r['Av. Price Tier'] === tierMap)
-        }
+        //   filtered = filtered.filter(r => r['Av. Price Tier'] === tierMap)
+        // }
 
         // search
         if (search) {
