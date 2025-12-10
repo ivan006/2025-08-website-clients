@@ -26,9 +26,16 @@
         <div class="text-h4 font-1ry">{{ item.Title }}</div>
 
         <!-- Artist -->
-        <div class="text-subtitle2 text-grey-7 q-mt-xs">
+        <!-- <div class="text-subtitle2 text-grey-7 q-mt-xs">
           {{ item['Name (from Artist)']?.[0] || '' }}
-        </div>
+        </div> -->
+        
+        <router-link
+          :to="`/artists/`+item.Artist[0]+`/`+item['Name (from Artist)']"
+          class="text-subtitle2 text-grey-7 q-mt-xs"
+        >
+          {{ item['Name (from Artist)']?.[0] || '' }}
+        </router-link>
 
         <!-- Price -->
         <div class="text-h6 text-weight-bold q-mt-sm">
@@ -44,7 +51,25 @@
             <div class="col-7">{{ medium }}</div>
 
             <div class="col-5 text-grey-7">Materials</div>
-            <div class="col-7">{{ item['Name (from Materials)'] || '-'}}</div>
+            <div class="col-7">
+              {{ Array.isArray(item['Name (from Materials)'])
+                  ? item['Name (from Materials)'].join(', ')
+                  : item['Name (from Materials)'] || '-' }}
+            </div>
+
+            <div class="col-5 text-grey-7">Availability</div>
+            <div class="col-7 q-mt-sm">
+              
+              <q-badge
+                transparent
+                align="middle"
+                size="sm"
+                class="bg-grey-7 text-white"
+              >
+                {{ item.Status }}
+              </q-badge>
+            </div>
+
 
             <div class="col-5 text-grey-7 q-mt-sm">Height</div>
             <div class="col-7 q-mt-sm">{{ item.Height }} cm</div>

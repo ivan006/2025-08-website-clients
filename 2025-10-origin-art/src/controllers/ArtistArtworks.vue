@@ -34,6 +34,7 @@
             </h2>
           </div>
         </div>
+        <q-separator  />
 
         <!-- PAGINATED GRID -->
          

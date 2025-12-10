@@ -26,7 +26,7 @@
             fit="contain"
           -->
           <!-- Name -->
-          <div class="text-h5 font-1ry q-mt-md">
+          <div class="text-h4 font-1ry q-mt-md">
             {{ item.Name }}
           </div>
 
@@ -54,7 +54,7 @@
               <q-badge
                 v-for="m in prettyMedia"
                 :key="m"
-                color="primary"
+                color="dark"
                 text-color="white"
                 class="q-py-xs q-px-sm"
                 style="font-size: 0.75rem; border-radius: 4px;"
@@ -69,7 +69,7 @@
         </div>
       </div>
 
-      <q-separator class="q-my-md" />
+      <q-separator  />
       
       
       <ArtistArtworks :artistName="item.Name" />
