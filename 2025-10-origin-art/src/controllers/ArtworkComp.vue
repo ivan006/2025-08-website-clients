@@ -1,19 +1,20 @@
 <template>
-  <div class="container-xl q-py-lg">
+  <div class="container-sm q-py-lg">
 
     <div v-if="loading" class="text-center q-pa-xl">
       Loading...
     </div>
 
-    <div v-else class="row q-col-gutter-md">
+    <div v-else class="row q-col-gutter-xl">
       <!-- LEFT: IMAGE -->
-      <div class="col-12 col-md-6 flex flex-center">
+      <div class="col-12 col-md-6 flex flex-centerx">
         <q-img
           :src="mainImage"
           :placeholder-src="placeholderImage"
           fit="contain"
           class="rounded-borders"
           :style="{ height: cardHeight }"
+          style="background-color: #EEE;"
         />
           <!-- style="width: 100%; height: 600px;" -->
       </div>

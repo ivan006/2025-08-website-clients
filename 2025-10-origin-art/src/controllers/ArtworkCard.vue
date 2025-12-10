@@ -8,7 +8,10 @@
       class="rounded-borders"
       :style="{ height: cardHeight, objectFit: 'contain' }"
       fit="contain"
+      style="background-color: #EEE;"
     />
+    
+    <q-separator />
 
     <q-card-section>
       <div class="text-h6 font-1ry" style="min-height: 64px;">
