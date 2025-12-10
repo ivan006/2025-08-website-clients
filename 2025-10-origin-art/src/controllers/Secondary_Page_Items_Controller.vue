@@ -148,9 +148,9 @@ export default {
           lookup: 'Tier Category',
           table: 'Artist Tiers',
           options: [
-            { label: 'Gold (Above 50k)', value: 'Gold Tier' },
+            { label: 'Gold (>50k)', value: 'Gold Tier' },
             { label: 'Silver (10k-50k)', value: 'Silver Tier' },
-            { label: 'Bronze (Below 10k)', value: 'Bronze Tier' },
+            { label: 'Bronze (<10k)', value: 'Bronze Tier' },
           ],
         },
       ],

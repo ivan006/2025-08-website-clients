@@ -186,16 +186,16 @@ export default {
 
       heightOptions: [
         { label: 'All', value: '' },
-        { label: 'Large (Above 80cm)', value: 'Large' },
+        { label: 'Large (>80cm)', value: 'Large' },
         { label: 'Medium (40cm-80cm)', value: 'Medium' },
-        { label: 'Small (Below 40cm)', value: 'Small' }
+        { label: 'Small (<40cm)', value: 'Small' }
       ],
 
       widthOptions: [
         { label: 'All', value: '' },
-        { label: 'Large (Above 60cm)', value: 'Large' },
+        { label: 'Large (>60cm)', value: 'Large' },
         { label: 'Medium (30cm-60cm)', value: 'Medium' },
-        { label: 'Small (Below 30cm)', value: 'Small' }
+        { label: 'Small (<30cm)', value: 'Small' }
       ],
 
 
@@ -210,9 +210,9 @@ export default {
 
       priceOptions: [
         { label: 'All', value: 'all-price-ranges' },
-        { label: 'Gold Tier (Above 30k)', value: 'gold' },
+        { label: 'Gold Tier (>30k)', value: 'gold' },
         { label: 'Silver Tier (12k-30k)', value: 'silver' },
-        { label: 'Bronze Tier (Below 12k)', value: 'bronze' }
+        { label: 'Bronze Tier (<12k)', value: 'bronze' }
       ],
 
 
