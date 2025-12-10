@@ -6,7 +6,7 @@
 
     <div v-else>
       
-      <div class="container-xl">
+      <div class="container-sm">
 
         <!-- =============== CENTERED ARTIST HEADER =============== -->
         <div class="column items-center text-center q-mb-md">
@@ -63,6 +63,38 @@
               </q-badge>
             </div>
           </div>
+
+          
+            <!-- Artist Statement -->
+            <div v-if="item['artist:artist_statement']">
+              <h3 class="text-h6 font-1ry q-mb-sm">Artist Statement</h3>
+              <div class="text-body1"  style="white-space: pre-line;" >{{item['artist:artist_statement']}}</div>
+            </div>
+
+            <!-- Biography -->
+            <div v-if="item['artist:biography']" class="">
+              <h3 class="text-h6 font-1ry q-mb-sm">Biography</h3>
+              <div class="text-body1" style="white-space: pre-line;" >{{item['artist:biography']}}</div>
+            </div>
+
+            <!-- Influences -->
+            <div v-if="item['artist:influences']" class="">
+              <h3 class="text-h6 font-1ry q-mb-sm">Influences</h3>
+              <div class="text-body1" style="white-space: pre-line;" >{{item['artist:influences']}}</div>
+            </div>
+
+            <!-- Awards -->
+            <div v-if="item['artist:awards']" class="">
+              <h3 class="text-h6 font-1ry q-mb-sm">Awards</h3>
+              <div class="text-body1" style="white-space: pre-line;" >{{item['artist:awards']}}</div>
+            </div>
+
+            <!-- Commissions Accepted -->
+            <div v-if="item['artist:comm_accepted']" class="">
+              <h3 class="text-h6 font-1ry q-mb-sm">Commissions</h3>
+              <!-- <div class="text-body1"  style="" v-html="item['artist:comm_accepted']"></div> -->
+              <div class="text-body1" style="white-space: pre-line;" >{{item['artist:comm_accepted']}}</div>
+            </div>
 
 
 
