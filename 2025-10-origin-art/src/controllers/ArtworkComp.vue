@@ -14,8 +14,8 @@
           fit="contain"
           class="rounded-borders"
           :style="{ height: cardHeight }"
-          style="background-color: #EEE;"
         />
+          <!-- style="background-color: #EEE;" -->
           <!-- style="width: 100%; height: 600px;" -->
       </div>
       

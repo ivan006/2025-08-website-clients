@@ -8,8 +8,8 @@
       class="rounded-borders"
       :style="{ height: cardHeight, objectFit: 'contain' }"
       fit="contain"
-      style="background-color: #EEE;"
     />
+      <!-- style="background-color: #EEE;" -->
     
     <q-separator />
 
