@@ -12,9 +12,40 @@
           :src="mainImage"
           :placeholder-src="placeholderImage"
           fit="contain"
-          class="rounded-borders"
+          class="rounded-borders cursor-pointer"
           :style="{ height: cardHeight }"
+          @click="showDialog = true"
         />
+        
+        <!-- DIALOG -->
+        <!-- <q-dialog v-model="showDialog" persistentx>
+          <q-card style="max-width: 90vw; max-height: 90vh;">
+            <q-img
+              :src="mainImage"
+              fit="contain"
+              style="max-height: 90vh;"
+            />
+            
+          </q-card>
+        </q-dialog> -->
+
+        
+          <!-- FULL TEXT DIALOG -->
+          <q-dialog v-model="showDialog" class="no-padding-dialog">
+            <q-card style="max-width: 700px; width: 90%;">
+              <q-card-section class="q-pa-none">
+                <q-img
+                  :src="mainImage"
+                  fit="contain"
+                  style="max-height: 90vh;"
+                />
+              </q-card-section>
+
+              <!-- <q-card-actions align="right">
+                <q-btn flat label="Close" v-close-popup />
+              </q-card-actions> -->
+            </q-card>
+          </q-dialog>
           <!-- style="background-color: #EEE;" -->
           <!-- style="width: 100%; height: 600px;" -->
       </div>
@@ -157,6 +188,7 @@ export default {
   },
   data() {
     return {
+      showDialog: false,
       loading: true,
       item: {},
       showEnquiry: false,

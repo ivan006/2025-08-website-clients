@@ -248,4 +248,12 @@ $lg-breakpoint: 1920px;
 // }
 
 
+/* For Quasar v2/Vue 3, use :deep() selector */
+.no-padding-dialog .q-dialog__inner--minimized {
+  padding: 0px !important;
+}
 
+/* Target the card content as well if needed */
+.no-padding-dialog .q-card-section {
+  padding: 0px !important;
+}
