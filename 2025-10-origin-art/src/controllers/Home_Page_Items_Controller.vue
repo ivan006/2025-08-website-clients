@@ -25,17 +25,21 @@
             <q-card class="q-ma-smx" style="border-radius: 10px;" flat>
               <q-card-section class="q-pa-none">
                 
-
+           
                 <div>
                   <div
-                  :style="item?.['Image']?.[0]?.thumbnails?.large?.url ? `background-image: url(https://capetownlists.co.za/?url=${encodeURIComponent(item?.['Image']?.[0]?.thumbnails?.large?.url)});` : ``"
+                  :style="{
+                    height: $q.screen.lt.md ? '150px' : '220px',
+                    backgroundImage: item?.['Image']?.[0]?.thumbnails?.large?.url
+                      ? `url(https://capetownlists.co.za/?url=${encodeURIComponent(item['Image'][0].thumbnails.large.url)})`
+                      : ''
+                  }"
                   style="
                     background-position: center;
                     background-size: cover;
                     border-radius: 10px 10px 0 0 ;
                     max-width: 100%;
-                    height: 150px;
-                    "
+                    " 
                   >
                   </div>
                   <!--<img src="https://cdn.quasar.dev/img/avatar.png">-->
@@ -137,6 +141,7 @@ export default {
     }
   },
   computed: {
+    
     
     seoLdJson(){
       
