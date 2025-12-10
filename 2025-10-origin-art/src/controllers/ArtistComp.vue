@@ -54,7 +54,7 @@
               <q-badge
                 v-for="m in prettyMedia"
                 :key="m"
-                color="dark"
+                color="grey-7"
                 text-color="white"
                 class="q-py-xs q-px-sm"
                 style="font-size: 0.75rem; border-radius: 4px;"
@@ -64,37 +64,107 @@
             </div>
           </div>
 
-          
-            <!-- Artist Statement -->
-            <div v-if="item['artist:artist_statement']">
-              <h3 class="text-h6 font-1ry q-mb-sm">Artist Statement</h3>
-              <div class="text-body1"  style="white-space: pre-line;" >{{item['artist:artist_statement']}}</div>
+          <!-- Artist Statement -->
+          <div v-if="item['artist:artist_statement']" class="">
+            <h3 class="text-h6 font-1ry q-mb-sm">Artist Statement</h3>
+
+            <div class="text-body1" style="white-space: pre-line;">
+              {{ truncate(item['artist:artist_statement']) }}
             </div>
 
-            <!-- Biography -->
-            <div v-if="item['artist:biography']" class="">
-              <h3 class="text-h6 font-1ry q-mb-sm">Biography</h3>
-              <div class="text-body1" style="white-space: pre-line;" >{{item['artist:biography']}}</div>
+            <q-btn
+              v-if="isLong(item['artist:artist_statement'])"
+              flat
+              label="Show more"
+              class="q-mt-sm bg-dark text-white"
+              size="small"
+              @click="openDialog('Artist Statement', item['artist:artist_statement'])"
+            />
+          </div>
+
+          <!-- Biography -->
+          <div v-if="item['artist:biography']" class="">
+            <h3 class="text-h6 font-1ry q-mb-sm">Biography</h3>
+
+            <div class="text-body1" style="white-space: pre-line;">
+              {{ truncate(item['artist:biography']) }}
             </div>
 
-            <!-- Influences -->
-            <div v-if="item['artist:influences']" class="">
-              <h3 class="text-h6 font-1ry q-mb-sm">Influences</h3>
-              <div class="text-body1" style="white-space: pre-line;" >{{item['artist:influences']}}</div>
+            <q-btn
+              v-if="isLong(item['artist:biography'])"
+              flat label="Show more"
+              class="q-mt-sm bg-dark text-white"
+              size="small"
+              @click="openDialog('Biography', item['artist:biography'])"
+            />
+          </div>
+
+          <!-- Influences -->
+          <div v-if="item['artist:influences']" class="">
+            <h3 class="text-h6 font-1ry q-mb-sm">Influences</h3>
+
+            <div class="text-body1" style="white-space: pre-line;">
+              {{ truncate(item['artist:influences']) }}
             </div>
 
-            <!-- Awards -->
-            <div v-if="item['artist:awards']" class="">
-              <h3 class="text-h6 font-1ry q-mb-sm">Awards</h3>
-              <div class="text-body1" style="white-space: pre-line;" >{{item['artist:awards']}}</div>
+            <q-btn
+              v-if="isLong(item['artist:influences'])"
+              flat label="Show more"
+              class="q-mt-sm bg-dark text-white"
+              size="small"
+              @click="openDialog('Influences', item['artist:influences'])"
+            />
+          </div>
+
+          <!-- Awards -->
+          <div v-if="item['artist:awards']" class="">
+            <h3 class="text-h6 font-1ry q-mb-sm">Awards</h3>
+
+            <div class="text-body1" style="white-space: pre-line;">
+              {{ truncate(item['artist:awards']) }}
             </div>
 
-            <!-- Commissions Accepted -->
-            <div v-if="item['artist:comm_accepted']" class="">
-              <h3 class="text-h6 font-1ry q-mb-sm">Commissions</h3>
-              <!-- <div class="text-body1"  style="" v-html="item['artist:comm_accepted']"></div> -->
-              <div class="text-body1" style="white-space: pre-line;" >{{item['artist:comm_accepted']}}</div>
+            <q-btn
+              v-if="isLong(item['artist:awards'])"
+              flat label="Show more"
+              class="q-mt-sm bg-dark text-white"
+              size="small"
+              @click="openDialog('Awards', item['artist:awards'])"
+            />
+          </div>
+
+          <!-- Commissions -->
+          <div v-if="item['artist:comm_accepted']" class="">
+            <h3 class="text-h6 font-1ry q-mb-sm">Commissions</h3>
+
+            <div class="text-body1" style="white-space: pre-line;">
+              {{ truncate(item['artist:comm_accepted']) }}
             </div>
+
+            <q-btn
+              v-if="isLong(item['artist:comm_accepted'])"
+              flat label="Show more"
+              class="q-mt-sm bg-dark text-white"
+              size="small"
+              @click="openDialog('Commissions', item['artist:comm_accepted'])"
+            />
+          </div>
+
+          <!-- FULL TEXT DIALOG -->
+          <q-dialog v-model="dialogOpen">
+            <q-card style="max-width: 700px; width: 90%;">
+              <q-card-section>
+                <div class="text-h6 q-mb-md">{{ dialogTitle }}</div>
+                <div class="text-body1" style="white-space: pre-line;">
+                  {{ dialogText }}
+                </div>
+              </q-card-section>
+
+              <q-card-actions align="right">
+                <q-btn flat label="Close" v-close-popup />
+              </q-card-actions>
+            </q-card>
+          </q-dialog>
 
 
 
@@ -135,6 +205,9 @@ export default {
       loading: true,
       item: {},
       showEnquiry: false,
+      dialogOpen: false,
+      dialogText: "",
+      dialogTitle: "",
     };
   },
 
@@ -204,6 +277,20 @@ export default {
   },
 
   methods: {
+    truncate(text) {
+      if (!text) return "";
+      return text.length > 1000 ? text.slice(0, 1000) + "..." : text;
+    },
+
+    isLong(text) {
+      return text && text.length > 1000;
+    },
+
+    openDialog(title, fullText) {
+      this.dialogTitle = title;
+      this.dialogText = fullText;
+      this.dialogOpen = true;
+    },
     fetchData() {
       this.loading = true;
 
