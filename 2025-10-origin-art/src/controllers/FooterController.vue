@@ -77,6 +77,7 @@
     </div>
 
 
+    <q-separator />
     <!-- COPYRIGHT STRIP -->
     <div class="bg-grey-2 text-whitex q-py-sm">
       <div class="container-md flex items-center justify-center text-center">
