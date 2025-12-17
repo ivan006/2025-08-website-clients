@@ -327,7 +327,7 @@ export default {
 
       let image = ""
       if (this.parent?.fields?.['Image']?.[0]?.url) {
-        image = `https://capetownlists.co.za/?url=${this.parent?.fields?.['Image']?.[0]?.url}`;
+        image = `${import.meta.env.VITE_API_PROXY_URL}${this.parent?.fields?.['Image']?.[0]?.url}`;
       }
 
 
@@ -373,7 +373,7 @@ export default {
 
       let image = ""
       if (this.parent?.fields?.['Image']?.[0]?.url) {
-        image = `https://capetownlists.co.za/?url=${this.parent?.fields?.['Image']?.[0]?.url}`;
+        image = `${import.meta.env.VITE_API_PROXY_URL}${this.parent?.fields?.['Image']?.[0]?.url}`;
       }
 
      return buildSeoConfig({
