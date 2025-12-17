@@ -214,14 +214,14 @@ export default {
     mainImage() {
       const att = this.item.Attachments?.[0];
       return att?.thumbnails?.large?.url
-        ? `https://capetownlists.co.za/?url=${encodeURIComponent(att.thumbnails.large.url)}`
+        ? `${import.meta.env.VITE_API_PROXY_URL}${encodeURIComponent(att.thumbnails.large.url)}`
         : this.item["Image Url"] || "";
     },
 
     placeholderImage() {
       const att = this.item.Attachments?.[0];
       return att?.thumbnails?.small?.url
-        ? `https://capetownlists.co.za/?url=${encodeURIComponent(att.thumbnails.small.url)}`
+        ? `${import.meta.env.VITE_API_PROXY_URL}${encodeURIComponent(att.thumbnails.small.url)}`
         : "";
     },
     

@@ -348,7 +348,7 @@ export default {
           url: item['SEO URL'] ? window.location.origin + item['SEO URL'] : null,
           name: item['Title'] || '',
           description: item['Subtitle'] || '',
-          image: item['Image'] ? `https://capetownlists.co.za/?url=${item['Image']}` : "",
+          image: item['Image'] ? `${import.meta.env.VITE_API_PROXY_URL}${item['Image']}` : "",
           price: item['Price'],
           extras: {
             category: item['Category'],

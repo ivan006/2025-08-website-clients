@@ -40,13 +40,13 @@ export default {
         largeUrl() {
             const img = this.getPrimaryImage()
             const url = img?.thumbnails?.large?.url
-            return url ? `https://capetownlists.co.za/?url=${encodeURIComponent(url)}` : ''
+            return url ? `${import.meta.env.VITE_API_PROXY_URL}${encodeURIComponent(url)}` : ''
         },
 
         smallUrl() {
             const img = this.getPrimaryImage()
             const url = img?.thumbnails?.small?.url
-            return url ? `https://capetownlists.co.za/?url=${encodeURIComponent(url)}` : ''
+            return url ? `${import.meta.env.VITE_API_PROXY_URL}${encodeURIComponent(url)}` : ''
         },
 
         artistProfileUrl() {

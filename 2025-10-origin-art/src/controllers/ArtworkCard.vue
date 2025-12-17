@@ -56,12 +56,12 @@ export default {
 
     largeUrl() {
       const u = this.attachments.thumbnails?.large?.url;
-      return u ? `https://capetownlists.co.za/?url=${encodeURIComponent(u)}` : "";
+      return u ? `${import.meta.env.VITE_API_PROXY_URL}${encodeURIComponent(u)}` : "";
     },
 
     smallUrl() {
       const u = this.attachments.thumbnails?.small?.url;
-      return u ? `https://capetownlists.co.za/?url=${encodeURIComponent(u)}` : "";
+      return u ? `${import.meta.env.VITE_API_PROXY_URL}${encodeURIComponent(u)}` : "";
     },
 
     artistName() {
