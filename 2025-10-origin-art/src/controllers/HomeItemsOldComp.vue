@@ -76,7 +76,7 @@
                   >
                     <!-- <img
                       :src="art.Attachments?.[0]?.thumbnails?.large?.url 
-                              ? `$apiProxyUrl${encodeURIComponent(art.Attachments[0].thumbnails.large.url)}`
+                              ? `${$apiProxyUrl}${encodeURIComponent(art.Attachments[0].thumbnails.large.url)}`
                               : art['Image Url']"
                       style="height: 200px; border-radius: 10px; width: 100%; object-fit: cover;"
                     > -->

@@ -31,7 +31,7 @@
                   :style="{
                     height: $q.screen.lt.md ? '150px' : '220px',
                     backgroundImage: item?.['Image']?.[0]?.thumbnails?.large?.url
-                      ? `url($apiProxyUrl${encodeURIComponent(item['Image'][0].thumbnails.large.url)})`
+                      ? `url(${$apiProxyUrl}${encodeURIComponent(item['Image'][0].thumbnails.large.url)})`
                       : ''
                   }"
                   style="
