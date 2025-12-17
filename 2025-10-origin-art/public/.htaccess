@@ -1,4 +1,4 @@
-<ifModule mod_rewrite.c>
+<IfModule mod_rewrite.c>
     RewriteEngine On
 
     # Force HTTPS
@@ -6,8 +6,12 @@
     RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
     RewriteBase /
+
+    # ✅ FIX: allow sitemaps to pass through untouched
+    RewriteRule ^sitemaps(/.*)?$ - [L]
+
     RewriteRule ^index\.html$ - [L]
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule . /index.html [L]
-</ifModule>
+</IfModule>
