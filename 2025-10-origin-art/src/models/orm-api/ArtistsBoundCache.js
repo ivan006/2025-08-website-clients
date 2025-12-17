@@ -10,7 +10,7 @@ export default class ArtistsBoundCache extends BasicModel {
   }
 
   static get proxyBaseUrl() {
-    return 'https://capetownlists.co.za/bound-cache.php?action=get&url='
+    return 'https://the-gas-pad.letsnetworkhub.com/cacher//data-cache/bound-cache.php?action=get&url='
   }
 
   static defaultFlags = {
