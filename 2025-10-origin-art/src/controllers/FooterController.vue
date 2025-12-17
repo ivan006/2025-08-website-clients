@@ -12,7 +12,7 @@
         <div class="col-12 col-md-3 flex column items-start">
 
           <img :src="item.fields?.['Logo Image']?.[0]?.thumbnails?.large?.url
-            ? 'https://capetownlists.co.za/?url=' + encodeURIComponent(item.fields['Logo Image'][0].thumbnails.large.url)
+            ? '$apiProxyUrl' + encodeURIComponent(item.fields['Logo Image'][0].thumbnails.large.url)
             : ''" alt="Logo Image" style="height: 90px;" />
 
         </div>

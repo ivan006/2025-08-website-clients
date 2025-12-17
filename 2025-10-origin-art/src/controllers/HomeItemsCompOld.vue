@@ -28,7 +28,7 @@
 
                 <div>
                   <div
-                  :style="item?.['Image']?.[0]?.thumbnails?.large?.url ? `background-image: url(https://capetownlists.co.za/?url=${encodeURIComponent(item?.['Image']?.[0]?.thumbnails?.large?.url)});` : ``"
+                  :style="item?.['Image']?.[0]?.thumbnails?.large?.url ? `background-image: url($apiProxyUrl${encodeURIComponent(item?.['Image']?.[0]?.thumbnails?.large?.url)});` : ``"
                   style="
                     background-position: center;
                     background-size: cover;

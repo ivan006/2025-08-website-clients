@@ -132,7 +132,7 @@
                   >
             
                     <img
-                      :src="art['Image'] ? `https://capetownlists.co.za/?url=${art['Image']}` : ''"
+                      :src="art['Image'] ? `$apiProxyUrl${art['Image']}` : ''"
                       style="height: 200px; display: block; border-radius: 10px; margin-left: auto; margin-right: auto;"
                     >
 

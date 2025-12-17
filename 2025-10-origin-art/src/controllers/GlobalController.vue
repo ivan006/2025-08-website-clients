@@ -83,7 +83,7 @@
 
                   <div>
                     <img
-                      :src="this.item.fields?.['Logo Image'][0].thumbnails.large.url ? `https://capetownlists.co.za/?url=${encodeURIComponent(this.item.fields?.['Logo Image'][0].thumbnails.large.url)}` : ''"
+                      :src="this.item.fields?.['Logo Image'][0].thumbnails.large.url ? `$apiProxyUrl${encodeURIComponent(this.item.fields?.['Logo Image'][0].thumbnails.large.url)}` : ''"
                       style="max-height: 100px;"
                     >
                   </div>
@@ -111,7 +111,7 @@
 
 
 
-    <!--<img v-if="item.fields" :src="`https://capetownlists.co.za/?url=${encodeURIComponent(item.fields['Site Background Image']?.[0]?.url)}`" alt="">-->
+    <!--<img v-if="item.fields" :src="`$apiProxyUrl${encodeURIComponent(item.fields['Site Background Image']?.[0]?.url)}`" alt="">-->
     <!--<img v-if="item.fields" :src="`${item.fields['Site Background Image']?.[0]?.url}`" alt="">-->
 
 

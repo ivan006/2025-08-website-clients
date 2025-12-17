@@ -62,7 +62,7 @@
           <div class="row q-col-gutter-lgx">
             <div v-for="art in items" :key="art.id" class="col-6 col-md-2 q-pa-sm">
               <q-card flat bordered class="text-1ry-color box-shadow-1ry">
-                <img :src="art['Image'] ? `https://capetownlists.co.za/?url=${encodeURIComponent(art['Image'])}` : ''"
+                <img :src="art['Image'] ? `$apiProxyUrl${encodeURIComponent(art['Image'])}` : ''"
                   ratio="1" class="rounded-borders" />
                 <q-card-section>
                   <div class="text-h6 font-1ry" style="min-height: 64px;">{{ art.Title }}</div>
