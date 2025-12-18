@@ -31,6 +31,15 @@ export default {
         .filter(r => !r.Hide);
     },
 
+    slugify(text) {
+      return String(text || "artwork")
+        .toLowerCase()
+        .replace(/\s+/g, "-")
+        .replace(/[^\w-]+/g, "")
+        .replace(/--+/g, "-")
+        .replace(/^-+|-+$/g, "");
+    },
+
     escape(str) {
       return String(str)
         .replace(/&/g, "&amp;")
@@ -48,14 +57,13 @@ export default {
     },
 
     buildXML() {
-      let urls = [];
+      let items = [];
 
       this.artworks.forEach(a => {
-        const url = a["SEO URL"]
-          ? this.fullURL(a["SEO URL"])
-          : this.fullURL(`/artwork/${a.id}`);
+        const slug = this.slugify(a.Title || "artwork");
+        const url = this.fullURL(`/artworks/${a.id}/${slug}`);
 
-        urls.push(`
+        items.push(`
   <url>
     <loc>${url}</loc>
     <lastmod>${this.iso(a["Last Modified"])}</lastmod>
@@ -64,7 +72,7 @@ export default {
 
       this.xml = `<?xml version="1.0" encoding="UTF-8"?>  
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${urls.join("\n")}
+${items.join("\n")}
 </urlset>`;
     }
   }
