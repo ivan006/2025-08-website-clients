@@ -3,16 +3,16 @@
 // utils/seo.js
 
 export function buildSeoConfig({
-                                 title,
-                                 description,
-                                 url,            // canonical URL (absolute recommended)
-                                 image,          // absolute URL to 1200x630 jpg/png
-                                 siteName,
-                                 type = 'WebPage', // schema type: WebPage | Organization | Article | OfferCatalog
-                                 imageWidth = '1200',
-                                 imageHeight = '630',
-                                 schema = {}
-                               }) {
+  title,
+  description,
+  url,            // canonical URL (absolute recommended)
+  image,          // absolute URL to 1200x630 jpg/png
+  siteName,
+  type = 'WebPage', // schema type: WebPage | Organization | Article | OfferCatalog
+  imageWidth = '1200',
+  imageHeight = '630',
+  schema = {}
+}) {
 
 
   return {
