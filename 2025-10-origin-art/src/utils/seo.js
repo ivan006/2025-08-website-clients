@@ -14,16 +14,16 @@ export function buildSeoConfig({
   schema = {}
 }) {
 
-
+  const titleToUse = title ? `${title} | ${siteName}` : siteName
   return {
-    title: title ? `${title} | ${siteName}` : siteName,
+    title: titleToUse,
     link: [{ rel: 'canonical', href: url }],
     meta: [
       { name: 'description', content: description || '' },
 
       // Open Graph
       { property: 'og:type', content: 'website' },
-      { property: 'og:title', content: title || '' },
+      { property: 'og:title', content: titleToUse || '' },
       { property: 'og:description', content: description || '' },
       { property: 'og:url', content: url || '' },
       { property: 'og:image', content: image || '' },
@@ -33,7 +33,7 @@ export function buildSeoConfig({
 
       // Twitter (always summary_large_image)
       { name: 'twitter:card', content: 'summary_large_image' },
-      { name: 'twitter:title', content: title || '' },
+      { name: 'twitter:title', content: titleToUse || '' },
       { name: 'twitter:description', content: description || '' },
       { name: 'twitter:image', content: image || '' },
     ],
