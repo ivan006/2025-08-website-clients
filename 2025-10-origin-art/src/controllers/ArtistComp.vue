@@ -82,7 +82,7 @@
               <q-btn
                 v-if="isLong(item['artist:artist_statement'], 500)"
                 flat
-                label="Show more"
+                label="Read More"
                 class="q-mt-sm bg-dark text-white"
                 size="small"
                 @click="openDialog('Artist Statement', item['artist:artist_statement'])"
@@ -99,7 +99,7 @@
 
               <q-btn
                 v-if="isLong(item['artist:biography'], 500)"
-                flat label="Show more"
+                flat label="Read More"
                 class="q-mt-sm bg-dark text-white"
                 size="small"
                 @click="openDialog('Biography', item['artist:biography'])"
@@ -116,7 +116,7 @@
 
               <q-btn
                 v-if="isLong(item['artist:influences'], 500)"
-                flat label="Show more"
+                flat label="Read More"
                 class="q-mt-sm bg-dark text-white"
                 size="small"
                 @click="openDialog('Influences', item['artist:influences'])"
@@ -133,7 +133,7 @@
 
               <q-btn
                 v-if="isLong(item['artist:awards'], 500)"
-                flat label="Show more"
+                flat label="Read More"
                 class="q-mt-sm bg-dark text-white"
                 size="small"
                 @click="openDialog('Awards', item['artist:awards'])"
@@ -150,7 +150,7 @@
 
               <q-btn
                 v-if="isLong(item['artist:comm_accepted'], 500)"
-                flat label="Show more"
+                flat label="Read More"
                 class="q-mt-sm bg-dark text-white"
                 size="small"
                 @click="openDialog('Commissions', item['artist:comm_accepted'])"
