@@ -10,7 +10,7 @@
       <div class="container-sm">
 
         <!-- =============== CENTERED ARTIST HEADER =============== -->
-        <div class="column items-center text-center q-mb-md">
+        <div class="columnx items-center text-center q-mb-md">
 
           <div class="row justify-center">
             <div class="col-12 col-md-8">
