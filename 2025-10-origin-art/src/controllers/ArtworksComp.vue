@@ -19,7 +19,7 @@
               <template v-slot:label="scope">
                 <div class="row items-center no-wrap justify-between q-gutter-x-sm">
                   <div>{{ scope.label }}</div>
-                  <q-badge transparent align="middle" size="sm">
+                  <q-badge transparent align="middle" size="sm" class="bg-grey-7">
                     {{ getCount(scope.value, 'medium') }}
                   </q-badge>
                 </div>
@@ -43,7 +43,7 @@
               <template v-slot:label="scope">
                 <div class="row items-center no-wrap justify-between q-gutter-x-sm">
                   <div>{{ scope.label }}</div>
-                  <q-badge transparent align="middle" size="sm">
+                  <q-badge transparent align="middle" size="sm"  class="bg-grey-7">
                     {{ getCount(scope.value, 'price') }}
                   </q-badge>
                 </div>
@@ -67,7 +67,7 @@
               <template v-slot:label="scope">
                 <div class="row items-center no-wrap justify-between q-gutter-x-sm">
                   <div>{{ scope.label }}</div>
-                  <q-badge transparent align="middle" size="sm">
+                  <q-badge transparent align="middle" size="sm" class="bg-grey-7">
                     {{ getCount(scope.value, 'height') }}
                   </q-badge>
                 </div>
@@ -91,7 +91,7 @@
               <template v-slot:label="scope">
                 <div class="row items-center no-wrap justify-between q-gutter-x-sm">
                   <div>{{ scope.label }}</div>
-                  <q-badge transparent align="middle" size="sm">
+                  <q-badge transparent align="middle" size="sm" class="bg-grey-7">
                     {{ getCount(scope.value, 'width') }}
                   </q-badge>
                 </div>

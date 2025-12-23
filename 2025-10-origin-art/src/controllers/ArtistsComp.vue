@@ -39,7 +39,7 @@
                     transparent
                     align="middle"
                     size="sm"
-                    class="bg-primary text-white"
+                    class="bg-grey-7 text-white"
                   >
                     {{ getCount(scope.value, 'type') }}
                   </q-badge>
@@ -69,7 +69,7 @@
                     transparent
                     align="middle"
                     size="sm"
-                    class="bg-primary text-white"
+                    class="bg-grey-7 text-white"
                   >
                     {{ getCount(scope.value, 'level') }}
                   </q-badge>
@@ -154,6 +154,7 @@ export default {
       },
       allRecords: [],
       filteredItems: [],
+      routeArtistLevel: "all-price-ranges",
       loading: false,
       totalFiltered: 0,
       currentPage: 0,
@@ -188,7 +189,7 @@ export default {
 
       if (this.filterValsRef.search?.trim()) parts.push('Search');
       if (this.routeArtistType !== 'all-media') parts.push('Artist Type');
-      // if (this.routeArtistLevel !== 'all-price-ranges') parts.push('Artist Level');
+      if (this.routeArtistLevel !== 'all-price-ranges') parts.push('Artist Level');
 
       if (parts.length === 0) return '';
       if (parts.length === 1) return `1 Selected Filter`;
@@ -395,7 +396,7 @@ export default {
       let subset = [...this.allRecords];
 
       const activeType = this.routeArtistType;
-      // const activeLevel = this.routeArtistLevel;
+      const activeLevel = this.routeArtistLevel;
 
       /* -------------------------------
       APPLY ACTIVE FILTERS (except the one being counted)
@@ -414,17 +415,17 @@ export default {
         subset = subset.filter(r => (r.Media || []).includes(expected));
       }
 
-      // // If counting ARTIST LEVEL, ignore activeLevel
-      // if (lookupKey !== 'level' && activeLevel !== 'all-price-ranges') {
-      //   const tierMap = {
-      //     gold: 'Gold',
-      //     silver: 'Silver',
-      //     bronze: 'Bronze'
-      //   };
+      // If counting ARTIST LEVEL, ignore activeLevel
+      if (lookupKey !== 'level' && activeLevel !== 'all-price-ranges') {
+        const tierMap = {
+          gold: 'Gold',
+          silver: 'Silver',
+          bronze: 'Bronze'
+        };
 
-      //   const expected = tierMap[activeLevel];
-      //   subset = subset.filter(r => r['Av. Price Tier'] === expected);
-      // }
+        const expected = tierMap[activeLevel];
+        subset = subset.filter(r => r['Av. Price Tier'] === expected);
+      }
 
       // Apply search filter
       if (search) {
@@ -485,7 +486,7 @@ export default {
         const search = this.filterValsRef.search
 
         const type = this.routeArtistType     // slug
-        // const level = this.routeArtistLevel   // slug
+        const level = this.routeArtistLevel   // slug
 
         // Artist Type → Media lookup
         if (type !== 'all-media') {
@@ -499,16 +500,16 @@ export default {
           filtered = filtered.filter(r => (r.Media || []).includes(humanReadable))
         }
 
-        // // Artist Level → tier lookup
-        // if (level !== 'all-price-ranges') {
-        //   const tierMap = {
-        //     gold: 'Gold',
-        //     silver: 'Silver',
-        //     bronze: 'Bronze'
-        //   }[level]
+        // Artist Level → tier lookup
+        if (level !== 'all-price-ranges') {
+          const tierMap = {
+            gold: 'Gold',
+            silver: 'Silver',
+            bronze: 'Bronze'
+          }[level]
 
-        //   filtered = filtered.filter(r => r['Av. Price Tier'] === tierMap)
-        // }
+          filtered = filtered.filter(r => r['Av. Price Tier'] === tierMap)
+        }
 
         // search
         if (search) {
