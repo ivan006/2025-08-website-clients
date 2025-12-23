@@ -136,6 +136,7 @@ export default {
   },
   mixins: [createMetaMixin(function () { return this.seoConfig })],
 
+
   data() {
     return {
       attachmentMap: {
@@ -224,7 +225,12 @@ export default {
         buildSchemaItem({
           type: 'Person',
           name: a.Name,
-          image: a.Attachments?.[0]?.thumbnails?.large?.url || '',
+          image: (() => {
+            const u = a.Attachments?.[0]?.thumbnails?.large?.url
+            return u
+              ? `${import.meta.env.VITE_API_PROXY_URL}${encodeURIComponent(u)}`
+              : ''
+          })(),
           description: `${a['Count (Art)']} artworks`,
         })
       )
