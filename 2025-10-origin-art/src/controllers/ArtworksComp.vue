@@ -330,7 +330,7 @@ export default {
           image: item?.['Attachments']?.[0]?.thumbnails?.large?.url ? `${import.meta.env.VITE_API_PROXY_URL}${encodeURIComponent(item?.['Attachments']?.[0]?.thumbnails?.large?.url)}` : import.meta.env.VITE_API_DEFAULT_IMAGE,
           price: item['Price'] || "broo...",
           extras: {
-            category: item['Category']  || "broo...",
+            category: item["Name (from Medium)"]?.[0]  || "",
           }
         });
         // console.log(newItem)
@@ -393,27 +393,32 @@ export default {
     artworkDescription(item) {
       const parts = []
 
-      if (item["Name (from Medium)"]?.[0]) parts.push(`Medium: ${item["Name (from Medium)"]?.[0]}`)
+      const medium = item["Name (from Medium)"]?.[0]
+      if (medium) {
+        parts.push(`A ${medium.toLowerCase()} artwork`)
+      }
 
       const materials = Array.isArray(item['Name (from Materials)'])
         ? item['Name (from Materials)'].join(', ')
         : item['Name (from Materials)']
-      if (materials) parts.push(`Materials: ${materials}`)
-
-      if (item.Status) parts.push(`Availability: ${item.Status}`)
+      if (materials) {
+        parts.push(`made using ${materials}`)
+      }
 
       if (item.Height && item.Width) {
-        parts.push(`Size: ${item.Height} × ${item.Width} cm`)
+        parts.push(`measuring ${item.Height} × ${item.Width} cm`)
       }
 
-      if (item.Year) parts.push(`Year: ${item.Year}`)
-
-      if (item['Inv Code']) {
-        parts.push(`Inventory code: ${item['Inv Code']}`)
+      if (item.Year) {
+        parts.push(`created in ${item.Year}`)
       }
 
-      return parts.join('. ')
+      // Capitalize first letter, add full stop
+      return parts.length
+        ? parts.join(', ').replace(/^./, c => c.toUpperCase()) + '.'
+        : ''
     },
+
     getCount(optionValue, lookupKey) {
       if (!this.allRecords?.length) return 0;
 
