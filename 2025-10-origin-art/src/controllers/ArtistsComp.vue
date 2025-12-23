@@ -137,6 +137,13 @@ export default {
   mixins: [createMetaMixin(function () { return this.seoConfig })],
 
 
+
+  props: {
+    parent: {
+      type: Object,
+      default: () => ({})
+    },
+  },
   data() {
     return {
       attachmentMap: {
@@ -220,36 +227,93 @@ export default {
       return Math.ceil(this.totalFiltered / this.options.itemsPerPage)
     },
 
-    seoLdJson() {
-      const artists = this.filteredItems.map(a =>
-        buildSchemaItem({
-          type: 'Person',
-          name: a.Name,
-          image: (() => {
-            const u = a.Attachments?.[0]?.thumbnails?.large?.url
-            return u
-              ? `${import.meta.env.VITE_API_PROXY_URL}${encodeURIComponent(u)}`
-              : ''
-          })(),
-          description: `${a['Count (Art)']} artworks`,
-        })
-      )
 
-      return {
-        '@context': 'https://schema.org',
-        '@type': 'ItemList',
-        itemListElement: artists,
+    
+    seoLdJson(){
+      
+
+
+      const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/');
+      const siteName = import.meta.env.VITE_API_SITE_TITLE;
+
+      let image = import.meta.env.VITE_API_DEFAULT_IMAGE
+      if (this.parent?.fields?.['Image']?.[0]?.url) {
+        image = `${import.meta.env.VITE_API_PROXY_URL}${encodeURIComponent(this.parent?.fields?.['Image']?.[0]?.url)}`;
       }
-    },
 
-    seoConfig() {
-      const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/')
-      return buildSeoConfig({
-        title: 'Artist Catalogue',
-        description: 'Browse our list of artists.',
+
+      const schema = buildSchemaItem({
+        type: this.parent.fields?.['SEO Type'],
+        name: this.parent.fields?.['Title'] || siteName,
+        description: this.parent.fields?.['Subtitle'] || "",
         url,
-        siteName: import.meta.env.VITE_API_SITE_TITLE,
+        image,
+        extras: {
+          // telephone: this.parent.fields?.['Phone Number'] || "",
+          // email: this.parent.fields?.['Email Address'] || "",
+          // address: {
+          //   "@type": "PostalAddress",
+          //   streetAddress: this.parent.fields?.['Address'] || "",
+          //   addressLocality: "Cape Town",
+          //   addressRegion: "Western Cape",
+          //   addressCountry: "ZA"
+          // },
+          // openingHours: this.parent.fields?.['Opening Hours'] 
+          //   ? this.parent.fields['Opening Hours'].split('\n').map(line => line.trim())
+          //   : []
+        }
       })
+
+
+      const products = this.filteredItems.map((item) => {
+
+        const newItem = buildSchemaItem({
+          type: "Person",
+          url: item['SEO URL'] ? window.location.origin + item['SEO URL'] : null,
+          name: item['Name'] || "",
+          description: item?.['artist:artist_statement'] ? this.truncate(item?.['artist:artist_statement']) : "",
+          image: item?.['Attachments']?.[0]?.thumbnails?.large?.url ? `${import.meta.env.VITE_API_PROXY_URL}${encodeURIComponent(item?.['Attachments']?.[0]?.thumbnails?.large?.url)}` : import.meta.env.VITE_API_DEFAULT_IMAGE,
+          // price: item['Price'] || "broo...",
+          // extras: {
+          //   category: item["Name (from Medium)"]?.[0]  || "",
+          // }
+        });
+        // console.log(newItem)
+
+        return newItem;
+      });
+
+      // Only add itemListElement if provided
+      if (products.length > 0) {
+        schema.itemListElement = products;
+      }
+
+      return schema;
+    },
+    
+
+
+
+    
+    seoConfig(){
+
+      const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/');
+      const siteName = import.meta.env.VITE_API_SITE_TITLE;
+
+      let image = import.meta.env.VITE_API_DEFAULT_IMAGE
+      if (this.parent?.fields?.['Image']?.[0]?.url) {
+        image = `${import.meta.env.VITE_API_PROXY_URL}${encodeURIComponent(this.parent?.fields?.['Image']?.[0]?.url)}`;
+      }
+
+      return buildSeoConfig({
+        title: this.parent.fields?.['Title'],
+        description: this.parent.fields?.['Subtitle'] || "",
+        url,
+        image: image || `${window.location.origin}/og-default.jpg`,
+        siteName,
+        type: this.parent.fields?.['SEO Type'],
+        schema: this.seoLdJson
+      });
     },
 
     seoConfigMasked() {
@@ -270,6 +334,11 @@ export default {
   },
 
   methods: {
+    
+    truncate(text) {
+      if (!text) return "";
+      return text.length > 500 ? text.slice(0, 500) + "..." : text;
+    },
     goToSingle(artist) {
       const slug = this.slugify(artist.Name || 'artist');
       this.$router.push(`/artists/${artist.id}/${slug}`);

@@ -304,18 +304,18 @@ export default {
         url,
         image,
         extras: {
-          telephone: this.parent.fields?.['Phone Number'] || "",
-          email: this.parent.fields?.['Email Address'] || "",
-          address: {
-            "@type": "PostalAddress",
-            streetAddress: this.parent.fields?.['Address'] || "",
-            addressLocality: "Cape Town",
-            addressRegion: "Western Cape",
-            addressCountry: "ZA"
-          },
-          openingHours: this.parent.fields?.['Opening Hours'] 
-            ? this.parent.fields['Opening Hours'].split('\n').map(line => line.trim())
-            : []
+          // telephone: this.parent.fields?.['Phone Number'] || "",
+          // email: this.parent.fields?.['Email Address'] || "",
+          // address: {
+          //   "@type": "PostalAddress",
+          //   streetAddress: this.parent.fields?.['Address'] || "",
+          //   addressLocality: "Cape Town",
+          //   addressRegion: "Western Cape",
+          //   addressCountry: "ZA"
+          // },
+          // openingHours: this.parent.fields?.['Opening Hours'] 
+          //   ? this.parent.fields['Opening Hours'].split('\n').map(line => line.trim())
+          //   : []
         }
       })
 
@@ -389,7 +389,6 @@ export default {
   },
 
   methods: {
-    
     artworkDescription(item) {
       const parts = []
 
