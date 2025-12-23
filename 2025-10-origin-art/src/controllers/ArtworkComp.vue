@@ -1,13 +1,13 @@
 <template>
   <div class="container-sm q-py-lg">
 
+    <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
     <div v-if="loading" class="text-center q-pa-xl">
       Loading...
     </div>
 
     <div v-else class="row q-col-gutter-xl">
       
-      <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
       <!-- LEFT: IMAGE -->
       <div class="col-12 col-md-6 flex flex-centerx">
         <q-img
