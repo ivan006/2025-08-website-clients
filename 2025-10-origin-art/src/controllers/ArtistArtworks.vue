@@ -24,6 +24,7 @@
         </div> -->
         
         <!-- MEDIA HEADER -->
+        <q-separator  />
         <div style="background: #ffffff;">
           <div class="container-md q-pt-md q-pb-md">
             <h2
