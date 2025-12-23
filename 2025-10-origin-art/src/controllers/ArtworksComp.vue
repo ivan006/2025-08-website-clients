@@ -166,6 +166,12 @@ export default {
 
   mixins: [createMetaMixin(function () { return this.seoConfig })],
 
+  props: {
+    parent: {
+      type: Object,
+      default: () => ({})
+    },
+  },
   data() {
     return {
       allRecords: [],
@@ -264,28 +270,105 @@ export default {
     },
 
 
-    seoLdJson() {
-      const products = this.filteredItems.map(item =>
-        buildSchemaItem({
-          type: 'Product',
-          url: item['SEO URL'] ? window.location.origin + item['SEO URL'] : null,
-          name: item['Title'] || '',
-          description: item['Subtitle'] || '',
-          image: item.Attachments?.[0]?.thumbnails?.large?.url || item['Image Url'] || '',
-          price: item['Price'],
-        })
-      )
-      return { '@context': 'https://schema.org', '@type': 'ItemList', itemListElement: products }
-    },
+    // seoLdJson() {
+    //   const products = this.filteredItems.map(item =>
+    //     buildSchemaItem({
+    //       type: 'Product',
+    //       url: item['SEO URL'] ? window.location.origin + item['SEO URL'] : null,
+    //       name: item['Title'] || '',
+    //       description: item['Subtitle'] || '',
+    //       image: item.Attachments?.[0]?.thumbnails?.large?.url || item['Image Url'] || '',
+    //       price: item['Price'],
+    //     })
+    //   )
+    //   return { '@context': 'https://schema.org', '@type': 'ItemList', itemListElement: products }
+    // },
+    
+    seoLdJson(){
+      
 
-    seoConfig() {
-      const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/')
-      return buildSeoConfig({
-        title: 'Art Catalogue',
-        description: 'Browse our collection of artworks across categories and styles.',
+
+      const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/');
+      const siteName = import.meta.env.VITE_API_SITE_TITLE;
+
+      let image = import.meta.env.VITE_API_DEFAULT_IMAGE
+      if (this.parent?.fields?.['Image']?.[0]?.url) {
+        image = `${import.meta.env.VITE_API_PROXY_URL}${encodeURIComponent(this.parent?.fields?.['Image']?.[0]?.url)}`;
+      }
+
+
+      const schema = buildSchemaItem({
+        type: this.parent.fields?.['SEO Type'],
+        name: this.parent.fields?.['Title'] || siteName,
+        description: this.parent.fields?.['Subtitle'] || '',
         url,
-        siteName: import.meta.env.VITE_API_SITE_TITLE,
+        image,
+        extras: {
+          telephone: this.parent.fields?.['Phone Number'] || "",
+          email: this.parent.fields?.['Email Address'] || "",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: this.parent.fields?.['Address'] || "",
+            addressLocality: "Cape Town",
+            addressRegion: "Western Cape",
+            addressCountry: "ZA"
+          },
+          openingHours: this.parent.fields?.['Opening Hours'] 
+            ? this.parent.fields['Opening Hours'].split('\n').map(line => line.trim())
+            : []
+        }
       })
+
+
+      const products = this.filteredItems.map((item) => {
+
+        const newItem = buildSchemaItem({
+          type: "Product",
+          url: item['SEO URL'] ? window.location.origin + item['SEO URL'] : null,
+          name: item['Title'] || "broo...",
+          description: this.artworkDescription(item),
+          image: item?.['Attachments']?.[0]?.thumbnails?.large?.url ? `${import.meta.env.VITE_API_PROXY_URL}${encodeURIComponent(item?.['Attachments']?.[0]?.thumbnails?.large?.url)}` : import.meta.env.VITE_API_DEFAULT_IMAGE,
+          price: item['Price'] || "broo...",
+          extras: {
+            category: item['Category']  || "broo...",
+          }
+        });
+        // console.log(newItem)
+
+        return newItem;
+      });
+
+      // Only add itemListElement if provided
+      if (products.length > 0) {
+        schema.itemListElement = products;
+      }
+
+      return schema;
+    },
+    
+
+
+
+    
+    seoConfig(){
+
+      const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/');
+      const siteName = import.meta.env.VITE_API_SITE_TITLE;
+
+      let image = import.meta.env.VITE_API_DEFAULT_IMAGE
+      if (this.parent?.fields?.['Image']?.[0]?.url) {
+        image = `${import.meta.env.VITE_API_PROXY_URL}${encodeURIComponent(this.parent?.fields?.['Image']?.[0]?.url)}`;
+      }
+
+     return buildSeoConfig({
+        title: this.parent.fields?.['Title'],
+        description: this.parent.fields?.['Subtitle'] || '',
+        url,
+        image: image || `${window.location.origin}/og-default.jpg`,
+        siteName,
+        type: this.parent.fields?.['SEO Type'],
+        schema: this.seoLdJson
+      });
     },
 
     seoConfigMasked() {
@@ -306,6 +389,31 @@ export default {
   },
 
   methods: {
+    
+    artworkDescription(item) {
+      const parts = []
+
+      if (item["Name (from Medium)"]?.[0]) parts.push(`Medium: ${item["Name (from Medium)"]?.[0]}`)
+
+      const materials = Array.isArray(item['Name (from Materials)'])
+        ? item['Name (from Materials)'].join(', ')
+        : item['Name (from Materials)']
+      if (materials) parts.push(`Materials: ${materials}`)
+
+      if (item.Status) parts.push(`Availability: ${item.Status}`)
+
+      if (item.Height && item.Width) {
+        parts.push(`Size: ${item.Height} × ${item.Width} cm`)
+      }
+
+      if (item.Year) parts.push(`Year: ${item.Year}`)
+
+      if (item['Inv Code']) {
+        parts.push(`Inventory code: ${item['Inv Code']}`)
+      }
+
+      return parts.join('. ')
+    },
     getCount(optionValue, lookupKey) {
       if (!this.allRecords?.length) return 0;
 

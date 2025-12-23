@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import ArtworksPage from "src/models/orm-api/ArtworksPage";
+import Home_Page_Items from "src/models/orm-api/Home_Page_Items";
 import ArtworksComp from "src/controllers/ArtworksComp.vue";
 
 export default {
@@ -40,11 +40,10 @@ export default {
   computed: {
 
     id() {
-      // return this.$route.params.rId
-      return 'recHpBSy9dEXXwQDF'
+      return 'rec2qW0E9NQtnNpxb'
     },
     superTableModel() {
-      return ArtworksPage
+      return Home_Page_Items
     },
   },
   methods: {
