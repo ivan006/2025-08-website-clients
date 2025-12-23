@@ -1,6 +1,5 @@
 <template>
   <div class="">
-
     <div v-if="loading" class="text-center q-pa-lg">
       Loading artworks...
     </div>
@@ -67,9 +66,8 @@ export default {
   },
 
   props: {
-    artistName: {
-      type: String,
-      default: 'Adilson De Oliveira'
+    parentId: {
+      type: [String, Number]
     }
   },
 
@@ -83,7 +81,7 @@ export default {
 
   computed: {
     filterFormula() {
-      return `AND(({Name (from Artist)}='${this.artistName}'))`
+      return `AND(({RECORD_ID (from Artist)}='${this.parentId}'))`
     },
 
     grouped() {

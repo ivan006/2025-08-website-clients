@@ -181,7 +181,7 @@
 
       
       
-      <ArtistArtworks :artistName="item.Name" />
+      <ArtistArtworks :parentId="id" />
       <!-- <div class="text-1ry-color">
         
       </div> -->
