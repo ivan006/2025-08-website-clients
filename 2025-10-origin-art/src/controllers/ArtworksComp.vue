@@ -268,21 +268,6 @@ export default {
         })
       }
     },
-
-
-    // seoLdJson() {
-    //   const products = this.filteredItems.map(item =>
-    //     buildSchemaItem({
-    //       type: 'Product',
-    //       url: item['SEO URL'] ? window.location.origin + item['SEO URL'] : null,
-    //       name: item['Title'] || '',
-    //       description: item['Subtitle'] || '',
-    //       image: item.Attachments?.[0]?.thumbnails?.large?.url || item['Image Url'] || '',
-    //       price: item['Price'],
-    //     })
-    //   )
-    //   return { '@context': 'https://schema.org', '@type': 'ItemList', itemListElement: products }
-    // },
     
     seoLdJson(){
       
@@ -325,10 +310,10 @@ export default {
         const newItem = buildSchemaItem({
           type: "Product",
           url: item['SEO URL'] ? window.location.origin + item['SEO URL'] : null,
-          name: item['Title'] || "broo...",
+          name: item['Title'] || "",
           description: this.artworkDescription(item),
           image: item?.['Attachments']?.[0]?.thumbnails?.large?.url ? `${import.meta.env.VITE_API_PROXY_URL}${encodeURIComponent(item?.['Attachments']?.[0]?.thumbnails?.large?.url)}` : import.meta.env.VITE_API_DEFAULT_IMAGE,
-          price: item['Price'] || "broo...",
+          price: item['Price'] || "",
           extras: {
             category: item["Name (from Medium)"]?.[0]  || "",
           }

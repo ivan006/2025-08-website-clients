@@ -6,6 +6,8 @@
     </div>
 
     <div v-else class="row q-col-gutter-xl">
+      
+      <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
       <!-- LEFT: IMAGE -->
       <div class="col-12 col-md-6 flex flex-centerx">
         <q-img
@@ -179,13 +181,19 @@ import Artworks from "src/models/orm-api/Artworks";
 import IframeWithLoader from "src/controllers/IframeWithLoader.vue";
 import AlwaysMountedModal from "src/controllers/AlwaysMountedModal.vue";
 
+import SEODataViewer from "src/controllers/SEODataViewer.vue";
+import { createMetaMixin } from 'quasar'
+import { buildSchemaItem, buildSeoConfig } from 'src/utils/seo'
+
 export default {
   name: "ArtworkComp",
 
   components: {
     IframeWithLoader,
-    AlwaysMountedModal
+    AlwaysMountedModal,
+    SEODataViewer,
   },
+  mixins: [createMetaMixin(function () { return this.seoConfig })],
   data() {
     return {
       showDialog: false,
@@ -227,10 +235,93 @@ export default {
     
     cardHeight() {
       return this.$q.screen.lt.md ? "350px" : "600px";
+    },
+    
+    
+    
+    seoLdJson(){
+      const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/');
+      const siteName = import.meta.env.VITE_API_SITE_TITLE;
+
+      let image = import.meta.env.VITE_API_DEFAULT_IMAGE
+      if (this.mainImage) {
+        image = this.mainImage;
+      }
+
+
+      const schema = buildSchemaItem({
+        type: this.item?.['SEO Type'],
+        name: this.item?.['Title'] || siteName,
+        description: this.artworkDescription(this.item),
+        url,
+        image,
+        extras: {
+        }
+      })
+
+
+
+      return schema;
+    },
+    seoConfig(){
+
+      const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/');
+      const siteName = import.meta.env.VITE_API_SITE_TITLE;
+
+
+      let image = import.meta.env.VITE_API_DEFAULT_IMAGE
+      if (this.mainImage) {
+        image = this.mainImage;
+      }
+      
+
+      return buildSeoConfig({
+          title: this.item?.['Title'],
+          description: this.artworkDescription(this.item),
+          url,
+          image,
+          siteName,
+          type: "Person",
+          schema: this.seoLdJson
+        });
+    },
+
+    seoConfigMasked() {
+      const c = { ...this.seoConfig }
+      c.script = ''
+      return c
     }
   },
 
   methods: {
+    artworkDescription(item) {
+      const parts = []
+
+      const medium = item["Name (from Medium)"]?.[0]
+      if (medium) {
+        parts.push(`A ${medium.toLowerCase()} artwork`)
+      }
+
+      const materials = Array.isArray(item['Name (from Materials)'])
+        ? item['Name (from Materials)'].join(', ')
+        : item['Name (from Materials)']
+      if (materials) {
+        parts.push(`made using ${materials}`)
+      }
+
+      if (item.Height && item.Width) {
+        parts.push(`measuring ${item.Height} × ${item.Width} cm`)
+      }
+
+      if (item.Year) {
+        parts.push(`created in ${item.Year}`)
+      }
+
+      // Capitalize first letter, add full stop
+      return parts.length
+        ? parts.join(', ').replace(/^./, c => c.toUpperCase()) + '.'
+        : ''
+    },
     fetchData() {
       this.loading = true;
 

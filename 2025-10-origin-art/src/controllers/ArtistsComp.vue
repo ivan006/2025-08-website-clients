@@ -271,7 +271,7 @@ export default {
           type: "Person",
           url: item['SEO URL'] ? window.location.origin + item['SEO URL'] : null,
           name: item['Name'] || "",
-          description: item?.['artist:artist_statement'] ? this.truncate(item?.['artist:artist_statement']) : "",
+          description: item?.['artist:artist_statement'] ? this.truncate(item?.['artist:artist_statement'], 500) : "",
           image: item?.['Attachments']?.[0]?.thumbnails?.large?.url ? `${import.meta.env.VITE_API_PROXY_URL}${encodeURIComponent(item?.['Attachments']?.[0]?.thumbnails?.large?.url)}` : import.meta.env.VITE_API_DEFAULT_IMAGE,
           // price: item['Price'] || "broo...",
           // extras: {
@@ -335,9 +335,9 @@ export default {
 
   methods: {
     
-    truncate(text) {
+    truncate(text, limit = 1000) {
       if (!text) return "";
-      return text.length > 500 ? text.slice(0, 500) + "..." : text;
+      return text.length > limit ? text.slice(0, limit) + "..." : text;
     },
     goToSingle(artist) {
       const slug = this.slugify(artist.Name || 'artist');

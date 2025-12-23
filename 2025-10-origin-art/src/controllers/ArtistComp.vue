@@ -6,6 +6,7 @@
 
     <div v-else>
       
+      <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
       <div class="container-sm">
 
         <!-- =============== CENTERED ARTIST HEADER =============== -->
@@ -192,14 +193,20 @@
 <script>
 import Artists from "src/models/orm-api/Artists";
 import ArtistArtworks from "src/controllers/ArtistArtworks.vue";
+import SEODataViewer from "src/controllers/SEODataViewer.vue";
+import { createMetaMixin } from 'quasar'
+import { buildSchemaItem, buildSeoConfig } from 'src/utils/seo'
 
 export default {
   name: "ArtistComp",
 
   components: {
     ArtistArtworks,
+    SEODataViewer,
   },
 
+
+  mixins: [createMetaMixin(function () { return this.seoConfig })],
   data() {
     return {
       loading: true,
@@ -273,13 +280,66 @@ export default {
     prettyTier() {
       const t = this.item['Av. Price Tier']
       return this.tierLabelMap[t] || t
+    },
+    
+    
+    seoLdJson(){
+      const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/');
+      const siteName = import.meta.env.VITE_API_SITE_TITLE;
+
+      let image = import.meta.env.VITE_API_DEFAULT_IMAGE
+      if (this.mainImage) {
+        image = this.mainImage;
+      }
+
+
+      const schema = buildSchemaItem({
+        type: this.item?.['SEO Type'],
+        name: this.item?.['Name'] || siteName,
+        description: this.item?.['artist:artist_statement'] ? this.truncate(this.item?.['artist:artist_statement'], 500) : "",
+        url,
+        image,
+        extras: {
+        }
+      })
+
+
+
+      return schema;
+    },
+    seoConfig(){
+
+      const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/');
+      const siteName = import.meta.env.VITE_API_SITE_TITLE;
+
+
+      let image = import.meta.env.VITE_API_DEFAULT_IMAGE
+      if (this.mainImage) {
+        image = this.mainImage;
+      }
+
+      return buildSeoConfig({
+          title: this.item?.['Name'],
+          description: this.item?.['artist:artist_statement'] ? this.truncate(this.item?.['artist:artist_statement'], 500) : "",
+          url,
+          image: image || `${window.location.origin}/og-default.jpg`,
+          siteName,
+          type: "Person",
+          schema: this.seoLdJson
+        });
+    },
+
+    seoConfigMasked() {
+      const c = { ...this.seoConfig }
+      c.script = ''
+      return c
     }
   },
 
   methods: {
-    truncate(text) {
+    truncate(text, limit = 1000) {
       if (!text) return "";
-      return text.length > 1000 ? text.slice(0, 1000) + "..." : text;
+      return text.length > limit ? text.slice(0, limit) + "..." : text;
     },
 
     isLong(text) {
