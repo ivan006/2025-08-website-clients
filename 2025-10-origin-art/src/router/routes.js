@@ -5,16 +5,6 @@ const routes = [
     meta: { requiresAuth: false },
     children: [
       {
-        path: '/sitemap-artworks',
-        name: '/sitemap-artworks',
-        component: () => import('src/controllers/SitemapComp.vue'),
-        meta: {
-          breadcrumbName: 'Home',
-          breadcrumbParentName: '',
-          requiresAuth: false,
-        },
-      },
-      {
         path: '/',
         component: () => import('src/controllers/GlobalController.vue'),
         // redirect: to => { return '/home' },
