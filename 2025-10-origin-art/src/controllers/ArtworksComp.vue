@@ -243,7 +243,7 @@ export default {
           .replace(/^-+|-+$/g, '')
 
         return {
-          url: `${window.location.origin}/artworks/${item.id}/${slug}`,
+          url: `${window.location.origin}/artworks/${item.id}/${slug}/`,
           lastmod: item['Last Modified']
             ? new Date(item['Last Modified']).toISOString().split('T')[0]
             : new Date().toISOString().split('T')[0]

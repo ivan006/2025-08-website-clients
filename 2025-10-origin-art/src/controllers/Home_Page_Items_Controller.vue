@@ -9,6 +9,7 @@
   </template>
   <template v-else>
     <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
+    <SitemapComp :items="sitemapItems" />
     
     <div class="row q-col-gutter-lg justify-around">
       <!--<div class="row justify-center" >-->
@@ -100,11 +101,13 @@ import Home_Page_Items from 'src/models/orm-api/Home_Page_Items'
 import {createMetaMixin} from "quasar";
 import {buildSchemaItem, buildSeoConfig} from "src/utils/seo";
 import SEODataViewer from "src/controllers/SEODataViewer.vue";
+import SitemapComp from 'src/controllers/SitemapComp.vue'
 
 export default {
   name: 'HomeItemsComp',
   components: {
-    SEODataViewer
+    SEODataViewer,
+    SitemapComp
   },
   
   mixins: [
@@ -142,6 +145,28 @@ export default {
   },
   computed: {
     
+    sitemapItems() {
+      // const start = performance.now()
+
+      const result = this.items.map(item => {
+        const slug = item['SEO URL']
+
+        return {
+          url: `${window.location.origin}${slug}`,
+          lastmod: item['Last Modified']
+            ? new Date(item['Last Modified']).toISOString().split('T')[0]
+            : new Date().toISOString().split('T')[0]
+        }
+      })
+
+      // const end = performance.now()
+
+      // console.log(
+      //   `[sitemapItems] ${result.length} items in ${(end - start).toFixed(2)} ms`
+      // )
+
+      return result
+    },
     
     seoLdJson(){
       
