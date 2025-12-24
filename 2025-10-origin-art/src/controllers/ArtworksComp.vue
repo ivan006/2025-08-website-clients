@@ -234,8 +234,8 @@ export default {
     sitemapItems() {
       // const start = performance.now()
 
-      const result = this.filteredItems.map(a => {
-        const slug = String(a.Title || 'artwork')
+      const result = this.filteredItems.map(item => {
+        const slug = String(item.Title || 'artwork')
           .toLowerCase()
           .replace(/\s+/g, '-')
           .replace(/[^\w-]+/g, '')
@@ -243,9 +243,9 @@ export default {
           .replace(/^-+|-+$/g, '')
 
         return {
-          url: `${window.location.origin}/artworks/${a.id}/${slug}`,
-          lastmod: a['Last Modified']
-            ? new Date(a['Last Modified']).toISOString().split('T')[0]
+          url: `${window.location.origin}/artworks/${item.id}/${slug}`,
+          lastmod: item['Last Modified']
+            ? new Date(item['Last Modified']).toISOString().split('T')[0]
             : new Date().toISOString().split('T')[0]
         }
       })
