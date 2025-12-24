@@ -3,83 +3,40 @@
 </template>
 
 <script>
-import ArtworksBoundCache from "src/models/orm-api/ArtworksBoundCache";
-
 export default {
   name: "SitemapArtworks",
 
-  data() {
-    return {
-      artworks: [],
-      xml: "Loading..."
-    };
+  props: {
+    items: {
+      type: Array,
+      required: true
+    }
   },
 
-  async mounted() {
-    await this.loadArtworks();
-    this.buildXML();
-  },
+  computed: {
+    xml() {
+      const escape = (str) =>
+        String(str)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
 
-  methods: {
-    async loadArtworks() {
-      const res = await ArtworksBoundCache.FetchAll([], {
-        view: "viwn7wDGK6yk5ZHOl"
-      });
-
-      this.artworks = res.response.data.records
-        .map(r => ({ id: r.id, ...r.fields }))
-        .filter(r => !r.Hide);
-    },
-
-    slugify(text) {
-      return String(text || "artwork")
-        .toLowerCase()
-        .replace(/\s+/g, "-")
-        .replace(/[^\w-]+/g, "")
-        .replace(/--+/g, "-")
-        .replace(/^-+|-+$/g, "");
-    },
-
-    escape(str) {
-      return String(str)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
-    },
-
-    fullURL(path) {
-      return this.escape(window.location.origin + path);
-    },
-
-    iso(field) {
-      if (!field) return new Date().toISOString().split("T")[0];
-      return new Date(field).toISOString().split("T")[0];
-    },
-
-    buildXML() {
-      let items = [];
-
-      this.artworks.forEach(a => {
-        const slug = this.slugify(a.Title || "artwork");
-        const url = this.fullURL(`/artworks/${a.id}/${slug}`);
-
-        items.push(`
+      const urls = this.items.map(i => `
   <url>
-    <loc>${url}</loc>
-    <lastmod>${this.iso(a["Last Modified"])}</lastmod>
-  </url>`);
-      });
+    <loc>${escape(i.url)}</loc>
+    <lastmod>${escape(i.lastmod)}</lastmod>
+  </url>`)
 
-      this.xml = `<?xml version="1.0" encoding="UTF-8"?>  
+      return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${items.join("\n")}
-</urlset>`;
+${urls.join("\n")}
+</urlset>`
     }
   }
-};
+}
 </script>
 
-<style>
+<style scoped>
 pre {
   white-space: pre-wrap;
   font-size: 14px;

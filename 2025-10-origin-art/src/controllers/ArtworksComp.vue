@@ -1,5 +1,6 @@
 <template>
   <div class="container-mdx" style="">
+    <SitemapArtworks :items="sitemapItems" />
     <catalogue-layout
       :mobileTitle="mobileFiltersLabel"
     >
@@ -153,6 +154,7 @@ import { buildSchemaItem, buildSeoConfig } from 'src/utils/seo'
 import SEODataViewer from 'src/controllers/SEODataViewer.vue'
 import CatalogueLayout from 'src/controllers/CatalogueLayout.vue'
 import ArtworkCard from 'src/controllers/ArtworkCard.vue'
+import SitemapArtworks from 'src/controllers/SitemapArtworks.vue'
 
 export default {
   name: 'ArtworksComp',
@@ -161,7 +163,8 @@ export default {
     SEODataViewer,
     CatalogueLayout,
     ItemsPaginatedGrid,
-    ArtworkCard
+    ArtworkCard,
+    SitemapArtworks
   },
 
   mixins: [createMetaMixin(function () { return this.seoConfig })],
@@ -228,6 +231,24 @@ export default {
   },
 
   computed: {
+    
+    sitemapItems() {
+      return this.filteredItems.map(a => {
+        const slug = String(a.Title || 'artwork')
+          .toLowerCase()
+          .replace(/\s+/g, '-')
+          .replace(/[^\w-]+/g, '')
+          .replace(/--+/g, '-')
+          .replace(/^-+|-+$/g, '')
+
+        return {
+          url: `${window.location.origin}/artworks/${a.id}/${slug}`,
+          lastmod: a['Last Modified']
+            ? new Date(a['Last Modified']).toISOString().split('T')[0]
+            : new Date().toISOString().split('T')[0]
+        }
+      })
+    },
     mobileFiltersLabel() {
       const parts = [];
 
