@@ -1,7 +1,7 @@
 <template>
   <div>
     <q-dialog v-model="open">
-      <q-card style="max-height: 90vh; overflow-y: auto; min-width: 70vw;">
+      <q-card style="max-height: 90vh; overflow-y: auto;">
         <q-card-section>
           <div class="text-h6">Sitemap XML Viewer</div>
           <div class="text-caption text-grey">
@@ -88,9 +88,3 @@ ${urls.join("\n")}
 }
 </script>
 
-<style scoped>
-pre {
-  white-space: pre-wrap;
-  font-size: 14px;
-}
-</style>

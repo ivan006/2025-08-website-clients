@@ -1,6 +1,7 @@
 <template>
   <div class="container-mdx" style="">
     <SitemapArtworks :items="sitemapItems" />
+    <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
     <catalogue-layout
       :mobileTitle="mobileFiltersLabel"
     >
@@ -106,8 +107,6 @@
 
       <!-- CONTENT -->
       <template #content>
-
-        <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
 
         <div v-if="loading" class="text-center q-pa-md">
           Loading...
