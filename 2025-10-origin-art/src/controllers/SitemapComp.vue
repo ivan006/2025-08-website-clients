@@ -5,7 +5,10 @@
         <q-card-section>
           <div class="text-h6">Sitemap XML Viewer</div>
           <div class="text-caption text-grey">
-            Generated sitemap output for artworks
+            Generated sitemap output for items
+          </div>
+          <div class="text-caption text-grey">
+            Last modified: <strong>{{ lastModified }}</strong>
           </div>
         </q-card-section>
 
@@ -52,6 +55,17 @@ export default {
   },
 
   computed: {
+    lastModified() {
+      if (!this.items.length) {
+        return new Date().toISOString().split('T')[0]
+      }
+
+      // max(lastmod) across all sitemap entries
+      return this.items
+        .map(i => i.lastmod)
+        .sort()
+        .at(-1)
+    },
     xml() {
       const escape = (str) =>
         String(str)
