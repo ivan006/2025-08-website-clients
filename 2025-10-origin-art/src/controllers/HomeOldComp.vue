@@ -201,7 +201,7 @@
 <script>
 import Home_Page from "src/models/orm-api/Home_Page";
 import { createMetaMixin } from 'quasar'
-import HomeSEOController from "src/controllers/HomeSEOController.vue";
+// import HomeSEOController from "src/controllers/HomeSEOController.vue";
 import HomeItemsOldComp from "src/controllers/HomeItemsOldComp.vue";
 import {buildSeoConfig} from "src/utils/seo";
 
