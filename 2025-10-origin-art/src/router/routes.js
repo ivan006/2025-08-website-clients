@@ -7,7 +7,7 @@ const routes = [
       {
         path: '/sitemap-artworks',
         name: '/sitemap-artworks',
-        component: () => import('src/controllers/SitemapArtworks.vue'),
+        component: () => import('src/controllers/SitemapComp.vue'),
         meta: {
           breadcrumbName: 'Home',
           breadcrumbParentName: '',

@@ -1,6 +1,6 @@
 <template>
   <div class="container-mdx" style="">
-    <SitemapArtworks :items="sitemapItems" />
+    <SitemapComp :items="sitemapItems" />
     <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
     <catalogue-layout
       :mobileTitle="mobileFiltersLabel"
@@ -153,7 +153,7 @@ import { buildSchemaItem, buildSeoConfig } from 'src/utils/seo'
 import SEODataViewer from 'src/controllers/SEODataViewer.vue'
 import CatalogueLayout from 'src/controllers/CatalogueLayout.vue'
 import ArtworkCard from 'src/controllers/ArtworkCard.vue'
-import SitemapArtworks from 'src/controllers/SitemapArtworks.vue'
+import SitemapComp from 'src/controllers/SitemapComp.vue'
 
 export default {
   name: 'ArtworksComp',
@@ -163,7 +163,7 @@ export default {
     CatalogueLayout,
     ItemsPaginatedGrid,
     ArtworkCard,
-    SitemapArtworks
+    SitemapComp
   },
 
   mixins: [createMetaMixin(function () { return this.seoConfig })],
