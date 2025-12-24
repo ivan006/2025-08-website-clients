@@ -232,7 +232,9 @@ export default {
   computed: {
     
     sitemapItems() {
-      return this.filteredItems.map(a => {
+      // const start = performance.now()
+
+      const result = this.filteredItems.map(a => {
         const slug = String(a.Title || 'artwork')
           .toLowerCase()
           .replace(/\s+/g, '-')
@@ -247,7 +249,16 @@ export default {
             : new Date().toISOString().split('T')[0]
         }
       })
+
+      // const end = performance.now()
+
+      // console.log(
+      //   `[sitemapItems] ${result.length} items in ${(end - start).toFixed(2)} ms`
+      // )
+
+      return result
     },
+
     mobileFiltersLabel() {
       const parts = [];
 
