@@ -1,5 +1,7 @@
 <template>
   <div class="container-mdx" style="">
+    <SitemapComp :items="sitemapItems" />
+    <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
     <catalogue-layout
       :mobileTitle="mobileFiltersLabel"
     >
@@ -87,7 +89,6 @@
 
       <!-- 🔥 CONTENT -->
       <template #content>
-        <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
 
         <div v-if="loading" class="text-center q-pa-md">Loading...</div>
 
@@ -125,6 +126,7 @@ import SEODataViewer from 'src/controllers/SEODataViewer.vue'
 import CatalogueLayout from 'src/controllers/CatalogueLayout.vue'
 import ItemsPaginatedGrid from 'src/controllers/ItemsPaginatedGrid.vue'
 import ArtistCard from 'src/controllers/ArtistCard.vue'
+import SitemapComp from 'src/controllers/SitemapComp.vue'
 
 export default {
   name: 'ArtistsComp',
@@ -133,6 +135,7 @@ export default {
     CatalogueLayout,
     ArtistCard,
     ItemsPaginatedGrid,
+    SitemapComp
   },
   mixins: [createMetaMixin(function () { return this.seoConfig })],
 
@@ -184,6 +187,33 @@ export default {
   },
 
   computed: {
+    sitemapItems() {
+      // const start = performance.now()
+
+      const result = this.filteredItems.map(a => {
+        const slug = String(a.Title || 'artwork')
+          .toLowerCase()
+          .replace(/\s+/g, '-')
+          .replace(/[^\w-]+/g, '')
+          .replace(/--+/g, '-')
+          .replace(/^-+|-+$/g, '')
+
+        return {
+          url: `${window.location.origin}/artworks/${a.id}/${slug}`,
+          lastmod: a['Last Modified']
+            ? new Date(a['Last Modified']).toISOString().split('T')[0]
+            : new Date().toISOString().split('T')[0]
+        }
+      })
+
+      // const end = performance.now()
+
+      // console.log(
+      //   `[sitemapItems] ${result.length} items in ${(end - start).toFixed(2)} ms`
+      // )
+
+      return result
+    },
     mobileFiltersLabel() {
       const parts = [];
 
