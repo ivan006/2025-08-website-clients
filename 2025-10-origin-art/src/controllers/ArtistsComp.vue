@@ -219,9 +219,9 @@ export default {
     ],
     artworkCountOptions: [
       { label: 'All', value: 'all' },
-      { label: 'Large (>5)', value: 'largeCount' },
-      { label: 'Medium (2–5)', value: 'mediumCount' },
-      { label: 'Small (<2)', value: 'smallCount' },
+      { label: 'Above 5', value: 'largeCount' },
+      { label: 'Between 2-5', value: 'mediumCount' },
+      { label: 'Below 2', value: 'smallCount' },
     ],
 
 
