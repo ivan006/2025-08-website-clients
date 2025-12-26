@@ -356,10 +356,12 @@ export default {
       this.dialogOpen = true;
     },
     async fetchData() {
+      // console.time('[ArtistSingle] fetchData total')
       this.loading = true
 
       try {
-        // 1️⃣ Load bound cache once
+        // 1️⃣ Load bound cache (once)
+        // console.time('[ArtistSingle] Load bound cache')
         if (!this.allRecords?.length) {
           const res = await ArtistsBoundCache.FetchAll()
           this.allRecords = res.response.data.records.map(r => ({
@@ -367,9 +369,12 @@ export default {
             ...r.fields
           }))
         }
+        // console.timeEnd('[ArtistSingle] Load bound cache')
 
         // 2️⃣ Find artist locally
+        // console.time('[ArtistSingle] Find artist')
         const artist = this.allRecords.find(r => r.id === this.id)
+        // console.timeEnd('[ArtistSingle] Find artist')
 
         if (!artist) {
           throw new Error(`Artist ${this.id} not found in bound cache`)
@@ -383,7 +388,9 @@ export default {
       }
 
       this.loading = false
+      // console.timeEnd('[ArtistSingle] fetchData total')
     }
+
 
   },
 
