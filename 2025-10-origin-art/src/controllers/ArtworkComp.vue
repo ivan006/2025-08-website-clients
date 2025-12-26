@@ -323,31 +323,31 @@ export default {
         : ''
     },
     async fetchData() {
-      console.time('[ArtworkSingle] fetchData total')
+      // console.time('[ArtworkSingle] fetchData total')
       this.loading = true
 
       try {
-        console.time('[ArtworkSingle] FetchAll (bound cache)')
+        // console.time('[ArtworkSingle] FetchAll (bound cache)')
         const res = await ArtworksBoundCache.FetchAll([], {
           view: 'viwn7wDGK6yk5ZHOl'
         })
-        console.timeEnd('[ArtworkSingle] FetchAll (bound cache)')
+        // console.timeEnd('[ArtworkSingle] FetchAll (bound cache)')
 
-        console.time('[ArtworkSingle] Map records')
+        // console.time('[ArtworkSingle] Map records')
         const records = res.response.data.records.map(r => ({
           id: r.id,
           ...r.fields
         }))
-        console.timeEnd('[ArtworkSingle] Map records')
+        // console.timeEnd('[ArtworkSingle] Map records')
 
-        console.time('[ArtworkSingle] Find item')
+        // console.time('[ArtworkSingle] Find item')
         this.item = records.find(r => r.id === this.id) || null
-        console.timeEnd('[ArtworkSingle] Find item')
+        // console.timeEnd('[ArtworkSingle] Find item')
       } catch (e) {
         this.item = null
       } finally {
         this.loading = false
-        console.timeEnd('[ArtworkSingle] fetchData total')
+        // console.timeEnd('[ArtworkSingle] fetchData total')
       }
     }
 
