@@ -50,6 +50,39 @@
             </q-option-group>
           </q-expansion-item>
 
+          <q-expansion-item
+            label="Number of Works"
+            class="text-weight-bold"
+            default-opened
+          >
+            <q-option-group
+              v-model="artworkCount"
+              :options="artworkCountOptions"
+              type="radio"
+              @update:model-value="resetAndFetch"
+              class="q-pb-md text-weight-regular"
+            >
+              <template v-slot:label="scope" >
+
+                
+                <div class="row items-center no-wrap justify-between q-gutter-x-sm">
+                  <div>{{ scope.label }}</div>
+
+                  <q-badge
+                    transparent
+                    align="middle"
+                    size="sm"
+                    class="bg-grey-7 text-white"
+                  >
+                    {{ getCount(scope.value, 'artworkCount') }}
+                  </q-badge>
+                </div>
+              </template>
+            </q-option-group>
+          </q-expansion-item>
+
+
+
 
 
           <!-- <q-separator /> -->
@@ -158,6 +191,7 @@ export default {
       allRecords: [],
       filteredItems: [],
       routeArtistLevel: "all-price-ranges",
+      artworkCount: "all",
       loading: false,
       totalFiltered: 0,
       currentPage: 0,
@@ -183,10 +217,22 @@ export default {
       { label: 'Mid-Career (12k–40k)', value: 'silver' },
       { label: 'Emerging (<12k)', value: 'bronze' },
     ],
+    artworkCountOptions: [
+      { label: 'All', value: 'all' },
+      { label: 'Large (>5)', value: 'largeCount' },
+      { label: 'Medium (2–5)', value: 'mediumCount' },
+      { label: 'Small (<2)', value: 'smallCount' },
+    ],
+
+
+
     }
   },
 
   computed: {
+
+
+
     sitemapItems() {
       // const start = performance.now()
 
@@ -365,6 +411,7 @@ export default {
   },
 
   methods: {
+
     
     truncate(text, limit = 1000) {
       if (!text) return "";
@@ -457,6 +504,7 @@ export default {
         subset = subset.filter(r => r['Av. Price Tier'] === expected);
       }
 
+
       // Apply search filter
       if (search) {
         subset = subset.filter(r =>
@@ -496,6 +544,32 @@ export default {
 
         const expected = tierMap[optionValue];
         return subset.filter(r => r['Av. Price Tier'] === expected).length;
+      }
+
+      
+
+      // Count for ARTWORK COUNT (per artist)
+      if (lookupKey === 'artworkCount') {
+        const countArtworks = (r) => Number(r['Count (Art)'] || 0)
+
+        if (optionValue === 'all') {
+          return subset.length
+        }
+
+        if (optionValue === 'smallCount') {
+          return subset.filter(r => countArtworks(r) < 2).length
+        }
+
+        if (optionValue === 'mediumCount') {
+          return subset.filter(r => {
+            const c = countArtworks(r)
+            return c >= 2 && c <= 5
+          }).length
+        }
+
+        if (optionValue === 'largeCount') {
+          return subset.filter(r => countArtworks(r) > 5).length
+        }
       }
 
       return 0;
@@ -547,6 +621,21 @@ export default {
             this.matchesTokenSearch(r.Name, search)
           )
         }
+
+        const countFilter = this.artworkCount
+
+        if (countFilter !== 'all') {
+          filtered = filtered.filter(r => {
+            const count = Number(r['Count (Art)'] || 0)
+
+            if (countFilter === 'smallCount') return count < 2
+            if (countFilter === 'mediumCount') return count >= 2 && count <= 5
+            if (countFilter === 'largeCount') return count > 5
+
+            return true
+          })
+        }
+
 
 
 
