@@ -218,9 +218,9 @@ export default {
 
       priceOptions: [
         { label: 'All', value: 'all-price-ranges' },
-        { label: 'Gold Tier (>30k)', value: 'gold' },
-        { label: 'Silver Tier (12k-30k)', value: 'silver' },
-        { label: 'Bronze Tier (<12k)', value: 'bronze' }
+        { label: 'Gold Tier (>R30k)', value: 'gold' },
+        { label: 'Silver Tier (R12k-R30k)', value: 'silver' },
+        { label: 'Bronze Tier (<R12k)', value: 'bronze' }
       ],
 
 
