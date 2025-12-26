@@ -177,7 +177,7 @@
 </template>
 
 <script>
-import Artworks from "src/models/orm-api/Artworks";
+import ArtworksBoundCache from 'src/models/orm-api/ArtworksBoundCache'
 import IframeWithLoader from "src/controllers/IframeWithLoader.vue";
 import AlwaysMountedModal from "src/controllers/AlwaysMountedModal.vue";
 
@@ -322,17 +322,36 @@ export default {
         ? parts.join(', ').replace(/^./, c => c.toUpperCase()) + '.'
         : ''
     },
-    fetchData() {
-      this.loading = true;
+    async fetchData() {
+      console.time('[ArtworkSingle] fetchData total')
+      this.loading = true
 
-      this.superTableModel
-        .FetchById(this.id, [], { flags: {}, moreHeaders: {}, rels: [] })
-        .then((res) => {
-          this.item = res.response.data.fields;
-          this.loading = false;
+      try {
+        console.time('[ArtworkSingle] FetchAll (bound cache)')
+        const res = await ArtworksBoundCache.FetchAll([], {
+          view: 'viwn7wDGK6yk5ZHOl'
         })
-        .catch(() => (this.loading = false));
-    },
+        console.timeEnd('[ArtworkSingle] FetchAll (bound cache)')
+
+        console.time('[ArtworkSingle] Map records')
+        const records = res.response.data.records.map(r => ({
+          id: r.id,
+          ...r.fields
+        }))
+        console.timeEnd('[ArtworkSingle] Map records')
+
+        console.time('[ArtworkSingle] Find item')
+        this.item = records.find(r => r.id === this.id) || null
+        console.timeEnd('[ArtworkSingle] Find item')
+      } catch (e) {
+        this.item = null
+      } finally {
+        this.loading = false
+        console.timeEnd('[ArtworkSingle] fetchData total')
+      }
+    }
+
+
   },
 
   mounted() {
