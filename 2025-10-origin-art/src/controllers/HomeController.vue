@@ -11,7 +11,7 @@
       <div class="text-center q-pa-xl">Loading...</div>
     </div>
     <div v-show="!(loading || childLoading)">
-      
+      <img :src="this.item.fields?.['Image']?.[0]?.url ? `${$apiProxyUrl}${encodeURIComponent(this.item.fields?.['Image']?.[0]?.thumbnails?.large?.url)}`: ''" alt="" style="display: none;">
       <div class="bg-3ry-color ">
         <div
           :style="this.item.fields?.['Image']?.[0]?.url ? `background-image: url(${$apiProxyUrl}${encodeURIComponent(this.item.fields?.['Image']?.[0]?.url)});` : ``"
