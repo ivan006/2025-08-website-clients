@@ -197,7 +197,7 @@
 
 
 <script>
-import Artists from "src/models/orm-api/Artists";
+import ArtistsBoundCache from 'src/models/orm-api/ArtistsBoundCache'
 import ArtistArtworks from "src/controllers/ArtistArtworks.vue";
 import SEODataViewer from "src/controllers/SEODataViewer.vue";
 import { createMetaMixin } from 'quasar'
@@ -229,9 +229,7 @@ export default {
       return this.$route.params.rId;
     },
 
-    superTableModel() {
-      return Artists;
-    },
+
 
     mainImage() {
       const att = this.item.Attachments?.[0];
@@ -357,17 +355,36 @@ export default {
       this.dialogText = fullText;
       this.dialogOpen = true;
     },
-    fetchData() {
-      this.loading = true;
+    async fetchData() {
+      this.loading = true
 
-      this.superTableModel
-        .FetchById(this.id, [], { flags: {}, moreHeaders: {}, rels: [] })
-        .then((res) => {
-          this.item = res.response.data.fields;
-          this.loading = false;
-        })
-        .catch(() => (this.loading = false));
-    },
+      try {
+        // 1️⃣ Load bound cache once
+        if (!this.allRecords?.length) {
+          const res = await ArtistsBoundCache.FetchAll()
+          this.allRecords = res.response.data.records.map(r => ({
+            id: r.id,
+            ...r.fields
+          }))
+        }
+
+        // 2️⃣ Find artist locally
+        const artist = this.allRecords.find(r => r.id === this.id)
+
+        if (!artist) {
+          throw new Error(`Artist ${this.id} not found in bound cache`)
+        }
+
+        // 3️⃣ Assign
+        this.item = artist
+
+      } catch (err) {
+        console.error('❌ Failed to load artist:', err)
+      }
+
+      this.loading = false
+    }
+
   },
 
   mounted() {
