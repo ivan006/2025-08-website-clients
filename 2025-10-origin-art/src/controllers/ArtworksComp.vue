@@ -226,6 +226,7 @@ export default {
 
 
 
+
     }
   },
 
@@ -405,6 +406,12 @@ export default {
   },
 
   methods: {
+    priceBucket(price) {
+      const p = Number(price || 0)
+      if (p <= 12000) return 'bronze'
+      if (p <= 30000) return 'silver'
+      return 'gold'
+    },
     artworkDescription(item) {
       const parts = []
 
@@ -451,8 +458,6 @@ export default {
         'merch-art': 'Merch Art'
       };
 
-      const priceMap = { gold: 'Gold', silver: 'Silver', bronze: 'Bronze' };
-
       // --------------------------
       // Apply all OTHER filters
       // --------------------------
@@ -465,11 +470,14 @@ export default {
         );
       }
 
-      // Price filter
+      // Price filter (derived from Price)
       if (lookupKey !== 'price' && activePrice !== 'all-price-ranges') {
-        const expected = priceMap[activePrice];
-        subset = subset.filter(r => r['Price Bracket'] === expected);
+        subset = subset.filter(r =>
+          this.priceBucket(r.Price) === activePrice
+        )
       }
+
+
 
       // Height
       if (lookupKey !== 'height' && activeHeight) {
@@ -496,8 +504,9 @@ export default {
         case 'price':
           if (optionValue === 'all-price-ranges') return subset.length;
           return subset.filter(r =>
-            r['Price Bracket'] === priceMap[optionValue]
+            this.priceBucket(r.Price) === optionValue
           ).length;
+
 
         case 'height':
           return optionValue
@@ -545,8 +554,11 @@ export default {
       }
 
       if (price !== 'all-price-ranges') {
-        filtered = filtered.filter(r => r['Price Bracket'].toLowerCase() === price)
+        filtered = filtered.filter(r =>
+          this.priceBucket(r.Price) === price
+        )
       }
+
 
 
       /* LOCAL filters */
