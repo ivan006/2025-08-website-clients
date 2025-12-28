@@ -102,6 +102,27 @@ const routes = [
               requiresAuth: false,
             },
           },
+          {
+            // path: '/all-artists/:artistType/:artistLevel',
+            path: '/collections',
+            name: '/collections',
+            component: () => import('src/controllers/CollectionsPageComp.vue'),
+            meta: {
+              breadcrumbName: '',
+              breadcrumbParentName: '',
+              requiresAuth: false,
+            },
+          },
+          {
+            path: '/collections/:rId',
+            name: '/collections/:rId',
+            component: () => import('src/controllers/ArtistComp.vue'),
+            meta: {
+              breadcrumbName: ':rId',
+              breadcrumbParentName: '/artists',
+              requiresAuth: false,
+            },
+          },
         ],
         meta: { requiresAuth: false }
       }
