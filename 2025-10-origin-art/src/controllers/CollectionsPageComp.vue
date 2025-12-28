@@ -11,7 +11,7 @@
 
     
       
-      <CollectionsComp :parent="this.item" @loaded="childLoading=false" />
+      <CollectionsComp @loaded="childLoading=false" />
 
 
     </div>
