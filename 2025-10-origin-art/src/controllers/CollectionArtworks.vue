@@ -81,7 +81,7 @@ export default {
 
   computed: {
     filterFormula() {
-      return `AND(({RECORD_ID (from Artist)}='${this.parentId}'))`
+      return `AND(({RECORD_ID (from Collections)}='${this.parentId}'))`
     },
 
     grouped() {

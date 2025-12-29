@@ -22,7 +22,7 @@
               -->
               <!-- Name -->
               <div class="text-h4 font-1ry q-mt-md">
-                {{ item.Title }}
+                {{ item.fields.Title }}
               </div> 
 
             </div>
