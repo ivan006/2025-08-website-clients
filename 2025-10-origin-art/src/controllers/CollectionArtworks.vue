@@ -55,8 +55,8 @@
 </template>
 
 <script>
+import Artworks from 'src/models/orm-api/Artworks'
 import ArtworkPaginatedGrid from 'src/controllers/ArtworkPaginatedGrid.vue'
-import ArtworksBoundCache from 'src/models/orm-api/ArtworksBoundCache'
 
 export default {
   name: 'CollectionArtworks',
@@ -106,26 +106,30 @@ export default {
   },
 
   methods: {
-    
-    async fetchArtworks() {
+    fetchArtworks() {
       this.loading = true
 
-      try {
-        const res = await ArtworksBoundCache.FetchAll([], {
-          view: 'viwn7wDGK6yk5ZHOl'
+      Artworks.FetchAll(
+        [],
+        {},
+        {},
+        {
+          limit: 200,
+          filters: {
+            filterByFormula: this.filterFormula
+          }
+        }
+      )
+        .then(res => {
+          this.items = res.response.data.records.map(r => ({
+            id: r.id,
+            ...r.fields
+          }))
+          this.loading = false
         })
-
-        const all = res.response.data.records
-          .map(r => ({ id: r.id, ...r.fields }))
-          .filter(r => !r.Hide)
-
-        // 🔑 FRONTEND FILTER BY ARTIST
-        this.items = all.filter(r =>
-          (r['RECORD_ID (from Artist)'] || []).includes(this.parentId)
-        )
-      } finally {
-        this.loading = false
-      }
+        .catch(() => {
+          this.loading = false
+        })
     }
   },
 
