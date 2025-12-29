@@ -17,33 +17,49 @@
           :key="art.id"
           class="column items-center"
           style="
-            width: 210mm;
-            min-height: 297mm;
-            padding: 25mm;
+            position: relative;
+            width: 200mm;
+            height: 260mm;
+            padding: 0mm 15mm;
             box-sizing: border-box;
             page-break-after: always;
           "
+
         >
+            <!-- border: solid 1px grey; -->
 
           <!-- HEADER -->
           <div class="row justify-end full-width q-mb-xl">
-            <img :src="VITE_API_DEFAULT_IMAGE" style="height: 22px;" />
+            <img :src="VITE_API_DEFAULT_IMAGE" style="height: 22mm;" />
           </div>
 
           <!-- IMAGE -->
-          <div class="column items-center q-mb-xl" style="flex: 1;">
+          <!-- IMAGE FRAME -->
+          <div
+            class="column items-center justify-center q-mb-lg"
+            style="
+              height: 170mm;
+              max-height: 170mm;
+              overflow: hidden;
+            "
+          >
+              <!-- width: 200mm; -->
+            <!-- border: solid 1px grey; -->
             <img
               :src="largeUrl(art)"
               style="
-                max-height: 180mm;
+                max-height: 100%;
                 max-width: 100%;
                 object-fit: contain;
               "
             />
           </div>
 
+
           <!-- META -->
-          <div class="full-width text-left text-body2">
+          <div class="full-width text-left text-body2" style="
+            ">
+            <!-- border: solid 1px grey; -->
             <strong>{{ artistName(art) }}</strong><br />
             <em>{{ art.Title }}</em><br />
             {{ art['Name (from Medium)']?.[0] }}<br />
@@ -53,9 +69,19 @@
           </div>
 
           <!-- FOOTER -->
-          <div class="full-width text-center text-caption q-mt-lg">
+          <div
+            class="full-width text-center text-caption"
+            style="
+              position: absolute; 
+              bottom: 0mm; 
+              left: 0;
+            "
+          >
+              <!-- border: solid 1px grey; -->
             – {{ i + 1 }} –
           </div>
+
+
 
         </section>
 
@@ -110,7 +136,7 @@ export default {
     },
 
     largeUrl(art) {
-      const u = this.attachments(art).thumbnails?.large?.url
+      const u = this.attachments(art).url
       return u
         ? `${import.meta.env.VITE_API_PROXY_URL}${encodeURIComponent(u)}`
         : ''
@@ -138,6 +164,15 @@ export default {
             id: r.id,
             ...r.fields
           }))
+
+          
+
+          // ✅ sort by artist last name
+          this.items.sort((a, b) => {
+            const lastA = (a['Name (from Artist)']?.[0] || '').trim().split(' ').pop().toLowerCase()
+            const lastB = (b['Name (from Artist)']?.[0] || '').trim().split(' ').pop().toLowerCase()
+            return lastA.localeCompare(lastB)
+          })
           this.loading = false
         })
         .catch(() => {
