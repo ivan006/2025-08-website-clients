@@ -116,7 +116,7 @@ const routes = [
           {
             path: '/collections/:rId',
             name: '/collections/:rId',
-            component: () => import('src/controllers/ArtistComp.vue'),
+            component: () => import('src/controllers/CollectionComp.vue'),
             meta: {
               breadcrumbName: ':rId',
               breadcrumbParentName: '/artists',

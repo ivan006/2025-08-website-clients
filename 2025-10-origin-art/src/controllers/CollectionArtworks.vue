@@ -59,7 +59,7 @@ import ArtworkPaginatedGrid from 'src/controllers/ArtworkPaginatedGrid.vue'
 import ArtworksBoundCache from 'src/models/orm-api/ArtworksBoundCache'
 
 export default {
-  name: 'ArtistArtworks',
+  name: 'CollectionArtworks',
 
   components: {
     ArtworkPaginatedGrid
