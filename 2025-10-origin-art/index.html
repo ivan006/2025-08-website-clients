@@ -17,6 +17,7 @@
   <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
   <link rel="manifest" href="site.webmanifest">
 
+  <% if (ctx.prod) { %>
   <!-- Google Tag Manager -->
   <script>
     (function (w, d, s, l, i) {
@@ -35,6 +36,8 @@
     })(window, document, 'script', 'dataLayer', 'GTM-MHG5JM68');
   </script>
   <!-- End Google Tag Manager -->
+  <% } %>
+
 </head>
 
 <body>
