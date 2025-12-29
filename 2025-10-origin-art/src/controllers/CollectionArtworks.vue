@@ -10,44 +10,58 @@
 
     <div v-else>
       
-      <!-- PER-MEDIUM SECTIONS -->
-      <div
-        v-for="(group, mediaName) in grouped"
-        :key="mediaName"
-        class=""
-      >
+      <div class="bg-white">
 
-        <!-- Heading -->
-        <!-- <div class="text-h6 q-mb-md font-1ry">
-          {{ mediaName }}
-        </div> -->
-        
-        <!-- MEDIA HEADER -->
-        <q-separator  />
-        <div style="background: #ffffff;">
-          <div class="container-md q-pt-md q-pb-md">
-            <h2
-              class="text-h5 text-center font-1ry"
-              style="margin: 0; font-weight: 500;"
-            >
-              {{ mediaName }}
-            </h2>
+        <section
+          v-for="(art, i) in items"
+          :key="art.id"
+          class="column items-center"
+          style="
+            width: 210mm;
+            min-height: 297mm;
+            padding: 25mm;
+            box-sizing: border-box;
+            page-break-after: always;
+          "
+        >
+
+          <!-- HEADER -->
+          <div class="row justify-end full-width q-mb-xl">
+            <img :src="VITE_API_DEFAULT_IMAGE" style="height: 22px;" />
           </div>
-        </div>
-        <q-separator  />
 
-        <!-- PAGINATED GRID -->
-         
-        <div class="container-xl bg-2ry-color q-py-md">
-          
-          <ArtworkPaginatedGrid
-            :items="group"
-            v-model:page="sectionPages[mediaName]"
-            :items-per-page="8"
-          />
-        </div>
+          <!-- IMAGE -->
+          <div class="column items-center q-mb-xl" style="flex: 1;">
+            <img
+              :src="largeUrl(art)"
+              style="
+                max-height: 180mm;
+                max-width: 100%;
+                object-fit: contain;
+              "
+            />
+          </div>
+
+          <!-- META -->
+          <div class="full-width text-left text-body2">
+            <strong>{{ artistName(art) }}</strong><br />
+            <em>{{ art.Title }}</em><br />
+            {{ art['Name (from Medium)']?.[0] }}<br />
+            {{ art.Height }} × {{ art.Width }} cm<br />
+            {{ art.Year }}<br />
+            R{{ Number(art.Price)?.toLocaleString() }}
+          </div>
+
+          <!-- FOOTER -->
+          <div class="full-width text-center text-caption q-mt-lg">
+            – {{ i + 1 }} –
+          </div>
+
+        </section>
 
       </div>
+
+
 
     </div>
 
@@ -56,13 +70,11 @@
 
 <script>
 import Artworks from 'src/models/orm-api/Artworks'
-import ArtworkPaginatedGrid from 'src/controllers/ArtworkPaginatedGrid.vue'
 
 export default {
   name: 'CollectionArtworks',
 
   components: {
-    ArtworkPaginatedGrid
   },
 
   props: {
@@ -83,29 +95,30 @@ export default {
     filterFormula() {
       return `AND(({RECORD_ID (from Collections)}='${this.parentId}'))`
     },
+    VITE_API_DEFAULT_IMAGE() {
+      return import.meta.env.VITE_API_DEFAULT_IMAGE
+    },
 
-    grouped() {
-      const groups = {}
 
-      this.items.forEach(art => {
-        const mediums = art['Name (from Medium)'] || ['Uncategorized']
-
-        mediums.forEach(m => {
-          if (!groups[m]) groups[m] = []
-          groups[m].push(art)
-
-          if (this.sectionPages[m] === undefined) {
-            this.sectionPages[m] = 0   // ✅ Vue 3 reactive assignment
-          }
-        })
-      })
-
-      return groups
-    }
 
   },
 
   methods: {
+    
+    attachments(art) {
+      return art.Attachments?.[0] || {}
+    },
+
+    largeUrl(art) {
+      const u = this.attachments(art).thumbnails?.large?.url
+      return u
+        ? `${import.meta.env.VITE_API_PROXY_URL}${encodeURIComponent(u)}`
+        : ''
+    },
+
+    artistName(art) {
+      return art['Name (from Artist)']?.[0] || 'Unknown Artist'
+    },
     fetchArtworks() {
       this.loading = true
 
@@ -138,3 +151,4 @@ export default {
   }
 }
 </script>
+

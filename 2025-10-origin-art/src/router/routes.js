@@ -113,20 +113,20 @@ const routes = [
               requiresAuth: false,
             },
           },
-          {
-            path: '/collections/:rId',
-            name: '/collections/:rId',
-            component: () => import('src/controllers/CollectionComp.vue'),
-            meta: {
-              breadcrumbName: ':rId',
-              breadcrumbParentName: '/artists',
-              requiresAuth: false,
-            },
-          },
         ],
         meta: { requiresAuth: false }
       }
     ]
+  },
+  {
+    path: '/collections/:rId',
+    name: '/collections/:rId',
+    component: () => import('src/controllers/CollectionComp.vue'),
+    meta: {
+      breadcrumbName: ':rId',
+      breadcrumbParentName: '/artists',
+      requiresAuth: false,
+    },
   },
   {
     path: '/:catchAll(.*)*',
