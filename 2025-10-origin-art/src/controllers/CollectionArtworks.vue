@@ -19,7 +19,7 @@
           style="
             position: relative;
             width: 200mm;
-            height: 260mm;
+            height: 287mm;
             padding: 0mm 15mm;
             box-sizing: border-box;
             page-break-after: always;
@@ -38,8 +38,7 @@
           <div
             class="column items-center justify-center q-mb-lg"
             style="
-              height: 170mm;
-              max-height: 170mm;
+              height: 197mm;
               overflow: hidden;
             "
           >
