@@ -118,8 +118,12 @@ export default {
 
   computed: {
     filterFormula() {
-      return `AND(({RECORD_ID (from Collections)}='${this.parentId}'))`
+      // return `AND(({RECORD_ID (from Collections)}='${this.parentId}'))`
+      // return `AND(FIND('${this.parentId}',{RECORD_ID (from Collections)}))`
+      return `AND(SEARCH('${this.parentId}',ARRAYJOIN({RECORD_ID (from Collections)}, ',')))`
     },
+
+    
     VITE_API_DEFAULT_IMAGE() {
       return import.meta.env.VITE_API_DEFAULT_IMAGE
     },

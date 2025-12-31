@@ -7,9 +7,9 @@
                 {{ item.Title }}
             </div>
 
-            <div class="text-subtitle2 text-2ry-color q-mt-xs">
+            <!-- <div class="text-subtitle2 text-2ry-color q-mt-xs">
                 ID: {{ item.ID }}
-            </div>
+            </div> -->
 
             <!-- <div class="text-body1 q-mt-xs text-weight-bold">
                 Avg Price: R{{ item['Av. Price']?.toLocaleString() || '–' }}
