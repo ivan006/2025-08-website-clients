@@ -13,16 +13,34 @@
             <q-icon name="cloud_sync" size="md" class="q-mr-sm" />
             Data Cache Manager
           </div>
-          <div class="text-subtitle2 text-grey-7 q-mt-sm">
-            A tool for keeping your site’s cached data accurate and up to date.
-          </div>
         </q-card-section>
 
         <!-- 🧭 Overview -->
         <q-card-section>
           
           <DataCacheManagerListenerList :requests="requests"  />
+          
+        <q-banner
+          class="q-mt-md bg-grey-2 text-grey-9"
+          rounded
+          dense
+        >
+          <template #avatar>
+            <q-icon name="info" color="primary" />
+          </template>
+
+          <div class="text-caption">
+            After deleting cached entries, you may need to perform a <strong>hard refresh</strong>
+            to ensure your browser loads the latest content.
+            <br /><br />
+
+            <strong>Hard refresh shortcuts:</strong><br />
+            • <strong>Windows:</strong> Ctrl + Shift + R &nbsp;or&nbsp; Ctrl + F5<br />
+            • <strong>Mac:</strong> Cmd + Shift + R
+          </div>
+        </q-banner>
         </q-card-section>
+
 
 
 
