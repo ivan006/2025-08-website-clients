@@ -12,7 +12,10 @@
     "dev": "cross-env NODE_ENV=development quasar dev",
     "build": "cross-env NODE_ENV=production quasar build",
     "build:alert": "node build-and-alert.js",
-    "watch:build": "chokidar \"src/**/*\" -c \"npm run build:alert\""
+    "watch:build": "chokidar \"src/**/*\" -c \"npm run build:alert\"",
+    "addssr": "quasar mode add ssr"
+    
+
   },
   "dependencies": {
     "@quasar/extras": "^1.16.4",
