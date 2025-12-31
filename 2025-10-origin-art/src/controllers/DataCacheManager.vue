@@ -46,7 +46,7 @@
 
 <script>
 // import DataCacheManagerStrategicUseTool from './DataCacheManagerStrategicUseTool.vue'
-import DataCacheManagerListenerList from './DataCacheManagerListenerListOld.vue'
+import DataCacheManagerListenerList from './DataCacheManagerListenerList.vue'
 
 export default {
   name: 'DataCacheManager',
