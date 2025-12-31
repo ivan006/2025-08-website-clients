@@ -75,7 +75,7 @@
             <!-- 🔢 Filter Math Tool -->
             <div class="text-subtitle2 q-mb-xs">Filter Combination Calculator</div>
             <q-card flat bordered class="q-pa-md bg-grey-1">
-              <DataCacheManagerStrategicUseTool />
+              <!-- <DataCacheManagerStrategicUseTool /> -->
             </q-card>
           </q-card-section>
         </q-expansion-item>
@@ -129,12 +129,15 @@
 
 
 <script>
-import DataCacheManagerStrategicUseTool from './DataCacheManagerStrategicUseTool.vue'
+// import DataCacheManagerStrategicUseTool from './DataCacheManagerStrategicUseTool.vue'
 import DataCacheManagerListenerList from './DataCacheManagerListenerList.vue'
 
 export default {
   name: 'DataCacheManager',
-  components: { DataCacheManagerStrategicUseTool, DataCacheManagerListenerList },
+  components: { 
+    // DataCacheManagerStrategicUseTool, 
+    DataCacheManagerListenerList 
+  },
 
   data() {
     return {
