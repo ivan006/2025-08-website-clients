@@ -21,7 +21,7 @@
         <!-- 🧭 Overview -->
         <q-card-section>
           
-          <DataCacheManagerListenerList :requests="requests" @toggle="false" />
+          <DataCacheManagerListenerList :requests="requests"  />
         </q-card-section>
 
 
@@ -66,9 +66,9 @@ export default {
   },
 
   methods: {
-    toggleInterception(active) {
-      active ? this.startIntercept() : this.stopIntercept()
-    },
+    // toggleInterception(active) {
+    //   active ? this.startIntercept() : this.stopIntercept()
+    // },
 
     startIntercept() {
       this.requests = []
@@ -95,22 +95,23 @@ export default {
       }
     },
 
-    stopIntercept() {
-      if (this.origFetchRef) window.fetch = this.origFetchRef
-      if (this.origXHROpenRef) XMLHttpRequest.prototype.open = this.origXHROpenRef
-      this.origFetchRef = this.origXHROpenRef = null
-      this.listening = false
-    },
+    // stopIntercept() {
+    //   if (this.origFetchRef) window.fetch = this.origFetchRef
+    //   if (this.origXHROpenRef) XMLHttpRequest.prototype.open = this.origXHROpenRef
+    //   this.origFetchRef = this.origXHROpenRef = null
+    //   this.listening = false
+    // },
   },
 
   mounted() {
     window.addEventListener('keydown', e => {
       if (e.shiftKey && e.key.toLowerCase() === 'c') this.show = !this.show
     })
+    this.startIntercept()
   },
 
-  beforeUnmount() {
-    this.stopIntercept()
-  },
+  // beforeUnmount() {
+  //   this.stopIntercept()
+  // },
 }
 </script>
