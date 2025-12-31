@@ -78,12 +78,15 @@ export default {
       this.origFetchRef = window.fetch
       window.fetch = async (input, init = {}) => {
         const method = (init?.method || 'GET').toUpperCase()
+
         if (method === 'GET' && typeof input === 'string' && input.includes('?url=')) {
           jsonRequests.add(input)
           vm.requests = Array.from(jsonRequests)
         }
-        return vm.origFetchRef(input, init)
+
+        return vm.origFetchRef.call(window, input, init)
       }
+
 
       this.origXHROpenRef = XMLHttpRequest.prototype.open
       XMLHttpRequest.prototype.open = function (method, url, ...rest) {

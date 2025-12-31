@@ -26,38 +26,42 @@
 
     <!-- 🧾 Requests table -->
     <q-table
-      v-if="requests.length"
-      flat
-      bordered
-      dense
-      :rows="rows"
-      :columns="columns"
-      row-key="id"
+        v-if="requests.length"
+        flat
+        bordered
+        dense
+        :rows="rows"
+        :columns="columns"
+        row-key="id"
     >
-      <template #body-cell-url="props">
-        <q-td>
-          <code class="text-caption">
-            <span
-              v-for="(part, i) in visibleParts(props.row.url)"
-              :key="i"
-              :style="{ color: rainbow[i % rainbow.length], fontWeight: 'bold' }"
-            >
-              {{ part }}
-            </span>
-          </code>
-        </q-td>
-      </template>
+    <template #body-cell-url="props">
+    <q-td style="white-space: normal; word-break: break-all;">
+        <code class="text-caption">
+        <span
+            v-for="(part, i) in visibleParts(props.row.url)"
+            :key="i"
+            :style="{ color: rainbow[i % rainbow.length], fontWeight: 'bold' }"
+        >
+            {{ part }}
+        </span>
+        </code>
+    </q-td>
+    </template>
+
 
       <template #body-cell-actions="props">
         <q-td align="right">
-          <q-btn
+            <q-btn
             size="sm"
             color="negative"
             outline
             icon="delete"
-            label="Delete"
+            :label="buttonLabel(props.row.url)"
+            :loading="deleting.has(props.row.url)"
+            :disable="deleted.has(props.row.url)"
             @click="deleteCache(props.row.url)"
-          />
+            />
+
         </q-td>
       </template>
     </q-table>
@@ -78,6 +82,8 @@ export default {
 
   data () {
     return {
+        deleting: new Set(),
+        deleted: new Set(),
       hideSegmentsCount: 14,
       rainbow: [
         '#1565C0', '#0277BD', '#00897B', '#2E7D32',
@@ -118,14 +124,26 @@ export default {
       return this.coloredParts(arg).slice(this.hideSegmentsCount)
     },
 
-    async deleteCache (url) {
-      const deleteUrl = url.replace('?url=', '?delete=')
 
-      try {
-        await fetch(deleteUrl, { method: 'GET' })
-      } catch (e) {
-        console.error('Delete failed:', e)
-      }
+    buttonLabel (url) {
+        if (this.deleted.has(url)) return 'Deleted'
+        if (this.deleting.has(url)) return 'Deleting…'
+        return 'Delete'
+    },
+
+    async deleteCache (url) {
+        if (this.deleting.has(url) || this.deleted.has(url)) return
+
+        this.deleting.add(url)
+
+        try {
+        await fetch(url.replace('?url=', '?delete='))
+        this.deleted.add(url)
+        } catch (e) {
+        console.error('Delete failed', e)
+        } finally {
+        this.deleting.delete(url)
+        }
     }
   }
 }
