@@ -149,12 +149,28 @@
             Or send an enquiry using the button below.
           </div>
 
-          <q-btn 
-            class="q-mt-md"
-            color="dark"
-            label="Enquire Now"
-            @click="showEnquiry = true"
-          />
+
+          <div class="q-mt-md row q-col-gutter-sm">
+
+            <div class="col-auto">
+              <q-btn 
+                color="dark"
+                label="Enquire Now"
+                @click="showEnquiry = true"
+              />
+            </div>
+
+            <div class="col-auto">
+              <q-btn
+                color="dark"
+                label="Buy Now"
+                :href="`/pay/?product_id=${id}`"
+                target="_blank"
+              />
+            </div>
+
+          </div>
+
 
         </div>
 
