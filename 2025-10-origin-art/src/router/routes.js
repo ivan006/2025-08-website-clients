@@ -27,6 +27,16 @@ const routes = [
                 },
               },
               {
+                path: '/checkout/:productId',
+                name: '/checkout/:productId',
+                component: () => import('src/controllers/CheckoutComp.vue'),
+                meta: {
+                  breadcrumbName: 'Home',
+                  breadcrumbParentName: '',
+                  requiresAuth: false,
+                },
+              },
+              {
                 path: '/home-old',
                 name: '/home-old',
                 component: () => import('src/controllers/HomeOldComp.vue'),
