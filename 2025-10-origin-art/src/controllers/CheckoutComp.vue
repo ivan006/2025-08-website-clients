@@ -12,7 +12,7 @@
 
                 <!-- RIGHT: Checkout form -->
                 <div class="col-12 col-md-7">
-                    <q-form ref="formRef">
+                    <q-form ref="formRef" >
 
                         <div class="q-pa-lg">
 
@@ -149,17 +149,17 @@ export default {
 
             rules: {
                 delivery_name: [
-                    v => !!v || 'Required'
+                    v => !!v || 'Please fill in this field.'
                 ],
                 delivery_email: [
-                    v => !!v || 'Email is required',
-                    v => /.+@.+\..+/.test(v) || 'Enter a valid email'
+                    v => !!v || 'Please fill in this field.',
+                    v => /.+@.+\..+/.test(v) || 'Please enter a valid email.'
                 ],
-                addr_street: [v => !!v || 'Required'],
-                addr_city: [v => !!v || 'Required'],
-                addr_region: [v => !!v || 'Required'],
-                addr_postcode: [v => !!v || 'Required'],
-                addr_country: [v => !!v || 'Required']
+                addr_street: [v => !!v || 'Please fill in this field.'],
+                addr_city: [v => !!v || 'Please fill in this field.'],
+                addr_region: [v => !!v || 'Please fill in this field.'],
+                addr_postcode: [v => !!v || 'Please fill in this field.'],
+                addr_country: [v => !!v || 'Please fill in this field.']
             },
         };
     },
@@ -173,12 +173,13 @@ export default {
     methods: {
 
         runRules(value, rules = []) {
-            const errs = []
             for (const rule of rules) {
                 const res = rule(value)
-                if (res !== true) errs.push(res)
+                if (res !== true) {
+                    return [res] // 👈 first error only
+                }
             }
-            return errs
+            return []
         },
 
         clearErrors() {
@@ -194,11 +195,16 @@ export default {
 
             for (const field in this.rules) {
                 const errs = this.runRules(this.form[field], this.rules[field])
-                this.errors[field] = errs
-                if (errs.length) valid = false
+
+                if (errs.length) {
+                    this.errors[field] = errs   // populate only first error
+                    valid = false
+                    break                        // ⬅️ stop here
+                }
             }
 
             if (!valid) return
+
             try {
                 this.loading = true;
                 this.loadingText = "Generating order number";
