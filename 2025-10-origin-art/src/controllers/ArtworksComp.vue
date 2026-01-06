@@ -218,9 +218,10 @@ export default {
 
       priceOptions: [
         { label: 'All', value: 'all-price-ranges' },
-        { label: 'Gold Tier (Above R50k)', value: 'gold' },
-        { label: 'Silver Tier (R10k-R50k)', value: 'silver' },
-        { label: 'Bronze Tier (Below R10k)', value: 'bronze' }
+        { label: 'Platinum Tier (Above R20k)', value: 'platinum' },
+        { label: 'Gold Tier (R10k-R20k)', value: 'gold' },
+        { label: 'Silver Tier (R5k-R10k)', value: 'silver' },
+        { label: 'Bronze Tier (Below R5k)', value: 'bronze' }
       ],
 
 
@@ -408,9 +409,10 @@ export default {
   methods: {
     priceBucket(price) {
       const p = Number(price || 0)
-      if (p <= 10000) return 'bronze'
-      if (p <= 50000) return 'silver'
-      return 'gold'
+      if (p <= 5000) return 'bronze'
+      if (p <= 10000) return 'silver'
+      if (p <= 20000) return 'gold'
+      return 'platinum'
     },
     artworkDescription(item) {
       const parts = []
