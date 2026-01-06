@@ -26,11 +26,11 @@
 
                         <q-input v-model="form.delivery_name" placeholder="Full name" outlined dense hide-bottom-space
                             class="" />
-                        <FieldError class="q-mb-sm" :errors="errors.delivery_name" />
+                        <NativeLikeValidationError class="q-mb-sm" :errors="errors.delivery_name" />
 
                         <q-input v-model="form.delivery_email" placeholder="Email" type="email" outlined dense
                             hide-bottom-space class="" />
-                        <FieldError class="q-mb-sm" :errors="errors.delivery_email" />
+                        <NativeLikeValidationError class="q-mb-sm" :errors="errors.delivery_email" />
 
                         <q-input v-model="form.delivery_phone" placeholder="Phone number (optional)" outlined dense
                             class="q-mb-lg" />
@@ -42,7 +42,7 @@
 
                         <q-input v-model="form.addr_street" placeholder="Street address" outlined dense
                             hide-bottom-space class="" />
-                        <FieldError class="q-mb-sm" :errors="errors.addr_street" />
+                        <NativeLikeValidationError class="q-mb-sm" :errors="errors.addr_street" />
 
                         <q-input v-model="form.addr_unit" placeholder="Apartment / Unit (optional)" outlined dense
                             class="q-mb-sm" />
@@ -51,12 +51,12 @@
                             <div class="col-6">
                                 <q-input v-model="form.addr_city" placeholder="City / Town" outlined dense
                                     hide-bottom-space />
-                                <FieldError class="q-mb-sm" :errors="errors.addr_city" />
+                                <NativeLikeValidationError class="q-mb-sm" :errors="errors.addr_city" />
                             </div>
                             <div class="col-6">
                                 <q-input v-model="form.addr_region" placeholder="Province / Region" outlined dense
                                     hide-bottom-space />
-                                <FieldError class="q-mb-sm" :errors="errors.addr_region" />
+                                <NativeLikeValidationError class="q-mb-sm" :errors="errors.addr_region" />
                             </div>
                         </div>
 
@@ -64,12 +64,12 @@
                             <div class="col-6">
                                 <q-input v-model="form.addr_postcode" placeholder="Postal / ZIP" outlined dense
                                     hide-bottom-space />
-                                <FieldError class="q-mb-sm" :errors="errors.addr_postcode" />
+                                <NativeLikeValidationError class="q-mb-sm" :errors="errors.addr_postcode" />
                             </div>
                             <div class="col-6">
                                 <q-input v-model="form.addr_country" placeholder="Country" outlined dense
                                     hide-bottom-space />
-                                <FieldError class="q-mb-sm" :errors="errors.addr_country" />
+                                <NativeLikeValidationError class="q-mb-sm" :errors="errors.addr_country" />
                             </div>
                         </div>
 
@@ -105,14 +105,14 @@
 <script>
 
 import CheckoutProductDisplay from "src/controllers/CheckoutProductDisplay.vue";
-import FieldError from "src/controllers/FieldError.vue";
+import NativeLikeValidationError from "src/controllers/NativeLikeValidationError.vue";
 
 export default {
     name: "CheckoutComp",
 
     components: {
         CheckoutProductDisplay,
-        FieldError,
+        NativeLikeValidationError,
     },
     props: {
     },

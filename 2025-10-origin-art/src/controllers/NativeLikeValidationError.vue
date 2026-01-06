@@ -11,7 +11,7 @@
 
 <script>
 export default {
-    name: 'FieldError',
+    name: 'NativeLikeValidationError',
 
     props: {
         errors: {
