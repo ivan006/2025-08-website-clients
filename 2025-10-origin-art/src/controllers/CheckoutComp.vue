@@ -12,7 +12,7 @@
 
                 <!-- RIGHT: Checkout form -->
                 <div class="col-12 col-md-7">
-                    <div class="q-pa-lg">
+                    <div class="q-pa-lg"  @pointerdown="clearErrors">
 
                         <!-- Title -->
                         <div class="text-h6 text-weight-bold q-mb-lg">
