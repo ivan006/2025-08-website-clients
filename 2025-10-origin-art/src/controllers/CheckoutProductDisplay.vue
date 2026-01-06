@@ -4,29 +4,36 @@
       height: 100%;
       min-height: 420px;
     ">
-        <div class="text-caption opacity-70">
-            Checkout
-        </div>
-
         <div v-if="loading" class="q-mt-lg">
             <q-spinner size="24px" />
         </div>
 
         <div v-else>
-            <div class="text-h6 text-weight-bold q-mt-sm">
+
+            <!-- Checkout label -->
+            <div class="text-caption text-weight-medium q-mb-xs" style="opacity: 0.75;">
+                Checkout
+            </div>
+
+            <!-- Product name -->
+            <div class="text-h6 text-weight-bold q-mb-xs">
                 {{ product.title }}
             </div>
 
-            <div class="text-h4 text-weight-bold q-mt-md">
+            <!-- Price (display-6 equivalent) -->
+            <div class="text-h4 text-weight-medium q-mb-sm">
                 {{ product.currency }} {{ product.price }}
             </div>
 
-            <div class="text-caption opacity-70 q-mt-md">
+            <!-- Meta -->
+            <div class="text-caption" style="opacity: 0.75;">
                 Secure payment powered by PayFast
             </div>
+
         </div>
     </div>
 </template>
+
 
 <script>
 import ArtworksBoundCache from 'src/models/orm-api/ArtworksBoundCache'
@@ -71,9 +78,9 @@ export default {
 
             this.product = {
                 title: item.Title || "Product",
-                price: Number(item.Price || 0).toLocaleString('en-ZA', {
-                    minimumFractionDigits: 2
-                }),
+                price: Number(item.Price || 0)
+                    .toFixed(2)
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ' '),
                 currency: "ZAR"
             };
 
