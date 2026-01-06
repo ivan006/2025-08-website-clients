@@ -204,7 +204,7 @@ export default {
 
             try {
                 this.loading = true;
-                this.loadingText = "Generating order number";
+                this.loadingText = "Securing order number";
 
                 // 1️⃣ Create order shell
                 const orderRes = await fetch("/pay/generate-order-number.php", {
@@ -220,7 +220,7 @@ export default {
                 }
 
                 // 2️⃣ Confirm price + sign
-                this.loadingText = "Confirming price";
+                this.loadingText = "Securing price";
 
                 const confirmRes = await fetch("/pay/confirm-price.php", {
                     method: "POST",
