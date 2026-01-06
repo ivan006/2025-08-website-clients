@@ -96,9 +96,15 @@
 
 
 <script>
+    
+import CheckoutProductDisplay from "src/controllers/CheckoutProductDisplay.vue";
+
 export default {
     name: "CheckoutComp",
 
+  components: {
+    CheckoutProductDisplay,
+  },
     props: {
     },
 
