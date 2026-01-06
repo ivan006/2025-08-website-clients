@@ -28,11 +28,11 @@
 
                             <q-input v-model="form.delivery_name" placeholder="Full name" outlined dense
                                 hide-bottom-space class="" />
-                            <FieldError class="q-mb-sm"  :errors=" errors.delivery_name" />
+                            <FieldError class="q-mb-sm" :errors="errors.delivery_name" />
 
                             <q-input v-model="form.delivery_email" placeholder="Email" type="email" outlined dense
                                 hide-bottom-space class="" />
-                            <FieldError class="q-mb-sm"  :errors=" errors.delivery_email" />
+                            <FieldError class="q-mb-sm" :errors="errors.delivery_email" />
 
                             <q-input v-model="form.delivery_phone" placeholder="Phone number (optional)" outlined dense
                                 class="q-mb-lg" />
@@ -44,7 +44,7 @@
 
                             <q-input v-model="form.addr_street" placeholder="Street address" outlined dense
                                 hide-bottom-space class="" />
-                            <FieldError class="q-mb-sm"  :errors=" errors.addr_street" />
+                            <FieldError class="q-mb-sm" :errors="errors.addr_street" />
 
                             <q-input v-model="form.addr_unit" placeholder="Apartment / Unit (optional)" outlined dense
                                 class="q-mb-sm" />
@@ -53,12 +53,12 @@
                                 <div class="col-6">
                                     <q-input v-model="form.addr_city" placeholder="City / Town" outlined dense
                                         hide-bottom-space />
-                                    <FieldError class="q-mb-sm"  :errors=" errors.addr_city" />
+                                    <FieldError class="q-mb-sm" :errors="errors.addr_city" />
                                 </div>
                                 <div class="col-6">
                                     <q-input v-model="form.addr_region" placeholder="Province / Region" outlined dense
                                         hide-bottom-space />
-                                    <FieldError class="q-mb-sm"  :errors=" errors.addr_region" />
+                                    <FieldError class="q-mb-sm" :errors="errors.addr_region" />
                                 </div>
                             </div>
 
@@ -66,12 +66,12 @@
                                 <div class="col-6">
                                     <q-input v-model="form.addr_postcode" placeholder="Postal / ZIP" outlined dense
                                         hide-bottom-space />
-                                    <FieldError class="q-mb-sm"  :errors=" errors.addr_postcode" />
+                                    <FieldError class="q-mb-sm" :errors="errors.addr_postcode" />
                                 </div>
                                 <div class="col-6">
                                     <q-input v-model="form.addr_country" placeholder="Country" outlined dense
                                         hide-bottom-space />
-                                    <FieldError class="q-mb-sm"  :errors=" errors.addr_country" />
+                                    <FieldError class="q-mb-sm" :errors="errors.addr_country" />
                                 </div>
                             </div>
 
