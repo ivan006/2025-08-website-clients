@@ -1,14 +1,8 @@
 <template>
     <div class="q-pa-md bg-grey-1">
 
-        <div class="q-mx-auto " style="
-    max-width: 960px;
-    border-radius: 12px;
-    overflow: hidden;
-    background: white;
-    box-shadow:
-      0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
-  ">
+        <div class="q-mx-auto "
+            style=" max-width: 960px; border-radius: 12px; overflow: hidden; background: white; box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);">
             <div class="row">
 
                 <!-- LEFT: Product display -->
