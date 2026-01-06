@@ -1,52 +1,95 @@
 <template>
-    <div class="q-pa-md">
+    <div class="q-pa-md bg-grey-1">
 
-        <div class="q-mx-auto" style="max-width: 520px;">
-            <div class="q-pa-md q-gutter-md">
+        <div class="q-mx-auto " style="
+    max-width: 960px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: white;
+    box-shadow:
+      0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  ">
+            <div class="row">
 
-                <div class="text-h6">Checkout</div>
-
-                <!-- Delivery / Contact -->
-                <q-input v-model="form.delivery_name" label="Full name" outlined dense />
-                <q-input v-model="form.delivery_email" label="Email" type="email" outlined dense />
-                <q-input v-model="form.delivery_phone" label="Phone (optional)" outlined dense />
-
-                <!-- Address -->
-                <q-input v-model="form.addr_street" label="Street address" outlined dense />
-                <q-input v-model="form.addr_unit" label="Unit / Apartment (optional)" outlined dense />
-
-                <div class="row q-col-gutter-sm">
-                    <div class="col-6">
-                        <q-input v-model="form.addr_city" label="City / Town" outlined dense />
-                    </div>
-                    <div class="col-6">
-                        <q-input v-model="form.addr_region" label="Region / Province" outlined dense />
-                    </div>
+                <!-- LEFT: Product display -->
+                <div class="col-12 col-md-5">
+                    <CheckoutProductDisplay :product-id="productId" />
                 </div>
 
-                <div class="row q-col-gutter-sm">
-                    <div class="col-6">
-                        <q-input v-model="form.addr_postcode" label="Postal / ZIP" outlined dense />
+                <!-- RIGHT: Checkout form -->
+                <div class="col-12 col-md-7">
+
+                    <div class="q-pa-lg">
+
+                        <!-- Title -->
+                        <div class="text-h6 text-weight-bold q-mb-lg">
+                            Enter billing details
+                        </div>
+
+                        <!-- Contact info -->
+                        <div class="text-subtitle2 text-weight-medium q-mb-sm">
+                            Contact information
+                        </div>
+
+                        <q-input v-model="form.delivery_name" placeholder="Full name" outlined dense input-style=""
+                            class="q-mb-sm" />
+
+                        <q-input v-model="form.delivery_email" placeholder="Email" type="email" outlined dense
+                            input-style="" class="q-mb-sm" />
+
+                        <q-input v-model="form.delivery_phone" placeholder="Phone number (optional)" outlined dense
+                            input-style="" class="q-mb-lg" />
+
+                        <!-- Address -->
+                        <div class="text-subtitle2 text-weight-medium q-mb-sm">
+                            Billing address
+                        </div>
+
+                        <q-input v-model="form.addr_street" placeholder="Street address" outlined dense input-style=""
+                            class="q-mb-sm" />
+
+                        <q-input v-model="form.addr_unit" placeholder="Apartment / Unit (optional)" outlined dense
+                            input-style="" class="q-mb-sm" />
+
+                        <div class="row q-col-gutter-sm q-mb-sm">
+                            <div class="col-6">
+                                <q-input v-model="form.addr_city" placeholder="City / Town" outlined dense
+                                    input-style="" />
+                            </div>
+                            <div class="col-6">
+                                <q-input v-model="form.addr_region" placeholder="Province / Region" outlined dense
+                                    input-style="" />
+                            </div>
+                        </div>
+
+                        <div class="row q-col-gutter-sm q-mb-lg">
+                            <div class="col-6">
+                                <q-input v-model="form.addr_postcode" placeholder="Postal / ZIP" outlined dense
+                                    input-style="" />
+                            </div>
+                            <div class="col-6">
+                                <q-input v-model="form.addr_country" placeholder="Country" outlined dense
+                                    input-style="" />
+                            </div>
+                        </div>
+
+                        <!-- CTA -->
+                        <q-btn class="full-width q-py-sm" color="dark" :no-caps="true" unelevated :disable="loading"
+                            @click="submit" style="border-radius:6px; font-size:16px;">
+                            <template v-if="!loading">
+                                Continue to payment
+                            </template>
+                            <template v-else>
+                                <q-spinner size="18px" class="q-mr-sm" />
+                                {{ loadingText }}
+                            </template>
+                        </q-btn>
+
+                        <div class="text-caption text-grey text-center q-mt-sm">
+                            You will be redirected to PayFast to complete payment
+                        </div>
+
                     </div>
-                    <div class="col-6">
-                        <q-input v-model="form.addr_country" label="Country" outlined dense />
-                    </div>
-                </div>
-
-                <!-- Submit -->
-                <q-btn class="full-width" color="dark" :disable="loading" @click="submit">
-                    <template v-if="!loading">
-                        Continue to payment
-                    </template>
-
-                    <template v-else>
-                        <q-spinner size="18px" class="q-mr-sm" />
-                        {{ loadingText }}
-                    </template>
-                </q-btn>
-
-                <div class="text-caption text-grey text-center">
-                    You’ll be redirected to PayFast to complete payment
                 </div>
 
             </div>
@@ -54,6 +97,9 @@
 
     </div>
 </template>
+
+
+
 
 <script>
 export default {
