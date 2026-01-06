@@ -164,8 +164,7 @@
               <q-btn
                 color="dark"
                 label="Buy Now"
-                :href="`/pay/?product_id=${id}`"
-                target="_blank"
+                :to="`/checkout/${id}`"
               />
             </div>
 
