@@ -240,6 +240,7 @@ export default {
                     throw new Error(confirmRes.error || "Failed to confirm price");
                 }
 
+                this.loading = false;
                 // 3️⃣ Redirect to PayFast
                 this.redirectToPayFast(confirmRes.payfast_url, confirmRes.fields);
 
