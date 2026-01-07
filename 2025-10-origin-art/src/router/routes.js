@@ -37,6 +37,26 @@ const routes = [
                 },
               },
               {
+                path: '/checkout-thank-you',
+                name: '/checkout-thank-you',
+                component: () => import('src/controllers/CheckoutThankYou.vue'),
+                meta: {
+                  breadcrumbName: 'Home',
+                  breadcrumbParentName: '',
+                  requiresAuth: false,
+                },
+              },
+              {
+                path: '/checkout-cancel',
+                name: '/checkout-cancel',
+                component: () => import('src/controllers/CheckoutCancel.vue'),
+                meta: {
+                  breadcrumbName: 'Home',
+                  breadcrumbParentName: '',
+                  requiresAuth: false,
+                },
+              },
+              {
                 path: '/home-old',
                 name: '/home-old',
                 component: () => import('src/controllers/HomeOldComp.vue'),
