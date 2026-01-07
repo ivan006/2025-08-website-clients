@@ -1,5 +1,7 @@
 <template>
-  <div class="container-sm q-py-lg">
+  <div class="bg-white">
+
+  <div class="container-sm q-py-lg ">
 
     <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
     <div v-if="loading" class="text-center q-pa-xl">
@@ -188,6 +190,7 @@
       </div>
     </div>
     
+  </div>
   </div>
 </template>
 

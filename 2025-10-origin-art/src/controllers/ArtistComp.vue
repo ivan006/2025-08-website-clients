@@ -1,5 +1,5 @@
 <template>
-  <div class=" q-pt-md ">
+  <div class=" q-pt-md bg-white">
     <div v-if="loading" class="text-center q-pa-xl">
       Loading...
     </div>

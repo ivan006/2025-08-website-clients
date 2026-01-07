@@ -6,7 +6,7 @@
     <!-- 🔥 TOP CONTACT + SOCIAL BAR -->
     <!-- 🔥 TOP CONTACT + SOCIAL BAR (taller version) -->
     <div
-      class="bg-white"
+      class="bg-white "
       style="
         border-bottom: 1px solid rgba(0,0,0,0.08);
         padding: 10px 0;       /* taller */
@@ -118,7 +118,7 @@
 
     <q-page-container>
       <!--<pre>{{item}}</pre>-->
-      <div class=" " style="min-height: 60vh;">
+      <div class="bg-grey-1 " style="min-height: 60vh;">
         <!--<BreadcrumbsComp />-->
         <router-view />
       </div>

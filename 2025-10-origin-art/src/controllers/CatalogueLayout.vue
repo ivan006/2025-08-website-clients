@@ -12,7 +12,7 @@
       <q-btn flat color="primary" class="text-3ry-color" label="Filters" @click="showFilters = true" />
     </div>
 
-    <div class="row q-col-gutter-mdx " >
+    <div class="row q-col-gutter-mdx bg-white" >
       <!-- 🧭 Filters Sidebar (desktop only) -->
       <div class="col-12 col-md-2 q-pa-md" v-if="$q.screen.gt.sm" style="border-right: 1px solid rgba(0, 0, 0, 0.12);">
         <div
