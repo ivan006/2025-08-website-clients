@@ -15,7 +15,6 @@
     <template v-else>
 
       <template v-for="item in nestedMenu" :key="item.id">
-
         <!-- ROOT ITEMS -->
         <q-item clickable :to="{path: !item.children.length ? item.url : undefined, hash: item.Hash}" class="q-pl-lg text-uppercase "
           @mouseenter="handleRootHover(item)" @mouseleave="scheduleClose(item.id)" @click.stop :style="{
@@ -228,7 +227,7 @@ export default {
           slug: item.Slug,
           parentIds: item.Parent || [],
           childIds: item.Site_Menu_Items || [],
-          Hash: item.Hash || []
+          Hash: item.Hash || ''
         }
       })
 

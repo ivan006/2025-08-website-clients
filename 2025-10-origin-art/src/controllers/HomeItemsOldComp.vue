@@ -48,16 +48,16 @@
 
                   <!-- Artist Info -->
                   <div class="column items-center items-md-start " :class="artCardWidthClass(artworks.length)">
-                    <h3 class="text-h5 q-mb-sm font-1ry">{{ artistName }}</h3>
+                    <h3 class="text-h5 q-mb-sm font-1ry text-center">{{ artistName }}</h3>
 
-                    <div class="text-body1 text-2ry-color q-mb-xs">
+                    <!-- <div class="text-body1 text-2ry-color q-mb-xs">
                       Tier:
                       <q-badge outline class="q-px-sm q-py-xs" style="border-radius: 8px;">
                         {{ tierName }}
                       </q-badge>
-                    </div>
+                    </div> -->
 
-                    <q-btn flat size="md" class="q-mt-xs text-3ry-color" label="View All Works" />
+                    <q-btn flat size="md" class="q-mt-xs text-3ry-color" label="View All Works" :to="`/artists/${artworks[0]['Artist'][0]}/${this.slugify(artistName || 'artist')}`"/>
                   </div>
 
                   <!-- First 3 artworks -->
@@ -77,7 +77,8 @@
                       <div class="text-h6 font-1ry">{{ art.Title }}</div>
                       <div class="text-body1 text-2ry-color">R{{ art.Price.toLocaleString() }}</div>
 
-                      <q-btn flat size="md" class="q-mt-xs text-3ry-color" label="Read More"  />
+                      <q-btn flat size="md" class="q-mt-xs text-3ry-color" label="Read More"
+                        :to="`/artworks/${art.id}/${slugify(art.Title || 'artwork')}`" />
                     </div>
                   </div>
 
@@ -223,6 +224,16 @@ export default {
 
   methods: {
 
+
+
+    slugify(text) {
+      return text
+        .toLowerCase()
+        .replace(/\s+/g, '-')        // Replace spaces with -
+        .replace(/[^\w-]+/g, '')     // Remove non-word characters
+        .replace(/--+/g, '-')        // Merge multiple -
+        .replace(/^-+|-+$/g, '');    // Trim - from start/end
+    },
 
     artistCardWidthClass(count) {
       if (count >= 3) return 'col-12 col-md-12';
