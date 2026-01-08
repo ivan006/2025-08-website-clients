@@ -139,7 +139,7 @@ export default {
                 addr_region: "",
                 addr_postcode: "",
                 addr_country: "",
-                product_id: this.$route.params.productId,
+                product_id: [this.$route.params.productId],
             },
 
             errors: {
