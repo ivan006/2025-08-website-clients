@@ -12,7 +12,7 @@
 
                 <!-- RIGHT: Checkout form -->
                 <div class="col-12 col-md-7">
-                    <div class="q-pa-lg"  @pointerdown="clearErrors">
+                    <div class="q-pa-lg" @pointerdown="clearErrors">
 
                         <!-- Title -->
                         <div class="text-h6 text-weight-bold q-mb-lg">
@@ -72,6 +72,11 @@
                                 <NativeLikeValidationError class="q-mb-sm" :errors="errors.addr_country" />
                             </div>
                         </div>
+                        <q-banner v-if="checkoutError" class="bg-red-1 text-red q-mb-md" rounded>
+                            <div class="text-body2">
+                                {{ checkoutError }}
+                            </div>
+                        </q-banner>
 
                         <!-- CTA -->
                         <q-btn class="full-width q-py-sm" color="dark" no-caps unelevated :disable="loading"
@@ -118,7 +123,9 @@ export default {
     },
 
     data() {
+
         return {
+            checkoutError: null,
             loading: false,
             loadingText: "",
 
@@ -183,7 +190,9 @@ export default {
             Object.keys(this.errors).forEach(k => {
                 this.errors[k] = []
             })
+            this.checkoutError = null // 👈 clear checkout-level error
         },
+
 
         async submit() {
             this.clearErrors()
@@ -237,8 +246,19 @@ export default {
                 }).then(r => r.json());
 
                 if (!confirmRes.ok) {
+
+                    // 🔒 Handle known backend codes
+                    if (confirmRes.code === 'PRODUCT_SOLD') {
+                        this.checkoutError = 'Sorry, this product has already been sold.';
+                        this.loading = false;
+                        this.loadingText = '';
+                        return;
+                    }
+
                     throw new Error(confirmRes.error || "Failed to confirm price");
                 }
+
+
 
                 this.loading = false;
                 // 3️⃣ Redirect to PayFast
