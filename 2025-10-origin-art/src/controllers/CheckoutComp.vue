@@ -79,14 +79,14 @@
                         </q-banner>
 
                         <!-- CTA -->
-                        <q-btn class="full-width q-py-sm" color="dark" no-caps unelevated :disable="loading"
+                        <q-btn class="full-width q-py-sm" color="dark" no-caps unelevated :disable="loadingPost"
                             @click="submit" style="border-radius:6px; font-size:16px;">
-                            <template v-if="!loading">
+                            <template v-if="!loadingPost">
                                 Continue to payment
                             </template>
                             <template v-else>
                                 <q-spinner size="18px" class="q-mr-sm" />
-                                {{ loadingText }}
+                                {{ loadingTextPost }}
                             </template>
                         </q-btn>
 
@@ -125,9 +125,10 @@ export default {
     data() {
 
         return {
+            productUnavailable: false,
             checkoutError: null,
-            loading: false,
-            loadingText: "",
+            loadingPost: false,
+            loadingTextPost: "",
 
             form: {
                 delivery_name: "",
@@ -177,6 +178,8 @@ export default {
     },
     methods: {
 
+
+
         runRules(value, rules = []) {
             for (const rule of rules) {
                 const res = rule(value)
@@ -213,8 +216,8 @@ export default {
             if (!valid) return
 
             try {
-                this.loading = true;
-                this.loadingText = "Securing order number";
+                this.loadingPost = true;
+                this.loadingTextPost = "Securing order number";
 
                 // 1️⃣ Create order shell
                 const orderRes = await fetch(`${import.meta.env.VITE_API_PAY_INTEGRATION_URL}/generate-order-number.php`, {
@@ -230,7 +233,7 @@ export default {
                 }
 
                 // 2️⃣ Confirm price + sign
-                this.loadingText = "Securing price";
+                this.loadingTextPost = "Securing price";
 
                 const confirmRes = await fetch(`${import.meta.env.VITE_API_PAY_INTEGRATION_URL}/confirm-price.php`, {
                     method: "POST",
@@ -251,8 +254,8 @@ export default {
                     // 🔒 Handle known backend codes
                     if (confirmRes.code === 'PRODUCT_SOLD') {
                         this.checkoutError = 'Sorry, this product has already been sold.';
-                        this.loading = false;
-                        this.loadingText = '';
+                        this.loadingPost = false;
+                        this.loadingTextPost = '';
                         return;
                     }
 
@@ -261,14 +264,14 @@ export default {
 
 
 
-                this.loading = false;
+                this.loadingPost = false;
                 // 3️⃣ Redirect to PayFast
                 this.redirectToPayFast(confirmRes.payfast_url, confirmRes.fields);
 
             } catch (err) {
                 console.error(err);
-                this.loading = false;
-                this.loadingText = "";
+                this.loadingPost = false;
+                this.loadingTextPost = "";
                 alert(err.message || "Checkout failed");
             }
         },
@@ -290,5 +293,6 @@ export default {
             form.submit();
         }
     }
+
 };
 </script>
