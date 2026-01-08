@@ -138,7 +138,8 @@ export default {
                 addr_city: "",
                 addr_region: "",
                 addr_postcode: "",
-                addr_country: ""
+                addr_country: "",
+                product_id: this.$route.params.productId,
             },
 
             errors: {
@@ -216,7 +217,7 @@ export default {
                 this.loadingText = "Securing order number";
 
                 // 1️⃣ Create order shell
-                const orderRes = await fetch("/pay/generate-order-number.php", {
+                const orderRes = await fetch(`${import.meta.env.VITE_API_PAY_INTEGRATION_URL}/generate-order-number.php`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -231,7 +232,7 @@ export default {
                 // 2️⃣ Confirm price + sign
                 this.loadingText = "Securing price";
 
-                const confirmRes = await fetch("/pay/confirm-price.php", {
+                const confirmRes = await fetch(`${import.meta.env.VITE_API_PAY_INTEGRATION_URL}/confirm-price.php`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
