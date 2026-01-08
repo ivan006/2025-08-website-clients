@@ -43,89 +43,89 @@
                         <template v-else>
 
 
-                    <div class="" @pointerdown="clearErrors">
+                            <div class="" @pointerdown="clearErrors">
 
-                        <!-- Title -->
-                        <div class="text-h6 text-weight-bold q-mb-lg">
-                            Enter delivery details
-                        </div>
+                                <!-- Title -->
+                                <div class="text-h6 text-weight-bold q-mb-lg">
+                                    Enter delivery details
+                                </div>
 
-                        <!-- Contact info -->
-                        <div class="text-subtitle2 text-weight-medium q-mb-sm">
-                            Contact information
-                        </div>
+                                <!-- Contact info -->
+                                <div class="text-subtitle2 text-weight-medium q-mb-sm">
+                                    Contact information
+                                </div>
 
-                        <q-input v-model="form.delivery_name" placeholder="Full name" outlined dense
-                            hide-bottom-space class="" />
-                        <NativeLikeValidationError class="q-mb-sm" :errors="errors.delivery_name" />
+                                <q-input v-model="form.delivery_name" placeholder="Full name" outlined dense
+                                    hide-bottom-space class="" />
+                                <NativeLikeValidationError class="q-mb-sm" :errors="errors.delivery_name" />
 
-                        <q-input v-model="form.delivery_email" placeholder="Email" type="email" outlined dense
-                            hide-bottom-space class="" />
-                        <NativeLikeValidationError class="q-mb-sm" :errors="errors.delivery_email" />
+                                <q-input v-model="form.delivery_email" placeholder="Email" type="email" outlined dense
+                                    hide-bottom-space class="" />
+                                <NativeLikeValidationError class="q-mb-sm" :errors="errors.delivery_email" />
 
-                        <q-input v-model="form.delivery_phone" placeholder="Phone number (optional)" outlined
-                            dense class="q-mb-lg" />
+                                <q-input v-model="form.delivery_phone" placeholder="Phone number (optional)" outlined
+                                    dense class="q-mb-lg" />
 
-                        <!-- Address -->
-                        <div class="text-subtitle2 text-weight-medium q-mb-sm">
-                            Delivery address
-                        </div>
+                                <!-- Address -->
+                                <div class="text-subtitle2 text-weight-medium q-mb-sm">
+                                    Delivery address
+                                </div>
 
-                        <q-input v-model="form.addr_street" placeholder="Street address" outlined dense
-                            hide-bottom-space class="" />
-                        <NativeLikeValidationError class="q-mb-sm" :errors="errors.addr_street" />
+                                <q-input v-model="form.addr_street" placeholder="Street address" outlined dense
+                                    hide-bottom-space class="" />
+                                <NativeLikeValidationError class="q-mb-sm" :errors="errors.addr_street" />
 
-                        <q-input v-model="form.addr_unit" placeholder="Apartment / Unit (optional)" outlined
-                            dense class="q-mb-sm" />
+                                <q-input v-model="form.addr_unit" placeholder="Apartment / Unit (optional)" outlined
+                                    dense class="q-mb-sm" />
 
-                        <div class="row q-col-gutter-sm q-mb-sm">
-                            <div class="col-6">
-                                <q-input v-model="form.addr_city" placeholder="City / Town" outlined dense
-                                    hide-bottom-space />
-                                <NativeLikeValidationError class="q-mb-sm" :errors="errors.addr_city" />
+                                <div class="row q-col-gutter-sm q-mb-sm">
+                                    <div class="col-6">
+                                        <q-input v-model="form.addr_city" placeholder="City / Town" outlined dense
+                                            hide-bottom-space />
+                                        <NativeLikeValidationError class="q-mb-sm" :errors="errors.addr_city" />
+                                    </div>
+                                    <div class="col-6">
+                                        <q-input v-model="form.addr_region" placeholder="Province / Region" outlined
+                                            dense hide-bottom-space />
+                                        <NativeLikeValidationError class="q-mb-sm" :errors="errors.addr_region" />
+                                    </div>
+                                </div>
+
+                                <div class="row q-col-gutter-sm q-mb-lg">
+                                    <div class="col-6">
+                                        <q-input v-model="form.addr_postcode" placeholder="Postal / ZIP" outlined dense
+                                            hide-bottom-space />
+                                        <NativeLikeValidationError class="q-mb-sm" :errors="errors.addr_postcode" />
+                                    </div>
+                                    <div class="col-6">
+                                        <q-input v-model="form.addr_country" placeholder="Country" outlined dense
+                                            hide-bottom-space />
+                                        <NativeLikeValidationError class="q-mb-sm" :errors="errors.addr_country" />
+                                    </div>
+                                </div>
+                                <q-banner v-if="checkoutError" class="bg-red-1 text-red q-mb-md" rounded>
+                                    <div class="text-body2">
+                                        {{ checkoutError }}
+                                    </div>
+                                </q-banner>
+
+                                <!-- CTA -->
+                                <q-btn class="full-width q-py-sm" color="dark" no-caps unelevated :disable="loadingPost"
+                                    @click="submit" style="border-radius:6px; font-size:16px;">
+                                    <template v-if="!loadingPost">
+                                        Continue to payment
+                                    </template>
+                                    <template v-else>
+                                        <q-spinner size="18px" class="q-mr-sm" />
+                                        {{ loadingTextPost }}
+                                    </template>
+                                </q-btn>
+
+                                <div class="text-caption text-grey text-center q-mt-sm">
+                                    You will be redirected to PayFast to complete payment
+                                </div>
+
                             </div>
-                            <div class="col-6">
-                                <q-input v-model="form.addr_region" placeholder="Province / Region" outlined
-                                    dense hide-bottom-space />
-                                <NativeLikeValidationError class="q-mb-sm" :errors="errors.addr_region" />
-                            </div>
-                        </div>
-
-                        <div class="row q-col-gutter-sm q-mb-lg">
-                            <div class="col-6">
-                                <q-input v-model="form.addr_postcode" placeholder="Postal / ZIP" outlined dense
-                                    hide-bottom-space />
-                                <NativeLikeValidationError class="q-mb-sm" :errors="errors.addr_postcode" />
-                            </div>
-                            <div class="col-6">
-                                <q-input v-model="form.addr_country" placeholder="Country" outlined dense
-                                    hide-bottom-space />
-                                <NativeLikeValidationError class="q-mb-sm" :errors="errors.addr_country" />
-                            </div>
-                        </div>
-                        <q-banner v-if="checkoutError" class="bg-red-1 text-red q-mb-md" rounded>
-                            <div class="text-body2">
-                                {{ checkoutError }}
-                            </div>
-                        </q-banner>
-
-                        <!-- CTA -->
-                        <q-btn class="full-width q-py-sm" color="dark" no-caps unelevated :disable="loadingPost"
-                            @click="submit" style="border-radius:6px; font-size:16px;">
-                            <template v-if="!loadingPost">
-                                Continue to payment
-                            </template>
-                            <template v-else>
-                                <q-spinner size="18px" class="q-mr-sm" />
-                                {{ loadingTextPost }}
-                            </template>
-                        </q-btn>
-
-                        <div class="text-caption text-grey text-center q-mt-sm">
-                            You will be redirected to PayFast to complete payment
-                        </div>
-
-                    </div>
                         </template>
 
                     </div>
