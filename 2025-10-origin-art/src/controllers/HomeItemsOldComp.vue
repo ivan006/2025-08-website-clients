@@ -9,7 +9,7 @@
 
   <template v-else>
 
-    
+
     <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
     <!-- LEVEL 1: MEDIA -->
     <div v-for="(tiers, mediaName) in groupedArtworks" :key="mediaName">
@@ -25,7 +25,7 @@
 
       <!-- LEVEL 2: TIER -->
       <div v-for="(artists, tierName) in tiers" :key="tierName">
-        
+
         <div class="bg-3ry-color">
           <div class="container-md q-py-lg">
             <h4 class="text-h4 text-center font-1ry text-white q-my-lg">
@@ -39,23 +39,15 @@
           <div class="container-md q-py-xl">
 
             <div class="row">
-              
-              <q-card
-                v-for="(artworks, artistName) in artists"
-                :key="artistName"
-                flat
-                class="q-pa-md q-mb-xl bg-1ry-color text-1ry-color"
-                style="border-radius: 12px;"
-                :class="artistCardWidthClass(artworks.length)"
-              >
+
+              <q-card v-for="(artworks, artistName) in artists" :key="artistName" flat
+                class="q-pa-md q-mb-xl bg-1ry-color text-1ry-color" style="border-radius: 12px;"
+                :class="artistCardWidthClass(artworks.length)">
 
                 <div class="row q-col-gutter-md items-center">
 
                   <!-- Artist Info -->
-                  <div 
-                    class="column items-center items-md-start "
-                    :class="artCardWidthClass(artworks.length)"
-                  >
+                  <div class="column items-center items-md-start " :class="artCardWidthClass(artworks.length)">
                     <h3 class="text-h5 q-mb-sm font-1ry">{{ artistName }}</h3>
 
                     <div class="text-body1 text-2ry-color q-mb-xs">
@@ -65,15 +57,11 @@
                       </q-badge>
                     </div>
 
-                    <q-btn flat size="md" class="q-mt-xs text-3ry-color" label="View All Works"/>
+                    <q-btn flat size="md" class="q-mt-xs text-3ry-color" label="View All Works" />
                   </div>
 
                   <!-- First 3 artworks -->
-                  <div
-                    v-for="art in artworks.slice(0, 3)"
-                    :key="art.id"
-                    class="col-12 col-md-3"
-                  >
+                  <div v-for="art in artworks.slice(0, 3)" :key="art.id" class="col-12 col-md-3">
                     <!-- <img
                       :src="art.Attachments?.[0]?.thumbnails?.large?.url 
                               ? `${$apiProxyUrl}${encodeURIComponent(art.Attachments[0].thumbnails.large.url)}`
@@ -81,21 +69,15 @@
                       style="height: 200px; border-radius: 10px; width: 100%; object-fit: cover;"
                     > -->
 
-                    <q-img
-                      :src="largeUrl(art['Attachments'])"
-                      :placeholder-src="smallUrl(art['Attachments'])"
-                      ratio="1"
-                      class="rounded-borders"
-                      :style="{ height: cardHeight, objectFit: 'contain' }"
-                      fit="contain"
-                    />
+                    <q-img :src="largeUrl(art['Attachments'])" :placeholder-src="smallUrl(art['Attachments'])" ratio="1"
+                      class="rounded-borders" :style="{ height: cardHeight, objectFit: 'contain' }" fit="contain" />
                     <!-- <pre>{{ art }}</pre> -->
 
                     <div class="q-pt-sm text-center">
                       <div class="text-h6 font-1ry">{{ art.Title }}</div>
                       <div class="text-body1 text-2ry-color">R{{ art.Price.toLocaleString() }}</div>
 
-                      <q-btn flat size="md" class="q-mt-xs text-3ry-color" label="Read More" />
+                      <q-btn flat size="md" class="q-mt-xs text-3ry-color" label="Read More"  />
                     </div>
                   </div>
 
@@ -207,8 +189,8 @@ export default {
         const artist = art["Name (from Artist)"]?.[0] || "Unknown Artist"
 
         medias.forEach(media => {
-          if (!MEDIA_ORDER.includes(media)) return 
-          if (!TIER_ORDER.includes(tier)) return 
+          if (!MEDIA_ORDER.includes(media)) return
+          if (!TIER_ORDER.includes(tier)) return
 
           if (!result[media]) result[media] = {}
           if (!result[media][tier]) result[media][tier] = {}
@@ -240,7 +222,7 @@ export default {
   },
 
   methods: {
-    
+
 
     artistCardWidthClass(count) {
       if (count >= 3) return 'col-12 col-md-12';
@@ -248,7 +230,7 @@ export default {
       if (count === 1) return 'offset-md-3 col-md-6 col-12';
       return 'col-12';
     },
-    
+
     artCardWidthClass(count) {
       if (count >= 3) return 'col-md-3 col-12';
       if (count === 2) return 'col-md-4 col-12';
@@ -288,4 +270,3 @@ export default {
   }
 }
 </script>
-
