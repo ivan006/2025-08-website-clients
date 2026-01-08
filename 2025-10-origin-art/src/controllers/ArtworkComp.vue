@@ -164,10 +164,19 @@
 
               <div class="col-auto">
                 <q-btn
+                  :disable="!['For Sale', 'Details Pending'].includes(item.Status)"
                   color="dark"
                   label="Buy Now"
                   :to="`/checkout/${id}`"
                 />
+
+                <div
+                  v-if="!['For Sale', 'Details Pending'].includes(item.Status)"
+                  class="text-caption text-grey q-mt-xs"
+                >
+                  This item is no longer available.
+                </div>
+
               </div>
 
             </div>
