@@ -7,12 +7,43 @@
 
                 <!-- LEFT: Product display -->
                 <div class="col-12 col-md-5">
-                    <CheckoutProductDisplay :product-id="productId" />
-                </div>
+                    <div v-if="loading" class="q-pa-lg">
+                        <q-spinner size="24px" />
+                    </div>
+                    <template v-else>
 
-                <!-- RIGHT: Checkout form -->
+                        <CheckoutProductDisplay :product="product" />
+                    </template>
+                </div>
                 <div class="col-12 col-md-7">
-                    <div class="q-pa-lg" @pointerdown="clearErrors">
+                    <div class="q-pa-lg">
+
+                        <!-- 🚫 Product unavailable state -->
+                        <!-- ⏳ Availability loading state -->
+                        <!-- <pre>{{ product }}</pre> -->
+                        <div v-if="loading" class="q-mt-lg">
+                            <q-spinner size="24px" />
+                        </div>
+                        <template v-else-if="!['For Sale', 'Details Pending'].includes(product.Status)">
+                            <div class="text-h6 text-weight-bold q-mb-md">
+                                Product unavailable
+                            </div>
+
+                            <div class="text-body2 q-mb-lg">
+                                Sorry, this product is no longer available for purchase.
+                            </div>
+
+                            <q-btn color="dark" unelevated no-caps class="full-width q-py-sm"
+                                style="border-radius:6px; font-size:16px;" to="/">
+                                Continue browsing
+                            </q-btn>
+                        </template>
+
+                        <!-- ✅ Normal checkout form -->
+                        <template v-else>
+
+
+                    <div class="" @pointerdown="clearErrors">
 
                         <!-- Title -->
                         <div class="text-h6 text-weight-bold q-mb-lg">
@@ -24,16 +55,16 @@
                             Contact information
                         </div>
 
-                        <q-input v-model="form.delivery_name" placeholder="Full name" outlined dense hide-bottom-space
-                            class="" />
+                        <q-input v-model="form.delivery_name" placeholder="Full name" outlined dense
+                            hide-bottom-space class="" />
                         <NativeLikeValidationError class="q-mb-sm" :errors="errors.delivery_name" />
 
                         <q-input v-model="form.delivery_email" placeholder="Email" type="email" outlined dense
                             hide-bottom-space class="" />
                         <NativeLikeValidationError class="q-mb-sm" :errors="errors.delivery_email" />
 
-                        <q-input v-model="form.delivery_phone" placeholder="Phone number (optional)" outlined dense
-                            class="q-mb-lg" />
+                        <q-input v-model="form.delivery_phone" placeholder="Phone number (optional)" outlined
+                            dense class="q-mb-lg" />
 
                         <!-- Address -->
                         <div class="text-subtitle2 text-weight-medium q-mb-sm">
@@ -44,8 +75,8 @@
                             hide-bottom-space class="" />
                         <NativeLikeValidationError class="q-mb-sm" :errors="errors.addr_street" />
 
-                        <q-input v-model="form.addr_unit" placeholder="Apartment / Unit (optional)" outlined dense
-                            class="q-mb-sm" />
+                        <q-input v-model="form.addr_unit" placeholder="Apartment / Unit (optional)" outlined
+                            dense class="q-mb-sm" />
 
                         <div class="row q-col-gutter-sm q-mb-sm">
                             <div class="col-6">
@@ -54,8 +85,8 @@
                                 <NativeLikeValidationError class="q-mb-sm" :errors="errors.addr_city" />
                             </div>
                             <div class="col-6">
-                                <q-input v-model="form.addr_region" placeholder="Province / Region" outlined dense
-                                    hide-bottom-space />
+                                <q-input v-model="form.addr_region" placeholder="Province / Region" outlined
+                                    dense hide-bottom-space />
                                 <NativeLikeValidationError class="q-mb-sm" :errors="errors.addr_region" />
                             </div>
                         </div>
@@ -95,7 +126,9 @@
                         </div>
 
                     </div>
+                        </template>
 
+                    </div>
                 </div>
 
             </div>
@@ -112,6 +145,8 @@
 import CheckoutProductDisplay from "src/controllers/CheckoutProductDisplay.vue";
 import NativeLikeValidationError from "src/controllers/NativeLikeValidationError.vue";
 
+import ArtworksBoundCache from 'src/models/orm-api/ArtworksBoundCache'
+
 export default {
     name: "CheckoutComp",
 
@@ -125,6 +160,8 @@ export default {
     data() {
 
         return {
+            loading: false,
+            product: {},
             productUnavailable: false,
             checkoutError: null,
             loadingPost: false,
@@ -291,6 +328,35 @@ export default {
 
             document.body.appendChild(form);
             form.submit();
+        },
+
+
+
+    },
+
+
+
+    async mounted() {
+        this.loading = true;
+
+        try {
+            const res = await ArtworksBoundCache.FetchAll([], {
+                view: 'viwn7wDGK6yk5ZHOl'
+            });
+
+            const records = res.response.data.records.map(r => ({
+                id: r.id,
+                ...r.fields
+            }));
+
+            const item = records.find(r => r.id === this.productId);
+
+            if (!item) return;
+
+            this.product = item;
+
+        } finally {
+            this.loading = false;
         }
     }
 
