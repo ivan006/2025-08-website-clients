@@ -9,18 +9,12 @@
       </div>
 
       <div v-else class="row q-col-gutter-xl">
-        
+
         <!-- LEFT: IMAGE -->
         <div class="col-12 col-md-6 flex flex-centerx">
-          <q-img
-            :src="mainImage"
-            :placeholder-src="placeholderImage"
-            fit="contain"
-            class="rounded-borders cursor-pointer"
-            :style="{ height: cardHeight }"
-            @click="showDialog = true"
-          />
-          
+          <q-img :src="mainImage" :placeholder-src="placeholderImage" fit="contain"
+            class="rounded-borders cursor-pointer" :style="{ height: cardHeight }" @click="showDialog = true" />
+
           <!-- DIALOG -->
           <!-- <q-dialog v-model="showDialog" persistentx>
             <q-card style="max-width: 90vw; max-height: 90vh;">
@@ -33,27 +27,23 @@
             </q-card>
           </q-dialog> -->
 
-          
-            <!-- FULL TEXT DIALOG -->
-            <q-dialog v-model="showDialog" class="no-padding-dialog">
-              <q-card style="max-width: 700px; width: 90%;">
-                <q-card-section class="q-pa-none">
-                  <q-img
-                    :src="mainImage"
-                    fit="contain"
-                    style="max-height: 90vh;"
-                  />
-                </q-card-section>
 
-                <!-- <q-card-actions align="right">
+          <!-- FULL TEXT DIALOG -->
+          <q-dialog v-model="showDialog" class="no-padding-dialog">
+            <q-card style="max-width: 700px; width: 90%;">
+              <q-card-section class="q-pa-none">
+                <q-img :src="mainImage" fit="contain" style="max-height: 90vh;" />
+              </q-card-section>
+
+              <!-- <q-card-actions align="right">
                   <q-btn flat label="Close" v-close-popup />
                 </q-card-actions> -->
-              </q-card>
-            </q-dialog>
-            <!-- style="background-color: #EEE;" -->
-            <!-- style="width: 100%; height: 600px;" -->
+            </q-card>
+          </q-dialog>
+          <!-- style="background-color: #EEE;" -->
+          <!-- style="width: 100%; height: 600px;" -->
         </div>
-        
+
 
         <!-- RIGHT: DETAILS -->
         <div class="col-12 col-md-6 q-pl-md-lg">
@@ -65,11 +55,9 @@
           <!-- <div class="text-subtitle2 text-grey-7 q-mt-xs">
             {{ item['Name (from Artist)']?.[0] || '' }}
           </div> -->
-          
-          <router-link
-            :to="`/artists/`+item.Artist[0]+`/`+item['Name (from Artist)']"
-            class="text-subtitle2 text-grey-7 q-mt-xs"
-          >
+
+          <router-link :to="`/artists/` + item.Artist[0] + `/` + item['Name (from Artist)']"
+            class="text-subtitle2 text-grey-7 q-mt-xs">
             {{ item['Name (from Artist)']?.[0] || '' }}
           </router-link>
 
@@ -89,19 +77,14 @@
               <div class="col-5 text-grey-7">Materials</div>
               <div class="col-7">
                 {{ Array.isArray(item['Name (from Materials)'])
-                    ? item['Name (from Materials)'].join(', ')
-                    : item['Name (from Materials)'] || '-' }}
+                  ? item['Name (from Materials)'].join(', ')
+                  : item['Name (from Materials)'] || '-' }}
               </div>
 
               <div class="col-5 text-grey-7">Availability</div>
               <div class="col-7 q-mt-sm">
-                
-                <q-badge
-                  transparent
-                  align="middle"
-                  size="sm"
-                  class="bg-grey-7 text-white"
-                >
+
+                <q-badge transparent align="middle" size="sm" class="bg-grey-7 text-white">
                   {{ item.Status }}
                 </q-badge>
               </div>
@@ -132,15 +115,12 @@
               Contact us on the number below.
             </div>
 
-            <div 
-              class="q-mt-sm q-pa-sm rounded-borders"
-              style="
+            <div class="q-mt-sm q-pa-sm rounded-borders" style="
                 border: 1px solid rgba(0,0,0,0.15);
                 font-size: 1.1rem;
                 user-select: text;
                 display: inline-block;
-              "
-            >
+              ">
               <a href="https://wa.me/+27826009693" style="text-decoration:none; color: inherit;">
                 +27 82 600 9693
               </a>
@@ -155,25 +135,15 @@
             <div class="q-mt-md row q-col-gutter-sm">
 
               <div class="col-auto">
-                <q-btn 
-                  color="dark"
-                  label="Enquire Now"
-                  @click="showEnquiry = true"
-                />
+                <q-btn color="dark" label="Enquire Now" @click="showEnquiry = true" />
               </div>
 
               <div class="col-auto">
-                <q-btn
-                  :disable="!['For Sale', 'Details Pending'].includes(item.Status)"
-                  color="dark"
-                  label="Buy Now"
-                  :to="`/checkout/${id}`"
-                />
+                <q-btn :disable="!['For Sale', 'Details Pending'].includes(item.Status)" color="dark" label="Buy Now"
+                  :to="`/checkout/${id}`" />
 
-                <div
-                  v-if="!['For Sale', 'Details Pending'].includes(item.Status)"
-                  class="text-caption text-grey q-mt-xs"
-                >
+                <div v-if="!['For Sale', 'Details Pending'].includes(item.Status)"
+                  class="text-caption text-grey q-mt-xs">
                   This item is no longer available.
                 </div>
 
@@ -186,9 +156,8 @@
 
 
           <AlwaysMountedModal v-model="showEnquiry">
-            <IframeWithLoader 
-              :src="`https://airtable.com/embed/appWL8gDT9ZaqV8jY/pagdRpra8CQue8ubu/form?prefill_Artwork%20Inventory%20Number=${item['Inv Code']}`"
-            />
+            <IframeWithLoader
+              :src="`https://airtable.com/embed/appWL8gDT9ZaqV8jY/pagdRpra8CQue8ubu/form?prefill_Artwork%20Inventory%20Number=${item['Inv Code']}`" />
             <!-- <IframeWithLoader 
               :src="`https://airtable.com/embed/appWL8gDT9ZaqV8jY/pagdRpra8CQue8ubu/form?prefill_Artwork=${id}`"
             /> -->
@@ -198,7 +167,7 @@
 
         </div>
       </div>
-      
+
     </div>
   </div>
 </template>
@@ -242,8 +211,8 @@ export default {
 
     medium() {
       return this.item["Name (from Medium)"]?.[0] ||
-             this.item["Medium"]?.[0] ||
-             "";
+        this.item["Medium"]?.[0] ||
+        "";
     },
 
     mainImage() {
@@ -259,14 +228,14 @@ export default {
         ? `${import.meta.env.VITE_API_PROXY_URL}${encodeURIComponent(att.thumbnails.small.url)}`
         : "";
     },
-    
+
     cardHeight() {
       return this.$q.screen.lt.md ? "350px" : "600px";
     },
-    
-    
-    
-    seoLdJson(){
+
+
+
+    seoLdJson() {
       const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/');
       const siteName = import.meta.env.VITE_API_SITE_TITLE;
 
@@ -290,7 +259,7 @@ export default {
 
       return schema;
     },
-    seoConfig(){
+    seoConfig() {
 
       const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/');
       const siteName = import.meta.env.VITE_API_SITE_TITLE;
@@ -300,17 +269,17 @@ export default {
       if (this.mainImage) {
         image = this.mainImage;
       }
-      
+
 
       return buildSeoConfig({
-          title: this.item?.['Title'],
-          description: this.artworkDescription(this.item),
-          url,
-          image,
-          siteName,
-          type: "Person",
-          schema: this.seoLdJson
-        });
+        title: this.item?.['Title'],
+        description: this.artworkDescription(this.item),
+        url,
+        image,
+        siteName,
+        type: "Person",
+        schema: this.seoLdJson
+      });
     },
 
     seoConfigMasked() {
