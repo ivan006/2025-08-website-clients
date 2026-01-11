@@ -5,7 +5,7 @@
     </div>
 
     <div v-else>
-      
+
       <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
       <div class="container-sm">
 
@@ -14,17 +14,11 @@
 
           <div class="row justify-center">
             <div class="col-12 col-md-8">
-            
+
               <!-- Avatar -->
 
-              <q-img
-                :src="mainImage"
-                :placeholder-src="placeholderImage"
-                ratio="1"
-                :alt="item.Name"
-                style="width: 180px;"
-                fit="contain"
-              />
+              <q-img :src="mainImage" :placeholder-src="placeholderImage" ratio="1" :alt="item.Name"
+                style="width: 180px;" fit="contain" />
               <!-- 
                 fit="cover"
                 fit="contain"
@@ -57,15 +51,9 @@
 
                 <div class="row q-gutter-sm">
                   <template v-for="m in prettyMedia">
-                    
-                    <q-badge
-                      v-if="m"
-                      :key="m"
-                      color="grey-7"
-                      text-color="white"
-                      class="q-py-xs q-px-sm"
-                      style="font-size: 0.75rem; border-radius: 4px;"
-                    >
+
+                    <q-badge v-if="m" :key="m" color="grey-7" text-color="white" class="q-py-xs q-px-sm"
+                      style="font-size: 0.75rem; border-radius: 4px;">
                       {{ m }}
                     </q-badge>
                   </template>
@@ -73,7 +61,7 @@
               </div>
 
             </div>
-            
+
             <!-- <div v-if="item['artist:artist_statement']" class="col-12 col-md-8">
 
               <h3 class="text-h6 font-1ry q-mb-sm">Artist Statement</h3>
@@ -100,13 +88,9 @@
                 {{ truncate(item['artist:biography'], 500) }}
               </div>
 
-              <q-btn
-                v-if="isLong(item['artist:biography'], 500)"
-                flat label="Read More"
-                class="q-mt-sm bg-dark text-white"
-                size="small"
-                @click="openDialog('Biography', item['artist:biography'])"
-              />
+              <q-btn v-if="isLong(item['artist:biography'], 500)" flat label="Read More"
+                class="q-mt-sm bg-dark text-white" size="small"
+                @click="openDialog('Biography', item['artist:biography'])" />
             </div>
 
             <!-- Influences -->
@@ -117,13 +101,9 @@
                 {{ truncate(item['artist:influences'], 500) }}
               </div>
 
-              <q-btn
-                v-if="isLong(item['artist:influences'], 500)"
-                flat label="Read More"
-                class="q-mt-sm bg-dark text-white"
-                size="small"
-                @click="openDialog('Influences', item['artist:influences'])"
-              />
+              <q-btn v-if="isLong(item['artist:influences'], 500)" flat label="Read More"
+                class="q-mt-sm bg-dark text-white" size="small"
+                @click="openDialog('Influences', item['artist:influences'])" />
             </div>
 
             <!-- Awards -->
@@ -134,13 +114,8 @@
                 {{ truncate(item['artist:awards'], 500) }}
               </div>
 
-              <q-btn
-                v-if="isLong(item['artist:awards'], 500)"
-                flat label="Read More"
-                class="q-mt-sm bg-dark text-white"
-                size="small"
-                @click="openDialog('Awards', item['artist:awards'])"
-              />
+              <q-btn v-if="isLong(item['artist:awards'], 500)" flat label="Read More" class="q-mt-sm bg-dark text-white"
+                size="small" @click="openDialog('Awards', item['artist:awards'])" />
             </div>
 
             <!-- <div v-if="item['artist:comm_accepted']" class="col-12 col-md-8">
@@ -159,7 +134,7 @@
               />
             </div> -->
 
-            
+
 
             <!-- Description -->
             <div v-if="item['Description']" class="col-12 col-md-8">
@@ -169,13 +144,8 @@
                 {{ truncate(item['Description'], 500) }}
               </div>
 
-              <q-btn
-                v-if="isLong(item['Description'], 500)"
-                flat label="Read More"
-                class="q-mt-sm bg-dark text-white"
-                size="small"
-                @click="openDialog('Artist Statement', item['Description'])"
-              />
+              <q-btn v-if="isLong(item['Description'], 500)" flat label="Read More" class="q-mt-sm bg-dark text-white"
+                size="small" @click="openDialog('Artist Statement', item['Description'])" />
             </div>
 
             <!-- FULL TEXT DIALOG -->
@@ -200,8 +170,8 @@
         </div>
       </div>
 
-      
-      
+
+
       <ArtistArtworks :parentId="id" />
       <!-- <div class="text-1ry-color">
         
@@ -265,7 +235,7 @@ export default {
         ? `${import.meta.env.VITE_API_PROXY_URL}${encodeURIComponent(att.thumbnails.small.url)}`
         : "";
     },
-    
+
     mediaLabelMap() {
       return {
         'Fine Art': 'Fine Artist',
@@ -283,7 +253,7 @@ export default {
       }
     },
 
-    
+
     tierGradientMap() {
       return {
         'Gold': 'background: linear-gradient(135deg, #F7D774, #DDAF3A); ',
@@ -306,9 +276,9 @@ export default {
       const t = this.item['Av. Price Tier']
       return this.tierLabelMap[t] || t
     },
-    
-    
-    seoLdJson(){
+
+
+    seoLdJson() {
       const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/');
       const siteName = import.meta.env.VITE_API_SITE_TITLE;
 
@@ -332,7 +302,7 @@ export default {
 
       return schema;
     },
-    seoConfig(){
+    seoConfig() {
 
       const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/');
       const siteName = import.meta.env.VITE_API_SITE_TITLE;
@@ -344,14 +314,14 @@ export default {
       }
 
       return buildSeoConfig({
-          title: this.item?.['Name'],
-          description: this.item?.['artist:artist_statement'] ? this.truncate(this.item?.['artist:artist_statement'], 500) : "",
-          url,
-          image: image || `${window.location.origin}/og-default.jpg`,
-          siteName,
-          type: "Person",
-          schema: this.seoLdJson
-        });
+        title: this.item?.['Name'],
+        description: this.item?.['artist:artist_statement'] ? this.truncate(this.item?.['artist:artist_statement'], 500) : "",
+        url,
+        image: image || `${window.location.origin}/og-default.jpg`,
+        siteName,
+        type: "Person",
+        schema: this.seoLdJson
+      });
     },
 
     seoConfigMasked() {
