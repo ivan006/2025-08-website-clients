@@ -5,32 +5,44 @@
     </div>
 
     <div v-else class="container-sm">
-      <!-- Featured Artist Header -->
-      <div class="column items-center text-center q-mb-lg">
 
-        <q-img :src="mainImage" :placeholder-src="placeholderImage" ratio="1" style="width:180px" fit="contain" />
+      <!-- Featured Artist Layout -->
+      <div class="row q-col-gutter-xl items-start q-mb-lg">
 
-        <div class="text-h4 font-1ry q-mt-md">
-          {{ item.Name }}
+        <!-- Left: Profile Image -->
+        <div class="col-12 col-md-6 flex flex-center">
+          <q-img :src="mainImage" :placeholder-src="placeholderImage" ratio="1" style="height:300px" fit="contain" />
+          
         </div>
 
-        <!-- Media badges -->
-        <div class="row justify-center q-gutter-sm q-mt-sm">
-          <q-badge v-for="m in prettyMedia" :key="m" color="grey-7" text-color="white" class="q-py-xs q-px-sm"
-            style="font-size:.75rem;border-radius:4px">
-            {{ m }}
-          </q-badge>
+        <!-- Right: Artist Info -->
+        <div class="col-12 col-md-6">
+
+          <div class="text-h4 font-1ry">
+            {{ item.Name }}
+          </div>
+
+          <!-- Media badges -->
+          <div class="row q-gutter-sm q-mt-sm">
+            <q-badge v-for="m in prettyMedia" :key="m" color="grey-7" text-color="white" class="q-py-xs q-px-sm"
+              style="font-size:.75rem;border-radius:4px">
+              {{ m }}
+            </q-badge>
+          </div>
+
+          <!-- Short bio / statement -->
+          <div v-if="item.Description" class="text-body1 q-mt-md" style="max-width:600px; white-space:pre-line">
+            {{ truncate(item.Description, 300) }}
+          </div>
+
+          <q-btn v-if="isLong(item.Description, 300)" flat label="Read More" class="q-mt-sm bg-dark text-white"
+            size="small" @click="openDialog('Artist Statement', item.Description)" />
+
         </div>
-
-        <!-- Short bio / statement -->
-        <div v-if="item.Description" class="text-body1 q-mt-md" style="max-width:600px;white-space:pre-line">
-          {{ truncate(item.Description, 300) }}
-        </div>
-
-        <q-btn v-if="isLong(item.Description, 300)" flat label="Read More" class="q-mt-sm bg-dark text-white"
-          size="small" @click="openDialog('Artist Statement', item.Description)" />
-
       </div>
+
+      <!-- Dialog stays unchanged -->
+
 
       <!-- Optional artworks preview -->
       <!-- <ArtistArtworks :parentId="artistId" /> -->
@@ -60,9 +72,9 @@ import ArtistArtworks from 'src/controllers/ArtistArtworks.vue'
 export default {
   name: 'FeaturedArtist',
 
-  components: { 
+  components: {
     // ArtistArtworks
-   },
+  },
 
   props: {
     artistId: {

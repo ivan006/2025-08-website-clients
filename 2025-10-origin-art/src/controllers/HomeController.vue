@@ -159,8 +159,19 @@
       </div>
 
       
+      <div class=" bg-white text- q-py-md" id="contact">
+        <div
+          class="container-sm "
+        >
+
+          <h2 class="r-font-h3 text-center q-my-none text-uppercase font-1ry">
+            
+             Featured Artist
+          </h2>
+        </div>
+      </div>
       <!-- Featured artist -->
-      <div class="bg-white">
+      <div class="bg-2ry-color">
         <div class="container-sm q-py-xl">
           <HomePageFeaturedArtistComp v-if="item.fields" :artistId="item.fields['Featured Artist'][0]" />
         </div>
