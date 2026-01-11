@@ -6,7 +6,7 @@ export default class Site extends BasicModel {
   static entityUrl = '/Site_Menu_Items';
 
   static defaultFlags = {
-    view: "viwd5NTAtsGwAryxx",
+    view: "viw9RGVPv6f8zOrCd",
   }
 
 

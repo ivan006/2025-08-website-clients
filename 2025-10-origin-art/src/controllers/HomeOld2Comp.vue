@@ -244,7 +244,7 @@ export default {
 
     id() {
       // return this.$route.params.rId
-      return 'recoIS6KWZ2aqcBJT'
+      return 'rec2ykH253BM2Qrsc'
     },
     superTableModel() {
       return Home_Page

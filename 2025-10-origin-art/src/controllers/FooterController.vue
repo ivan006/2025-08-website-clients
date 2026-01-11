@@ -106,7 +106,7 @@ export default {
 
   computed: {
     id() {
-      return 'reci1Y5KdKFBkz3T1';
+      return 'recE9Mnz1vihDkgXU';
     },
     superTableModel() {
       return Site;
