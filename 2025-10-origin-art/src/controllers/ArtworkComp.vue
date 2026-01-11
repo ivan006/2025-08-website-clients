@@ -107,48 +107,52 @@
 
 
           <div class="q-mt-xl  text-body1">
+            <div>
 
-            <strong>Interested in this artwork?</strong>
+              <q-btn :disable="!['For Sale', 'Details Pending'].includes(item.Status)" color="dark" label="Buy Now"
+                :to="`/checkout/${id}`" />
 
-            <!-- WhatsApp text -->
-            <div class="q-mt-sm">
-              Contact us on the number below.
+              <div v-if="!['For Sale', 'Details Pending'].includes(item.Status)" class="text-caption text-grey q-mt-xs">
+                This item is no longer available.
+              </div>
             </div>
+            <div class="q-mt-lg">
 
-            <div class="q-mt-sm q-pa-sm rounded-borders" style="
+              <strong>Want to learn more?</strong>
+
+              <!-- WhatsApp text -->
+              <div class="q-mt-sm">
+                Contact us on the number below.
+              </div>
+
+              <div class="q-mt-sm q-pa-sm rounded-borders" style="
                 border: 1px solid rgba(0,0,0,0.15);
                 font-size: 1.1rem;
                 user-select: text;
                 display: inline-block;
               ">
-              <a href="https://wa.me/+27826009693" style="text-decoration:none; color: inherit;">
-                +27 82 600 9693
-              </a>
-            </div>
+                <a href="https://wa.me/+27826009693" style="text-decoration:none; color: inherit;">
+                  +27 82 600 9693
+                </a>
+              </div>
 
-            <!-- Enquire text -->
-            <div class="q-mt-lg">
-              Or send an enquiry using the button below.
-            </div>
+              <!-- Enquire text -->
+              <div class="q-mt-lg">
+                Or send an enquiry using the button below.
+              </div>
 
 
-            <div class="q-mt-md row q-col-gutter-sm">
+              <q-btn color="dark" label="Enquire Now" class="q-mt-md" @click="showEnquiry = true" />
+              <!-- <div class="q-mt-md row q-col-gutter-sm">
 
               <div class="col-auto">
-                <q-btn color="dark" label="Enquire Now" @click="showEnquiry = true" />
               </div>
 
               <div class="col-auto">
-                <q-btn :disable="!['For Sale', 'Details Pending'].includes(item.Status)" color="dark" label="Buy Now"
-                  :to="`/checkout/${id}`" />
-
-                <div v-if="!['For Sale', 'Details Pending'].includes(item.Status)"
-                  class="text-caption text-grey q-mt-xs">
-                  This item is no longer available.
-                </div>
 
               </div>
 
+            </div> -->
             </div>
 
 
