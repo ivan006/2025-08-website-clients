@@ -103,11 +103,18 @@
                                         <NativeLikeValidationError class="q-mb-sm" :errors="errors.addr_country" />
                                     </div>
                                 </div>
+                                <q-banner class="bg-grey-1 text-grey-8 q-mb-md" rounded>
+                                    <div class="text-body2">
+                                        <strong>Shipping not included.</strong>
+                                        After your order is processed, you will receive a separate shipping quote.
+                                    </div>
+                                </q-banner>
                                 <q-banner v-if="checkoutError" class="bg-red-1 text-red q-mb-md" rounded>
                                     <div class="text-body2">
                                         {{ checkoutError }}
                                     </div>
                                 </q-banner>
+
 
                                 <!-- CTA -->
                                 <q-btn class="full-width q-py-sm" color="dark" no-caps unelevated :disable="loadingPost"

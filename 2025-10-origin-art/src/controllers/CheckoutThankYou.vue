@@ -13,10 +13,13 @@
           Your order has been received.
         </div>
 
+
+
         <div class="text-body2 q-mb-lg">
           If your payment was successful, you’ll receive a confirmation email shortly.
-          Delivery details will follow once your order is processed.
+          A separate shipping quote will be provided once your order has been processed.
         </div>
+
 
         <q-banner class="bg-grey-2 text-dark q-mb-lg" rounded>
           <div class="text-body2">
