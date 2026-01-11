@@ -157,6 +157,8 @@
           <Home_Page_Items_Controller  :parent="this.item" @loaded="childLoading=false"/>
         </div>
       </div>
+
+      
          
       <div class=" bg-white text- q-py-md" id="contact">
         <div
@@ -373,6 +375,7 @@
 import Home_Page from "src/models/orm-api/Home_Page";
 import { createMetaMixin } from 'quasar'
 import Home_Page_Items_Controller from "src/controllers/Home_Page_Items_Controller.vue";
+import HomePageFeaturedArtistComp from "src/controllers/HomePageFeaturedArtistComp.vue";
 import {buildSeoConfig} from "src/utils/seo";
 
 
@@ -381,7 +384,8 @@ import {buildSeoConfig} from "src/utils/seo";
 export default {
   name: "HomeController.vue",
   components: {
-    Home_Page_Items_Controller
+    Home_Page_Items_Controller,
+    HomePageFeaturedArtistComp,
 
   },
   // mixins: [
@@ -417,7 +421,7 @@ export default {
 
     id() {
       // return this.$route.params.rId
-      return 'recoIS6KWZ2aqcBJT'
+      return 'rec2ykH253BM2Qrsc'
     },
     superTableModel() {
       return Home_Page
