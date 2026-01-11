@@ -157,6 +157,25 @@
               />
             </div>
 
+            
+
+            <!-- Description -->
+            <div v-if="item['Description']" class="col-12 col-md-8">
+              <h3 class="text-h6 font-1ry q-mb-sm">Artist Statement</h3>
+
+              <div class="text-body1" style="white-space: pre-line;">
+                {{ truncate(item['Description'], 500) }}
+              </div>
+
+              <q-btn
+                v-if="isLong(item['Description'], 500)"
+                flat label="Read More"
+                class="q-mt-sm bg-dark text-white"
+                size="small"
+                @click="openDialog('Artist Statement', item['Description'])"
+              />
+            </div>
+
             <!-- FULL TEXT DIALOG -->
             <q-dialog v-model="dialogOpen">
               <q-card style="max-width: 700px; width: 90%;">
