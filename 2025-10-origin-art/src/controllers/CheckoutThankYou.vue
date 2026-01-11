@@ -1,10 +1,8 @@
 <template>
   <div class="q-pa-md bg-grey-1x" style="">
 
-    <div
-      class="q-mx-auto"
-      style="max-width: 640px; border-radius: 12px; overflow: hidden; background: white; box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);"
-    >
+    <div class="q-mx-auto"
+      style="max-width: 640px; border-radius: 12px; overflow: hidden; background: white; box-shadow: 0 0.125rem 0.25rem rgba(0,0,0,0.075);">
       <div class="q-pa-lg">
 
         <div class="text-h6 text-weight-bold q-mb-md">
@@ -20,23 +18,14 @@
           Delivery details will follow once your order is processed.
         </div>
 
-        <q-banner
-          class="bg-grey-2 text-dark q-mb-lg"
-          rounded
-        >
+        <q-banner class="bg-grey-2 text-dark q-mb-lg" rounded>
           <div class="text-body2">
             Payments are securely processed by PayFast.
           </div>
         </q-banner>
 
-        <q-btn
-          color="dark"
-          unelevated
-          no-caps
-          class="full-width q-py-sm"
-          style="border-radius:6px; font-size:16px;"
-          @click="goHome"
-        >
+        <q-btn color="dark" unelevated no-caps class="full-width q-py-sm" style="border-radius:6px; font-size:16px;"
+          @click="goHome">
           Continue browsing
         </q-btn>
 
