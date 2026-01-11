@@ -122,11 +122,35 @@ export default {
         .replace(/--+/g, '-')
         .replace(/^-+|-+$/g, '')
     },
+    // truncate(text, limit) {
+    //   return text && text.length > limit
+    //     ? text.slice(0, limit) + '…'
+    //     : text
+    // },
+
     truncate(text, limit) {
-      return text && text.length > limit
-        ? text.slice(0, limit) + '…'
-        : text
-    },
+      if (!text || text.length <= limit) return text
+
+      const softRange = Math.floor(limit * 0.25)
+      const searchStart = Math.max(0, limit - softRange)
+
+      const segmentRegex = /[.,]/g
+      let match
+      let bestCut = -1
+
+      while ((match = segmentRegex.exec(text)) !== null) {
+        const idx = match.index
+        if (idx >= searchStart && idx <= limit) {
+          bestCut = idx
+        }
+        if (idx > limit) break
+      }
+
+      const cutIndex = bestCut !== -1 ? bestCut : limit
+      return text.slice(0, cutIndex).trim().replace(/[.,]$/, '') + '.'
+    }
+
+    ,
     async fetchArtist() {
       this.loading = true
       try {
