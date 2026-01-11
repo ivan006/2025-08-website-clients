@@ -56,22 +56,25 @@
                 </div> -->
 
                 <div class="row q-gutter-sm">
-                  <q-badge
-                    v-for="m in prettyMedia"
-                    :key="m"
-                    color="grey-7"
-                    text-color="white"
-                    class="q-py-xs q-px-sm"
-                    style="font-size: 0.75rem; border-radius: 4px;"
-                  >
-                    {{ m }}
-                  </q-badge>
+                  <template v-for="m in prettyMedia">
+                    
+                    <q-badge
+                      v-if="m"
+                      :key="m"
+                      color="grey-7"
+                      text-color="white"
+                      class="q-py-xs q-px-sm"
+                      style="font-size: 0.75rem; border-radius: 4px;"
+                    >
+                      {{ m }}
+                    </q-badge>
+                  </template>
                 </div>
               </div>
 
             </div>
-            <!-- Artist Statement -->
-            <div v-if="item['artist:artist_statement']" class="col-12 col-md-8">
+            
+            <!-- <div v-if="item['artist:artist_statement']" class="col-12 col-md-8">
 
               <h3 class="text-h6 font-1ry q-mb-sm">Artist Statement</h3>
 
@@ -87,7 +90,7 @@
                 size="small"
                 @click="openDialog('Artist Statement', item['artist:artist_statement'])"
               />
-            </div>
+            </div> -->
 
             <!-- Biography -->
             <div v-if="item['artist:biography']" class="col-12 col-md-8">
@@ -140,8 +143,7 @@
               />
             </div>
 
-            <!-- Commissions -->
-            <div v-if="item['artist:comm_accepted']" class="col-12 col-md-8">
+            <!-- <div v-if="item['artist:comm_accepted']" class="col-12 col-md-8">
               <h3 class="text-h6 font-1ry q-mb-sm">Commissions</h3>
 
               <div class="text-body1" style="white-space: pre-line;">
@@ -155,7 +157,7 @@
                 size="small"
                 @click="openDialog('Commissions', item['artist:comm_accepted'])"
               />
-            </div>
+            </div> -->
 
             
 
