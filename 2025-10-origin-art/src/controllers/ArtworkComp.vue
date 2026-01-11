@@ -178,6 +178,7 @@
 
 <script>
 import ArtworksBoundCache from 'src/models/orm-api/ArtworksBoundCache'
+import Artworks from "src/models/orm-api/Artworks";
 import IframeWithLoader from "src/controllers/IframeWithLoader.vue";
 import AlwaysMountedModal from "src/controllers/AlwaysMountedModal.vue";
 
@@ -294,6 +295,18 @@ export default {
   },
 
   methods: {
+
+    fetchIndiData() {
+      this.loading = true;
+
+      Artworks
+        .FetchById(this.id, [], { flags: {}, moreHeaders: {}, rels: [] })
+        .then((res) => {
+          this.item = res.response.data.fields;
+          this.loading = false;
+        })
+        .catch(() => (this.loading = false));
+    },
     artworkDescription(item) {
       const parts = []
 
@@ -355,7 +368,8 @@ export default {
   },
 
   mounted() {
-    this.fetchData();
+    // this.fetchData();
+    this.fetchIndiData();
   },
 };
 </script>

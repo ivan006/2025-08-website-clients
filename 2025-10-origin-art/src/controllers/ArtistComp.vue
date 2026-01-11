@@ -188,7 +188,8 @@
 
 
 <script>
-import ArtistsBoundCache from 'src/models/orm-api/ArtistsBoundCache'
+// import ArtistsBoundCache from 'src/models/orm-api/ArtistsBoundCache'
+import Artists from "src/models/orm-api/Artists";
 import ArtistArtworks from "src/controllers/ArtistArtworks.vue";
 import SEODataViewer from "src/controllers/SEODataViewer.vue";
 import { createMetaMixin } from 'quasar'
@@ -346,6 +347,18 @@ export default {
       this.dialogText = fullText;
       this.dialogOpen = true;
     },
+    
+    fetchIndiData() {
+      this.loading = true;
+
+      Artists
+        .FetchById(this.id, [], { flags: {}, moreHeaders: {}, rels: [] })
+        .then((res) => {
+          this.item = res.response.data.fields;
+          this.loading = false;
+        })
+        .catch(() => (this.loading = false));
+    },
     async fetchData() {
       // console.time('[ArtistSingle] fetchData total')
       this.loading = true
@@ -386,7 +399,8 @@ export default {
   },
 
   mounted() {
-    this.fetchData();
+    // this.fetchData();
+    this.fetchIndiData();
   },
 };
 </script>
