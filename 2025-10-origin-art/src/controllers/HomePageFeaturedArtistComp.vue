@@ -1,68 +1,58 @@
 <template>
-  <div class="q-pt-md bg-white">
+  <div class="">
     <div v-if="loading" class="text-center q-pa-xl">
       Loading...
     </div>
 
     <div v-else class="container-sm">
 
-      <!-- Featured Artist Layout -->
-      <div class="row q-col-gutter-xl items-start q-mb-lg">
+      <q-card flat borderedx class="q-pa-lg">
 
-        <!-- Left: Profile Image -->
-        <div class="col-12 col-md-6 flex flex-center">
-          <q-img :src="mainImage" :placeholder-src="placeholderImage" ratio="1" style="height:300px" fit="contain" />
-          
-        </div>
+        <!-- Featured Artist Layout -->
+        <div class="row q-col-gutter-xl items-stretch">
 
-        <!-- Right: Artist Info -->
-        <div class="col-12 col-md-6">
-
-          <div class="text-h4 font-1ry">
-            {{ item.Name }}
+          <!-- Left: Profile Image -->
+          <div class="col-12 col-md-6 flex flex-center">
+            <q-img :src="mainImage" :placeholder-src="placeholderImage" ratio="1" style="height:500px" fit="cover" />
           </div>
 
-          <!-- Media badges -->
-          <div class="row q-gutter-sm q-mt-sm">
-            <q-badge v-for="m in prettyMedia" :key="m" color="grey-7" text-color="white" class="q-py-xs q-px-sm"
-              style="font-size:.75rem;border-radius:4px">
-              {{ m }}
-            </q-badge>
-          </div>
+          <!-- Right: Artist Info (VERTICALLY CENTERED) -->
+          <div class="col-12 col-md-6 flex">
+            <div class="column justify-center">
 
-          <!-- Short bio / statement -->
-          <div v-if="item.Description" class="text-body1 q-mt-md" style="max-width:600px; white-space:pre-line">
-            {{ truncate(item.Description, 300) }}
-          </div>
+              <div class="text-h4 font-1ry">
+                {{ item.Name }}
+              </div>
 
-          <q-btn v-if="isLong(item.Description, 300)" flat label="Read More" class="q-mt-sm bg-dark text-white"
-            size="small" @click="openDialog('Artist Statement', item.Description)" />
+              <!-- Media badges -->
+              <div class="row q-gutter-sm q-mt-sm">
+                <q-badge v-for="m in prettyMedia" :key="m" color="grey-7" text-color="white" class="q-py-xs q-px-sm"
+                  style="font-size:.75rem;border-radius:4px">
+                  {{ m }}
+                </q-badge>
+              </div>
 
-        </div>
-      </div>
+              <!-- Short bio / statement -->
+              <div v-if="item.Description" class="text-body1 q-mt-md" style="max-width:600px; white-space:pre-line">
+                {{ truncate(item.Description, 300) }}
+              </div>
 
-      <!-- Dialog stays unchanged -->
+              <div class="row">
 
+                <q-btn :to="artistProfileUrl" flat label="View Profile" no-caps class="q-mt-sm bg-dark text-white"
+                  size="small" />
+                <!-- <q-btn flat size="sm" label="View Profile" class="bg-1ry-color" :to="artistProfileUrl" /> -->
+              </div>
 
-      <!-- Optional artworks preview -->
-      <!-- <ArtistArtworks :parentId="artistId" /> -->
-
-      <!-- Dialog -->
-      <q-dialog v-model="dialogOpen">
-        <q-card style="max-width:700px;width:90%">
-          <q-card-section>
-            <div class="text-h6 q-mb-md">{{ dialogTitle }}</div>
-            <div class="text-body1" style="white-space:pre-line">
-              {{ dialogText }}
             </div>
-          </q-card-section>
-          <q-card-actions align="right">
-            <q-btn flat label="Close" v-close-popup />
-          </q-card-actions>
-        </q-card>
-      </q-dialog>
+          </div>
+
+        </div>
+
+      </q-card>
 
     </div>
+
   </div>
 </template>
 <script>
@@ -94,6 +84,10 @@ export default {
   },
 
   computed: {
+
+    artistProfileUrl() {
+      return `/artists/${this.artistId}/${this.slugify(this.item.Name || 'artist')}`
+    },
     mainImage() {
       const att = this.item.Attachments?.[0]
       return att?.thumbnails?.large?.url
@@ -118,18 +112,20 @@ export default {
   },
 
   methods: {
+
+
+    slugify(str) {
+      return String(str)
+        .toLowerCase()
+        .replace(/\s+/g, '-')
+        .replace(/[^\w-]+/g, '')
+        .replace(/--+/g, '-')
+        .replace(/^-+|-+$/g, '')
+    },
     truncate(text, limit) {
       return text && text.length > limit
         ? text.slice(0, limit) + '…'
         : text
-    },
-    isLong(text, limit) {
-      return text && text.length > limit
-    },
-    openDialog(title, text) {
-      this.dialogTitle = title
-      this.dialogText = text
-      this.dialogOpen = true
     },
     async fetchArtist() {
       this.loading = true
