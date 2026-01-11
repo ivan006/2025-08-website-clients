@@ -1,6 +1,6 @@
 <template>
     <div class="q-pa-md bg-grey-1">
-
+        <CheckoutAccessDialog />
         <div class="q-mx-auto "
             style=" max-width: 960px; border-radius: 12px; overflow: hidden; background: white; box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);">
             <div class="row">
@@ -144,6 +144,7 @@
 
 import CheckoutProductDisplay from "src/controllers/CheckoutProductDisplay.vue";
 import NativeLikeValidationError from "src/controllers/NativeLikeValidationError.vue";
+import CheckoutAccessDialog from "src/controllers/CheckoutAccessDialog.vue";
 
 import ArtworksBoundCache from 'src/models/orm-api/ArtworksBoundCache'
 
@@ -153,6 +154,7 @@ export default {
     components: {
         CheckoutProductDisplay,
         NativeLikeValidationError,
+        CheckoutAccessDialog,
     },
     props: {
     },
@@ -301,7 +303,6 @@ export default {
 
 
 
-                this.loadingPost = false;
                 // 3️⃣ Redirect to PayFast
                 this.redirectToPayFast(confirmRes.payfast_url, confirmRes.fields);
 
@@ -327,6 +328,7 @@ export default {
             });
 
             document.body.appendChild(form);
+            this.loadingPost = false;
             form.submit();
         },
 
