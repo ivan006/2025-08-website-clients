@@ -1,6 +1,5 @@
 <template>
-  <div class="bg-white">
-
+ 
     <div class="">
 
       <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
@@ -11,7 +10,7 @@
       <template v-else>
 
         
-      <div class=" bg-white  text- q-py-md" id="contact">
+      <div class=" bg-white  text- q-py-md" >
         <div
           class="container-sm "
         >
@@ -24,13 +23,13 @@
         </div>
       </div>
       
-      <div class=" bg-white text- q-py-md" id="contact">
+      <div class="bg-white   q-py-md" style="min-height: 55vh;" >
         <div
           class="container-sm "
         >
 
         
-        <div class="text-body1" style="white-space: pre-line;">
+        <div class="text-body1x text-subtitle1" style="white-space: pre-line;">
           {{ item.Body }}
         </div>
         </div>
@@ -41,8 +40,8 @@
 
 
     </div>
-  </div>
 </template>
+
 
 <script>
 import Policies from "src/models/orm-api/Policies";
