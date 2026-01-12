@@ -9,20 +9,24 @@
       No featured artworks found.
     </div>
 
-    <div v-else class="container-xl q-py-md">
+    <div v-else class="">
 
-      <q-carousel v-model="slide" swipeable animated arrows navigation height="520px" control-color="dark"
+      <q-carousel v-model="slide" swipeable animated arrows navigation control-color="dark"
         class="rounded-borders">
-        <q-carousel-slide v-for="(art, index) in items" :key="art.id" :name="index" class="flex flex-center">
+        <q-carousel-slide v-for="(art, index) in items" :key="art.id" :name="index">
 
-          <div style="width:320px; text-align:left;">
+          <div class="row items-center q-col-gutter-lg" style=" ">
+            <!-- max-width: 900px; -->
+            <!-- margin: 0 auto; -->
 
-            <!-- Image -->
-            <q-img :src="getLargeUrl(art)" :placeholder-src="getSmallUrl(art)" ratio="1" fit="contain"
-              style="height:340px" class="rounded-borders" />
+            <!-- LEFT: Artwork image -->
+            <div class="col-12 col-md-6 flex flex-center">
+              <q-img :src="getLargeUrl(art)" :placeholder-src="getSmallUrl(art)" ratio="1" fit="contain"
+                style="" :height="cardHeight"  class="rounded-borders" />
+            </div>
 
-            <!-- Text block -->
-            <div class="q-mt-md">
+            <!-- RIGHT: Artwork details -->
+            <div class="col-12 col-md-6">
 
               <div class="text-h6 font-1ry">
                 {{ art.Title }}
@@ -32,13 +36,12 @@
                 {{ art['Name (from Artist)']?.[0] || '' }}
               </div>
 
-              <div class="text-body1 text-weight-bold q-mt-xs">
+              <div class="text-body1 text-weight-bold q-mt-sm">
                 R{{ Number(art.Price)?.toLocaleString() }}
               </div>
 
-              <!-- CTA -->
-              <div class="q-mt-sm">
-                <q-btn flat size="sm" label="View Details" class="bg-1ry-color"
+              <div class="q-mt-md">
+                <q-btn flat size="sm" no-caps label="View details →" class="bg-1ry-color"
                   :to="`/artworks/${art.id}/${slugify(art.Title || 'artwork')}`" />
               </div>
 
@@ -83,7 +86,11 @@ export default {
       slide: 0
     }
   },
-
+  computed: {
+    cardHeight() {
+      return this.$q.screen.lt.md ? "150px" : "250px";
+    }
+  },
   methods: {
     async fetchArtworks() {
       this.loading = true

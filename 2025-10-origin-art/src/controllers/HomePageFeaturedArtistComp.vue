@@ -1,61 +1,50 @@
 <template>
-  <div class="">
     <div v-if="loading" class="text-center q-pa-xl">
       Loading...
     </div>
 
-    <div v-else class="container-sm">
+    <template v-else >
 
-      <q-card flat borderedx class="q-pa-lg">
+      <q-card flat bordered class="q-pa-lg">
 
-        <HomeFeaturedArtistArtworks :parentId="artistId"/>
-        <!-- Featured Artist Layout -->
-        <div class="row q-col-gutter-xl items-stretch">
+        <!-- ===================== -->
+        <!-- ARTIST SUMMARY ROW    -->
+        <!-- ===================== -->
+        <div class="row items-center q-col-gutter-md q-mb-lg">
 
-          <!-- Left: Profile Image -->
-          <div class="col-12 col-md-6 flex flex-center">
-            <q-img :src="mainImage" :placeholder-src="placeholderImage" ratio="1" style="height:500px" fit="cover" />
+          <!-- Avatar -->
+          <div class="col-auto">
+            <q-avatar size="64px">
+              <q-img :src="mainImage" :placeholder-src="placeholderImage" fit="cover" />
+            </q-avatar>
           </div>
 
-          <!-- Right: Artist Info (VERTICALLY CENTERED) -->
-          <div class="col-12 col-md-6 flex">
-            <div class="column justify-center">
+          <!-- Name + CTA -->
+          <div class="col">
 
-              <div class="text-h4 font-1ry">
-                {{ item.Name }}
-              </div>
-
-              <!-- Media badges -->
-              <div class="row q-gutter-sm q-mt-sm">
-                <q-badge v-for="m in prettyMedia" :key="m" color="grey-7" text-color="white" class="q-py-xs q-px-sm"
-                  style="font-size:.75rem;border-radius:4px">
-                  {{ m }}
-                </q-badge>
-              </div>
-
-              <!-- Short bio / statement -->
-              <div v-if="item.Description" class="text-body1 q-mt-md" style="max-width:600px; white-space:pre-line">
-                {{ truncate(item.Description, 300) }}
-              </div>
-
-              <div class="row">
-
-                <q-btn :to="artistProfileUrl" flat label="View Profile" no-caps class="q-mt-sm bg-dark text-white"
-                  size="small" />
-                <!-- <q-btn flat size="sm" label="View Profile" class="bg-1ry-color" :to="artistProfileUrl" /> -->
-              </div>
-
+            <div class="text-h6 font-1ry">
+              {{ item.Name }}
             </div>
+
+            <q-btn :to="artistProfileUrl" flat dense no-caps size="sm" label="View artist profile →" class="q-mt-xs" />
+
           </div>
 
         </div>
 
+        <q-separator class="q-mb-lg" />
+
+        <!-- ===================== -->
+        <!-- FEATURED ARTWORKS     -->
+        <!-- ===================== -->
+        <HomeFeaturedArtistArtworks :parentId="artistId" />
+
       </q-card>
 
-    </div>
-
-  </div>
+    </template>
 </template>
+
+
 <script>
 import Artists from 'src/models/orm-api/Artists'
 import HomeFeaturedArtistArtworks from 'src/controllers/HomeFeaturedArtistArtworks.vue'
