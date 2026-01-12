@@ -11,15 +11,39 @@
 
     <div v-else class="container-xl q-py-md">
 
-      <q-carousel v-model="slide" swipeable animated arrows navigation height="420px" control-color="dark"
+      <q-carousel v-model="slide" swipeable animated arrows navigation height="460px" control-color="dark"
         class="rounded-borders">
         <q-carousel-slide v-for="(art, index) in items" :key="art.id" :name="index" class="flex flex-center">
-          <div style="max-width:320px; width:100%;">
-            <!-- <pre>{{ art }}</pre> -->
-            <ArtworkCard :art="art" />
-          </div>
+          <q-card flat bordered style="width:320px;">
+
+            <q-img :src="getLargeUrl(art)" :placeholder-src="getSmallUrl(art)" ratio="1" fit="contain"
+              class="rounded-borders" style="height:260px" />
+
+            <q-separator />
+
+            <q-card-section>
+              <div class="text-h6 font-1ry" style="min-height:64px">
+                {{ art.Title }}
+              </div>
+
+              <div class="text-subtitle2 text-2ry-color q-mt-xs">
+                {{ art['Name (from Artist)']?.[0] || '' }}
+              </div>
+
+              <div class="text-body1 q-mt-xs text-weight-bold">
+                R{{ Number(art.Price)?.toLocaleString() }}
+              </div>
+            </q-card-section>
+
+            <q-card-actions align="right">
+              <q-btn flat size="sm" label="View Details" class="bg-1ry-color"
+                :to="`/artworks/${art.id}/${slugify(art.Title || 'artwork')}`" />
+            </q-card-actions>
+
+          </q-card>
         </q-carousel-slide>
       </q-carousel>
+
 
 
     </div>
@@ -35,7 +59,7 @@ export default {
   name: 'FeaturedArtistArtworkCarousel',
 
   components: {
-    ArtworkCard
+    // ArtworkCard
   },
 
   props: {
@@ -74,7 +98,35 @@ export default {
       } finally {
         this.loading = false
       }
-    }
+    },
+
+    getAttachments(art) {
+      return art.Attachments?.[0] || {}
+    },
+
+    getLargeUrl(art) {
+      const u = this.getAttachments(art).thumbnails?.large?.url
+      return u
+        ? `${import.meta.env.VITE_API_PROXY_URL}${encodeURIComponent(u)}`
+        : ''
+    },
+
+    getSmallUrl(art) {
+      const u = this.getAttachments(art).thumbnails?.small?.url
+      return u
+        ? `${import.meta.env.VITE_API_PROXY_URL}${encodeURIComponent(u)}`
+        : ''
+    },
+
+
+    slugify(text) {
+      return text
+        .toLowerCase()
+        .replace(/\s+/g, '-')        // Replace spaces with -
+        .replace(/[^\w-]+/g, '')     // Remove non-word characters
+        .replace(/--+/g, '-')        // Merge multiple -
+        .replace(/^-+|-+$/g, '');    // Trim - from start/end
+    },
   },
 
   mounted() {
