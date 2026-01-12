@@ -315,7 +315,7 @@ export default {
 
       let image = import.meta.env.VITE_API_DEFAULT_IMAGE
       if (this.parent?.fields?.['Image']?.[0]?.url) {
-        image = `${import.meta.env.VITE_API_PROXY_URL}${encodeURIComponent(this.parent?.fields?.['Image']?.[0]?.url)}`;
+        image = `${import.meta.env.VITE_API_PROXY_URL}/cacher/data-cache/index.php?url=${encodeURIComponent(this.parent?.fields?.['Image']?.[0]?.url)}`;
       }
 
 
@@ -349,7 +349,7 @@ export default {
           url: item['SEO URL'] ? window.location.origin + item['SEO URL'] : null,
           name: item['Name'] || "",
           description: item?.['artist:artist_statement'] ? this.truncate(item?.['artist:artist_statement'], 500) : "",
-          image: item?.['Attachments']?.[0]?.thumbnails?.large?.url ? `${import.meta.env.VITE_API_PROXY_URL}${encodeURIComponent(item?.['Attachments']?.[0]?.thumbnails?.large?.url)}` : import.meta.env.VITE_API_DEFAULT_IMAGE,
+          image: item?.['Attachments']?.[0]?.thumbnails?.large?.url ? `${import.meta.env.VITE_API_PROXY_URL}/cacher/data-cache/index.php?url=${encodeURIComponent(item?.['Attachments']?.[0]?.thumbnails?.large?.url)}` : import.meta.env.VITE_API_DEFAULT_IMAGE,
           // price: item['Price'] || "broo...",
           // extras: {
           //   category: item["Name (from Medium)"]?.[0]  || "",
@@ -379,7 +379,7 @@ export default {
 
       let image = import.meta.env.VITE_API_DEFAULT_IMAGE
       if (this.parent?.fields?.['Image']?.[0]?.url) {
-        image = `${import.meta.env.VITE_API_PROXY_URL}${encodeURIComponent(this.parent?.fields?.['Image']?.[0]?.url)}`;
+        image = `${import.meta.env.VITE_API_PROXY_URL}/cacher/data-cache/index.php?url=${encodeURIComponent(this.parent?.fields?.['Image']?.[0]?.url)}`;
       }
 
       return buildSeoConfig({

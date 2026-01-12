@@ -56,12 +56,12 @@ export default {
 
     largeUrl() {
       const u = this.attachments.thumbnails?.large?.url;
-      return u ? `${import.meta.env.VITE_API_PROXY_URL}${encodeURIComponent(u)}` : "";
+      return u ? `${import.meta.env.VITE_API_PROXY_URL}/cacher/data-cache/index.php?url=${encodeURIComponent(u)}` : "";
     },
 
     smallUrl() {
       const u = this.attachments.thumbnails?.small?.url;
-      return u ? `${import.meta.env.VITE_API_PROXY_URL}${encodeURIComponent(u)}` : "";
+      return u ? `${import.meta.env.VITE_API_PROXY_URL}/cacher/data-cache/index.php?url=${encodeURIComponent(u)}` : "";
     },
 
     artistName() {

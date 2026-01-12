@@ -109,14 +109,14 @@ export default {
     getLargeUrl(art) {
       const u = this.getAttachments(art).thumbnails?.large?.url
       return u
-        ? `${import.meta.env.VITE_API_PROXY_URL}${encodeURIComponent(u)}`
+        ? `${import.meta.env.VITE_API_PROXY_URL}/cacher/data-cache/index.php?url=${encodeURIComponent(u)}`
         : ''
     },
 
     getSmallUrl(art) {
       const u = this.getAttachments(art).thumbnails?.small?.url
       return u
-        ? `${import.meta.env.VITE_API_PROXY_URL}${encodeURIComponent(u)}`
+        ? `${import.meta.env.VITE_API_PROXY_URL}/cacher/data-cache/index.php?url=${encodeURIComponent(u)}`
         : ''
     },
 

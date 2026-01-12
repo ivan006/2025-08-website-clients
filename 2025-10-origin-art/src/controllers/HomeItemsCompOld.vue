@@ -147,7 +147,7 @@ export default {
 
       let image = ""
       if (this.parent?.fields?.['Image']?.[0]?.url) {
-        image = `${import.meta.env.VITE_API_PROXY_URL}${encodeURIComponent(this.parent?.fields?.['Image']?.[0]?.url)}`;
+        image = `${import.meta.env.VITE_API_PROXY_URL}/cacher/data-cache/index.php?url=${encodeURIComponent(this.parent?.fields?.['Image']?.[0]?.url)}`;
       }
 
 
@@ -181,7 +181,7 @@ export default {
           url: item['SEO URL'] ? window.location.origin + item['SEO URL'] : null,
           name: item['Title'] || '',
           description: item['Subtitle'] || '',
-          image: item?.['Image']?.[0]?.url ? `${import.meta.env.VITE_API_PROXY_URL}${encodeURIComponent(item?.['Image']?.[0]?.url)}` : "",
+          image: item?.['Image']?.[0]?.url ? `${import.meta.env.VITE_API_PROXY_URL}/cacher/data-cache/index.php?url=${encodeURIComponent(item?.['Image']?.[0]?.url)}` : "",
           price: item['Price'],
           extras: {
             category: item['Category'],
@@ -206,7 +206,7 @@ export default {
 
       let image = ""
       if (this.parent?.fields?.['Image']?.[0]?.url) {
-        image = `${import.meta.env.VITE_API_PROXY_URL}${encodeURIComponent(this.parent?.fields?.['Image']?.[0]?.url)}`;
+        image = `${import.meta.env.VITE_API_PROXY_URL}/cacher/data-cache/index.php?url=${encodeURIComponent(this.parent?.fields?.['Image']?.[0]?.url)}`;
       }
 
      return buildSeoConfig({

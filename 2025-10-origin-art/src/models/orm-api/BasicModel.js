@@ -5,7 +5,7 @@ export default class BasicModel extends Model {
 
   /** ✅ Defaults (can be overridden in child models) **/
   static get proxyBaseUrl() {
-    return import.meta.env.VITE_API_PROXY_URL
+    return `${import.meta.env.VITE_API_PROXY_URL}/cacher/data-cache/index.php?url=`
   }
 
   static get airtableBaseUrl() {

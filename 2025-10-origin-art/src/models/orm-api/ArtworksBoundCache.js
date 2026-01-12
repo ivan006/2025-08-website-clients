@@ -8,9 +8,9 @@ export default class ArtworksBoundCache extends BasicModel {
   static get airtableBaseUrl() {
     return 'https://api.airtable.com/v0/appWL8gDT9ZaqV8jY'
   }
-
+  
   static get proxyBaseUrl() {
-    return 'https://the-gas-pad.letsnetworkhub.com/cacher/data-cache/bound-cache.php?action=get&url='
+    return `${import.meta.env.VITE_API_PROXY_URL}/cacher/data-cache/bound-cache.php?action=get&url=`
   }
   
 

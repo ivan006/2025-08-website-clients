@@ -141,7 +141,7 @@ export default {
     largeUrl(art) {
       const u = this.attachments(art).url
       return u
-        ? `${import.meta.env.VITE_API_PROXY_URL}${encodeURIComponent(u)}`
+        ? `${import.meta.env.VITE_API_PROXY_URL}/cacher/data-cache/index.php?url=${encodeURIComponent(u)}`
         : ''
     },
 
