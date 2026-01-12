@@ -8,6 +8,7 @@
 
       <q-card flat borderedx class="q-pa-lg">
 
+        <HomeFeaturedArtistArtworks :parentId="artistId"/>
         <!-- Featured Artist Layout -->
         <div class="row q-col-gutter-xl items-stretch">
 
@@ -57,13 +58,13 @@
 </template>
 <script>
 import Artists from 'src/models/orm-api/Artists'
-import ArtistArtworks from 'src/controllers/ArtistArtworks.vue'
+import HomeFeaturedArtistArtworks from 'src/controllers/HomeFeaturedArtistArtworks.vue'
 
 export default {
   name: 'FeaturedArtist',
 
   components: {
-    // ArtistArtworks
+    HomeFeaturedArtistArtworks,
   },
 
   props: {

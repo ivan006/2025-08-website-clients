@@ -1,0 +1,136 @@
+<template>
+  <div class="">
+    <div v-if="loading" class="text-center q-pa-lg">
+      Loading artworks...
+    </div>
+
+    <div v-else-if="!items.length" class="text-center q-pa-lg text-grey-7">
+      No artworks found for this artist.
+    </div>
+
+    <div v-else>
+      
+      <!-- PER-MEDIUM SECTIONS -->
+      <div
+        v-for="(group, mediaName) in grouped"
+        :key="mediaName"
+        class=""
+      >
+
+        <!-- Heading -->
+        <!-- <div class="text-h6 q-mb-md font-1ry">
+          {{ mediaName }}
+        </div> -->
+        
+        <!-- MEDIA HEADER -->
+        <q-separator  />
+        <div style="background: #ffffff;">
+          <div class="container-md q-pt-md q-pb-md">
+            <h2
+              class="text-h5 text-center font-1ry"
+              style="margin: 0; font-weight: 500;"
+            >
+              {{ mediaName }}
+            </h2>
+          </div>
+        </div>
+        <q-separator  />
+
+        <!-- PAGINATED GRID -->
+         
+        <div class="container-xl bg-2ry-color q-py-md">
+          
+          <ArtworkPaginatedGrid
+            :items="group"
+            v-model:page="sectionPages[mediaName]"
+            :items-per-page="8"
+          />
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</template>
+
+<script>
+import ArtworkPaginatedGrid from 'src/controllers/ArtworkPaginatedGrid.vue'
+import ArtworksBoundCache from 'src/models/orm-api/ArtworksBoundCache'
+
+export default {
+  name: 'HomeFeaturedArtistArtworks',
+
+  components: {
+    ArtworkPaginatedGrid
+  },
+
+  props: {
+    parentId: {
+      type: [String, Number]
+    }
+  },
+
+  data() {
+    return {
+      loading: false,
+      items: [],
+      sectionPages: {}  // page trackers for each medium group
+    }
+  },
+
+  computed: {
+    filterFormula() {
+      return `AND(({RECORD_ID (from Artist)}='${this.parentId}'))`
+    },
+
+    grouped() {
+      const groups = {}
+
+      this.items.forEach(art => {
+        const mediums = art['Name (from Medium)'] || ['Uncategorized']
+
+        mediums.forEach(m => {
+          if (!groups[m]) groups[m] = []
+          groups[m].push(art)
+
+          if (this.sectionPages[m] === undefined) {
+            this.sectionPages[m] = 0   // ✅ Vue 3 reactive assignment
+          }
+        })
+      })
+
+      return groups
+    }
+
+  },
+
+  methods: {
+    
+    async fetchArtworks() {
+      this.loading = true
+
+      try {
+        const res = await ArtworksBoundCache.FetchAll([], {
+          view: 'viwn7wDGK6yk5ZHOl'
+        })
+
+        const all = res.response.data.records
+          .map(r => ({ id: r.id, ...r.fields }))
+          .filter(r => !r.Hide)
+
+        // 🔑 FRONTEND FILTER BY ARTIST
+        this.items = all.filter(r =>
+          (r['RECORD_ID (from Artist)'] || []).includes(this.parentId)
+        )
+      } finally {
+        this.loading = false
+      }
+    }
+  },
+
+  mounted() {
+    this.fetchArtworks()
+  }
+}
+</script>
