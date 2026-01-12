@@ -10,7 +10,7 @@
   <template v-else>
     <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
     <SitemapComp :items="sitemapItems" />
-    
+
     <div class="row q-col-gutter-lg justify-around">
       <!--<div class="row justify-center" >-->
 
@@ -22,63 +22,52 @@
         <div class="col-xl-6 col-md-6 col-6">
           <div class="">
 
-           
+
             <q-card class="q-ma-smx" style="border-radius: 10px;" flat>
               <q-card-section class="q-pa-none">
-                
-           
+
+
                 <div>
-                  <div
-                  :style="{
+                  <div :style="{
                     height: $q.screen.lt.md ? '150px' : '220px',
                     backgroundImage: item?.['Image']?.[0]?.thumbnails?.large?.url
                       ? `url(${$apiProxyUrl}${encodeURIComponent(item['Image'][0].thumbnails.large.url)})`
                       : ''
-                  }"
-                  style="
+                  }" style="
                     background-position: center;
                     background-size: cover;
                     border-radius: 10px 10px 0 0 ;
                     max-width: 100%;
-                    " 
-                  >
+                    ">
                   </div>
                   <!--<img src="https://cdn.quasar.dev/img/avatar.png">-->
                 </div>
-                
+
                 <div class=" q-py-sm q-px-md text-center ">
 
                   <!-- <div class="lt-md q-mt-lg"></div> -->
 
                   <h2 class="r-font-h4 font-1ry text- q-my-sm text-uppercase">
-                    {{item["Title"]}}
+                    {{ item["Title"] }}
                   </h2>
 
                   <p class="text-subtitle1 q-my-sm font-2ry text-weight-light">
-                    {{item["Subtitle"]}}
+                    {{ item["Subtitle"] }}
                   </p>
-                  
-          
-                  <q-btn
-                    :to="item['SEO URL']"
-                    color="grey-8"
-                    size="md"
-                    unelevated
-                    class="q-my-sm q-px-lg"
-                    style="border-radius: 100px;"
-                    
-                    no-caps
-                  >
+
+
+                  <q-btn :to="item['SEO URL']" color="grey-8" size="md" unelevated class="q-my-sm q-px-lg"
+                    style="border-radius: 100px;" no-caps>
                     <!-- {{ item["Button Text"] }} -->
                     Learn More
                   </q-btn>
 
-                  
 
 
-                
+
+
                 </div>
-                
+
               </q-card-section>
             </q-card>
 
@@ -98,8 +87,8 @@
 
 <script>
 import Home_Page_Items from 'src/models/orm-api/Home_Page_Items'
-import {createMetaMixin} from "quasar";
-import {buildSchemaItem, buildSeoConfig} from "src/utils/seo";
+import { createMetaMixin } from "quasar";
+import { buildSchemaItem, buildSeoConfig } from "src/utils/seo";
 import SEODataViewer from "src/controllers/SEODataViewer.vue";
 import SitemapComp from 'src/controllers/SitemapComp.vue'
 
@@ -109,7 +98,7 @@ export default {
     SEODataViewer,
     SitemapComp
   },
-  
+
   mixins: [
     createMetaMixin(function () {
 
@@ -128,7 +117,7 @@ export default {
       default: () => ({})
     },
   },
-  data(){
+  data() {
     return {
       activeRoute: this.$route.path,
       items: [],
@@ -144,7 +133,7 @@ export default {
     }
   },
   computed: {
-    
+
     sitemapItems() {
       // const start = performance.now()
 
@@ -167,9 +156,9 @@ export default {
 
       return result
     },
-    
-    seoLdJson(){
-      
+
+    seoLdJson() {
+
 
 
       const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/');
@@ -197,7 +186,7 @@ export default {
             addressRegion: "Western Cape",
             addressCountry: "ZA"
           },
-          openingHours: this.parent.fields?.['Opening Hours'] 
+          openingHours: this.parent.fields?.['Opening Hours']
             ? this.parent.fields['Opening Hours'].split('\n').map(line => line.trim())
             : []
         }
@@ -229,7 +218,7 @@ export default {
 
       return schema;
     },
-    seoConfig(){
+    seoConfig() {
 
       const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/');
       const siteName = import.meta.env.VITE_API_SITE_TITLE;
@@ -239,7 +228,7 @@ export default {
         image = `${import.meta.env.VITE_API_PROXY_URL}/cacher/data-cache/index.php?url=${encodeURIComponent(this.parent?.fields?.['Image']?.[0]?.url)}`;
       }
 
-     return buildSeoConfig({
+      return buildSeoConfig({
         title: null,
         description: this.parent.fields?.['Subtitle'] || '',
         url,
@@ -249,14 +238,14 @@ export default {
         schema: this.seoLdJson
       });
     },
-    
-    seoConfigMasked(){
+
+    seoConfigMasked() {
       const seoConfigMasked = { ...this.seoConfig }
       seoConfigMasked.script = ""
       return seoConfigMasked
     },
-  
-    
+
+
     superTableModel() {
       return Home_Page_Items
     },
@@ -323,7 +312,7 @@ export default {
       }
     },
   },
-  mounted(){
+  mounted() {
     this.fetchData();
   },
   watch: {
