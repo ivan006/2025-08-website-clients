@@ -20,14 +20,14 @@
             <!-- margin: 0 auto; -->
 
             <!-- LEFT: Artwork image -->
-            <div class="col-6 col-md-6 flex flex-center">
+            <div class="col-6 flex flex-center">
               <q-img :src="getLargeUrl(art)" :placeholder-src="getSmallUrl(art)" ratio="1" fit="contain"
                 style=""   class="rounded-borders"  :height="cardHeight"/>
                 
             </div>
 
             <!-- RIGHT: Artwork details -->
-            <div class="col-6 col-md-6">
+            <div class="col-6 ">
 
               <div class="text-h6 font-1ry">
                 {{ art.Title }}

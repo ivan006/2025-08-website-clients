@@ -10,40 +10,41 @@
       <!-- ===================== -->
       <!-- ARTIST SUMMARY ROW    -->
       <!-- ===================== -->
-       
+
       <div class="row justify-center  q-mb-lg">
 
 
         <!-- Name + CTA -->
-        <div class="col-8 col-md-3">
+        <div class="col-12 col-md-4">
 
-      
-      <div class="row items-center q-col-gutter-md">
 
-        <!-- Avatar -->
-        <div class="col-4">
-          <q-avatar size="64px">
-            <img :src="mainImage" :placeholder-src="placeholderImage" style=" object-fit: cover" />
-          </q-avatar>
-        </div>
+          <div class="row items-center q-col-gutter-md">
 
-        <!-- Name + CTA -->
-        <div class="col-8">
+            <!-- Avatar -->
+            <div class="col-6">
+              <q-avatar size="128px">
+                <img :src="mainImage" :placeholder-src="placeholderImage" style=" object-fit: cover" />
+              </q-avatar>
+            </div>
 
-          <div class="text-h6 font-1ry">
-            {{ item.Name }}
+            <!-- Name + CTA -->
+            <div class="col-6">
+
+              <div class="text-h6 font-1ry">
+                {{ item.Name }}
+              </div>
+
+              <q-btn flat class="q-mt-sm bg-dark text-white" size="small" :to="artistProfileUrl" color="dark" 
+                no-caps label="View Artist Profile" />
+
+            </div>
+
           </div>
-
-          <q-btn :to="artistProfileUrl" flat dense no-caps size="sm" label="View artist profile →" class="q-mt-xs" />
-
-        </div>
-
-      </div>
         </div>
 
       </div>
 
-      <q-separator class="q-mb-lg" />
+      <q-separator class="q-mb-lgx" />
 
       <!-- ===================== -->
       <!-- FEATURED ARTWORKS     -->
