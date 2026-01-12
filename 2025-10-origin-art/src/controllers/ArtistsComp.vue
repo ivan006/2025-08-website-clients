@@ -314,8 +314,8 @@ export default {
       const siteName = import.meta.env.VITE_API_SITE_TITLE;
 
       let image = import.meta.env.VITE_API_DEFAULT_IMAGE
-      if (this.parent?.fields?.['Image']?.[0]?.url) {
-        image = `${import.meta.env.VITE_API_PROXY_URL}/cacher/data-cache/index.php?url=${encodeURIComponent(this.parent?.fields?.['Image']?.[0]?.url)}`;
+      if (this.parent?.fields?.['Image']?.[0]?.thumbnails?.large?.url) {
+        image = `${import.meta.env.VITE_API_PROXY_URL}/cacher/data-cache/index.php?url=${encodeURIComponent(this.parent?.fields?.['Image']?.[0]?.thumbnails?.large?.url)}`;
       }
 
 
@@ -378,15 +378,22 @@ export default {
       const siteName = import.meta.env.VITE_API_SITE_TITLE;
 
       let image = import.meta.env.VITE_API_DEFAULT_IMAGE
-      if (this.parent?.fields?.['Image']?.[0]?.url) {
-        image = `${import.meta.env.VITE_API_PROXY_URL}/cacher/data-cache/index.php?url=${encodeURIComponent(this.parent?.fields?.['Image']?.[0]?.url)}`;
+      let imageWidth = import.meta.env.VITE_API_DEFAULT_IMAGE_WIDTH;
+      let imageHeight = import.meta.env.VITE_API_DEFAULT_IMAGE_HEIGHT;
+      if (this.parent?.fields?.['Image']?.[0]?.thumbnails?.large?.url) {
+        const imageObject = this.parent?.fields?.['Image']?.[0]?.thumbnails?.large
+        image = `${import.meta.env.VITE_API_PROXY_URL}/cacher/data-cache/index.php?url=${encodeURIComponent(imageObject?.url)}`;
+        imageWidth = imageObject.width
+        imageHeight = imageObject.height
       }
 
       return buildSeoConfig({
         title: this.parent.fields?.['Title'],
         description: this.parent.fields?.['Subtitle'] || "",
         url,
-        image: image || `${window.location.origin}/og-default.jpg`,
+        image: image,
+        imageWidth,
+        imageHeight,
         siteName,
         type: this.parent.fields?.['SEO Type'],
         schema: this.seoLdJson

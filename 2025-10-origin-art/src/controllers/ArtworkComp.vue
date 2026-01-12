@@ -277,8 +277,14 @@ export default {
 
 
       let image = import.meta.env.VITE_API_DEFAULT_IMAGE
+      let imageWidth = import.meta.env.VITE_API_DEFAULT_IMAGE_WIDTH;
+      let imageHeight = import.meta.env.VITE_API_DEFAULT_IMAGE_HEIGHT;
       if (this.mainImage) {
         image = this.mainImage;
+        
+        const imageObject = this.item.Attachments?.[0]?.thumbnails?.large
+        imageWidth = imageObject.width
+        imageHeight = imageObject.height
       }
 
 
@@ -287,6 +293,8 @@ export default {
         description: this.artworkDescription(this.item),
         url,
         image,
+        imageWidth,
+        imageHeight,
         siteName,
         type: "Person",
         schema: this.seoLdJson
