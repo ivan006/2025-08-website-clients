@@ -11,42 +11,24 @@
       <!-- ARTIST SUMMARY ROW    -->
       <!-- ===================== -->
 
-      <div class="row items-center">
-        <div class="col-md-6">
+      <div class="row items-center justify-center">
+        <div class="col-md-5 q-pa-xl">
 
-          <div class="row justify-center   q-pa-md">
-
-
-            <!-- Name + CTA -->
-            <div class="col-9 col-md-8">
-
-
-              <div class="row items-center q-col-gutter-md">
-
-                <!-- Avatar -->
-                <div class="col-6">
-                  <q-avatar size="128px">
-                    <img :src="mainImage" :placeholder-src="placeholderImage" style=" object-fit: cover" />
-                  </q-avatar>
-                </div>
-
-                <div class="col-6">
-
-                  <div class="text-h6 font-1ry">
-                    {{ item.Name }}
-                  </div>
-
-                  <q-btn flat class="q-mt-sm bg-dark text-white" size="small" :to="artistProfileUrl" color="dark"
-                    no-caps label="View Artist Profile" />
-
-                </div>
-
+      
+              <q-avatar size="128px">
+                <img :src="mainImage" :placeholder-src="placeholderImage" style=" object-fit: cover" />
+              </q-avatar>
+              <div class="text-h6 font-1ry q-mb-sm">
+                {{ item.Name }}
               </div>
-            </div>
+              <div class="text-body1" style="white-space: pre-line;">
+                {{ truncate(item['Description'], 150) }}
+              </div>
 
-          </div>
+              <q-btn flat class="q-mt-sm bg-dark text-white" size="small" :to="artistProfileUrl" color="dark" no-caps
+                label="View Artist Profile" />
         </div>
-        <div class="col-md-6">
+        <div class="col-md-5">
 
           <HomeFeaturedArtistArtworks :parentItem="item" :parentId="artistId" class="q-pa-sm" />
         </div>
@@ -138,7 +120,7 @@ export default {
       const softRange = Math.floor(limit * 0.25)
       const searchStart = Math.max(0, limit - softRange)
 
-      const segmentRegex = /[.,]/g
+      const segmentRegex = /[.]/g
       let match
       let bestCut = -1
 
@@ -151,7 +133,7 @@ export default {
       }
 
       const cutIndex = bestCut !== -1 ? bestCut : limit
-      return text.slice(0, cutIndex).trim().replace(/[.,]$/, '') + '.'
+      return text.slice(0, cutIndex).trim().replace(/[.]$/, '') + '.'
     }
 
     ,
