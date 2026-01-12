@@ -107,6 +107,18 @@ const routes = [
               //   },
               // },
               {
+                path: '/privacy-policy',
+                name: '/privacy-policy',
+                // path: '/home/:rId',
+                // name: '/home/:rId',
+                component: () => import('src/controllers/PolicyPrivacyComp.vue'),
+                meta: {
+                  breadcrumbName: ':rId',
+                  breadcrumbParentName: '/artworks',
+                  requiresAuth: false,
+                },
+              },
+              {
                 path: '/artworks/:rId/:rName',
                 name: '/artworks/:rId/:rName',
                 // path: '/home/:rId',
