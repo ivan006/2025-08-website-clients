@@ -11,7 +11,7 @@
 
     <div v-else class="">
 
-      <q-carousel v-model="slide" swipeable animated arrows navigation control-color="dark"
+      <q-carousel v-model="slide" swipeable animated arrows navigation control-color="dark" autoplay infinite
         class="rounded-borders" style="height: unset;">
         <q-carousel-slide v-for="(art, index) in items" :key="art.id" :name="index">
 
@@ -40,6 +40,7 @@
               <div class="text-body1 text-weight-bold q-mt-sm">
                 R{{ Number(art.Price)?.toLocaleString() }}
               </div>
+              <div class="q-mb-lg"></div>
 
               <!-- <div class="q-mt-md">
                 <q-btn flat size="sm" no-caps label="View details →" class="bg-1ry-color"

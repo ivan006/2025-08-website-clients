@@ -5,17 +5,17 @@
 
   <template v-else>
 
-    <q-card flat bordered class="q-pa-lg">
+    <q-card flat bordered >
 
       <!-- ===================== -->
       <!-- ARTIST SUMMARY ROW    -->
       <!-- ===================== -->
 
-      <div class="row justify-center  q-mb-lg">
+      <div class="row justify-center   q-pa-md">
 
 
         <!-- Name + CTA -->
-        <div class="col-12 col-md-4">
+        <div class="col-9 col-md-4">
 
 
           <div class="row items-center q-col-gutter-md">
@@ -49,7 +49,7 @@
       <!-- ===================== -->
       <!-- FEATURED ARTWORKS     -->
       <!-- ===================== -->
-      <HomeFeaturedArtistArtworks :parentId="artistId" />
+      <HomeFeaturedArtistArtworks :parentId="artistId"  class="q-pa-sm"/>
 
     </q-card>
 
