@@ -1,47 +1,47 @@
 <template>
-    <div v-if="loading" class="text-center q-pa-xl">
-      Loading...
-    </div>
+  <div v-if="loading" class="text-center q-pa-xl">
+    Loading...
+  </div>
 
-    <template v-else >
+  <template v-else>
 
-      <q-card flat bordered class="q-pa-lg">
+    <q-card flat bordered class="q-pa-lg">
 
-        <!-- ===================== -->
-        <!-- ARTIST SUMMARY ROW    -->
-        <!-- ===================== -->
-        <div class="row items-center q-col-gutter-md q-mb-lg">
+      <!-- ===================== -->
+      <!-- ARTIST SUMMARY ROW    -->
+      <!-- ===================== -->
+      <div class="row items-center q-col-gutter-md q-mb-lg">
 
-          <!-- Avatar -->
-          <div class="col-auto">
-            <q-avatar size="64px">
-              <q-img :src="mainImage" :placeholder-src="placeholderImage" fit="cover" />
-            </q-avatar>
+        <!-- Avatar -->
+        <div class="col-auto">
+          <q-avatar size="64px">
+            <q-img :src="mainImage" :placeholder-src="placeholderImage" fit="cover" />
+          </q-avatar>
+        </div>
+
+        <!-- Name + CTA -->
+        <div class="col">
+
+          <div class="text-h6 font-1ry">
+            {{ item.Name }}
           </div>
 
-          <!-- Name + CTA -->
-          <div class="col">
-
-            <div class="text-h6 font-1ry">
-              {{ item.Name }}
-            </div>
-
-            <q-btn :to="artistProfileUrl" flat dense no-caps size="sm" label="View artist profile →" class="q-mt-xs" />
-
-          </div>
+          <q-btn :to="artistProfileUrl" flat dense no-caps size="sm" label="View artist profile →" class="q-mt-xs" />
 
         </div>
 
-        <q-separator class="q-mb-lg" />
+      </div>
 
-        <!-- ===================== -->
-        <!-- FEATURED ARTWORKS     -->
-        <!-- ===================== -->
-        <HomeFeaturedArtistArtworks :parentId="artistId" />
+      <q-separator class="q-mb-lg" />
 
-      </q-card>
+      <!-- ===================== -->
+      <!-- FEATURED ARTWORKS     -->
+      <!-- ===================== -->
+      <HomeFeaturedArtistArtworks :parentId="artistId" />
 
-    </template>
+    </q-card>
+
+  </template>
 </template>
 
 
