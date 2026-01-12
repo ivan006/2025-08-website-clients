@@ -106,23 +106,27 @@
           </div>
 
 
-          <div class="q-mt-xl  text-body1">
-            <div>
+          <div class="q-mt-xlx  text-body1">
+            <div class="">
+              <div class="q-mb-sm q-mt-lg">
 
-              <q-btn :disable="!['For Sale', 'Details Pending'].includes(item.Status)" color="dark" label="Buy Now"
-                :to="`/checkout/${id}`" />
-
-              <div v-if="!['For Sale', 'Details Pending'].includes(item.Status)" class="text-caption text-grey q-mt-xs">
-                This item is no longer available.
+                <strong class="">Interested in this artwork?</strong>
               </div>
-            </div>
-            <div class="q-mt-lg">
 
-              <strong>Want to learn more?</strong>
 
+              <div>
+
+                <q-btn :disable="!['For Sale', 'Details Pending'].includes(item.Status)" color="dark" label="Buy Now"
+                  :to="`/checkout/${id}`" />
+
+                <div v-if="!['For Sale', 'Details Pending'].includes(item.Status)"
+                  class="text-caption text-grey q-mt-xs">
+                  This item is no longer available.
+                </div>
+              </div>
               <!-- WhatsApp text -->
               <div class="q-mt-sm">
-                Contact us on the number below.
+                Or contact us below, using on the number the enquire button.
               </div>
 
               <div class="q-mt-sm q-pa-sm rounded-borders" style="
@@ -137,12 +141,14 @@
               </div>
 
               <!-- Enquire text -->
-              <div class="q-mt-lg">
+              <!-- <div class="q-mt-lg">
                 Or send an enquiry using the button below.
+              </div> -->
+
+
+              <div>
+                <q-btn color="dark" outline label="Enquire Now" class="q-mt-md" @click="showEnquiry = true" />
               </div>
-
-
-              <q-btn color="dark" label="Enquire Now" class="q-mt-md" @click="showEnquiry = true" />
               <!-- <div class="q-mt-md row q-col-gutter-sm">
 
               <div class="col-auto">
