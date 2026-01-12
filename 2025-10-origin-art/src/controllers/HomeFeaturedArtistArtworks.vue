@@ -11,52 +11,35 @@
 
     <div v-else class="">
 
-      <q-carousel v-model="slide" swipeable animated arrows navigation control-color="dark" autoplay infinite
+      <q-carousel v-model="slide" swipeable animated arrows navigation autoplay infinite control-color="white" 
         class="rounded-borders" style="height: unset;">
         <q-carousel-slide v-for="(art, index) in items" :key="art.id" :name="index">
-          <div class="row justify-center">
-            <div class="col-12">
+          <div class="relative-position">
 
-              <div class="row items-center q-col-gutter-lg" style=" ">
-                <!-- max-width: 900px; -->
-                <!-- margin: 0 auto; -->
+            <!-- Artwork image -->
+            <q-img :src="getLargeUrl(art)" :placeholder-src="getSmallUrl(art)" ratio="1" fit="contain"
+              class="rounded-borders" :height="cardHeight" />
 
-                <!-- LEFT: Artwork image -->
-                <div class="col-12 flex flex-center">
-                  <q-img :src="getLargeUrl(art)" :placeholder-src="getSmallUrl(art)" ratio="1" fit="contain" style=""
-                    class="rounded-borders" :height="cardHeight" />
+            <!-- Overlay caption -->
+            <div class="absolute-bottom q-pa-md"
+              style="background: linear-gradient(to top, rgba(0,0,0,0.65), rgba(0,0,0,0));">
+              <div class="text-h6 text-white font-1ry">
+                {{ art.Title }}
+              </div>
 
-                </div>
+              <div class="text-subtitle2 text-grey-3">
+                {{ art['Name (from Artist)']?.[0] || '' }}
+              </div>
 
-                <!-- RIGHT: Artwork details -->
-                <div class="col-12 ">
-
-                  <div class="text-h6 font-1ry">
-                    {{ art.Title }}
-                  </div>
-
-                  <div class="text-subtitle2 text-2ry-color q-mt-xs">
-                    {{ art['Name (from Artist)']?.[0] || '' }}
-                  </div>
-
-                  <div class="text-body1 text-weight-bold q-mt-sm">
-                    R{{ Number(art.Price)?.toLocaleString() }}
-                  </div>
-                  <div class="q-mb-lg"></div>
-
-                  <!-- <div class="q-mt-md">
-                <q-btn flat size="sm" no-caps label="View details →" class="bg-1ry-color"
-                  :to="`/artworks/${art.id}/${slugify(art.Title || 'artwork')}`" />
-              </div> -->
-
-                </div>
-
+              <div class="text-body1 text-weight-bold text-white q-mt-xs">
+                R{{ Number(art.Price)?.toLocaleString() }}
               </div>
             </div>
-          </div>
 
+          </div>
         </q-carousel-slide>
       </q-carousel>
+
 
 
 
