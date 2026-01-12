@@ -11,18 +11,20 @@
 
     <div v-else class="container-xl q-py-md">
 
-      <q-carousel v-model="slide" swipeable animated arrows navigation height="460px" control-color="dark"
+      <q-carousel v-model="slide" swipeable animated arrows navigation height="520px" control-color="dark"
         class="rounded-borders">
         <q-carousel-slide v-for="(art, index) in items" :key="art.id" :name="index" class="flex flex-center">
-          <q-card flat bordered style="width:320px;">
 
+          <div style="width:320px; text-align:left;">
+
+            <!-- Image -->
             <q-img :src="getLargeUrl(art)" :placeholder-src="getSmallUrl(art)" ratio="1" fit="contain"
-              class="rounded-borders" style="height:260px" />
+              style="height:340px" class="rounded-borders" />
 
-            <q-separator />
+            <!-- Text block -->
+            <div class="q-mt-md">
 
-            <q-card-section>
-              <div class="text-h6 font-1ry" style="min-height:64px">
+              <div class="text-h6 font-1ry">
                 {{ art.Title }}
               </div>
 
@@ -30,19 +32,23 @@
                 {{ art['Name (from Artist)']?.[0] || '' }}
               </div>
 
-              <div class="text-body1 q-mt-xs text-weight-bold">
+              <div class="text-body1 text-weight-bold q-mt-xs">
                 R{{ Number(art.Price)?.toLocaleString() }}
               </div>
-            </q-card-section>
 
-            <q-card-actions align="right">
-              <q-btn flat size="sm" label="View Details" class="bg-1ry-color"
-                :to="`/artworks/${art.id}/${slugify(art.Title || 'artwork')}`" />
-            </q-card-actions>
+              <!-- CTA -->
+              <div class="q-mt-sm">
+                <q-btn flat size="sm" label="View Details" class="bg-1ry-color"
+                  :to="`/artworks/${art.id}/${slugify(art.Title || 'artwork')}`" />
+              </div>
 
-          </q-card>
+            </div>
+
+          </div>
+
         </q-carousel-slide>
       </q-carousel>
+
 
 
 
