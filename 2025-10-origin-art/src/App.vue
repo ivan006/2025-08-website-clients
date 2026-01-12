@@ -21,8 +21,17 @@ export default {
       const path = this.$route.fullPath
       const canonicalUrl = `${origin}${path}`
       const baseUrl = import.meta.env.VITE_API_BACKEND_URL
+
+
+      const isProdDomain = origin === 'https://originart.art'
       return {
         meta: {
+          robots: {
+            name: 'robots',
+            content: isProdDomain
+              ? 'index, follow'
+              : 'noindex, nofollow'
+          },
           // viewport: {
           //   name: 'viewport',
           //   content: 'width=device-width, initial-scale=0.75, maximum-scale=1.0, user-scalable=yes'
@@ -69,7 +78,7 @@ export default {
       }
     })
   ],
-  mounted () {
+  mounted() {
     const store = useStore()
     const router = useRouter()
 
