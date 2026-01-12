@@ -1,6 +1,7 @@
 <template>
 
   <div class="row justify-center">
+
     <!-- Loading -->
     <template v-if="loading">
       <div class="text-center q-pa-md">Loading...</div>
@@ -13,11 +14,11 @@
 
     <!-- Menu -->
     <template v-else>
-
       <template v-for="item in nestedMenu" :key="item.id">
         <!-- ROOT ITEMS -->
-        <q-item clickable :to="{path: !item.children.length ? item.url : undefined, hash: item.Hash}" class="q-pl-lg text-uppercase "
-          @mouseenter="handleRootHover(item)" @mouseleave="scheduleClose(item.id)" @click.stop :style="{
+        <q-item clickable :to="{ path: !item.children.length ? item.url : undefined, hash: item.Hash }"
+          class="q-pl-lg text-uppercase " @mouseenter="handleRootHover(item)" @mouseleave="scheduleClose(item.id)"
+          @click.stop :style="{
             borderBottom: isActive(item) ? '5px solid black' : '5px solid transparent',
             fontWeight: isActive(item) ? 'bold' : 'normal',
             color: '#1a1a1a',
@@ -214,8 +215,8 @@ export default {
       return out
     },
     nestedMenu() {
-      const items = this.items
-      if (!items || !items.length) return []
+      const items = (this.items || [])
+        .filter(item => item.Hide !== true) // 👈 omit hidden
 
       // Step 1 — index by id
       const map = {}

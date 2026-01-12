@@ -11,14 +11,20 @@
 
     <div v-else class="">
 
-      <q-carousel v-model="slide" swipeable animated arrows navigation autoplay infinite control-color="white" 
-        class="rounded-borders" style="height: unset;">
+
+      <q-carousel v-model="slide" swipeable animated arrows navigation autoplay infinite control-color="white"
+        class="rounded-borders" style="height: unset; ">
         <q-carousel-slide v-for="(art, index) in items" :key="art.id" :name="index">
           <div class="relative-position">
 
             <!-- Artwork image -->
+
+            <!-- <q-card flat bordered>
+
+            </q-card> -->
+            
             <q-img :src="getLargeUrl(art)" :placeholder-src="getSmallUrl(art)" ratio="1" fit="contain"
-              class="rounded-borders" :height="cardHeight" />
+                class="rounded-borders bg-grey-2" :height="cardHeight" />
 
             <!-- Overlay caption -->
             <div class="absolute-bottom q-pa-md"
@@ -34,13 +40,14 @@
               <div class="text-body1 text-weight-bold text-white q-mt-xs">
                 R{{ Number(art.Price)?.toLocaleString() }}
               </div>
+              <div class="q-mb-lg">
+
+              </div>
             </div>
 
           </div>
         </q-carousel-slide>
       </q-carousel>
-
-
 
 
 
@@ -77,7 +84,7 @@ export default {
   },
   computed: {
     cardHeight() {
-      return this.$q.screen.lt.md ? "150px" : "400px";
+      return this.$q.screen.lt.md ? "300px" : "400px";
     }
   },
   methods: {

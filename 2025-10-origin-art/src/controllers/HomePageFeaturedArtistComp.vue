@@ -12,7 +12,7 @@
       <!-- ===================== -->
 
       <div class="row items-center justify-center">
-        <div class="col-md-5 q-pa-xl text-center">
+        <div class="col-md-4 col-6 q-pa-md text-center">
 
 
           <q-avatar size="128px">
@@ -22,13 +22,14 @@
             {{ item.Name }}
           </div>
           <div class="text-body1" style="white-space: pre-line;">
-            {{ truncate(item['Description'], 150) }}
+            <!-- {{ truncate(item['Description'], 150) }} -->
+            {{ item["Short Description (150 chars)"] }}
           </div>
 
           <q-btn flat class="q-mt-sm bg-dark text-white" size="small" :to="artistProfileUrl" color="dark" no-caps
             label="View Profile" />
         </div>
-        <div class="col-md-5">
+        <div class="col-md-5 col-6"  >
 
           <HomeFeaturedArtistArtworks :parentItem="item" :parentId="artistId" class="q-pa-sm" />
         </div>
