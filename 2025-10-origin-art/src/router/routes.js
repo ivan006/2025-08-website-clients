@@ -119,6 +119,18 @@ const routes = [
                 },
               },
               {
+                path: '/refund-policy',
+                name: '/refund-policy',
+                // path: '/home/:rId',
+                // name: '/home/:rId',
+                component: () => import('src/controllers/PolicyRefundComp.vue'),
+                meta: {
+                  breadcrumbName: ':rId',
+                  breadcrumbParentName: '/artworks',
+                  requiresAuth: false,
+                },
+              },
+              {
                 path: '/artworks/:rId/:rName',
                 name: '/artworks/:rId/:rName',
                 // path: '/home/:rId',
