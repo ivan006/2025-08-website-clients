@@ -5,7 +5,7 @@
 
   <template v-else>
 
-    <q-card flat bordered>
+    <q-card flat borderedx>
 
       <!-- ===================== -->
       <!-- ARTIST SUMMARY ROW    -->
@@ -14,19 +14,19 @@
       <div class="row items-center justify-center">
         <div class="col-md-5 q-pa-xl">
 
-      
-              <q-avatar size="128px">
-                <img :src="mainImage" :placeholder-src="placeholderImage" style=" object-fit: cover" />
-              </q-avatar>
-              <div class="text-h6 font-1ry q-mb-sm">
-                {{ item.Name }}
-              </div>
-              <div class="text-body1" style="white-space: pre-line;">
-                {{ truncate(item['Description'], 150) }}
-              </div>
 
-              <q-btn flat class="q-mt-sm bg-dark text-white" size="small" :to="artistProfileUrl" color="dark" no-caps
-                label="View Artist Profile" />
+          <q-avatar size="128px">
+            <img :src="mainImage" :placeholder-src="placeholderImage" style=" object-fit: cover" />
+          </q-avatar>
+          <div class="text-h6 font-1ry q-mb-sm">
+            {{ item.Name }}
+          </div>
+          <div class="text-body1" style="white-space: pre-line;">
+            {{ truncate(item['Description'], 150) }}
+          </div>
+
+          <q-btn flat class="q-mt-sm bg-dark text-white" size="small" :to="artistProfileUrl" color="dark" no-caps
+            label="View Artist Profile" />
         </div>
         <div class="col-md-5">
 
