@@ -24,7 +24,7 @@
             </q-card> -->
             
             <q-img :src="getLargeUrl(art)" :placeholder-src="getSmallUrl(art)" ratio="1" fit="contain"
-                class="rounded-borders bg-grey-2" :height="cardHeight" />
+                class="rounded-borders bg-grey-2" :height="cardHeight" :alt="`${art.Title} by ${art['Name (from Artist)']?.[0]}`" />
 
             <!-- Overlay caption -->
             <div class="absolute-bottom q-pa-md"

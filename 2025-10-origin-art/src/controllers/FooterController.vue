@@ -13,7 +13,7 @@
 
           <img :src="item.fields?.['Logo Image']?.[0]?.thumbnails?.large?.url
             ? $apiProxyUrl + encodeURIComponent(item.fields['Logo Image'][0].thumbnails.large.url)
-            : ''" alt="Logo Image" style="height: 90px;" />
+            : ''" alt="Origin Art Logo" style="height: 90px;" />
 
         </div>
 

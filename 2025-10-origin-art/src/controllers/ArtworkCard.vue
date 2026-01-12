@@ -8,6 +8,7 @@
       class="rounded-borders"
       :style="{ height: cardHeight, objectFit: 'contain' }"
       fit="contain"
+      :alt="`${art.Title} by ${artistName}`"
     />
       <!-- style="background-color: #EEE;" -->
     

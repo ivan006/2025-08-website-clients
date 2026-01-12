@@ -16,7 +16,7 @@
 
 
           <q-avatar size="128px">
-            <img :src="mainImage" :placeholder-src="placeholderImage" style=" object-fit: cover" />
+            <img :src="mainImage" :placeholder-src="placeholderImage" style=" object-fit: cover" :alt="item.Name"/>
           </q-avatar>
           <div class="text-h6 font-1ry q-mb-sm">
             {{ item.Name }}

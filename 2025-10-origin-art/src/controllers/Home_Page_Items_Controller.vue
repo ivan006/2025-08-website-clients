@@ -28,18 +28,13 @@
 
 
                 <div>
-                  <div :style="{
+                  <q-img :src="item?.['Image']?.[0]?.thumbnails?.large?.url
+                    ? `${$apiProxyUrl}${encodeURIComponent(item['Image'][0].thumbnails.large.url)}`
+                    : ''" :alt="`${item.Title} Catalogue`" :style="{
                     height: $q.screen.lt.md ? '150px' : '220px',
-                    backgroundImage: item?.['Image']?.[0]?.thumbnails?.large?.url
-                      ? `url(${$apiProxyUrl}${encodeURIComponent(item['Image'][0].thumbnails.large.url)})`
-                      : ''
-                  }" style="
-                    background-position: center;
-                    background-size: cover;
-                    border-radius: 10px 10px 0 0 ;
-                    max-width: 100%;
-                    ">
-                  </div>
+                    maxWidth: '100%'
+                  }" fit="cover" class="rounded-top" />
+
                   <!--<img src="https://cdn.quasar.dev/img/avatar.png">-->
                 </div>
 

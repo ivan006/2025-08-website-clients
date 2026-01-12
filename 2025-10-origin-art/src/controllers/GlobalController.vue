@@ -84,7 +84,7 @@
                   <div>
                     <img
                       :src="this.item.fields?.['Logo Image'][0].thumbnails.large.url ? `${$apiProxyUrl}${encodeURIComponent(this.item.fields?.['Logo Image'][0].thumbnails.large.url)}` : ''"
-                      style="max-height: 100px;"
+                      style="max-height: 100px;" alt="Origin Art Logo"
                     >
                   </div>
                 </q-item-section>

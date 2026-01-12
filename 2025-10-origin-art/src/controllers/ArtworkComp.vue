@@ -13,7 +13,7 @@
         <!-- LEFT: IMAGE -->
         <div class="col-12 col-md-6 flex flex-centerx">
           <q-img :src="mainImage" :placeholder-src="placeholderImage" fit="contain"
-            class="rounded-borders cursor-pointer" :style="{ height: cardHeight }" @click="showDialog = true" />
+            class="rounded-borders cursor-pointer" :style="{ height: cardHeight }" @click="showDialog = true"  :alt="`${item.Title || 'Artwork'} by ${item['Name (from Artist)']?.[0] || 'Unknown artist'}`" />
 
           <!-- DIALOG -->
           <!-- <q-dialog v-model="showDialog" persistentx>

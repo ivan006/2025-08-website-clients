@@ -3,7 +3,7 @@
 
         <!-- IMAGE -->
         <q-img :src="largeUrl" :placeholder-src="smallUrl" ratio="1" class="rounded-borders"
-            :style="{ height: $q.screen.lt.md ? '150px' : '250px', objectFit: 'cover' }" fit="contain" />
+            :style="{ height: $q.screen.lt.md ? '150px' : '250px', objectFit: 'cover' }" fit="contain" :alt="artist.Name" />
 
         <!-- TEXT -->
         <q-card-section>
