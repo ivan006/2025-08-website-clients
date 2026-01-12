@@ -12,7 +12,7 @@
       <!-- ===================== -->
 
       <div class="row items-center justify-center">
-        <div class="col-md-5 q-pa-xl">
+        <div class="col-md-5 q-pa-xl text-center">
 
 
           <q-avatar size="128px">
@@ -26,7 +26,7 @@
           </div>
 
           <q-btn flat class="q-mt-sm bg-dark text-white" size="small" :to="artistProfileUrl" color="dark" no-caps
-            label="View Artist Profile" />
+            label="View Profile" />
         </div>
         <div class="col-md-5">
 
