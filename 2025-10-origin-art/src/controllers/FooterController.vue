@@ -1,7 +1,7 @@
 <template>
   <div class="bg-blackx text-whitex">
 
-          <q-separator />
+    <q-separator />
     <div class="container-md q-py-xl">
 
       <div v-if="loading" class="text-center q-pa-xl">Loading...</div>
@@ -22,16 +22,16 @@
         <div class="col-12 col-md-3">
           <div class="text-h6 text-weight-bold font-1ry">Contact</div>
 
- 
+
 
           <!-- Phone -->
           <div class="q-mt-sm">
-             {{ item.fields?.['Phone Number'] }}
+            {{ item.fields?.['Phone Number'] }}
           </div>
 
           <!-- Email -->
           <div class="q-mt-xs">
-            
+
             <a :href="'mailto:' + item.fields?.['Email']" class="text-dark">
               {{ item.fields?.['Email'] }}
             </a>
@@ -84,6 +84,15 @@
         <div style="opacity:.6; font-size:13px;">
           {{ item.fields?.['Copyright Text'] }}
         </div>
+        <div class="q-mt-xs text-caption" style="opacity:.6;">
+          <router-link to="/privacy-policy" class="q-mr-md text-dark">
+            Privacy Policy
+          </router-link>
+          <router-link to="/refund-policy" class="text-dark">
+            Refund Policy
+          </router-link>
+        </div>
+
       </div>
     </div>
 

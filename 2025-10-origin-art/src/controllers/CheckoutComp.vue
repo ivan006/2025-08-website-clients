@@ -115,6 +115,16 @@
                                     </div>
                                 </q-banner>
 
+                                <div class="text-caption text-grey q-mb-sm">
+                                    By continuing, you agree to our
+                                    <router-link to="/privacy-policy" class="text-dark">
+                                        Privacy Policy
+                                    </router-link>
+                                    and
+                                    <router-link to="/refund-policy" class="text-dark">
+                                        Refund Policy
+                                    </router-link>.
+                                </div>
 
                                 <!-- CTA -->
                                 <q-btn class="full-width q-py-sm" color="dark" no-caps unelevated :disable="loadingPost"
