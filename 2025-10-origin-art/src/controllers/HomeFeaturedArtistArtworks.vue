@@ -1,53 +1,26 @@
 <template>
-  <div class="">
+  <div>
+
     <div v-if="loading" class="text-center q-pa-lg">
-      Loading artworks...
+      Loading featured artworks…
     </div>
 
     <div v-else-if="!items.length" class="text-center q-pa-lg text-grey-7">
-      No artworks found for this artist.
+      No featured artworks found.
     </div>
 
-    <div v-else>
-      
-      <!-- PER-MEDIUM SECTIONS -->
-      <div
-        v-for="(group, mediaName) in grouped"
-        :key="mediaName"
-        class=""
-      >
+    <div v-else class="container-xl q-py-md">
 
-        <!-- Heading -->
-        <!-- <div class="text-h6 q-mb-md font-1ry">
-          {{ mediaName }}
-        </div> -->
-        
-        <!-- MEDIA HEADER -->
-        <q-separator  />
-        <div style="background: #ffffff;">
-          <div class="container-md q-pt-md q-pb-md">
-            <h2
-              class="text-h5 text-center font-1ry"
-              style="margin: 0; font-weight: 500;"
-            >
-              {{ mediaName }}
-            </h2>
+      <q-carousel v-model="slide" swipeable animated arrows navigation height="420px" control-color="dark"
+        class="rounded-borders">
+        <q-carousel-slide v-for="(art, index) in items" :key="art.id" :name="index" class="flex flex-center">
+          <div style="max-width:320px; width:100%;">
+            <!-- <pre>{{ art }}</pre> -->
+            <ArtworkCard :art="art" />
           </div>
-        </div>
-        <q-separator  />
+        </q-carousel-slide>
+      </q-carousel>
 
-        <!-- PAGINATED GRID -->
-         
-        <div class="container-xl bg-2ry-color q-py-md">
-          
-          <ArtworkPaginatedGrid
-            :items="group"
-            v-model:page="sectionPages[mediaName]"
-            :items-per-page="8"
-          />
-        </div>
-
-      </div>
 
     </div>
 
@@ -55,58 +28,33 @@
 </template>
 
 <script>
-import ArtworkPaginatedGrid from 'src/controllers/ArtworkPaginatedGrid.vue'
 import ArtworksBoundCache from 'src/models/orm-api/ArtworksBoundCache'
+import ArtworkCard from 'src/controllers/ArtworkCard.vue'
 
 export default {
-  name: 'HomeFeaturedArtistArtworks',
+  name: 'FeaturedArtistArtworkCarousel',
 
   components: {
-    ArtworkPaginatedGrid
+    ArtworkCard
   },
 
   props: {
     parentId: {
-      type: [String, Number]
+      type: [String, Number],
+      required: true
     }
   },
 
   data() {
     return {
+
       loading: false,
       items: [],
-      sectionPages: {}  // page trackers for each medium group
+      slide: 0
     }
-  },
-
-  computed: {
-    filterFormula() {
-      return `AND(({RECORD_ID (from Artist)}='${this.parentId}'))`
-    },
-
-    grouped() {
-      const groups = {}
-
-      this.items.forEach(art => {
-        const mediums = art['Name (from Medium)'] || ['Uncategorized']
-
-        mediums.forEach(m => {
-          if (!groups[m]) groups[m] = []
-          groups[m].push(art)
-
-          if (this.sectionPages[m] === undefined) {
-            this.sectionPages[m] = 0   // ✅ Vue 3 reactive assignment
-          }
-        })
-      })
-
-      return groups
-    }
-
   },
 
   methods: {
-    
     async fetchArtworks() {
       this.loading = true
 
@@ -119,9 +67,9 @@ export default {
           .map(r => ({ id: r.id, ...r.fields }))
           .filter(r => !r.Hide)
 
-        // 🔑 FRONTEND FILTER BY ARTIST
         this.items = all.filter(r =>
-          (r['RECORD_ID (from Artist)'] || []).includes(this.parentId)
+          (r['RECORD_ID (from Artist)'] || []).includes(this.parentId) &&
+          r.Featured === 'Yes'
         )
       } finally {
         this.loading = false
