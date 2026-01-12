@@ -345,7 +345,7 @@ export default {
             });
 
             document.body.appendChild(form);
-            this.loadingPost = false;
+            // this.loadingPost = false;
             form.submit();
         },
 
@@ -357,6 +357,8 @@ export default {
 
     async mounted() {
         this.loading = true;
+        
+        this.loadingPost = false;
 
         try {
             const res = await ArtworksBoundCache.FetchAll([], {
