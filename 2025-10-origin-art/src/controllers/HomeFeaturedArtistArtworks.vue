@@ -12,7 +12,7 @@
     <div v-else class="">
 
       <q-carousel v-model="slide" swipeable animated arrows navigation control-color="dark"
-        class="rounded-borders">
+        class="rounded-borders" style="height: unset;">
         <q-carousel-slide v-for="(art, index) in items" :key="art.id" :name="index">
 
           <div class="row items-center q-col-gutter-lg" style=" ">
@@ -20,13 +20,14 @@
             <!-- margin: 0 auto; -->
 
             <!-- LEFT: Artwork image -->
-            <div class="col-12 col-md-6 flex flex-center">
+            <div class="col-6 col-md-6 flex flex-center">
               <q-img :src="getLargeUrl(art)" :placeholder-src="getSmallUrl(art)" ratio="1" fit="contain"
-                style="" :height="cardHeight"  class="rounded-borders" />
+                style=""   class="rounded-borders"  :height="cardHeight"/>
+                
             </div>
 
             <!-- RIGHT: Artwork details -->
-            <div class="col-12 col-md-6">
+            <div class="col-6 col-md-6">
 
               <div class="text-h6 font-1ry">
                 {{ art.Title }}
@@ -40,10 +41,10 @@
                 R{{ Number(art.Price)?.toLocaleString() }}
               </div>
 
-              <div class="q-mt-md">
+              <!-- <div class="q-mt-md">
                 <q-btn flat size="sm" no-caps label="View details →" class="bg-1ry-color"
                   :to="`/artworks/${art.id}/${slugify(art.Title || 'artwork')}`" />
-              </div>
+              </div> -->
 
             </div>
 
@@ -88,7 +89,7 @@ export default {
   },
   computed: {
     cardHeight() {
-      return this.$q.screen.lt.md ? "150px" : "250px";
+      return this.$q.screen.lt.md ? "150px" : "400px";
     }
   },
   methods: {

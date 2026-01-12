@@ -10,17 +10,25 @@
       <!-- ===================== -->
       <!-- ARTIST SUMMARY ROW    -->
       <!-- ===================== -->
-      <div class="row items-center q-col-gutter-md q-mb-lg">
+       
+      <div class="row justify-center  q-mb-lg">
+
+
+        <!-- Name + CTA -->
+        <div class="col-8 col-md-3">
+
+      
+      <div class="row items-center q-col-gutter-md">
 
         <!-- Avatar -->
-        <div class="col-auto">
+        <div class="col-4">
           <q-avatar size="64px">
-            <q-img :src="mainImage" :placeholder-src="placeholderImage" fit="cover" />
+            <img :src="mainImage" :placeholder-src="placeholderImage" style=" object-fit: cover" />
           </q-avatar>
         </div>
 
         <!-- Name + CTA -->
-        <div class="col">
+        <div class="col-8">
 
           <div class="text-h6 font-1ry">
             {{ item.Name }}
@@ -28,6 +36,9 @@
 
           <q-btn :to="artistProfileUrl" flat dense no-caps size="sm" label="View artist profile →" class="q-mt-xs" />
 
+        </div>
+
+      </div>
         </div>
 
       </div>
