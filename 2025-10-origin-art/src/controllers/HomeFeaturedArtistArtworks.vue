@@ -15,21 +15,21 @@
         class="rounded-borders" style="height: unset;">
         <q-carousel-slide v-for="(art, index) in items" :key="art.id" :name="index">
           <div class="row justify-center">
-            <div class="col-6">
+            <div class="col-12">
 
               <div class="row items-center q-col-gutter-lg" style=" ">
                 <!-- max-width: 900px; -->
                 <!-- margin: 0 auto; -->
 
                 <!-- LEFT: Artwork image -->
-                <div class="col-6 flex flex-center">
+                <div class="col-12 flex flex-center">
                   <q-img :src="getLargeUrl(art)" :placeholder-src="getSmallUrl(art)" ratio="1" fit="contain" style=""
                     class="rounded-borders" :height="cardHeight" />
 
                 </div>
 
                 <!-- RIGHT: Artwork details -->
-                <div class="col-6 ">
+                <div class="col-12 ">
 
                   <div class="text-h6 font-1ry">
                     {{ art.Title }}

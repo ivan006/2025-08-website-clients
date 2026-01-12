@@ -5,51 +5,53 @@
 
   <template v-else>
 
-    <q-card flat bordered >
+    <q-card flat bordered>
 
       <!-- ===================== -->
       <!-- ARTIST SUMMARY ROW    -->
       <!-- ===================== -->
 
-      <div class="row justify-center   q-pa-md">
+      <div class="row items-center">
+        <div class="col-md-6">
 
+          <div class="row justify-center   q-pa-md">
 
-        <!-- Name + CTA -->
-        <div class="col-9 col-md-4">
-
-
-          <div class="row items-center q-col-gutter-md">
-
-            <!-- Avatar -->
-            <div class="col-6">
-              <q-avatar size="128px">
-                <img :src="mainImage" :placeholder-src="placeholderImage" style=" object-fit: cover" />
-              </q-avatar>
-            </div>
 
             <!-- Name + CTA -->
-            <div class="col-6">
+            <div class="col-9 col-md-8">
 
-              <div class="text-h6 font-1ry">
-                {{ item.Name }}
+
+              <div class="row items-center q-col-gutter-md">
+
+                <!-- Avatar -->
+                <div class="col-6">
+                  <q-avatar size="128px">
+                    <img :src="mainImage" :placeholder-src="placeholderImage" style=" object-fit: cover" />
+                  </q-avatar>
+                </div>
+
+                <div class="col-6">
+
+                  <div class="text-h6 font-1ry">
+                    {{ item.Name }}
+                  </div>
+
+                  <q-btn flat class="q-mt-sm bg-dark text-white" size="small" :to="artistProfileUrl" color="dark"
+                    no-caps label="View Artist Profile" />
+
+                </div>
+
               </div>
-
-              <q-btn flat class="q-mt-sm bg-dark text-white" size="small" :to="artistProfileUrl" color="dark" 
-                no-caps label="View Artist Profile" />
-
             </div>
 
           </div>
         </div>
+        <div class="col-md-6">
 
+          <HomeFeaturedArtistArtworks :parentItem="item" :parentId="artistId" class="q-pa-sm" />
+        </div>
       </div>
 
-      <q-separator class="q-mb-lgx" />
-
-      <!-- ===================== -->
-      <!-- FEATURED ARTWORKS     -->
-      <!-- ===================== -->
-      <HomeFeaturedArtistArtworks :parentId="artistId"  class="q-pa-sm"/>
 
     </q-card>
 
