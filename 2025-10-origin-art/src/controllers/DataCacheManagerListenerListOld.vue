@@ -8,7 +8,7 @@
                 <q-input dense outlined type="number" v-model.number="hideSegmentsCount" label="Hide first N segments"
                     min="0" style="max-width: 180px" />
                 <div class="row items-center q-gutter-xs">
-                    <q-btn v-for="preset in [0, 5, 14, 26, 30]" :key="preset" size="sm" outline color="primary"
+                    <q-btn v-for="preset in [0, 5, 14, 26, 30]" :key="preset" size="ssm" outline color="primary"
                         :label="preset" :flat="hideSegmentsCount === preset" @click="hideSegmentsCount = preset" />
                 </div>
             </div>

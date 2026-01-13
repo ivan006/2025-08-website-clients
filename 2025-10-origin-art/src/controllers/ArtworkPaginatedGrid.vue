@@ -9,7 +9,7 @@
           round
           color="primary"
           icon="chevron_left"
-          size="lg"
+          size="llg"
           @click="updatePage(page - 1)"
           :disable="page <= 0"
         />
@@ -35,7 +35,7 @@
           round
           color="primary"
           icon="chevron_right"
-          size="lg"
+          size="llg"
           @click="updatePage(page + 1)"
           :disable="page >= totalPages - 1"
         />
@@ -59,7 +59,7 @@
         <q-btn
           v-for="n in totalPages"
           :key="n"
-          size="sm"
+          size="ssm"
           flat
           round
           :label="n"

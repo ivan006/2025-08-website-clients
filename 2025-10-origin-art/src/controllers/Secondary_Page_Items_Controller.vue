@@ -72,7 +72,7 @@
                   <div class="text-body1 q-mt-xs text-weight-bold">R{{ art.Price?.toLocaleString() }}</div>
                 </q-card-section>
                 <q-card-actions align="right">
-                  <q-btn flat size="sm" label="View Details" class="bg-1ry-color" />
+                  <q-btn flat size="ssm" label="View Details" class="bg-1ry-color" />
                 </q-card-actions>
               </q-card>
             </div>
@@ -85,7 +85,7 @@
             @click="prevPage" />
 
           <div>
-            <q-btn v-for="(off, idx) in offsetTrail" :key="idx" size="sm" flat round :label="idx + 1"
+            <q-btn v-for="(off, idx) in offsetTrail" :key="idx" size="ssm" flat round :label="idx + 1"
               :color="idx === currentPage ? 'primary' : 'grey-6'" @click="goToPage(idx)" />
           </div>
 

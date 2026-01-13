@@ -18,7 +18,7 @@
             <q-btn
               dense
               flat
-              size="sm"
+              size="ssm"
               icon="content_copy"
               @click="copyText(xml)"
             >

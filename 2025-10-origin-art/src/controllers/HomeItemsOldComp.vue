@@ -57,7 +57,7 @@
                       </q-badge>
                     </div> -->
 
-                    <q-btn flat size="md" class="q-mt-xs text-3ry-color" label="View All Works" :to="`/artists/${artworks[0]['Artist'][0]}/${this.slugify(artistName || 'artist')}`"/>
+                    <q-btn flat size="mmd" class="q-mt-xs text-3ry-color" label="View All Works" :to="`/artists/${artworks[0]['Artist'][0]}/${this.slugify(artistName || 'artist')}`"/>
                   </div>
 
                   <!-- First 3 artworks -->
@@ -77,7 +77,7 @@
                       <div class="text-h6 font-1ry">{{ art.Title }}</div>
                       <div class="text-body1 text-2ry-color">R{{ art.Price.toLocaleString() }}</div>
 
-                      <q-btn flat size="md" class="q-mt-xs text-3ry-color" label="Read More"
+                      <q-btn flat size="mmd" class="q-mt-xs text-3ry-color" label="Read More"
                         :to="`/artworks/${art.id}/${slugify(art.Title || 'artwork')}`" />
                     </div>
                   </div>

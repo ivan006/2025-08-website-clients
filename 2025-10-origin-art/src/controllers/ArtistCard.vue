@@ -22,7 +22,7 @@
 
         <!-- BUTTON -->
         <q-card-actions align="right">
-            <q-btn flat size="sm" label="View Profile" class="bg-1ry-color" :to="artistProfileUrl" />
+            <q-btn flat size="ssm" label="View Profile" class="bg-1ry-color" :to="artistProfileUrl" />
         </q-card-actions>
     </q-card>
 </template>
