@@ -1,7 +1,8 @@
 <template>
   
     <div>
-        <!-- <q-btn
+        <!-- <q-
+            :size="$q.screen.lt.md ? 'lg' : 'md'"
             round
             flat
             dense
