@@ -125,6 +125,8 @@
           <!-- <ArtworkPaginatedGrid :items="filteredItems" v-model:page="currentPage"
             :items-per-page="options.itemsPerPage" /> -->
           <ItemsPaginatedGrid
+          
+            :showArrows="false"
             :items="filteredItems"
             v-model:page="currentPage"
             :items-per-page="options.itemsPerPage"
@@ -184,7 +186,7 @@ export default {
       totalFiltered: 0,
       currentPage: 0,
 
-      options: { itemsPerPage: 8 },
+      options: { itemsPerPage: 40 },
 
       /* Only height + width remain local */
       filterValsRef: {

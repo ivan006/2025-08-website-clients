@@ -3,7 +3,7 @@
         <div class="row items-center no-wrap">
 
             <!-- ◀️ LEFT ARROW -->
-            <div v-if="!$q.screen.lt.md" class="col-auto q-pr-sm">
+            <div v-if="!$q.screen.lt.md && showArrows" class="col-auto q-pr-sm">
                 <q-btn flat round color="primary" icon="chevron_left" size="lg" @click="updatePage(page - 1)"
                     :disable="page <= 0" />
             </div>
@@ -19,7 +19,7 @@
             </div>
 
             <!-- ▶️ RIGHT ARROW -->
-            <div v-if="!$q.screen.lt.md" class="col-auto q-pl-sm">
+            <div v-if="!$q.screen.lt.md && showArrows" class="col-auto q-pl-sm">
                 <q-btn flat round color="primary" icon="chevron_right" size="lg" @click="updatePage(page + 1)"
                     :disable="page >= totalPages - 1" />
             </div>
@@ -59,7 +59,8 @@ export default {
     props: {
         items: { type: Array, required: true },
         page: { type: Number, required: true },
-        itemsPerPage: { type: Number, default: 8 }
+        showArrows: { type: Boolean, default: true },
+        itemsPerPage: { type: Number, default: 40 }
     },
 
     computed: {

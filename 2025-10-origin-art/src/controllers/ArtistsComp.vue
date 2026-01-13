@@ -135,6 +135,7 @@
           </div>
 
           <ItemsPaginatedGrid
+            :showArrows="false"
             :items="filteredItems"
             v-model:page="currentPage"
             :items-per-page="options.itemsPerPage"
@@ -195,7 +196,7 @@ export default {
       loading: false,
       totalFiltered: 0,
       currentPage: 0,
-      options: { itemsPerPage: 8 },
+      options: { itemsPerPage: 40 },
 
       filterValsRef: {
         search: '',
