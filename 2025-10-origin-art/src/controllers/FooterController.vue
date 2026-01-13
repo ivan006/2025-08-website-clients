@@ -62,15 +62,25 @@
 
 
         <!-- COLUMN 3 — NEWSLETTER -->
-        <div class="col-4 col-md-3">
+        <div class="col-6 col-md-3">
           <div class="text-h6 text-weight-bold font-1ry">Newsletter</div>
 
-          <a :href="item.fields?.['Subscribe Link']" target="_blank"
+          <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'" color="dark" no-caps :href="item.fields?.['Subscribe Link']"
+            target="_blank" class="full-width">
+            <div class=" flex items-center justify-between full-width">
+
+              <div>Subscribe</div>
+              <div>
+                <q-icon size="xs" name="mdi-send" />
+              </div>
+            </div>
+          </q-btn>
+          <!-- <a :href="item.fields?.['Subscribe Link']" target="_blank"
             class="q-mt-md bg-dark text-white q-pa-sm rounded-borders full-width flex items-center justify-between"
             style="text-decoration:none;">
             <span>Subscribe</span>
             <q-icon name="mdi-send" />
-          </a>
+          </a> -->
         </div>
 
       </div>
