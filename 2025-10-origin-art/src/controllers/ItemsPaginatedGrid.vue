@@ -33,8 +33,16 @@
                 @click="updatePage(page - 1)" />
 
             <div>
-                <q-btn v-for="n in totalPages" :key="n" size="sm" flat round :label="n"
-                    :color="n - 1 === page ? 'primary' : 'grey-6'" @click="updatePage(n - 1)" />
+                <template v-for="(n, i) in pageNumbers" :key="n">
+                    <span v-if="i > 0 && n - pageNumbers[i - 1] > 1" class="q-mx-xs text-grey-6">
+                        …
+                    </span>
+
+                    <q-btn size="sm" flat round :label="n + 1" :color="n === page ? 'primary' : 'grey-6'"
+                        @click="updatePage(n)" />
+                </template>
+
+
             </div>
 
             <q-btn flat color="primary" icon-right="chevron_right" label="Next" :disable="page >= totalPages - 1"
@@ -55,6 +63,25 @@ export default {
     },
 
     computed: {
+        pageNumbers() {
+            const range = 1
+            const pages = new Set()
+
+            pages.add(0)                          // first
+            pages.add(this.totalPages - 1)        // last
+
+            for (
+                let i = this.page - range;
+                i <= this.page + range;
+                i++
+            ) {
+                if (i >= 0 && i < this.totalPages) {
+                    pages.add(i)
+                }
+            }
+
+            return [...pages].sort((a, b) => a - b)
+        },
         totalPages() {
             return Math.ceil(this.items.length / this.itemsPerPage)
         },
