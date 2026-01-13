@@ -2,22 +2,15 @@
   <div class="container-mdx" style="">
     <SitemapComp :items="sitemapItems" />
     <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
-    <catalogue-layout
-      :mobileTitle="mobileFiltersLabel"
-    >
+    <catalogue-layout :mobileTitle="mobileFiltersLabel">
 
       <!-- FILTERS -->
       <template #filters>
         <div>
           <!-- MEDIUM -->
           <q-expansion-item label="Medium" class="text-weight-bold" default-opened>
-            <q-option-group
-              v-model="routeMedium"
-              :options="mediumOptions"
-              type="radio"
-              @update:model-value="resetAndFetch"
-              class="q-pb-md text-weight-regular"
-            >
+            <q-option-group v-model="routeMedium" :options="mediumOptions" type="radio"
+              @update:model-value="resetAndFetch" class="q-pb-md text-weight-regular">
               <template v-slot:label="scope">
                 <div class="row items-center no-wrap justify-between q-gutter-x-sm">
                   <div>{{ scope.label }}</div>
@@ -35,17 +28,12 @@
 
           <!-- PRICE RANGE -->
           <q-expansion-item label="Price Range" class="text-weight-bold" default-opened>
-            <q-option-group
-              v-model="routePriceRange"
-              :options="priceOptions"
-              type="radio"
-              @update:model-value="resetAndFetch"
-              class="q-pb-md text-weight-regular"
-            >
+            <q-option-group v-model="routePriceRange" :options="priceOptions" type="radio"
+              @update:model-value="resetAndFetch" class="q-pb-md text-weight-regular">
               <template v-slot:label="scope">
                 <div class="row items-center no-wrap justify-between q-gutter-x-sm">
                   <div>{{ scope.label }}</div>
-                  <q-badge transparent align="middle" size="sm"  class="bg-grey-7">
+                  <q-badge transparent align="middle" size="sm" class="bg-grey-7">
                     {{ getCount(scope.value, 'price') }}
                   </q-badge>
                 </div>
@@ -59,13 +47,8 @@
 
           <!-- HEIGHT -->
           <q-expansion-item label="Height" class="text-weight-bold" default-opened>
-            <q-option-group
-              v-model="filterValsRef['Height Bracket']"
-              :options="heightOptions"
-              type="radio"
-              @update:model-value="resetAndFetch"
-              class="q-pb-md text-weight-regular"
-            >
+            <q-option-group v-model="filterValsRef['Height Bracket']" :options="heightOptions" type="radio"
+              @update:model-value="resetAndFetch" class="q-pb-md text-weight-regular">
               <template v-slot:label="scope">
                 <div class="row items-center no-wrap justify-between q-gutter-x-sm">
                   <div>{{ scope.label }}</div>
@@ -83,13 +66,8 @@
 
           <!-- WIDTH -->
           <q-expansion-item label="Width" class="text-weight-bold" default-opened>
-            <q-option-group
-              v-model="filterValsRef['Width Bracket']"
-              :options="widthOptions"
-              type="radio"
-              @update:model-value="resetAndFetch"
-              class="q-pb-md text-weight-regular"
-            >
+            <q-option-group v-model="filterValsRef['Width Bracket']" :options="widthOptions" type="radio"
+              @update:model-value="resetAndFetch" class="q-pb-md text-weight-regular">
               <template v-slot:label="scope">
                 <div class="row items-center no-wrap justify-between q-gutter-x-sm">
                   <div>{{ scope.label }}</div>
@@ -124,13 +102,8 @@
 
           <!-- <ArtworkPaginatedGrid :items="filteredItems" v-model:page="currentPage"
             :items-per-page="options.itemsPerPage" /> -->
-          <ItemsPaginatedGrid
-          
-            :showArrows="false"
-            :items="filteredItems"
-            v-model:page="currentPage"
-            :items-per-page="options.itemsPerPage"
-          >
+          <ItemsPaginatedGrid :showArrows="false" :items="filteredItems" v-model:page="currentPage"
+            :items-per-page="options.itemsPerPage">
             <template #item="{ item }">
               <ArtworkCard :art="item" />
             </template>
@@ -234,7 +207,7 @@ export default {
   },
 
   computed: {
-    
+
     sitemapItems() {
       // const start = performance.now()
 
@@ -303,9 +276,9 @@ export default {
         })
       }
     },
-    
-    seoLdJson(){
-      
+
+    seoLdJson() {
+
 
 
       const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/');
@@ -350,7 +323,7 @@ export default {
           image: item?.['Attachments']?.[0]?.thumbnails?.large?.url ? `${import.meta.env.VITE_API_PROXY_URL}/cacher/data-cache/index.php?url=${encodeURIComponent(item?.['Attachments']?.[0]?.thumbnails?.large?.url)}` : import.meta.env.VITE_API_DEFAULT_IMAGE,
           price: item['Price'] || "",
           extras: {
-            category: item["Name (from Medium)"]?.[0]  || "",
+            category: item["Name (from Medium)"]?.[0] || "",
           }
         });
         // console.log(newItem)
@@ -365,12 +338,12 @@ export default {
 
       return schema;
     },
-    
 
 
 
-    
-    seoConfig(){
+
+
+    seoConfig() {
 
       const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/');
       const siteName = import.meta.env.VITE_API_SITE_TITLE;
@@ -379,16 +352,16 @@ export default {
       let imageWidth = import.meta.env.VITE_API_DEFAULT_IMAGE_WIDTH;
       let imageHeight = import.meta.env.VITE_API_DEFAULT_IMAGE_HEIGHT;
       if (this.parent?.fields?.['Image']?.[0]?.thumbnails?.large?.url) {
-        
+
         const imageObject = this.parent?.fields?.['Image']?.[0]?.thumbnails?.large
         image = `${import.meta.env.VITE_API_PROXY_URL}/cacher/data-cache/index.php?url=${encodeURIComponent(imageObject?.url)}`;
         imageWidth = imageObject.width
         imageHeight = imageObject.height
       }
 
-      
 
-     return buildSeoConfig({
+
+      return buildSeoConfig({
         title: this.parent.fields?.['Title'],
         description: this.parent.fields?.['Subtitle'] || '',
         url,

@@ -2,9 +2,7 @@
   <div class="container-mdx" style="">
     <SitemapComp :items="sitemapItems" />
     <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
-    <catalogue-layout
-      :mobileTitle="mobileFiltersLabel"
-    >
+    <catalogue-layout :mobileTitle="mobileFiltersLabel">
 
       <!-- 🔎 FILTERS -->
       <template #filters>
@@ -13,36 +11,21 @@
           <!-- SEARCH -->
           <q-expansion-item label="Search Name" class="text-weight-bold" default-opened>
             <div class="q-pa-md">
-              <q-input
-                v-model="filterValsRef.search"
-                outlined
-                debounce="250"
-                placeholder="Type artist name..."
-                @update:model-value="resetAndFetch"
-              />
+              <q-input v-model="filterValsRef.search" outlined debounce="250" placeholder="Type artist name..."
+                @update:model-value="resetAndFetch" />
             </div>
           </q-expansion-item>
 
           <!-- Other Filters -->
           <!-- ARTIST TYPE -->
           <q-expansion-item label="Artist Type" class="text-weight-bold" default-opened>
-            <q-option-group
-              v-model="routeArtistType"
-              :options="artistTypeOptions"
-              type="radio"
-              @update:model-value="resetAndFetch"
-              class="q-pb-md text-weight-regular"
-            >
+            <q-option-group v-model="routeArtistType" :options="artistTypeOptions" type="radio"
+              @update:model-value="resetAndFetch" class="q-pb-md text-weight-regular">
               <template v-slot:label="scope">
                 <div class="row items-center no-wrap justify-between q-gutter-x-sm">
                   <div>{{ scope.label }}</div>
 
-                  <q-badge
-                    transparent
-                    align="middle"
-                    size="sm"
-                    class="bg-grey-7 text-white"
-                  >
+                  <q-badge transparent align="middle" size="sm" class="bg-grey-7 text-white">
                     {{ getCount(scope.value, 'type') }}
                   </q-badge>
                 </div>
@@ -50,30 +33,16 @@
             </q-option-group>
           </q-expansion-item>
 
-          <q-expansion-item
-            label="Number of Works"
-            class="text-weight-bold"
-            default-opened
-          >
-            <q-option-group
-              v-model="artworkCount"
-              :options="artworkCountOptions"
-              type="radio"
-              @update:model-value="resetAndFetch"
-              class="q-pb-md text-weight-regular"
-            >
-              <template v-slot:label="scope" >
+          <q-expansion-item label="Number of Works" class="text-weight-bold" default-opened>
+            <q-option-group v-model="artworkCount" :options="artworkCountOptions" type="radio"
+              @update:model-value="resetAndFetch" class="q-pb-md text-weight-regular">
+              <template v-slot:label="scope">
 
-                
+
                 <div class="row items-center no-wrap justify-between q-gutter-x-sm">
                   <div>{{ scope.label }}</div>
 
-                  <q-badge
-                    transparent
-                    align="middle"
-                    size="sm"
-                    class="bg-grey-7 text-white"
-                  >
+                  <q-badge transparent align="middle" size="sm" class="bg-grey-7 text-white">
                     {{ getCount(scope.value, 'artworkCount') }}
                   </q-badge>
                 </div>
@@ -134,12 +103,8 @@
             {{ totalFiltered }} artists found
           </div>
 
-          <ItemsPaginatedGrid
-            :showArrows="false"
-            :items="filteredItems"
-            v-model:page="currentPage"
-            :items-per-page="options.itemsPerPage"
-          >
+          <ItemsPaginatedGrid :showArrows="false" :items="filteredItems" v-model:page="currentPage"
+            :items-per-page="options.itemsPerPage">
             <template #item="{ item }">
               <ArtistCard :artist="item" />
             </template>
@@ -164,8 +129,8 @@ import SitemapComp from 'src/controllers/SitemapComp.vue'
 
 export default {
   name: 'ArtistsComp',
-  components: { 
-    SEODataViewer, 
+  components: {
+    SEODataViewer,
     CatalogueLayout,
     ArtistCard,
     ItemsPaginatedGrid,
@@ -204,26 +169,26 @@ export default {
         'Av. Price Tier': '',
       },
 
-    artistTypeOptions: [
-      { label: 'All', value: 'all-media' },
-      { label: 'Fine Artists', value: 'fine-art' },
-      { label: 'Sculptors', value: 'sculptural-works' },
-      { label: 'New Media Artists', value: 'new-media' },
-      { label: 'Merch Artists', value: 'merch-art' },
-    ],
+      artistTypeOptions: [
+        { label: 'All', value: 'all-media' },
+        { label: 'Fine Artists', value: 'fine-art' },
+        { label: 'Sculptors', value: 'sculptural-works' },
+        { label: 'New Media Artists', value: 'new-media' },
+        { label: 'Merch Artists', value: 'merch-art' },
+      ],
 
-    artistLevelOptions: [
-      { label: 'All', value: 'all-price-ranges' },
-      { label: 'Established (40k+)', value: 'gold' },
-      { label: 'Mid-Career (12k–40k)', value: 'silver' },
-      { label: 'Emerging (<12k)', value: 'bronze' },
-    ],
-    artworkCountOptions: [
-      { label: 'All', value: 'all' },
-      { label: 'Above 5', value: 'largeCount' },
-      { label: 'Between 2-5', value: 'mediumCount' },
-      { label: 'Below 2', value: 'smallCount' },
-    ],
+      artistLevelOptions: [
+        { label: 'All', value: 'all-price-ranges' },
+        { label: 'Established (40k+)', value: 'gold' },
+        { label: 'Mid-Career (12k–40k)', value: 'silver' },
+        { label: 'Emerging (<12k)', value: 'bronze' },
+      ],
+      artworkCountOptions: [
+        { label: 'All', value: 'all' },
+        { label: 'Above 5', value: 'largeCount' },
+        { label: 'Between 2-5', value: 'mediumCount' },
+        { label: 'Below 2', value: 'smallCount' },
+      ],
 
 
 
@@ -307,9 +272,9 @@ export default {
     },
 
 
-    
-    seoLdJson(){
-      
+
+    seoLdJson() {
+
 
 
       const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/');
@@ -369,12 +334,12 @@ export default {
 
       return schema;
     },
-    
 
 
 
-    
-    seoConfig(){
+
+
+    seoConfig() {
 
       const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/');
       const siteName = import.meta.env.VITE_API_SITE_TITLE;
@@ -421,7 +386,7 @@ export default {
 
   methods: {
 
-    
+
     truncate(text, limit = 1000) {
       if (!text) return "";
       return text.length > limit ? text.slice(0, limit) + "..." : text;
@@ -555,7 +520,7 @@ export default {
         return subset.filter(r => r['Av. Price Tier'] === expected).length;
       }
 
-      
+
 
       // Count for ARTWORK COUNT (per artist)
       if (lookupKey === 'artworkCount') {
