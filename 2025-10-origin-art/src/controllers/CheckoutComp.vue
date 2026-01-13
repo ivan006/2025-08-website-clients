@@ -127,8 +127,8 @@
                                 </div>
 
                                 <!-- CTA -->
-                                <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'" class="full-width q-py-sm" color="dark" no-caps unelevated :disable="loadingPost"
-                                    @click="submit" style="border-radius:6px; font-size:16px;">
+                                <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'" class="full-width q-py-smx" color="dark" no-caps unelevated :disable="loadingPost"
+                                    @click="submit" style="">
                                     <template v-if="!loadingPost">
                                         Continue to payment
                                     </template>
