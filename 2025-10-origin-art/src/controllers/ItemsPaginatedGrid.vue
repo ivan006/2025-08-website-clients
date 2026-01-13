@@ -29,7 +29,7 @@
         <!-- BOTTOM PAGINATION -->
         <div class="text-center q-mt-lg flex flex-center q-gutter-sm">
 
-            <q-btn flat color="primary" icon="chevron_left" label="Previous" :disable="page <= 0"
+            <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'" flat color="primary" icon="chevron_left" label="Previous" :disable="page <= 0"
                 @click="updatePage(page - 1)" />
 
             <div>
@@ -45,7 +45,7 @@
 
             </div>
 
-            <q-btn flat color="primary" icon-right="chevron_right" label="Next" :disable="page >= totalPages - 1"
+            <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'" flat color="primary" icon-right="chevron_right" label="Next" :disable="page >= totalPages - 1"
                 @click="updatePage(page + 1)" />
 
         </div>

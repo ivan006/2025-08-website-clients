@@ -81,7 +81,7 @@
 
         <!-- ✅ Smart Pagination -->
         <div class="text-center q-mt-lg flex flex-center q-gutter-sm">
-          <q-btn flat color="primary" icon="chevron_left" label="Previous" :disable="currentPage === 0"
+          <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'" flat color="primary" icon="chevron_left" label="Previous" :disable="currentPage === 0"
             @click="prevPage" />
 
           <div>
@@ -89,7 +89,7 @@
               :color="idx === currentPage ? 'primary' : 'grey-6'" @click="goToPage(idx)" />
           </div>
 
-          <q-btn flat color="primary" icon-right="chevron_right" label="Next" :disable="!nextOffset"
+          <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'" flat color="primary" icon-right="chevron_right" label="Next" :disable="!nextOffset"
             @click="nextPage" />
         </div>
       </template>

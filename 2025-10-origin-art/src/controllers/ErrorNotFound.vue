@@ -9,7 +9,7 @@
         Oops. Nothing here...
       </div>
 
-      <q-btn
+      <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'"
         class="q-mt-xl"
         color="white"
         text-color="blue"

@@ -16,7 +16,7 @@
         </div>
       </div>
 
-      <q-btn color="secondary" label="Calculate All Combos" @click="calculateAllCombos" class="q-mr-sm" />
+      <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'" color="secondary" label="Calculate All Combos" @click="calculateAllCombos" class="q-mr-sm" />
       <div>
         <q-toggle
           v-model="truncateLongCombos"

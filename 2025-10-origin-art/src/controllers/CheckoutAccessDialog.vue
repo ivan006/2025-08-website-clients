@@ -20,7 +20,7 @@
       </q-card-section>
 
       <q-card-actions align="right">
-        <q-btn label="Unlock" color="primary" @click="unlock" />
+        <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'" label="Unlock" color="primary" @click="unlock" />
       </q-card-actions>
     </q-card>
   </q-dialog>

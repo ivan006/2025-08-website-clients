@@ -46,7 +46,7 @@
     <!-- BOTTOM PAGINATION -->
     <div class="text-center q-mt-lg flex flex-center q-gutter-sm">
 
-      <q-btn
+      <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'"
         flat
         color="primary"
         icon="chevron_left"
@@ -68,7 +68,7 @@
         />
       </div>
 
-      <q-btn
+      <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'"
         flat
         color="primary"
         icon-right="chevron_right"

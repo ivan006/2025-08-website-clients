@@ -9,7 +9,7 @@
     >
 
       <!-- A) ROOT WITHOUT CHILDREN -->
-      <q-btn
+      <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'"
         v-if="!item.children || !item.children.length"
         flat
         no-caps
@@ -22,6 +22,7 @@
       <!-- B) ROOT WITH CHILDREN -->
       <q-btn-dropdown
         v-else
+         :size="$q.screen.lt.md ? 'lg' : 'md'"
         flat
         no-caps
         dense

@@ -113,7 +113,7 @@
         <!-- ⚙️ Footer -->
         <q-separator spaced />
         <q-card-actions align="right">
-          <q-btn
+          <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'"
             flat
             label="Close"
             color="primary"
