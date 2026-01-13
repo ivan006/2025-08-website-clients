@@ -6,10 +6,10 @@
 
       <div v-if="loading" class="text-center q-pa-xl">Loading...</div>
 
-      <div v-else class="row q-col-gutter-lg">
+      <div v-else class="row justify-center q-col-gutter-lg">
 
         <!-- COLUMN 1 — LOGO + SOCIALS -->
-        <div class="col-12 col-md-3 flex column items-start">
+        <div class="col-4 col-md-3 flex column items-start">
 
           <img :src="item.fields?.['Logo Image']?.[0]?.thumbnails?.large?.url
             ? $apiProxyUrl + encodeURIComponent(item.fields['Logo Image'][0].thumbnails.large.url)
@@ -19,7 +19,7 @@
 
 
         <!-- COLUMN 2 — CONTACT INFO -->
-        <div class="col-12 col-md-3">
+        <div class="col-4 col-md-3">
           <div class="text-h6 text-weight-bold font-1ry">Contact</div>
 
 
@@ -50,7 +50,7 @@
 
 
         <!-- COLUMN 2 — CONTACT INFO -->
-        <div class="col-12 col-md-3">
+        <div class="col-4 col-md-3">
           <div class="text-h6 text-weight-bold font-1ry">Address</div>
 
           <!-- Address -->
@@ -62,7 +62,7 @@
 
 
         <!-- COLUMN 3 — NEWSLETTER -->
-        <div class="col-12 col-md-3">
+        <div class="col-4 col-md-3">
           <div class="text-h6 text-weight-bold font-1ry">Newsletter</div>
 
           <a :href="item.fields?.['Subscribe Link']" target="_blank"

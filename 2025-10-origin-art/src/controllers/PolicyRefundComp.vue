@@ -1,45 +1,45 @@
 <template>
- 
-    <div class="">
 
-      <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
-      <div v-if="loading" class="text-center q-pa-xl">
-        Loading...
-      </div>
+  <div class="">
 
-      <template v-else>
-
-        
-      <div class=" bg-white  text- q-py-md" >
-        <div
-          class="container-sm "
-        >
-
-          <h2 class="r-font-h3 text-center q-my-none text-uppercase font-1ry">
-            
-            
-          {{ item.Title }}
-          </h2>
-        </div>
-      </div>
-      
-      <div class="bg-white   q-py-md" style="min-height: 55vh;" >
-        <div
-          class="container-sm "
-        >
-
-        
-        <div class="text-body1x text-subtitle1" style="white-space: pre-line;">
-          {{ item.Body }}
-        </div>
-        </div>
-      </div>
-
-
-      </template>
-
-
+    <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
+    <div v-if="loading" class="text-center q-pa-xl">
+      Loading...
     </div>
+
+    <template v-else>
+
+      <div class="row items-center bg-white" style="min-height: 60vh;">
+        <div class="col">
+
+          <div class="   text- q-py-md">
+            <div class="container-sm ">
+
+              <h2 class="r-font-h3 text-center q-my-none text-uppercase font-1ry">
+
+
+                {{ item.Title }}
+              </h2>
+            </div>
+          </div>
+
+          <div class="bg-white   q-py-md">
+            <div class="container-sm ">
+
+
+              <div class="text-body1x text-subtitle1" style="white-space: pre-line;">
+                {{ item.Body }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </template>
+
+
+  </div>
 </template>
 
 <script>

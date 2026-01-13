@@ -266,6 +266,7 @@ export default {
       if (this.filterValsRef.search?.trim()) parts.push('Search');
       if (this.routeArtistType !== 'all-media') parts.push('Artist Type');
       if (this.routeArtistLevel !== 'all-price-ranges') parts.push('Artist Level');
+      if (this.artworkCount !== 'all') parts.push('Number of Works');
 
       if (parts.length === 0) return '';
       if (parts.length === 1) return `1 Selected Filter`;
