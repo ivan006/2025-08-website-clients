@@ -28,12 +28,11 @@
           </div>
         </q-banner>
 
-        <q-btn
+        <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'"
           color="dark"
           unelevated
           no-caps
           class="full-width q-py-sm"
-          style="border-radius:6px; font-size:16px;"
           @click="goHome"
         >
           Return to site

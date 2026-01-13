@@ -33,8 +33,8 @@
                                 Sorry, this product is no longer available for purchase.
                             </div>
 
-                            <q-btn color="dark" unelevated no-caps class="full-width q-py-sm"
-                                style="border-radius:6px; font-size:16px;" to="/">
+                            <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'" color="dark" unelevated no-caps class="full-width q-py-sm"
+                                 to="/">
                                 Continue browsing
                             </q-btn>
                         </template>
@@ -127,7 +127,7 @@
                                 </div>
 
                                 <!-- CTA -->
-                                <q-btn class="full-width q-py-sm" color="dark" no-caps unelevated :disable="loadingPost"
+                                <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'" class="full-width q-py-sm" color="dark" no-caps unelevated :disable="loadingPost"
                                     @click="submit" style="border-radius:6px; font-size:16px;">
                                     <template v-if="!loadingPost">
                                         Continue to payment
