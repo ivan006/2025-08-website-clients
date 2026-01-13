@@ -4,7 +4,7 @@
 
             <!-- ◀️ LEFT ARROW -->
             <div v-if="!$q.screen.lt.md && showArrows" class="col-auto q-pr-sm">
-                <q-btn flat round color="primary" icon="chevron_left" size="llg" @click="updatePage(page - 1)"
+                <q-btn flat round color="primary" icon="chevron_left" :size="$q.screen.lt.md ? 'xl' : 'lg'" @click="updatePage(page - 1)"
                     :disable="page <= 0" />
             </div>
 
@@ -20,7 +20,7 @@
 
             <!-- ▶️ RIGHT ARROW -->
             <div v-if="!$q.screen.lt.md && showArrows" class="col-auto q-pl-sm">
-                <q-btn flat round color="primary" icon="chevron_right" size="llg" @click="updatePage(page + 1)"
+                <q-btn flat round color="primary" icon="chevron_right" :size="$q.screen.lt.md ? 'xl' : 'lg'" @click="updatePage(page + 1)"
                     :disable="page >= totalPages - 1" />
             </div>
 
@@ -38,7 +38,7 @@
                         …
                     </span>
 
-                    <q-btn size="ssm" flat round :label="n + 1" :color="n === page ? 'primary' : 'grey-6'"
+                    <q-btn :size="$q.screen.lt.md ? 'md' : 'sm'" flat round :label="n + 1" :color="n === page ? 'primary' : 'grey-6'"
                         @click="updatePage(n)" />
                 </template>
 

@@ -52,7 +52,7 @@
                     <q-btn
                         dense
                         flat
-                        size="ssm"
+                        :size="$q.screen.lt.md ? 'md' : 'sm'"
                         icon="content_copy"
                         @click="copyObject(seoConfig)"
                     >
@@ -70,7 +70,7 @@
                     <q-btn
                         dense
                         flat
-                        size="ssm"
+                        :size="$q.screen.lt.md ? 'md' : 'sm'"
                         icon="content_copy"
                         @click="copyObject(seoLdJson)"
                     >

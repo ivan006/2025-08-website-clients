@@ -15,7 +15,7 @@
       <q-btn
         v-for="preset in [0, 5, 14, 26, 30]"
         :key="preset"
-        size="ssm"
+        :size="$q.screen.lt.md ? 'md' : 'sm'"
         outline
         color="primary"
         :label="preset"
@@ -52,7 +52,7 @@
       <template #body-cell-actions="props">
         <q-td align="right">
             <q-btn
-            size="ssm"
+            :size="$q.screen.lt.md ? 'md' : 'sm'"
             color="negative"
             outline
             icon="delete"

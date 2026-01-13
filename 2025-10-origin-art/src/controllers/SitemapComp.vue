@@ -18,7 +18,7 @@
             <q-btn
               dense
               flat
-              size="ssm"
+              :size="$q.screen.lt.md ? 'md' : 'sm'"
               icon="content_copy"
               @click="copyText(xml)"
             >

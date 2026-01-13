@@ -105,7 +105,7 @@
                       <!-- <q-btn
                         color="green"
                         unelevated
-                        size="mmd"
+                        :size="$q.screen.lt.md ? 'lg' : 'md'"
                         class="q-mt-md q-px-lg text-weight-bold"
                         style="border-radius: 100px;"
                         label="View All"
@@ -113,7 +113,7 @@
                       <q-btn
                         
                         flat
-                        size="mmd"
+                        :size="$q.screen.lt.md ? 'lg' : 'md'"
                         class="q-mt-xs text-weight-medium text-3ry-color"
                         label="View All Works"
                       />
@@ -147,7 +147,7 @@
                       <q-btn
                         
                         flat
-                        size="mmd"
+                        :size="$q.screen.lt.md ? 'lg' : 'md'"
                         class="q-mt-xs text-weight-medium text-3ry-color"
                         label="Read More"
                       />
@@ -162,14 +162,14 @@
               <!-- <q-btn
                 
                 outline
-                size="mmd"
+                :size="$q.screen.lt.md ? 'lg' : 'md'"
                 class="q-px-lg q-mt-sm"
                 :label="`View All ${groupKey} ${categoryName}`"
               /> -->
               <q-btn
                 
                 flat
-                size="mmd"
+                :size="$q.screen.lt.md ? 'lg' : 'md'"
                 class="q-mt-xs text-weight-medium text-3ry-color"
                 :label="`View All ${groupKey} Works`"
               />
