@@ -4,25 +4,14 @@
 
       <!-- ◀️ LEFT ARROW -->
       <div v-if="!$q.screen.lt.md" class="col-auto q-pr-sm">
-        <q-btn
-          flat
-          round
-          color="primary"
-          icon="chevron_left"
-          :size="$q.screen.lt.md ? 'xl' : 'lg'"
-          @click="updatePage(page - 1)"
-          :disable="page <= 0"
-        />
+        <q-btn flat round color="primary" icon="chevron_left" :size="$q.screen.lt.md ? 'xl' : 'lg'"
+          @click="updatePage(page - 1)" :disable="page <= 0" />
       </div>
 
       <!-- GRID -->
       <div class="col">
         <div class="row q-col-gutter-lgx justify-center">
-          <div
-            v-for="art in pagedItems"
-            :key="art.id"
-            class="col-6 col-md-3 q-pa-sm"
-          >
+          <div v-for="art in pagedItems" :key="art.id" class="col-6 col-md-3 q-pa-sm">
             <ArtworkCard :art="art" />
           </div>
         </div>
@@ -30,15 +19,8 @@
 
       <!-- ▶️ RIGHT ARROW -->
       <div v-if="!$q.screen.lt.md" class="col-auto q-pl-sm">
-        <q-btn
-          flat
-          round
-          color="primary"
-          icon="chevron_right"
-          :size="$q.screen.lt.md ? 'xl' : 'lg'"
-          @click="updatePage(page + 1)"
-          :disable="page >= totalPages - 1"
-        />
+        <q-btn flat round color="primary" icon="chevron_right" :size="$q.screen.lt.md ? 'xl' : 'lg'"
+          @click="updatePage(page + 1)" :disable="page >= totalPages - 1" />
       </div>
 
     </div>
@@ -46,36 +28,16 @@
     <!-- BOTTOM PAGINATION -->
     <div class="text-center q-mt-lg flex flex-center q-gutter-sm">
 
-      <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'"
-        flat
-        color="primary"
-        icon="chevron_left"
-        label="Previous"
-        :disable="page <= 0"
-        @click="updatePage(page - 1)"
-      />
+      <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'" flat color="primary" icon="chevron_left" label="Previous"
+        :disable="page <= 0" @click="updatePage(page - 1)" />
 
       <div>
-        <q-btn
-          v-for="n in totalPages"
-          :key="n"
-          :size="$q.screen.lt.md ? 'md' : 'sm'"
-          flat
-          round
-          :label="n"
-          :color="n - 1 === page ? 'primary' : 'grey-6'"
-          @click="updatePage(n - 1)"
-        />
+        <q-btn v-for="n in totalPages" :key="n" :size="$q.screen.lt.md ? 'md' : 'sm'" flat round :label="n"
+          :color="n - 1 === page ? 'primary' : 'grey-6'" @click="updatePage(n - 1)" />
       </div>
 
-      <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'"
-        flat
-        color="primary"
-        icon-right="chevron_right"
-        label="Next"
-        :disable="page >= totalPages - 1"
-        @click="updatePage(page + 1)"
-      />
+      <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'" flat color="primary" icon-right="chevron_right" label="Next"
+        :disable="page >= totalPages - 1" @click="updatePage(page + 1)" />
 
     </div>
 
@@ -112,20 +74,20 @@ export default {
 
   methods: {
     updatePage(newPage) {
-        if (newPage < 0 || newPage >= this.totalPages) return
+      if (newPage < 0 || newPage >= this.totalPages) return
 
-        this.$emit('update:page', newPage)
+      this.$emit('update:page', newPage)
 
-        this.$nextTick(() => {
-            const el = this.$refs.top
-            if (el) {
-            const top = el.getBoundingClientRect().top + window.scrollY
-            window.scrollTo({
-                top: top - 45,
-                behavior: 'smooth'
-            })
-            }
-        })
+      this.$nextTick(() => {
+        const el = this.$refs.top
+        if (el) {
+          const top = el.getBoundingClientRect().top + window.scrollY
+          window.scrollTo({
+            top: top - 45,
+            behavior: 'smooth'
+          })
+        }
+      })
     }
 
   }

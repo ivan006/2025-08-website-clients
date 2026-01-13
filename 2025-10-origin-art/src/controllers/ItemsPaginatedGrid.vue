@@ -4,8 +4,8 @@
 
             <!-- ◀️ LEFT ARROW -->
             <div v-if="!$q.screen.lt.md && showArrows" class="col-auto q-pr-sm">
-                <q-btn flat round color="primary" icon="chevron_left" :size="$q.screen.lt.md ? 'xl' : 'lg'" @click="updatePage(page - 1)"
-                    :disable="page <= 0" />
+                <q-btn flat round color="primary" icon="chevron_left" :size="$q.screen.lt.md ? 'xl' : 'lg'"
+                    @click="updatePage(page - 1)" :disable="page <= 0" />
             </div>
 
             <!-- GRID -->
@@ -20,8 +20,8 @@
 
             <!-- ▶️ RIGHT ARROW -->
             <div v-if="!$q.screen.lt.md && showArrows" class="col-auto q-pl-sm">
-                <q-btn flat round color="primary" icon="chevron_right" :size="$q.screen.lt.md ? 'xl' : 'lg'" @click="updatePage(page + 1)"
-                    :disable="page >= totalPages - 1" />
+                <q-btn flat round color="primary" icon="chevron_right" :size="$q.screen.lt.md ? 'xl' : 'lg'"
+                    @click="updatePage(page + 1)" :disable="page >= totalPages - 1" />
             </div>
 
         </div>
@@ -29,8 +29,8 @@
         <!-- BOTTOM PAGINATION -->
         <div class="text-center q-mt-lg flex flex-center q-gutter-sm">
 
-            <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'" flat color="primary" icon="chevron_left" label="Previous" :disable="page <= 0"
-                @click="updatePage(page - 1)" />
+            <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'" flat color="primary" icon="chevron_left" label="Previous"
+                :disable="page <= 0" @click="updatePage(page - 1)" />
 
             <div>
                 <template v-for="(n, i) in pageNumbers" :key="n">
@@ -38,15 +38,15 @@
                         …
                     </span>
 
-                    <q-btn :size="$q.screen.lt.md ? 'md' : 'sm'" flat round :label="n + 1" :color="n === page ? 'primary' : 'grey-6'"
-                        @click="updatePage(n)" />
+                    <q-btn :size="$q.screen.lt.md ? 'md' : 'sm'" flat round :label="n + 1"
+                        :color="n === page ? 'primary' : 'grey-6'" @click="updatePage(n)" />
                 </template>
 
 
             </div>
 
-            <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'" flat color="primary" icon-right="chevron_right" label="Next" :disable="page >= totalPages - 1"
-                @click="updatePage(page + 1)" />
+            <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'" flat color="primary" icon-right="chevron_right" label="Next"
+                :disable="page >= totalPages - 1" @click="updatePage(page + 1)" />
 
         </div>
     </div>
