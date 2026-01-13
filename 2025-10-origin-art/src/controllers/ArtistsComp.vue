@@ -104,7 +104,7 @@
           </div>
 
           <ItemsPaginatedGrid :showArrows="false" :items="filteredItems" v-model:page="currentPage"
-            :items-per-page="options.itemsPerPage">
+            :items-per-page="40">
             <template #item="{ item }">
               <ArtistCard :artist="item" />
             </template>
@@ -161,7 +161,6 @@ export default {
       loading: false,
       totalFiltered: 0,
       currentPage: 0,
-      options: { itemsPerPage: 40 },
 
       filterValsRef: {
         search: '',
@@ -267,9 +266,6 @@ export default {
     // },
 
 
-    totalPages() {
-      return Math.ceil(this.totalFiltered / this.options.itemsPerPage)
-    },
 
 
 
@@ -391,40 +387,9 @@ export default {
       if (!text) return "";
       return text.length > limit ? text.slice(0, limit) + "..." : text;
     },
-    goToSingle(artist) {
-      const slug = this.slugify(artist.Name || 'artist');
-      this.$router.push(`/artists/${artist.id}/${slug}`);
-    },
 
-    slugify(text) {
-      return text
-        ?.toString()
-        .toLowerCase()
-        .replace(/\s+/g, '-')        // Replace spaces with -
-        .replace(/[^\w-]+/g, '')     // Remove non-word characters
-        .replace(/--+/g, '-')        // Merge multiple -
-        .replace(/^-+|-+$/g, '');    // Trim - from start/end
-    },
-    getArtistImage(artist) {
-      const selected = this.filterValsRef.Media
+ 
 
-      // If no media selected → fallback to default Attachments
-      if (!selected) {
-        return artist.Attachments?.[0] || null
-      }
-
-      // Find matching field column for selected media
-      const field = this.attachmentMap[selected]
-
-      // If this media-type column exists and has images → use it
-      const imgs = artist[field]
-      if (imgs && imgs.length > 0) {
-        return imgs[0]
-      }
-
-      // Otherwise use the default Attachments
-      return artist.Attachments?.[0] || null
-    },
 
     /* 🔍 Token-based search */
     matchesTokenSearch(name, query) {
