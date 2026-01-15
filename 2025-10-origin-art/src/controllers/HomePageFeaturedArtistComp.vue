@@ -26,7 +26,7 @@
             {{ item["Short Description (150 chars)"] }}
           </div>
 
-          <q-btn flat class="q-mt-sm bg-dark text-white" :size="$q.screen.lt.md ? 'md' : 'sm'" :to="artistProfileUrl" color="dark" no-caps
+          <q-btn flat class="q-mt-sm bg-dark text-white" :size="$q.screen.lt.md ? 'sm' : 'sm'" :to="artistProfileUrl" color="dark" no-caps
             label="View Profile" />
         </div>
         <div class="col-md-5 col-6"  >

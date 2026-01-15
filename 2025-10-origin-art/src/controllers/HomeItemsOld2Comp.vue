@@ -56,7 +56,7 @@
 
                   <q-btn
                     flat
-                    :size="$q.screen.lt.md ? 'lg' : 'md'"
+                    :size="$q.screen.lt.md ? 'md' : 'md'"
                     class="q-mt-xs text-3ry-color"
                     label="Read More"
                     :to="art['SEO URL']"

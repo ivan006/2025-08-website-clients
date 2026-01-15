@@ -18,7 +18,7 @@
 
         <!-- BUTTON -->
         <q-card-actions align="right">
-            <q-btn flat :size="$q.screen.lt.md ? 'md' : 'sm'" label="View Profile" class="bg-1ry-color" :to="profileUrl" />
+            <q-btn flat :size="$q.screen.lt.md ? 'sm' : 'sm'" label="View Profile" class="bg-1ry-color" :to="profileUrl" />
         </q-card-actions>
     </q-card>
 </template>

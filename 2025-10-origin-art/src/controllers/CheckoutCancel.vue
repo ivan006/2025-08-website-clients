@@ -28,7 +28,7 @@
           </div>
         </q-banner>
 
-        <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'"
+        <q-btn :size="$q.screen.lt.md ? 'md' : 'md'"
           color="dark"
           unelevated
           no-caps

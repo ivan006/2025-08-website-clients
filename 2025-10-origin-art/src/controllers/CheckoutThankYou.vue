@@ -27,7 +27,7 @@
           </div>
         </q-banner>
 
-        <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'" color="dark" unelevated no-caps class="full-width q-py-sm" 
+        <q-btn :size="$q.screen.lt.md ? 'md' : 'md'" color="dark" unelevated no-caps class="full-width q-py-sm" 
           @click="goHome">
           Continue browsing
         </q-btn>

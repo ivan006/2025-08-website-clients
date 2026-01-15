@@ -9,7 +9,7 @@
       <div class="text-subtitle1 ">
          {{ mobileTitle }}
       </div>
-      <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'" flat color="primary" class="text-3ry-color" label="Filters" @click="showFilters = true" />
+      <q-btn :size="$q.screen.lt.md ? 'md' : 'md'" flat color="primary" class="text-3ry-color" label="Filters" @click="showFilters = true" />
     </div>
 
     <div class="row q-col-gutter-mdx bg-white" >
@@ -59,7 +59,7 @@
           class="q-pa-md bg-grey-2"
           style="position: sticky; bottom: 0; z-index: 2;"
         >
-          <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'" label="Done" color="" unelevated class="full-width bg-3ry-color" @click="showFilters = false" />
+          <q-btn :size="$q.screen.lt.md ? 'md' : 'md'" label="Done" color="" unelevated class="full-width bg-3ry-color" @click="showFilters = false" />
         </div>
       </div>
     </q-drawer>

@@ -75,7 +75,7 @@
                 flat
                 label="Read More"
                 class="q-mt-sm bg-dark text-white"
-                :size="$q.screen.lt.md ? 'md' : 'sm'"
+                :size="$q.screen.lt.md ? 'sm' : 'sm'"
                 @click="openDialog('Artist Statement', item['artist:artist_statement'])"
               />
             </div> -->
@@ -89,7 +89,7 @@
               </div>
 
               <q-btn v-if="isLong(item['artist:biography'], 500)" flat label="Read More"
-                class="q-mt-sm bg-dark text-white" :size="$q.screen.lt.md ? 'md' : 'sm'"
+                class="q-mt-sm bg-dark text-white" :size="$q.screen.lt.md ? 'sm' : 'sm'"
                 @click="openDialog('Biography', item['artist:biography'])" />
             </div>
 
@@ -102,7 +102,7 @@
               </div>
 
               <q-btn v-if="isLong(item['artist:influences'], 500)" flat label="Read More"
-                class="q-mt-sm bg-dark text-white" :size="$q.screen.lt.md ? 'md' : 'sm'"
+                class="q-mt-sm bg-dark text-white" :size="$q.screen.lt.md ? 'sm' : 'sm'"
                 @click="openDialog('Influences', item['artist:influences'])" />
             </div>
 
@@ -115,7 +115,7 @@
               </div>
 
               <q-btn v-if="isLong(item['artist:awards'], 500)" flat label="Read More" class="q-mt-sm bg-dark text-white"
-                :size="$q.screen.lt.md ? 'md' : 'sm'" @click="openDialog('Awards', item['artist:awards'])" />
+                :size="$q.screen.lt.md ? 'sm' : 'sm'" @click="openDialog('Awards', item['artist:awards'])" />
             </div>
 
             <!-- <div v-if="item['artist:comm_accepted']" class="col-12 col-md-8">
@@ -129,7 +129,7 @@
                 v-if="isLong(item['artist:comm_accepted'], 500)"
                 flat label="Read More"
                 class="q-mt-sm bg-dark text-white"
-                :size="$q.screen.lt.md ? 'md' : 'sm'"
+                :size="$q.screen.lt.md ? 'sm' : 'sm'"
                 @click="openDialog('Commissions', item['artist:comm_accepted'])"
               />
             </div> -->
@@ -145,7 +145,7 @@
               </div>
 
               <q-btn v-if="isLong(item['Description'], 500)" flat label="Read More" class="q-mt-sm bg-dark text-white"
-                :size="$q.screen.lt.md ? 'md' : 'sm'" @click="openDialog('Artist Statement', item['Description'])" />
+                :size="$q.screen.lt.md ? 'sm' : 'sm'" @click="openDialog('Artist Statement', item['Description'])" />
             </div>
 
             <!-- FULL TEXT DIALOG -->
@@ -159,7 +159,7 @@
                 </q-card-section>
 
                 <q-card-actions align="right">
-                  <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'" flat label="Close" v-close-popup />
+                  <q-btn :size="$q.screen.lt.md ? 'md' : 'md'" flat label="Close" v-close-popup />
                 </q-card-actions>
               </q-card>
             </q-dialog>

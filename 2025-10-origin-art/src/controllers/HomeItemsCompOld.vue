@@ -57,7 +57,7 @@
                   <q-btn
                     :to="item['SEO URL']"
                     color="green"
-                    :size="$q.screen.lt.md ? 'lg' : 'md'"
+                    :size="$q.screen.lt.md ? 'md' : 'md'"
                     unelevated
                     class="q-my-md q-px-lg"
                     style="border-radius: 100px;"

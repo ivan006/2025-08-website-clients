@@ -36,7 +36,7 @@
               </q-card-section>
 
               <!-- <q-card-actions align="right">
-                  <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'" flat label="Close" v-close-popup />
+                  <q-btn :size="$q.screen.lt.md ? 'md' : 'md'" flat label="Close" v-close-popup />
                 </q-card-actions> -->
             </q-card>
           </q-dialog>
@@ -116,7 +116,7 @@
 
               <div>
 
-                <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'" :disable="!['For Sale', 'Details Pending'].includes(item.Status)" color="dark" label="Buy Now"
+                <q-btn :size="$q.screen.lt.md ? 'md' : 'md'" :disable="!['For Sale', 'Details Pending'].includes(item.Status)" color="dark" label="Buy Now"
                   :to="`/checkout/${id}`" />
 
                 <div v-if="!['For Sale', 'Details Pending'].includes(item.Status)"
@@ -147,7 +147,7 @@
 
 
               <div>
-                <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'" color="dark" outline label="Enquire Now" class="q-mt-md" @click="showEnquiry = true" />
+                <q-btn :size="$q.screen.lt.md ? 'md' : 'md'" color="dark" outline label="Enquire Now" class="q-mt-md" @click="showEnquiry = true" />
               </div>
               <!-- <div class="q-mt-md row q-col-gutter-sm">
 

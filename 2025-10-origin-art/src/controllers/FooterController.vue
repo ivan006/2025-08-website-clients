@@ -65,7 +65,7 @@
         <div class="col-6 col-md-3">
           <div class="text-h6 text-weight-bold font-1ry">Newsletter</div>
 
-          <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'" color="dark" no-caps :href="item.fields?.['Subscribe Link']"
+          <q-btn :size="$q.screen.lt.md ? 'md' : 'md'" color="dark" no-caps :href="item.fields?.['Subscribe Link']"
             target="_blank" class="full-width">
             <div class=" flex items-center justify-between full-width">
 

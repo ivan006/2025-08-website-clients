@@ -11,7 +11,7 @@
       style="max-width: 400px"
       class="q-mb-md"
     />
-    <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'" color="primary" label="Calculate" @click="calculate" />
+    <q-btn :size="$q.screen.lt.md ? 'md' : 'md'" color="primary" label="Calculate" @click="calculate" />
 
     <div v-if="filters.length" class="q-mt-md">
       <p>

@@ -47,7 +47,7 @@
         <!-- ⚙️ Footer -->
         <q-separator spaced />
         <q-card-actions align="right">
-          <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'"
+          <q-btn :size="$q.screen.lt.md ? 'md' : 'md'"
             flat
             label="Close"
             color="primary"

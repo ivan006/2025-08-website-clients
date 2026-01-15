@@ -72,7 +72,7 @@
                   <div class="text-body1 q-mt-xs text-weight-bold">R{{ art.Price?.toLocaleString() }}</div>
                 </q-card-section>
                 <q-card-actions align="right">
-                  <q-btn flat :size="$q.screen.lt.md ? 'md' : 'sm'" label="View Details" class="bg-1ry-color" />
+                  <q-btn flat :size="$q.screen.lt.md ? 'sm' : 'sm'" label="View Details" class="bg-1ry-color" />
                 </q-card-actions>
               </q-card>
             </div>
@@ -81,15 +81,15 @@
 
         <!-- ✅ Smart Pagination -->
         <div class="text-center q-mt-lg flex flex-center q-gutter-sm">
-          <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'" flat color="primary" icon="chevron_left" label="Previous" :disable="currentPage === 0"
+          <q-btn :size="$q.screen.lt.md ? 'md' : 'md'" flat color="primary" icon="chevron_left" label="Previous" :disable="currentPage === 0"
             @click="prevPage" />
 
           <div>
-            <q-btn v-for="(off, idx) in offsetTrail" :key="idx" :size="$q.screen.lt.md ? 'md' : 'sm'" flat round :label="idx + 1"
+            <q-btn v-for="(off, idx) in offsetTrail" :key="idx" :size="$q.screen.lt.md ? 'sm' : 'sm'" flat round :label="idx + 1"
               :color="idx === currentPage ? 'primary' : 'grey-6'" @click="goToPage(idx)" />
           </div>
 
-          <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'" flat color="primary" icon-right="chevron_right" label="Next" :disable="!nextOffset"
+          <q-btn :size="$q.screen.lt.md ? 'md' : 'md'" flat color="primary" icon-right="chevron_right" label="Next" :disable="!nextOffset"
             @click="nextPage" />
         </div>
       </template>

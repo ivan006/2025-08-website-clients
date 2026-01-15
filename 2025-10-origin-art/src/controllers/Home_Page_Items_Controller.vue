@@ -51,7 +51,7 @@
                   </p>
 
 
-                  <q-btn :to="item['SEO URL']" color="grey-8" :size="$q.screen.lt.md ? 'lg' : 'md'" unelevated class="q-my-sm"
+                  <q-btn :to="item['SEO URL']" color="grey-8" :size="$q.screen.lt.md ? 'md' : 'md'" unelevated class="q-my-sm"
                     style="border-radius: 100px;" no-caps>
                     <!-- {{ item["Button Text"] }} -->
                     Learn More

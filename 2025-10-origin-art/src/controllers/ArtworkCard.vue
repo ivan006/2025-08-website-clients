@@ -31,7 +31,7 @@
     <q-card-actions align="right">
       <q-btn
         flat
-        :size="$q.screen.lt.md ? 'md' : 'sm'"
+        :size="$q.screen.lt.md ? 'sm' : 'sm'"
         label="View Details"
         class="bg-1ry-color"
         :to="`/artworks/${art.id}/${slugify(art.Title || 'artwork')}`"

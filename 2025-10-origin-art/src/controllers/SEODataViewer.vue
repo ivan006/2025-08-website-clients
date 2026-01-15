@@ -2,7 +2,7 @@
   
     <div>
         <!-- <q-
-            :size="$q.screen.lt.md ? 'lg' : 'md'"
+            :size="$q.screen.lt.md ? 'md' : 'md'"
             round
             flat
             dense
@@ -33,7 +33,7 @@
         </q-card-section>
 
         <q-card-actions align="right">
-            <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'" flat label="OK" color="primary" v-close-popup />
+            <q-btn :size="$q.screen.lt.md ? 'md' : 'md'" flat label="OK" color="primary" v-close-popup />
         </q-card-actions>
         </q-card>
         </q-dialog> -->
@@ -53,7 +53,7 @@
                     <q-btn
                         dense
                         flat
-                        :size="$q.screen.lt.md ? 'md' : 'sm'"
+                        :size="$q.screen.lt.md ? 'sm' : 'sm'"
                         icon="content_copy"
                         @click="copyObject(seoConfig)"
                     >
@@ -71,7 +71,7 @@
                     <q-btn
                         dense
                         flat
-                        :size="$q.screen.lt.md ? 'md' : 'sm'"
+                        :size="$q.screen.lt.md ? 'sm' : 'sm'"
                         icon="content_copy"
                         @click="copyObject(seoLdJson)"
                     >
@@ -84,7 +84,7 @@
                 </q-card-section>
 
                 <q-card-actions align="right">
-                    <q-btn :size="$q.screen.lt.md ? 'lg' : 'md'" flat label="Close" color="primary" v-close-popup />
+                    <q-btn :size="$q.screen.lt.md ? 'md' : 'md'" flat label="Close" color="primary" v-close-popup />
                 </q-card-actions>
             </q-card>
         </q-dialog>
