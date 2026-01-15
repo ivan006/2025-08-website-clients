@@ -1,7 +1,9 @@
 <template>
   <div class=" q-pt-md bg-white">
-    <div v-if="loading" class="text-center q-pa-xl">
-      Loading...
+    <div v-if="loading" class="text-center q-pa-xl row items-center justify-center" style="min-height: 60vh;">
+      <div>
+        Loading...
+      </div>
     </div>
 
     <div v-else>
