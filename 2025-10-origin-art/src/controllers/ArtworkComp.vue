@@ -159,7 +159,7 @@
 
               <div class="row items-center q-gutter-sm q-mt-sm">
 
-                <!-- Plain number (not a link) -->
+                <!-- Plain number (selectable, not a link) -->
                 <div class="q-pa-sm rounded-borders" style="
                   border: 1px solid rgba(0,0,0,0.15);
                   font-size: 1.1rem;
@@ -168,14 +168,16 @@
                   +27 82 600 9693
                 </div>
 
-                <!-- WhatsApp -->
-                <q-btn outline color="dark" icon="mdi-whatsapp" label="WhatsApp" :href="'https://wa.me/27826009693'"
-                  target="_blank" />
+                <!-- WhatsApp icon -->
+                <q-btn round flat color="dark" icon="mdi-whatsapp" :href="'https://wa.me/27826009693'" target="_blank"
+                  aria-label="Contact via WhatsApp" />
 
-                <!-- Call -->
-                <q-btn outline color="dark" icon="mdi-phone" label="Call" :href="'tel:+27826009693'" />
+                <!-- Call icon -->
+                <q-btn round flat color="dark" icon="mdi-phone" :href="'tel:+27826009693'"
+                  aria-label="Call phone number" />
 
               </div>
+
 
 
               <!-- Enquire text -->
