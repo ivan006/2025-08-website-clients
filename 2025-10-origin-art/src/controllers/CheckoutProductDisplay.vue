@@ -2,7 +2,6 @@
     <div class="q-pa-lg text-white" style="
       background: #1f2328;
       height: 100%;
-      min-height: 420px;
     ">
 
         <!-- Checkout label -->

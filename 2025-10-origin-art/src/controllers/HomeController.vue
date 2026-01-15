@@ -152,7 +152,7 @@
       </div>
 
 
-      <div class=" bg-white text- q-py-md" id="contact">
+      <div class=" bg-white text- q-py-md" >
         <div class="container-sm ">
 
           <h2 class="r-font-h3 text-center q-my-none text-uppercase font-1ry">
