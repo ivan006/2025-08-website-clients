@@ -13,7 +13,8 @@
         <!-- LEFT: IMAGE -->
         <div class="col-12 col-md-6 flex flex-centerx">
           <q-img :src="mainImage" :placeholder-src="placeholderImage" fit="contain"
-            class="rounded-borders cursor-pointer" :style="{ height: cardHeight }" @click="showDialog = true"  :alt="`${item.Title || 'Artwork'} by ${item['Name (from Artist)']?.[0] || 'Unknown artist'}`" />
+            class="rounded-borders cursor-pointer" :style="{ height: cardHeight }" @click="showDialog = true"
+            :alt="`${item.Title || 'Artwork'} by ${item['Name (from Artist)']?.[0] || 'Unknown artist'}`" />
 
           <!-- DIALOG -->
           <!-- <q-dialog v-model="showDialog" persistentx>
@@ -114,22 +115,38 @@
               </div>
 
 
-              <div>
+              <div class="q-mt-mdx row q-col-gutter-sm">
 
-                <q-btn :size="$q.screen.lt.md ? 'md' : 'md'" :disable="!['For Sale', 'Details Pending'].includes(item.Status)" color="dark" label="Buy Now"
-                  :to="`/checkout/${id}`" />
+                <div class="col-auto">
 
-                <div v-if="!['For Sale', 'Details Pending'].includes(item.Status)"
-                  class="text-caption text-grey q-mt-xs">
-                  This item is no longer available.
+                  <div>
+
+                    <q-btn :size="$q.screen.lt.md ? 'md' : 'md'"
+                      :disable="!['For Sale', 'Details Pending'].includes(item.Status)" color="dark" label="Buy Now"
+                      :to="`/checkout/${id}`" />
+
+                    <div v-if="!['For Sale', 'Details Pending'].includes(item.Status)"
+                      class="text-caption text-grey q-mt-xs">
+                      This item is no longer available.
+                    </div>
+                  </div>
                 </div>
+
+                <div class="col-auto">
+
+                  <div>
+                    <q-btn :size="$q.screen.lt.md ? 'md' : 'md'" color="dark" outline label="Enquire Now"
+                      class="q-mt-mdx" @click="showEnquiry = true" />
+                  </div>
+                </div>
+
               </div>
               <!-- WhatsApp text -->
               <div class="q-mt-sm">
-                Or contact us below, using on the number the enquire button.
+                Or contact us using the number below.
               </div>
 
-              <div class="q-mt-sm q-pa-sm rounded-borders" style="
+              <!-- <div class="q-mt-sm q-pa-sm rounded-borders" style="
                 border: 1px solid rgba(0,0,0,0.15);
                 font-size: 1.1rem;
                 user-select: text;
@@ -138,7 +155,28 @@
                 <a href="https://wa.me/+27826009693" style="text-decoration:none; color: inherit;">
                   +27 82 600 9693
                 </a>
+              </div> -->
+
+              <div class="row items-center q-gutter-sm q-mt-sm">
+
+                <!-- Plain number (not a link) -->
+                <div class="q-pa-sm rounded-borders" style="
+                  border: 1px solid rgba(0,0,0,0.15);
+                  font-size: 1.1rem;
+                  user-select: text;
+                ">
+                  +27 82 600 9693
+                </div>
+
+                <!-- WhatsApp -->
+                <q-btn outline color="dark" icon="mdi-whatsapp" label="WhatsApp" :href="'https://wa.me/27826009693'"
+                  target="_blank" />
+
+                <!-- Call -->
+                <q-btn outline color="dark" icon="mdi-phone" label="Call" :href="'tel:+27826009693'" />
+
               </div>
+
 
               <!-- Enquire text -->
               <!-- <div class="q-mt-lg">
@@ -146,19 +184,6 @@
               </div> -->
 
 
-              <div>
-                <q-btn :size="$q.screen.lt.md ? 'md' : 'md'" color="dark" outline label="Enquire Now" class="q-mt-md" @click="showEnquiry = true" />
-              </div>
-              <!-- <div class="q-mt-md row q-col-gutter-sm">
-
-              <div class="col-auto">
-              </div>
-
-              <div class="col-auto">
-
-              </div>
-
-            </div> -->
             </div>
 
 
@@ -281,7 +306,7 @@ export default {
       let imageHeight = import.meta.env.VITE_API_DEFAULT_IMAGE_HEIGHT;
       if (this.mainImage) {
         image = this.mainImage;
-        
+
         const imageObject = this.item.Attachments?.[0]?.thumbnails?.large
         imageWidth = imageObject.width
         imageHeight = imageObject.height
