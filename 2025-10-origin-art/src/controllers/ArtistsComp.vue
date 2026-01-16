@@ -388,7 +388,7 @@ export default {
       return text.length > limit ? text.slice(0, limit) + "..." : text;
     },
 
- 
+
 
 
     /* 🔍 Token-based search */
@@ -523,8 +523,8 @@ export default {
           const res = await ArtistsBoundCache.FetchAll()
           this.allRecords = res.response.data.records.map(r => ({ id: r.id, ...r.fields }))
         }
+        let filtered = this.allRecords.filter(r => r.Hide !== true)
 
-        let filtered = this.allRecords;
 
         const search = this.filterValsRef.search
 
