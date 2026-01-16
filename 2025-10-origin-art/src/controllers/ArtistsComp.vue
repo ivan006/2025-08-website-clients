@@ -521,9 +521,9 @@ export default {
       try {
         if (!this.allRecords.length) {
           const res = await ArtistsBoundCache.FetchAll()
-          this.allRecords = res.response.data.records.map(r => ({ id: r.id, ...r.fields }))
+          this.allRecords = res.response.data.records.map(r => ({ id: r.id, ...r.fields })).filter(r => r.Hide !== true)
         }
-        let filtered = this.allRecords.filter(r => r.Hide !== true)
+        let filtered = this.allRecords
 
 
         const search = this.filterValsRef.search
