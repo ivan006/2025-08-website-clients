@@ -526,6 +526,8 @@ export default {
         this.allRecords = res.response.data.records
           .map(r => ({ id: r.id, ...r.fields }))
           .filter(r => !r.Hide)   // ignore items where Hide === true (or truthy)
+          .filter(r => !(r['Hide (from Artist)'] || []).includes(true))
+
       }
 
       let filtered = this.allRecords
