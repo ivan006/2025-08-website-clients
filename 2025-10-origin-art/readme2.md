@@ -16,3 +16,4 @@ NativeLikeValidation prioritizes:
 This helper does not attempt to replicate browser APIs or override framework validation systems. Instead, it **reclaims the user experience and developer clarity** that native validation provided, while acknowledging the realities of modern application flows such as asynchronous submission, multi-step forms, and server-side authority.
 
 NativeLikeValidation is designed for developers who value **clarity over cleverness**, **intent over implementation**, and **user confidence over incremental nudging**—especially in high-trust contexts like checkout, onboarding, and data submission.
+..
