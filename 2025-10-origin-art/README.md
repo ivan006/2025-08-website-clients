@@ -1,43 +1,31 @@
-https://favicon.io/
+Nice 😄 that’s exciting.
 
-# Quasar App (quasar-project)
+What kind of coding project is it?
+If you want, you can tell me:
 
-A Quasar Project
+the tech stack (web, mobile, backend, etc.)
 
-## Install the dependencies
-```bash
-yarn
-# or
-npm install
-```dd
-dd
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
-```bash
-quasar dev
-```
+your role (UI, logic, backend, full-stack)
 
+what stage it’s in (idea, half-built, fixing bugs)
 
-### Lint the files
-```bash
-yarn lint
-# or
-npm run lint
-```
+I can help you:
+
+plan the architecture
+
+break it into tasks
+
+set up the repo & folder structure
+
+write or review code
+
+debug issues as you go
+
+Whenever you’re ready, drop the details and we’ll build it step by step 🚀
 
 
-### Format the files
-```bash
-yarn format
-# or
-npm run format
-```
+--------------------
 
 
 
-### Build the app for production
-```bash
-quasar build
-```
-
-### Customize the configuration
-See [Configuring quasar.config.js](https://v2.quasar.dev/quasar-cli-vite/quasar-config-js).
+this is a vue.js project. its a public facing website. and it has a html caching service. the backend is airtable with a data cache layer. the website is for an art dealer client in cape town called origin art.. the component library is quasar. we have a strict rule to use inline stlyes and utility classes only (no style blocks). the project is in the process of being launch. any futher work will just be fine tuning basically. nothing major. 

@@ -78,7 +78,7 @@
                   display: 'flex',
                   alignItems: 'center',
                   gap: '10px',
-                  padding: '6px 0',
+                  padding: '12px 0',
                   color: '#333',
                   fontSize: '15px',
                   fontWeight: '500',
