@@ -43,7 +43,20 @@
         "
         @click.stop
       >
-        <slot />
+
+      <!-- CLOSE BUTTON -->
+      <q-btn
+        icon="close"
+        flat
+        round
+        dense
+        class="absolute-top-right q-ma-sm"
+        @click="close"
+        aria-label="Close modal"
+      />
+        <slot >
+
+        </slot>
       </q-card>
     </div>
 
