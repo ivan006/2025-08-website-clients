@@ -22,6 +22,11 @@
       <div class="text-subtitle2 text-2ry-color q-mt-xs">
         {{ artistName }}
       </div>
+      <!-- Dimensions on preview -->
+      <div
+        v-if="art.Height && art.Width" class="text-caption text-grey-7 q-mt-xs">
+        {{ art.Height }} × {{ art.Width }} cm
+      </div>
 
       <div class="text-body1 q-mt-xs text-weight-bold">
         R{{ Number(art.Price)?.toLocaleString() }}
