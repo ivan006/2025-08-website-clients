@@ -21,100 +21,6 @@
             </div>
           </q-expansion-item>
 
-          <!-- Other Filters -->
-          <!-- ARTIST TYPE -->
-          <!-- <q-expansion-item label="Artist Type" class="text-weight-bold" default-opened>
-            <q-option-group
-              v-model="routeArtistType"
-              :options="artistTypeOptions"
-              type="radio"
-              @update:model-value="resetAndFetch"
-              class="q-pb-md text-weight-regular"
-            >
-              <template v-slot:label="scope">
-                <div class="row items-center no-wrap justify-between q-gutter-x-sm">
-                  <div>{{ scope.label }}</div>
-
-                  <q-badge
-                    transparent
-                    align="middle"
-                    size="sm"
-                    class="bg-grey-7 text-white"
-                  >
-                    {{ getCount(scope.value, 'type') }}
-                  </q-badge>
-                </div>
-              </template>
-            </q-option-group>
-          </q-expansion-item>
-
-          <q-expansion-item
-            label="Number of Works"
-            class="text-weight-bold"
-            default-opened
-          >
-            <q-option-group
-              v-model="artworkCount"
-              :options="artworkCountOptions"
-              type="radio"
-              @update:model-value="resetAndFetch"
-              class="q-pb-md text-weight-regular"
-            >
-              <template v-slot:label="scope" >
-
-                
-                <div class="row items-center no-wrap justify-between q-gutter-x-sm">
-                  <div>{{ scope.label }}</div>
-
-                  <q-badge
-                    transparent
-                    align="middle"
-                    size="sm"
-                    class="bg-grey-7 text-white"
-                  >
-                    {{ getCount(scope.value, 'artworkCount') }}
-                  </q-badge>
-                </div>
-              </template>
-            </q-option-group>
-          </q-expansion-item> -->
-
-
-
-
-
-          <!-- <q-separator /> -->
-
-          <!-- ARTIST LEVEL -->
-          <!-- <q-expansion-item label="Artist Level" class="text-weight-bold" default-opened>
-            <q-option-group
-              v-model="routeArtistLevel"
-              :options="artistLevelOptions"
-              type="radio"
-              @update:model-value="resetAndFetch"
-              class="q-pb-md text-weight-regular"
-            >
-              <template v-slot:label="scope">
-                <div class="row items-center no-wrap justify-between q-gutter-x-sm">
-                  <div>{{ scope.label }}</div>
-
-                  <q-badge
-                    transparent
-                    align="middle"
-                    size="sm"
-                    class="bg-grey-7 text-white"
-                  >
-                    {{ getCount(scope.value, 'level') }}
-                  </q-badge>
-                </div>
-              </template>
-            </q-option-group>
-          </q-expansion-item> -->
-
-
-
-          <!-- <q-separator /> -->
-
         </div>
       </template>
 
@@ -185,26 +91,6 @@ export default {
         'Av. Price Tier': '',
       },
 
-    // artistTypeOptions: [
-    //   { label: 'All', value: 'all-media' },
-    //   { label: 'Fine Artists', value: 'fine-art' },
-    //   { label: 'Sculptors', value: 'sculptural-works' },
-    //   { label: 'New Media Artists', value: 'new-media' },
-    //   { label: 'Merch Artists', value: 'merch-art' },
-    // ],
-
-    // artistLevelOptions: [
-    //   { label: 'All', value: 'all-price-ranges' },
-    //   { label: 'Established (40k+)', value: 'gold' },
-    //   { label: 'Mid-Career (12k–40k)', value: 'silver' },
-    //   { label: 'Emerging (<12k)', value: 'bronze' },
-    // ],
-    // artworkCountOptions: [
-    //   { label: 'All', value: 'all' },
-    //   { label: 'Above 5', value: 'largeCount' },
-    //   { label: 'Between 2-5', value: 'mediumCount' },
-    //   { label: 'Below 2', value: 'smallCount' },
-    // ],
 
 
 
@@ -226,33 +112,6 @@ export default {
       if (parts.length === 1) return `1 Selected Filter`;
       return `${parts.length} Selected Filters`;
     },
-    // routeArtistType: {
-    //   get() {
-    //     return this.$route.params.artistType || 'all-media'
-    //   },
-    //   set(val) {
-    //     this.$router.push({
-    //       params: {
-    //         ...this.$route.params,
-    //         artistType: val
-    //       }
-    //     })
-    //   }
-    // },
-
-    // routeArtistLevel: {
-    //   get() {
-    //     return this.$route.params.artistLevel || 'all-price-ranges'
-    //   },
-    //   set(val) {
-    //     this.$router.push({
-    //       params: {
-    //         ...this.$route.params,
-    //         artistLevel: val
-    //       }
-    //     })
-    //   }
-    // },
 
 
     totalPages() {
@@ -319,37 +178,7 @@ export default {
       // Start with all records
       let subset = [...this.allRecords];
 
-      // const activeType = this.routeArtistType;
-      // const activeLevel = this.routeArtistLevel;
 
-      /* -------------------------------
-      APPLY ACTIVE FILTERS (except the one being counted)
-      ------------------------------- */
-
-      // // If counting ARTIST TYPE, ignore activeType
-      // if (lookupKey !== 'type' && activeType !== 'all-media') {
-      //   const map = {
-      //     'fine-art': 'Fine Art',
-      //     'sculptural-works': 'Sculptural Works',
-      //     'new-media': 'New Media',
-      //     'merch-art': 'Merch Art'
-      //   };
-
-      //   const expected = map[activeType];
-      //   subset = subset.filter(r => (r.Media || []).includes(expected));
-      // }
-
-      // // If counting ARTIST LEVEL, ignore activeLevel
-      // if (lookupKey !== 'level' && activeLevel !== 'all-price-ranges') {
-      //   const tierMap = {
-      //     gold: 'Gold',
-      //     silver: 'Silver',
-      //     bronze: 'Bronze'
-      //   };
-
-      //   const expected = tierMap[activeLevel];
-      //   subset = subset.filter(r => r['Av. Price Tier'] === expected);
-      // }
 
 
       // Apply search filter
@@ -368,56 +197,7 @@ export default {
         return subset.length;
       }
 
-      // // Count for specific ARTIST TYPE
-      // if (lookupKey === 'type') {
-      //   const map = {
-      //     'fine-art': 'Fine Art',
-      //     'sculptural-works': 'Sculptural Works',
-      //     'new-media': 'New Media',
-      //     'merch-art': 'Merch Art'
-      //   };
 
-      //   const expected = map[optionValue];
-      //   return subset.filter(r => (r.Media || []).includes(expected)).length;
-      // }
-
-      // // Count for specific ARTIST LEVEL
-      // if (lookupKey === 'level') {
-      //   const tierMap = {
-      //     gold: 'Gold',
-      //     silver: 'Silver',
-      //     bronze: 'Bronze'
-      //   };
-
-      //   const expected = tierMap[optionValue];
-      //   return subset.filter(r => r['Av. Price Tier'] === expected).length;
-      // }
-
-      
-
-      // // Count for ARTWORK COUNT (per artist)
-      // if (lookupKey === 'artworkCount') {
-      //   const countArtworks = (r) => Number(r['Count (Art)'] || 0)
-
-      //   if (optionValue === 'all') {
-      //     return subset.length
-      //   }
-
-      //   if (optionValue === 'smallCount') {
-      //     return subset.filter(r => countArtworks(r) < 2).length
-      //   }
-
-      //   if (optionValue === 'mediumCount') {
-      //     return subset.filter(r => {
-      //       const c = countArtworks(r)
-      //       return c >= 2 && c <= 5
-      //     }).length
-      //   }
-
-      //   if (optionValue === 'largeCount') {
-      //     return subset.filter(r => countArtworks(r) > 5).length
-      //   }
-      // }
 
       return 0;
     },
@@ -436,31 +216,7 @@ export default {
 
         const search = this.filterValsRef.search
 
-        // const type = this.routeArtistType     // slug
-        // const level = this.routeArtistLevel   // slug
 
-        // // Artist Type → Media lookup
-        // if (type !== 'all-media') {
-        //   const humanReadable = {
-        //     'fine-art': 'Fine Art',
-        //     'sculptural-works': 'Sculptural Works',
-        //     'new-media': 'New Media',
-        //     'merch-art': 'Merch Art'
-        //   }[type]
-
-        //   filtered = filtered.filter(r => (r.Media || []).includes(humanReadable))
-        // }
-
-        // // Artist Level → tier lookup
-        // if (level !== 'all-price-ranges') {
-        //   const tierMap = {
-        //     gold: 'Gold',
-        //     silver: 'Silver',
-        //     bronze: 'Bronze'
-        //   }[level]
-
-        //   filtered = filtered.filter(r => r['Av. Price Tier'] === tierMap)
-        // }
 
         // search
         if (search) {
@@ -468,20 +224,6 @@ export default {
             this.matchesTokenSearch(r.Title, search)
           )
         }
-
-        // const countFilter = this.artworkCount
-
-        // if (countFilter !== 'all') {
-        //   filtered = filtered.filter(r => {
-        //     const count = Number(r['Count (Art)'] || 0)
-
-        //     if (countFilter === 'smallCount') return count < 2
-        //     if (countFilter === 'mediumCount') return count >= 2 && count <= 5
-        //     if (countFilter === 'largeCount') return count > 5
-
-        //     return true
-        //   })
-        // }
 
 
 
