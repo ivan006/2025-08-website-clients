@@ -375,7 +375,7 @@ export default {
     fetchIndiData() {
       this.loading = true;
 
-      Artworks.FetchById(this.id, [], { flags: {}, moreHeaders: {}, rels: [] })
+      Artworks.FetchById(this.id)
         .then((res) => {
           this.item = res.response.data.fields;
           this.loading = false;

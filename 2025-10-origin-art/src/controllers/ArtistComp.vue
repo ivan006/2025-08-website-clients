@@ -388,7 +388,7 @@ export default {
     fetchIndiData() {
       this.loading = true;
 
-      Artists.FetchById(this.id, [], { flags: {}, moreHeaders: {}, rels: [] })
+      Artists.FetchById(this.id)
         .then((res) => {
           this.item = res.response.data.fields;
           this.loading = false;

@@ -118,7 +118,7 @@ export default {
     fetchIndiData() {
       this.loading = true;
 
-      Policies.FetchById(this.id, [], { flags: {}, moreHeaders: {}, rels: [] })
+      Policies.FetchById(this.id)
         .then((res) => {
           this.item = res.response.data.fields;
           this.loading = false;

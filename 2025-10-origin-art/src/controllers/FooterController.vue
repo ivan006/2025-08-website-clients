@@ -140,7 +140,7 @@ export default {
     fetchData() {
       this.loading = true;
       this.superTableModel
-        .FetchById(this.id, [], { flags: {}, moreHeaders: {}, rels: [] })
+        .FetchById(this.id)
         .then((response) => {
           this.item = response.response.data;
           this.loading = false;
