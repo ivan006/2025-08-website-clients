@@ -56,14 +56,24 @@
             {{ art.Year }}<br />
             R{{ Number(art.Price)?.toLocaleString() }}
           </div>
-
           <!-- FOOTER -->
           <div
-            class="full-width text-center text-caption"
+            class="full-width row items-center text-caption"
             style="position: absolute; bottom: 0mm; left: 0"
           >
-            <!-- border: solid 1px grey; -->
-            – {{ i + 1 }} –
+            <!-- LEFT (empty / spacer) -->
+            <div class="col-4"></div>
+
+            <!-- CENTER (page number) -->
+            <div class="col-4 text-center">– {{ i + 1 }} –</div>
+
+            <!-- RIGHT (contact details) -->
+            <div
+              class="col-4 text-right"
+              style="padding-right: 15mm; opacity: 0.6; font-size: 11px"
+            >
+              info@originart.art&nbsp;&nbsp;•&nbsp;&nbsp;+27&nbsp;82&nbsp;600&nbsp;9693
+            </div>
           </div>
         </section>
       </div>
@@ -73,6 +83,7 @@
 
 <script>
 import Artworks from "src/models/orm-api/Artworks";
+import Site from "src/models/orm-api/Site";
 
 export default {
   name: "CollectionArtworks",
@@ -87,6 +98,7 @@ export default {
 
   data() {
     return {
+      site: null,
       loading: false,
       items: [],
       sectionPages: {}, // page trackers for each medium group
@@ -106,6 +118,11 @@ export default {
   },
 
   methods: {
+    fetchSite() {
+      Site.FetchById("recE9Mnz1vihDkgXU").then((res) => {
+        this.site = res.response.data.fields;
+      });
+    },
     attachments(art) {
       return art.Attachments?.[0] || {};
     },
@@ -167,6 +184,7 @@ export default {
 
   mounted() {
     this.fetchArtworks();
+    this.fetchSite();
   },
 };
 </script>
