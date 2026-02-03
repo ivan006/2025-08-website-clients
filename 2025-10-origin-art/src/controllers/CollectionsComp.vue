@@ -174,7 +174,7 @@ export default {
     fetchCollectionData(id, cacheMode = "auto") {
       this.$set(this.itemLoading, id, true);
 
-      Collections.FetchById(id, cacheMode, [], {}, {})
+      Collections.FetchById(id, cacheMode)
         .then((response) => {
           this.item = response.response.data;
         })
