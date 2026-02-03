@@ -54,7 +54,46 @@
             :items-per-page="options.itemsPerPage"
           >
             <template #item="{ item }">
-              <CollectionCard :item="item" />
+              <q-card
+                flat
+                bordered
+                class="text-1ry-color box-shadow-1ry rounded-borders"
+              >
+                <!-- TEXT -->
+                <q-card-section>
+                  <div class="text-h6 font-1ry" style="min-height: 64px">
+                    {{ item.Title }}
+                  </div>
+
+                  <!-- <div class="text-subtitle2 text-2ry-color q-mt-xs">
+                ID: {{ item.ID }}
+            </div> -->
+
+                  <!-- <div class="text-body1 q-mt-xs text-weight-bold">
+                Avg Price: R{{ item['Av. Price']?.toLocaleString() || '–' }}
+            </div> -->
+                </q-card-section>
+
+                <!-- BUTTON -->
+                <q-card-actions align="right">
+                  <q-btn
+                    flat
+                    :size="$q.screen.lt.md ? 'sm' : 'sm'"
+                    label="View Profile"
+                    class="bg-1ry-color"
+                    :to="profileUrl(item.id)"
+                  />
+
+                  <q-btn
+                    icon="refresh"
+                    dense
+                    flat
+                    color="primary"
+                    :loading="itemLoading[item.id] === true"
+                    @click.stop="fetchCollectionData(item.id, 'reset')"
+                  />
+                </q-card-actions>
+              </q-card>
             </template>
           </ItemsPaginatedGrid>
         </div>
@@ -68,13 +107,11 @@ import Collections from "src/models/orm-api/Collections";
 import { createMetaMixin } from "quasar";
 import CatalogueLayout from "src/controllers/CatalogueLayout.vue";
 import ItemsPaginatedGrid from "src/controllers/ItemsPaginatedGrid.vue";
-import CollectionCard from "src/controllers/CollectionCard.vue";
 
 export default {
   name: "CollectionsComp",
   components: {
     CatalogueLayout,
-    CollectionCard,
     ItemsPaginatedGrid,
   },
   mixins: [
@@ -86,6 +123,7 @@ export default {
   props: {},
   data() {
     return {
+      itemLoading: {},
       allRecords: [],
       filteredItems: [],
       // routeArtistLevel: "all-price-ranges",
@@ -130,6 +168,20 @@ export default {
   },
 
   methods: {
+    profileUrl(id) {
+      return `/collections/${id}`;
+    },
+    fetchCollectionData(id, cacheMode = "auto") {
+      this.$set(this.itemLoading, id, true);
+
+      Collections.FetchById(id, cacheMode, [], {}, {})
+        .then((response) => {
+          this.item = response.response.data;
+        })
+        .finally(() => {
+          this.$set(this.itemLoading, id, false);
+        });
+    },
     truncate(text, limit = 1000) {
       if (!text) return "";
       return text.length > limit ? text.slice(0, limit) + "..." : text;
@@ -138,15 +190,13 @@ export default {
       const slug = this.slugify(collection.Title || "collection");
       this.$router.push(`/collections/${collection.id}/${slug}`);
     },
-
-    slugify(text) {
-      return text
-        ?.toString()
+    slugify(str) {
+      return String(str)
         .toLowerCase()
-        .replace(/\s+/g, "-") // Replace spaces with -
-        .replace(/[^\w-]+/g, "") // Remove non-word characters
-        .replace(/--+/g, "-") // Merge multiple -
-        .replace(/^-+|-+$/g, ""); // Trim - from start/end
+        .replace(/\s+/g, "-")
+        .replace(/[^\w-]+/g, "")
+        .replace(/--+/g, "-")
+        .replace(/^-+|-+$/g, "");
     },
 
     /* 🔍 Token-based search */

@@ -101,8 +101,14 @@ export default class BasicModel extends Model {
     return this.customApiBase(headers).get(finalUrl, requestOptions);
   }
 
-  static FetchById(id, relationships = [], flags = {}, moreHeaders = {}) {
-    const proxyBase = this.proxyBaseUrl();
+  static FetchById(
+    id,
+    cacheMode = "auto",
+    relationships = [],
+    flags = {},
+    moreHeaders = {},
+  ) {
+    const proxyBase = this.proxyBaseUrl(cacheMode);
     const airtableBase = this.airtableBaseUrl;
     const headers = this.mergeHeaders(moreHeaders);
 
@@ -116,8 +122,22 @@ export default class BasicModel extends Model {
     const queryStringEncoded = new URLSearchParams(flatParams).toString();
     const queryString = decodeURIComponent(queryStringEncoded);
     const encodedInner = encodeURIComponent(`${airtableUrl}?${queryString}`);
-    const finalUrl = `${proxyBase}${encodedInner}`;
 
-    return this.customApiBase(headers).get(finalUrl, { save: false });
+    let cacheBust = "";
+    // if (cacheMode !== "auto") {
+    //   cacheBust = `&_=${Date.now()}`;
+    // }
+
+    const finalUrl = `${proxyBase}${encodedInner}${cacheBust}`;
+
+    const requestOptions = { save: false };
+
+    if (cacheMode !== "auto") {
+      requestOptions.headers = {
+        "Cache-Control": "no-cache",
+      };
+    }
+
+    return this.customApiBase(headers).get(finalUrl, requestOptions);
   }
 }
