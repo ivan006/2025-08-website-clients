@@ -1,17 +1,9 @@
 <template>
-  <div
-    style="
-
-
-    padding-top: 0px;
-    "
-    class="ScaledParent"
-  >
+  <div style="padding-top: 0px" class="ScaledParent">
     <div v-show="loading || childLoading">
       <div class="text-center q-pa-xl">Loading...</div>
     </div>
     <div v-show="!(loading || childLoading)">
-      
       <!-- <div class="bg-3ry-color ">
         <div
           :style="this.item.fields?.['Image']?.[0]?.url ? `background-image: url(${$apiProxyUrl}${encodeURIComponent(this.item.fields?.['Image']?.[0]?.url)});` : ``"
@@ -72,9 +64,7 @@
         </div>
       </div> -->
 
-
-
-<!--       
+      <!--       
       <div class=" bg-white text- q-py-xl">
         <div
           class="container-md "
@@ -86,13 +76,9 @@
         </div>
       </div> -->
       <div class="text-1ry-color">
-        
-      
-        <HomeItemsOld2Comp  :parent="this.item" @loaded="childLoading=false"/>
+        <HomeItemsOld2Comp :parent="this.item" @loaded="childLoading = false" />
       </div>
 
-
-      
       <!-- <div class=" bg-white text- q-py-xl" id="contact">
         <div
           class="container-md "
@@ -193,24 +179,19 @@
       </div> -->
     </div>
     <!--<HomeSEOController />-->
-
-
   </div>
 </template>
 
 <script>
 import Home_Page from "src/models/orm-api/Home_Page";
-import { createMetaMixin } from 'quasar'
+import { createMetaMixin } from "quasar";
 // import HomeSEOController from "src/controllers/HomeSEOController.vue";
 import HomeItemsOld2Comp from "src/controllers/HomeItemsOld2Comp.vue";
-import {buildSeoConfig} from "src/utils/seo";
-
-
-
+import { buildSeoConfig } from "src/utils/seo";
 
 export default {
   name: "HomeOld2Comp",
-  components: {HomeItemsOld2Comp},
+  components: { HomeItemsOld2Comp },
   // mixins: [
 
   //   createMetaMixin(function () {
@@ -233,48 +214,45 @@ export default {
   //     });
   //   })
   // ],
-  data(){
+  data() {
     return {
       loading: true,
       childLoading: true,
       item: {},
-    }
+    };
   },
   computed: {
-
     id() {
       // return this.$route.params.rId
-      return 'rec2ykH253BM2Qrsc'
+      return "rec2ykH253BM2Qrsc";
     },
     superTableModel() {
-      return Home_Page
+      return Home_Page;
     },
   },
   methods: {
     fetchData() {
-      this.loading = true
+      this.loading = true;
       this.superTableModel
         .FetchById(
           this.id,
           // this.relationships,
           [],
-          { flags: {}, moreHeaders: {}, rels: [] }
+          { flags: {}, moreHeaders: {}, rels: [] },
         )
         .then((response) => {
-          this.item = response.response.data
-          this.loading = false
+          this.item = response.response.data;
+          this.loading = false;
         })
         .catch(() => {
-          this.loading = false
+          this.loading = false;
         });
     },
   },
-  mounted(){
+  mounted() {
     this.fetchData();
-  }
-}
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

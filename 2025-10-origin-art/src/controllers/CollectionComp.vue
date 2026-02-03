@@ -1,11 +1,8 @@
 <template>
-  <div class=" q-pt-md ">
-    <div v-if="loading" class="text-center q-pa-xl">
-      Loading...
-    </div>
+  <div class="q-pt-md">
+    <div v-if="loading" class="text-center q-pa-xl">Loading...</div>
 
     <div v-else>
-      
       <!-- <div class="container-sm">
 
         <div class="columnx items-center text-center q-mb-md">
@@ -23,20 +20,17 @@
           </div>
         </div>
       </div> -->
-      
+
       <CollectionArtworks :parentId="id" />
       <!-- <div class="text-1ry-color">
         
       </div> -->
-
     </div>
-
   </div>
 </template>
 
-
 <script>
-import Collections from 'src/models/orm-api/Collections'
+import Collections from "src/models/orm-api/Collections";
 import CollectionArtworks from "src/controllers/CollectionArtworks.vue";
 
 export default {
@@ -64,28 +58,17 @@ export default {
   },
 
   methods: {
-
-
-    
     fetchData() {
-      this.loading = true
-      Collections
-        .FetchById(
-          this.id,
-          // this.relationships,
-          [],
-          { flags: {}, moreHeaders: {}, rels: [] }
-        )
+      this.loading = true;
+      Collections.FetchByyyyId(this.id)
         .then((response) => {
-          this.item = response.response.data
-          this.loading = false
+          this.item = response.response.data;
+          this.loading = false;
         })
         .catch(() => {
-          this.loading = false
+          this.loading = false;
         });
     },
-
-
   },
 
   mounted() {
@@ -93,5 +76,3 @@ export default {
   },
 };
 </script>
-
-

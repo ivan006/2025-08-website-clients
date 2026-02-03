@@ -1,23 +1,11 @@
 <template>
-  <div
-  >
+  <div>
     <div v-show="loading || childLoading">
       <div class="text-center q-pa-xl">Loading...</div>
     </div>
     <div v-show="!(loading || childLoading)">
-
-      
-      
-
-    
-      
-      <CollectionsComp @loaded="childLoading=false" />
-
-
+      <CollectionsComp @loaded="childLoading = false" />
     </div>
-
-
-
   </div>
 </template>
 
@@ -28,50 +16,47 @@ import CollectionsComp from "src/controllers/CollectionsComp.vue";
 export default {
   name: "CollectionsPageComp",
   components: {
-    CollectionsComp
+    CollectionsComp,
   },
-  data(){
+  data() {
     return {
       loading: true,
       childLoading: true,
       item: {},
-    }
+    };
   },
   computed: {
-
     id() {
       // return this.$route.params.rId
-      return 'recE5fnrkhFbZkvxH'
+      return "recE5fnrkhFbZkvxH";
     },
     superTableModel() {
-      return Home_Page_Items
+      return Home_Page_Items;
     },
   },
   methods: {
     fetchData() {
-      this.loading = true
+      this.loading = true;
       this.superTableModel
         .FetchById(
           this.id,
           // this.relationships,
           [],
-          { flags: {}, moreHeaders: {}, rels: [] }
+          { flags: {}, moreHeaders: {}, rels: [] },
         )
         .then((response) => {
-          this.item = response.response.data
-          this.loading = false
+          this.item = response.response.data;
+          this.loading = false;
         })
         .catch(() => {
-          this.loading = false
+          this.loading = false;
         });
     },
   },
-  mounted(){
+  mounted() {
     this.fetchData();
-  }
-}
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
