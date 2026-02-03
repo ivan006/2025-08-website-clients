@@ -1,13 +1,13 @@
 <script>
-import { ref, onMounted, onUnmounted } from 'vue';
+import { ref, onMounted, onUnmounted } from "vue";
 
 export default {
-  name: 'ResponsiveLayout',
+  name: "ResponsiveLayout",
   data() {
     return {
       isSmallScreen: false,
       leftDrawerOpen: false,
-      siteTitle: 'Lorum Ipsum'
+      siteTitle: "Lorum Ipsum",
     };
   },
   methods: {
@@ -16,14 +16,14 @@ export default {
     },
     toggleLeftDrawer() {
       this.leftDrawerOpen = !this.leftDrawerOpen;
-    }
+    },
   },
   mounted() {
     this.checkScreenWidth();
-    window.addEventListener('resize', this.checkScreenWidth);
+    window.addEventListener("resize", this.checkScreenWidth);
   },
   unmounted() {
-    window.removeEventListener('resize', this.checkScreenWidth);
-  }
+    window.removeEventListener("resize", this.checkScreenWidth);
+  },
 };
 </script>

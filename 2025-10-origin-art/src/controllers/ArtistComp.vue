@@ -1,26 +1,30 @@
 <template>
-  <div class=" q-pt-md bg-white">
-    <div v-if="loading" class="text-center q-pa-xl row items-center justify-center" style="min-height: 60vh;">
-      <div>
-        Loading...
-      </div>
+  <div class="q-pt-md bg-white">
+    <div
+      v-if="loading"
+      class="text-center q-pa-xl row items-center justify-center"
+      style="min-height: 60vh"
+    >
+      <div>Loading...</div>
     </div>
 
     <div v-else>
-
       <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
       <div class="container-sm">
-
         <!-- =============== CENTERED ARTIST HEADER =============== -->
         <div class="columnx items-center text-center q-mb-md">
-
           <div class="row justify-center">
             <div class="col-12 col-md-8">
-
               <!-- Avatar -->
 
-              <q-img :src="mainImage" :placeholder-src="placeholderImage" ratio="1" :alt="item.Name"
-                style="width: 180px;" fit="contain" />
+              <q-img
+                :src="mainImage"
+                :placeholder-src="placeholderImage"
+                ratio="1"
+                :alt="item.Name"
+                style="width: 180px"
+                fit="contain"
+              />
               <!-- 
                 fit="cover"
                 fit="contain"
@@ -53,15 +57,19 @@
 
                 <div class="row q-gutter-sm">
                   <template v-for="m in prettyMedia">
-
-                    <q-badge v-if="m" :key="m" color="grey-7" text-color="white" class="q-py-xs q-px-sm"
-                      style="font-size: 0.75rem; border-radius: 4px;">
+                    <q-badge
+                      v-if="m"
+                      :key="m"
+                      color="grey-7"
+                      text-color="white"
+                      class="q-py-xs q-px-sm"
+                      style="font-size: 0.75rem; border-radius: 4px"
+                    >
                       {{ m }}
                     </q-badge>
                   </template>
                 </div>
               </div>
-
             </div>
 
             <!-- <div v-if="item['artist:artist_statement']" class="col-12 col-md-8">
@@ -86,38 +94,54 @@
             <div v-if="item['artist:biography']" class="col-12 col-md-8">
               <h3 class="text-h6 font-1ry q-mb-sm">Biography</h3>
 
-              <div class="text-body1" style="white-space: pre-line;">
-                {{ truncate(item['artist:biography'], 500) }}
+              <div class="text-body1" style="white-space: pre-line">
+                {{ truncate(item["artist:biography"], 500) }}
               </div>
 
-              <q-btn v-if="isLong(item['artist:biography'], 500)" flat label="Read More"
-                class="q-mt-sm bg-dark text-white" :size="$q.screen.lt.md ? 'sm' : 'sm'"
-                @click="openDialog('Biography', item['artist:biography'])" />
+              <q-btn
+                v-if="isLong(item['artist:biography'], 500)"
+                flat
+                label="Read More"
+                class="q-mt-sm bg-dark text-white"
+                :size="$q.screen.lt.md ? 'sm' : 'sm'"
+                @click="openDialog('Biography', item['artist:biography'])"
+              />
             </div>
 
             <!-- Influences -->
             <div v-if="item['artist:influences']" class="col-12 col-md-8">
               <h3 class="text-h6 font-1ry q-mb-sm">Influences</h3>
 
-              <div class="text-body1" style="white-space: pre-line;">
-                {{ truncate(item['artist:influences'], 500) }}
+              <div class="text-body1" style="white-space: pre-line">
+                {{ truncate(item["artist:influences"], 500) }}
               </div>
 
-              <q-btn v-if="isLong(item['artist:influences'], 500)" flat label="Read More"
-                class="q-mt-sm bg-dark text-white" :size="$q.screen.lt.md ? 'sm' : 'sm'"
-                @click="openDialog('Influences', item['artist:influences'])" />
+              <q-btn
+                v-if="isLong(item['artist:influences'], 500)"
+                flat
+                label="Read More"
+                class="q-mt-sm bg-dark text-white"
+                :size="$q.screen.lt.md ? 'sm' : 'sm'"
+                @click="openDialog('Influences', item['artist:influences'])"
+              />
             </div>
 
             <!-- Awards -->
             <div v-if="item['artist:awards']" class="col-12 col-md-8">
               <h3 class="text-h6 font-1ry q-mb-sm">Awards</h3>
 
-              <div class="text-body1" style="white-space: pre-line;">
-                {{ truncate(item['artist:awards'], 500) }}
+              <div class="text-body1" style="white-space: pre-line">
+                {{ truncate(item["artist:awards"], 500) }}
               </div>
 
-              <q-btn v-if="isLong(item['artist:awards'], 500)" flat label="Read More" class="q-mt-sm bg-dark text-white"
-                :size="$q.screen.lt.md ? 'sm' : 'sm'" @click="openDialog('Awards', item['artist:awards'])" />
+              <q-btn
+                v-if="isLong(item['artist:awards'], 500)"
+                flat
+                label="Read More"
+                class="q-mt-sm bg-dark text-white"
+                :size="$q.screen.lt.md ? 'sm' : 'sm'"
+                @click="openDialog('Awards', item['artist:awards'])"
+              />
             </div>
 
             <!-- <div v-if="item['artist:comm_accepted']" class="col-12 col-md-8">
@@ -136,66 +160,63 @@
               />
             </div> -->
 
-
-
             <!-- Description -->
             <div v-if="item['Description']" class="col-12 col-md-8">
               <h3 class="text-h6 font-1ry q-mb-sm">Artist Statement</h3>
 
-              <div class="text-body1" style="white-space: pre-line;">
-                {{ truncate(item['Description'], 500) }}
+              <div class="text-body1" style="white-space: pre-line">
+                {{ truncate(item["Description"], 500) }}
               </div>
 
-              <q-btn v-if="isLong(item['Description'], 500)" flat label="Read More" class="q-mt-sm bg-dark text-white"
-                :size="$q.screen.lt.md ? 'sm' : 'sm'" @click="openDialog('Artist Statement', item['Description'])" />
+              <q-btn
+                v-if="isLong(item['Description'], 500)"
+                flat
+                label="Read More"
+                class="q-mt-sm bg-dark text-white"
+                :size="$q.screen.lt.md ? 'sm' : 'sm'"
+                @click="openDialog('Artist Statement', item['Description'])"
+              />
             </div>
 
             <!-- FULL TEXT DIALOG -->
             <q-dialog v-model="dialogOpen">
-              <q-card style="max-width: 700px; width: 90%;">
+              <q-card style="max-width: 700px; width: 90%">
                 <q-card-section>
                   <div class="text-h6 q-mb-md">{{ dialogTitle }}</div>
-                  <div class="text-body1" style="white-space: pre-line;">
+                  <div class="text-body1" style="white-space: pre-line">
                     {{ dialogText }}
                   </div>
                 </q-card-section>
 
                 <q-card-actions align="right">
-                  <q-btn :size="$q.screen.lt.md ? 'md' : 'md'" flat label="Close" v-close-popup />
+                  <q-btn
+                    :size="$q.screen.lt.md ? 'md' : 'md'"
+                    flat
+                    label="Close"
+                    v-close-popup
+                  />
                 </q-card-actions>
               </q-card>
             </q-dialog>
           </div>
-
-
-
         </div>
       </div>
-
-
 
       <ArtistArtworks :parentId="id" />
       <!-- <div class="text-1ry-color">
         
       </div> -->
-
     </div>
-
   </div>
 </template>
-
-
-
-
-
 
 <script>
 // import ArtistsBoundCache from 'src/models/orm-api/ArtistsBoundCache'
 import Artists from "src/models/orm-api/Artists";
 import ArtistArtworks from "src/controllers/ArtistArtworks.vue";
 import SEODataViewer from "src/controllers/SEODataViewer.vue";
-import { createMetaMixin } from 'quasar'
-import { buildSchemaItem, buildSeoConfig } from 'src/utils/seo'
+import { createMetaMixin } from "quasar";
+import { buildSchemaItem, buildSeoConfig } from "src/utils/seo";
 
 export default {
   name: "ArtistComp",
@@ -205,8 +226,11 @@ export default {
     SEODataViewer,
   },
 
-
-  mixins: [createMetaMixin(function () { return this.seoConfig })],
+  mixins: [
+    createMetaMixin(function () {
+      return this.seoConfig;
+    }),
+  ],
   data() {
     return {
       loading: true,
@@ -223,122 +247,126 @@ export default {
       return this.$route.params.rId;
     },
 
-
-
     mainImage() {
       const att = this.item.Attachments?.[0];
       return att?.thumbnails?.large?.url
-        ? `${import.meta.env.VITE_API_PROXY_URL}/cacher/data-cache/index.php?url=${encodeURIComponent(att.thumbnails.large.url)}`
+        ? `${
+            import.meta.env.VITE_API_PROXY_URL
+          }/cacher/data-cache/index.php?url=${encodeURIComponent(
+            att.thumbnails.large.url,
+          )}`
         : "";
     },
 
     placeholderImage() {
       const att = this.item.Attachments?.[0];
       return att?.thumbnails?.small?.url
-        ? `${import.meta.env.VITE_API_PROXY_URL}/cacher/data-cache/index.php?url=${encodeURIComponent(att.thumbnails.small.url)}`
+        ? `${
+            import.meta.env.VITE_API_PROXY_URL
+          }/cacher/data-cache/index.php?url=${encodeURIComponent(
+            att.thumbnails.small.url,
+          )}`
         : "";
     },
 
     mediaLabelMap() {
       return {
-        'Fine Art': 'Fine Artist',
-        'Sculptural Works': 'Sculptor',
-        'New Media': 'New Media Artist',
-        'Merch Art': 'Merch Artist'
-      }
+        "Fine Art": "Fine Artist",
+        "Sculptural Works": "Sculptor",
+        "New Media": "New Media Artist",
+        "Merch Art": "Merch Artist",
+      };
     },
 
     tierLabelMap() {
       return {
-        'Gold': 'Established Artist',
-        'Silver': 'Mid-Career Artist',
-        'Bronze': 'Emerging Artist'
-      }
+        Gold: "Established Artist",
+        Silver: "Mid-Career Artist",
+        Bronze: "Emerging Artist",
+      };
     },
-
 
     tierGradientMap() {
       return {
-        'Gold': 'background: linear-gradient(135deg, #F7D774, #DDAF3A); ',
-        'Silver': 'background: linear-gradient(135deg, #DCDCDC, #AFAFAF); ',
-        'Bronze': 'background: linear-gradient(135deg, #D6A77A, #A16B34); '
-      }
+        Gold: "background: linear-gradient(135deg, #F7D774, #DDAF3A); ",
+        Silver: "background: linear-gradient(135deg, #DCDCDC, #AFAFAF); ",
+        Bronze: "background: linear-gradient(135deg, #D6A77A, #A16B34); ",
+      };
     },
 
     prettyTierStyle() {
-      const t = this.item['Av. Price Tier']
-      return this.tierGradientMap[t] || ''
+      const t = this.item["Av. Price Tier"];
+      return this.tierGradientMap[t] || "";
     },
 
     prettyMedia() {
-      const arr = this.item.Media || []
-      return arr.map(m => this.mediaLabelMap[m] || m)
+      const arr = this.item.Media || [];
+      return arr.map((m) => this.mediaLabelMap[m] || m);
     },
 
     prettyTier() {
-      const t = this.item['Av. Price Tier']
-      return this.tierLabelMap[t] || t
+      const t = this.item["Av. Price Tier"];
+      return this.tierLabelMap[t] || t;
     },
 
-
     seoLdJson() {
-      const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/');
+      const url =
+        window.location.origin + (this.$route?.fullPath.split("#")[0] || "/");
       const siteName = import.meta.env.VITE_API_SITE_TITLE;
 
-      let image = import.meta.env.VITE_API_DEFAULT_IMAGE
+      let image = import.meta.env.VITE_API_DEFAULT_IMAGE;
       if (this.mainImage) {
         image = this.mainImage;
       }
 
-
       const schema = buildSchemaItem({
-        type: this.item?.['SEO Type'],
-        name: this.item?.['Name'] || siteName,
-        description: this.item?.['artist:artist_statement'] ? this.truncate(this.item?.['artist:artist_statement'], 500) : "",
+        type: this.item?.["SEO Type"],
+        name: this.item?.["Name"] || siteName,
+        description: this.item?.["artist:artist_statement"]
+          ? this.truncate(this.item?.["artist:artist_statement"], 500)
+          : "",
         url,
         image,
-        extras: {
-        }
-      })
-
-
+        extras: {},
+      });
 
       return schema;
     },
     seoConfig() {
-
-      const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/');
+      const url =
+        window.location.origin + (this.$route?.fullPath.split("#")[0] || "/");
       const siteName = import.meta.env.VITE_API_SITE_TITLE;
 
-
-      let image = import.meta.env.VITE_API_DEFAULT_IMAGE
+      let image = import.meta.env.VITE_API_DEFAULT_IMAGE;
       let imageWidth = import.meta.env.VITE_API_DEFAULT_IMAGE_WIDTH;
       let imageHeight = import.meta.env.VITE_API_DEFAULT_IMAGE_HEIGHT;
       if (this.mainImage) {
         image = this.mainImage;
-        const imageObject = this.item.Attachments?.[0]?.thumbnails?.large
-        imageWidth = imageObject.width
-        imageHeight = imageObject.height
+        const imageObject = this.item.Attachments?.[0]?.thumbnails?.large;
+        imageWidth = imageObject.width;
+        imageHeight = imageObject.height;
       }
 
       return buildSeoConfig({
-        title: this.item?.['Name'],
-        description: this.item?.['artist:artist_statement'] ? this.truncate(this.item?.['artist:artist_statement'], 500) : "",
+        title: this.item?.["Name"],
+        description: this.item?.["artist:artist_statement"]
+          ? this.truncate(this.item?.["artist:artist_statement"], 500)
+          : "",
         url,
         image,
         imageWidth,
         imageHeight,
         siteName,
         type: "Person",
-        schema: this.seoLdJson
+        schema: this.seoLdJson,
       });
     },
 
     seoConfigMasked() {
-      const c = { ...this.seoConfig }
-      c.script = ''
-      return c
-    }
+      const c = { ...this.seoConfig };
+      c.script = "";
+      return c;
+    },
   },
 
   methods: {
@@ -356,12 +384,11 @@ export default {
       this.dialogText = fullText;
       this.dialogOpen = true;
     },
-    
+
     fetchIndiData() {
       this.loading = true;
 
-      Artists
-        .FetchById(this.id, [], { flags: {}, moreHeaders: {}, rels: [] })
+      Artists.FetchById(this.id, [], { flags: {}, moreHeaders: {}, rels: [] })
         .then((res) => {
           this.item = res.response.data.fields;
           this.loading = false;
@@ -370,41 +397,38 @@ export default {
     },
     async fetchData() {
       // console.time('[ArtistSingle] fetchData total')
-      this.loading = true
+      this.loading = true;
 
       try {
         // 1️⃣ Load bound cache (once)
         // console.time('[ArtistSingle] Load bound cache')
         if (!this.allRecords?.length) {
-          const res = await ArtistsBoundCache.FetchAll()
-          this.allRecords = res.response.data.records.map(r => ({
+          const res = await ArtistsBoundCache.FetchAll();
+          this.allRecords = res.response.data.records.map((r) => ({
             id: r.id,
-            ...r.fields
-          }))
+            ...r.fields,
+          }));
         }
         // console.timeEnd('[ArtistSingle] Load bound cache')
 
         // 2️⃣ Find artist locally
         // console.time('[ArtistSingle] Find artist')
-        const artist = this.allRecords.find(r => r.id === this.id)
+        const artist = this.allRecords.find((r) => r.id === this.id);
         // console.timeEnd('[ArtistSingle] Find artist')
 
         if (!artist) {
-          throw new Error(`Artist ${this.id} not found in bound cache`)
+          throw new Error(`Artist ${this.id} not found in bound cache`);
         }
 
         // 3️⃣ Assign
-        this.item = artist
-
+        this.item = artist;
       } catch (err) {
-        console.error('❌ Failed to load artist:', err)
+        console.error("❌ Failed to load artist:", err);
       }
 
-      this.loading = false
+      this.loading = false;
       // console.timeEnd('[ArtistSingle] fetchData total')
-    }
-
-
+    },
   },
 
   mounted() {
@@ -413,8 +437,6 @@ export default {
   },
 };
 </script>
-
-
 
 <style scoped>
 .rounded-borders {
