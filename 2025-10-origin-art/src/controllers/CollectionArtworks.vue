@@ -18,8 +18,10 @@
             height: 287mm;
             padding: 0mm 15mm;
             box-sizing: border-box;
-            page-break-after: always;
           "
+          :style="{
+            pageBreakAfter: i === items.length - 1 ? 'auto' : 'always',
+          }"
         >
           <!-- border: solid 1px grey; -->
 
