@@ -4,10 +4,17 @@ export default class BasicModel extends Model {
   static entityUrl = "";
 
   /** ✅ Defaults (can be overridden in child models) **/
-  static get proxyBaseUrl() {
+  static get proxyBaseUrl(cacheMode = "auto") {
+    const param =
+      cacheMode === "reset"
+        ? "regenerate="
+        : cacheMode === "delete"
+        ? "delete="
+        : "url=";
+
     return `${
       import.meta.env.VITE_API_PROXY_URL
-    }/cacher/data-cache/index.php?url=`;
+    }/cacher/data-cache/index.php?${param}`;
   }
 
   static get airtableBaseUrl() {
@@ -57,7 +64,10 @@ export default class BasicModel extends Model {
       offset: null,
       clearPrimaryModelOnly: false,
     },
+    cacheMode = "auto",
   ) {
+    const proxyBase = this.proxyBaseUrl(cacheMode);
+
     const proxyBase = this.proxyBaseUrl;
     const airtableBase = this.airtableBaseUrl;
     const headers = this.mergeHeaders(moreHeaders);
