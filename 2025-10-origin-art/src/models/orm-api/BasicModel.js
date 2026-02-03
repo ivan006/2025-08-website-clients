@@ -6,7 +6,7 @@ export default class BasicModel extends Model {
   /** ✅ Defaults (can be overridden in child models) **/
   static proxyBaseUrl(cacheMode = "auto") {
     const param =
-      cacheMode === "reset"
+      cacheMode === "regenerate"
         ? "regenerate="
         : cacheMode === "delete"
         ? "delete="

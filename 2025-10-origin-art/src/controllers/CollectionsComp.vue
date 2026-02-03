@@ -25,7 +25,7 @@
                 color="primary"
                 outline
                 class="q-mb-md"
-                @click="fetchData('reset')"
+                @click="fetchData('regenerate')"
               />
             </div>
           </q-expansion-item>
@@ -90,7 +90,7 @@
                     flat
                     color="primary"
                     :loading="itemLoading[item.id] === true"
-                    @click.stop="fetchCollectionData(item.id, 'reset')"
+                    @click.stop="fetchCollectionData(item.id)"
                   />
                 </q-card-actions>
               </q-card>
@@ -173,12 +173,26 @@ export default {
     profileUrl(id) {
       return `/collections/${id}`;
     },
-    fetchCollectionData(id, cacheMode = "auto") {
+    fetchCollectionData(id) {
       this.itemLoading[id] = true;
 
-      Collections.FetchById(id, cacheMode)
-        .then((response) => {
-          this.item = response.response.data;
+      Artworks.FetchAll(
+        "regenerate",
+        [],
+        {},
+        {},
+        {
+          limit: 200,
+          filters: {
+            filterByFormula: `AND(SEARCH('${id}',ARRAYJOIN({RECORD_ID (from Collections)}, ',')))`,
+          },
+        },
+      )
+        .then((res) => {
+          this.items = res.response.data.records.map((r) => ({
+            id: r.id,
+            ...r.fields,
+          }));
         })
         .finally(() => {
           this.itemLoading[id] = false;
