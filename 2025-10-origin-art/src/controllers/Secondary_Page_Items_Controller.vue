@@ -316,6 +316,7 @@ export default {
     async fetchRecordCounts() {
       try {
         const res = await Tertiary_Page_Items.FetchAll(
+          "auto",
           [],
           {},
           {},
@@ -338,6 +339,7 @@ export default {
         const formula = parts.length ? `AND(${parts.join(",")})` : "";
 
         const response = await Secondary_Page_Items.FetchAll(
+          "auto",
           [],
           {},
           {},

@@ -333,6 +333,7 @@ export default {
         this.loadingError = false;
 
         const response = await Site_Menu_Items.FetchAll(
+          "auto",
           [],
           {
             ...this.fetchFlags,

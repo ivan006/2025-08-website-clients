@@ -420,6 +420,7 @@ export default {
         let flagsComputed = {};
 
         const response = await this.superTableModel.FetchAll(
+          "auto",
           // =========================
           [],
           {

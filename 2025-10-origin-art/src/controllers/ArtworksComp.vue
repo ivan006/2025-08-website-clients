@@ -570,7 +570,7 @@ export default {
 
       /* Load once */
       if (!this.allRecords.length) {
-        const res = await ArtworksBoundCache.FetchAll([], {
+        const res = await ArtworksBoundCache.FetchAll("auto", [], {
           view: "viwn7wDGK6yk5ZHOl",
         });
         this.allRecords = res.response.data.records

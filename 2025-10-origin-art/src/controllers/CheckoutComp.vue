@@ -470,7 +470,7 @@ export default {
         this.loadingPost = false;
 
         try {
-            const res = await ArtworksBoundCache.FetchAll([], {
+            const res = await ArtworksBoundCache.FetchAll("auto", [], {
                 view: "viwn7wDGK6yk5ZHOl",
             });
 

@@ -416,7 +416,7 @@ export default {
 
       try {
         // console.time('[ArtworkSingle] FetchAll (bound cache)')
-        const res = await ArtworksBoundCache.FetchAll([], {
+        const res = await ArtworksBoundCache.FetchAll("auto", [], {
           view: "viwn7wDGK6yk5ZHOl",
         });
         // console.timeEnd('[ArtworkSingle] FetchAll (bound cache)')

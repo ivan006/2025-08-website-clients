@@ -124,6 +124,7 @@ export default {
       this.loading = true;
 
       Artworks.FetchAll(
+        "auto",
         [],
         {},
         {},
