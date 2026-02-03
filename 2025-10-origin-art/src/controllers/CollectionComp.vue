@@ -60,7 +60,7 @@ export default {
   methods: {
     fetchData() {
       this.loading = true;
-      Collections.FetchByyyyId(this.id)
+      Collections.FetchById(this.id)
         .then((response) => {
           this.item = response.response.data;
           this.loading = false;

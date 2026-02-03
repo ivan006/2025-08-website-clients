@@ -104,6 +104,8 @@
 
 <script>
 import Collections from "src/models/orm-api/Collections";
+import Artworks from "src/models/orm-api/Artworks";
+
 import { createMetaMixin } from "quasar";
 import CatalogueLayout from "src/controllers/CatalogueLayout.vue";
 import ItemsPaginatedGrid from "src/controllers/ItemsPaginatedGrid.vue";
@@ -172,14 +174,14 @@ export default {
       return `/collections/${id}`;
     },
     fetchCollectionData(id, cacheMode = "auto") {
-      this.$set(this.itemLoading, id, true);
+      this.itemLoading[id] = true;
 
       Collections.FetchById(id, cacheMode)
         .then((response) => {
           this.item = response.response.data;
         })
         .finally(() => {
-          this.$set(this.itemLoading, id, false);
+          this.itemLoading[id] = false;
         });
     },
     truncate(text, limit = 1000) {
