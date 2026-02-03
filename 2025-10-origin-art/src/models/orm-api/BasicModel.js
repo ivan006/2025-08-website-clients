@@ -4,7 +4,7 @@ export default class BasicModel extends Model {
   static entityUrl = "";
 
   /** ✅ Defaults (can be overridden in child models) **/
-  static get proxyBaseUrl(cacheMode = "auto") {
+  static proxyBaseUrl(cacheMode = "auto") {
     const param =
       cacheMode === "reset"
         ? "regenerate="
@@ -52,8 +52,8 @@ export default class BasicModel extends Model {
     }
     return result;
   }
-
   static FetchAll(
+    cacheMode = "auto",
     relationships = [],
     flags = {},
     moreHeaders = {},
@@ -64,18 +64,15 @@ export default class BasicModel extends Model {
       offset: null,
       clearPrimaryModelOnly: false,
     },
-    cacheMode = "auto",
   ) {
     const proxyBase = this.proxyBaseUrl(cacheMode);
 
-    const proxyBase = this.proxyBaseUrl;
     const airtableBase = this.airtableBaseUrl;
     const headers = this.mergeHeaders(moreHeaders);
     const airtableOffset = options.offset ? options.offset : undefined;
     const airtableUrl = `${airtableBase}${this.entityUrl}`;
 
     const flatParams = this.flattenParams({
-      // limit: options.limit,
       ...(airtableOffset ? { offset: airtableOffset } : {}),
       ...flags,
       ...this.defaultFlags,
@@ -85,13 +82,27 @@ export default class BasicModel extends Model {
     const queryStringEncoded = new URLSearchParams(flatParams).toString();
     const queryString = decodeURIComponent(queryStringEncoded);
     const encodedInner = encodeURIComponent(`${airtableUrl}?${queryString}`);
-    const finalUrl = `${proxyBase}${encodedInner}`;
 
-    return this.customApiBase(headers).get(finalUrl, { save: false });
+    let cacheBust = "";
+    // if (cacheMode !== "auto") {
+    //   cacheBust = `&_=${Date.now()}`;
+    // }
+
+    const finalUrl = `${proxyBase}${encodedInner}${cacheBust}`;
+
+    const requestOptions = { save: false };
+
+    if (cacheMode !== "auto") {
+      requestOptions.headers = {
+        "Cache-Control": "no-cache",
+      };
+    }
+
+    return this.customApiBase(headers).get(finalUrl, requestOptions);
   }
 
   static FetchById(id, relationships = [], flags = {}, moreHeaders = {}) {
-    const proxyBase = this.proxyBaseUrl;
+    const proxyBase = this.proxyBaseUrl();
     const airtableBase = this.airtableBaseUrl;
     const headers = this.mergeHeaders(moreHeaders);
 

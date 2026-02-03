@@ -19,6 +19,15 @@
                 @update:model-value="resetAndFetch"
               />
             </div>
+            <div class="q-pa-md">
+              <q-btn
+                label="Refresh Cache"
+                color="primary"
+                outline
+                class="q-mb-md"
+                @click="fetchData('reset')"
+              />
+            </div>
           </q-expansion-item>
         </div>
       </template>
@@ -179,11 +188,11 @@ export default {
       return 0;
     },
 
-    async fetchData() {
+    async fetchData(cacheMode = "auto") {
       this.loading = true;
       try {
-        if (!this.allRecords.length) {
-          const res = await Collections.FetchAll();
+        if (!this.allRecords.length || cacheMode !== "auto") {
+          const res = await Collections.FetchAll(cacheMode);
           this.allRecords = res.response.data.records.map((r) => ({
             id: r.id,
             ...r.fields,
@@ -191,10 +200,8 @@ export default {
         }
 
         let filtered = this.allRecords;
-
         const search = this.filterValsRef.search;
 
-        // search
         if (search) {
           filtered = filtered.filter((r) =>
             this.matchesTokenSearch(r.Title, search),
@@ -210,7 +217,6 @@ export default {
       this.loading = false;
       this.$emit("loaded");
     },
-
     scrollToResultsTop() {
       this.$nextTick(() => {
         const el = this.$refs.resultsTop;
