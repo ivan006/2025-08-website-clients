@@ -1,13 +1,7 @@
 <template>
   <div>
-
     <!-- ITEM WITH NO CHILDREN -->
-    <q-item
-      v-if="!hasChildren"
-      clickable
-      :to="node.url"
-      :style="itemStyle"
-    >
+    <q-item v-if="!hasChildren" clickable :to="node.url" :style="itemStyle">
       <q-item-section>{{ node.label }}</q-item-section>
     </q-item>
 
@@ -22,16 +16,13 @@
       :style="itemStyle"
     >
       <q-list>
-
         <MenuItem
           v-for="child in node.children"
           :key="child.id"
           :node="child"
         />
-
       </q-list>
     </q-expansion-item>
-
   </div>
 </template>
 
@@ -40,12 +31,12 @@ export default {
   name: "MenuItem",
 
   props: {
-    node: Object
+    node: Object,
   },
 
   computed: {
     hasChildren() {
-      return this.node.children && this.node.children.length
+      return this.node.children && this.node.children.length;
     },
 
     itemStyle() {
@@ -53,8 +44,8 @@ export default {
         fontSize: "14px",
         padding: "4px 10px",
         color: "#444",
-      }
-    }
-  }
-}
+      };
+    },
+  },
+};
 </script>

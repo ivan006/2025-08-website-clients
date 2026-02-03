@@ -3,56 +3,89 @@
     <SitemapComp :items="sitemapItems" />
     <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
     <catalogue-layout :mobileTitle="mobileFiltersLabel">
-
       <!-- 🔎 FILTERS -->
       <template #filters>
         <div>
-
           <!-- SEARCH -->
-          <q-expansion-item label="Search Name" class="text-weight-bold" default-opened>
+          <q-expansion-item
+            label="Search Name"
+            class="text-weight-bold"
+            default-opened
+          >
             <div class="q-pa-md">
-              <q-input v-model="filterValsRef.search" outlined debounce="250" placeholder="Type artist name..."
-                @update:model-value="resetAndFetch" />
+              <q-input
+                v-model="filterValsRef.search"
+                outlined
+                debounce="250"
+                placeholder="Type artist name..."
+                @update:model-value="resetAndFetch"
+              />
             </div>
           </q-expansion-item>
 
           <!-- Other Filters -->
           <!-- ARTIST TYPE -->
-          <q-expansion-item label="Artist Type" class="text-weight-bold" default-opened>
-            <q-option-group v-model="routeArtistType" :options="artistTypeOptions" type="radio"
-              @update:model-value="resetAndFetch" class="q-pb-md text-weight-regular">
+          <q-expansion-item
+            label="Artist Type"
+            class="text-weight-bold"
+            default-opened
+          >
+            <q-option-group
+              v-model="routeArtistType"
+              :options="artistTypeOptions"
+              type="radio"
+              @update:model-value="resetAndFetch"
+              class="q-pb-md text-weight-regular"
+            >
               <template v-slot:label="scope">
-                <div class="row items-center no-wrap justify-between q-gutter-x-sm">
+                <div
+                  class="row items-center no-wrap justify-between q-gutter-x-sm"
+                >
                   <div>{{ scope.label }}</div>
 
-                  <q-badge transparent align="middle" size="sm" class="bg-grey-7 text-white">
-                    {{ getCount(scope.value, 'type') }}
+                  <q-badge
+                    transparent
+                    align="middle"
+                    size="sm"
+                    class="bg-grey-7 text-white"
+                  >
+                    {{ getCount(scope.value, "type") }}
                   </q-badge>
                 </div>
               </template>
             </q-option-group>
           </q-expansion-item>
 
-          <q-expansion-item label="Number of Works" class="text-weight-bold" default-opened>
-            <q-option-group v-model="artworkCount" :options="artworkCountOptions" type="radio"
-              @update:model-value="resetAndFetch" class="q-pb-md text-weight-regular">
+          <q-expansion-item
+            label="Number of Works"
+            class="text-weight-bold"
+            default-opened
+          >
+            <q-option-group
+              v-model="artworkCount"
+              :options="artworkCountOptions"
+              type="radio"
+              @update:model-value="resetAndFetch"
+              class="q-pb-md text-weight-regular"
+            >
               <template v-slot:label="scope">
-
-
-                <div class="row items-center no-wrap justify-between q-gutter-x-sm">
+                <div
+                  class="row items-center no-wrap justify-between q-gutter-x-sm"
+                >
                   <div>{{ scope.label }}</div>
 
-                  <q-badge transparent align="middle" size="sm" class="bg-grey-7 text-white">
-                    {{ getCount(scope.value, 'artworkCount') }}
+                  <q-badge
+                    transparent
+                    align="middle"
+                    size="sm"
+                    class="bg-grey-7 text-white"
+                  >
+                    {{ getCount(scope.value, "artworkCount") }}
                   </q-badge>
                 </div>
               </template>
             </q-option-group>
           </q-expansion-item>
-
-
-
-
 
           <!-- <q-separator /> -->
 
@@ -82,19 +115,18 @@
             </q-option-group>
           </q-expansion-item> -->
 
-
-
           <!-- <q-separator /> -->
-
         </div>
       </template>
 
       <!-- 🔥 CONTENT -->
       <template #content>
-
         <div v-if="loading" class="text-center q-pa-md">Loading...</div>
 
-        <div v-else-if="!filteredItems.length" class="text-center q-pa-md text-2ry-color">
+        <div
+          v-else-if="!filteredItems.length"
+          class="text-center q-pa-md text-2ry-color"
+        >
           No artists found.
         </div>
 
@@ -103,56 +135,60 @@
             {{ totalFiltered }} artists found
           </div>
 
-          <ItemsPaginatedGrid :showArrows="false" :items="filteredItems" v-model:page="currentPage"
-            :items-per-page="40">
+          <ItemsPaginatedGrid
+            :showArrows="false"
+            :items="filteredItems"
+            v-model:page="currentPage"
+            :items-per-page="40"
+          >
             <template #item="{ item }">
               <ArtistCard :artist="item" />
             </template>
           </ItemsPaginatedGrid>
         </div>
-
       </template>
-
     </catalogue-layout>
   </div>
 </template>
 
 <script>
-import ArtistsBoundCache from 'src/models/orm-api/ArtistsBoundCache'
-import { createMetaMixin } from 'quasar'
-import { buildSchemaItem, buildSeoConfig } from 'src/utils/seo'
-import SEODataViewer from 'src/controllers/SEODataViewer.vue'
-import CatalogueLayout from 'src/controllers/CatalogueLayout.vue'
-import ItemsPaginatedGrid from 'src/controllers/ItemsPaginatedGrid.vue'
-import ArtistCard from 'src/controllers/ArtistCard.vue'
-import SitemapComp from 'src/controllers/SitemapComp.vue'
+import ArtistsBoundCache from "src/models/orm-api/ArtistsBoundCache";
+import { createMetaMixin } from "quasar";
+import { buildSchemaItem, buildSeoConfig } from "src/utils/seo";
+import SEODataViewer from "src/controllers/SEODataViewer.vue";
+import CatalogueLayout from "src/controllers/CatalogueLayout.vue";
+import ItemsPaginatedGrid from "src/controllers/ItemsPaginatedGrid.vue";
+import ArtistCard from "src/controllers/ArtistCard.vue";
+import SitemapComp from "src/controllers/SitemapComp.vue";
 
 export default {
-  name: 'ArtistsComp',
+  name: "ArtistsComp",
   components: {
     SEODataViewer,
     CatalogueLayout,
     ArtistCard,
     ItemsPaginatedGrid,
-    SitemapComp
+    SitemapComp,
   },
-  mixins: [createMetaMixin(function () { return this.seoConfig })],
-
-
+  mixins: [
+    createMetaMixin(function () {
+      return this.seoConfig;
+    }),
+  ],
 
   props: {
     parent: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
   },
   data() {
     return {
       attachmentMap: {
-        'Fine Art': 'Attachments_FA',
-        'New Media': 'Attachments_NM',
-        'Sculptural Works': 'Attachments_SW',
-        'Merch Art': 'Attachments_MA',
+        "Fine Art": "Attachments_FA",
+        "New Media": "Attachments_NM",
+        "Sculptural Works": "Attachments_SW",
+        "Merch Art": "Attachments_MA",
       },
       allRecords: [],
       filteredItems: [],
@@ -163,59 +199,53 @@ export default {
       currentPage: 0,
 
       filterValsRef: {
-        search: '',
-        Media: '',
-        'Av. Price Tier': '',
+        search: "",
+        Media: "",
+        "Av. Price Tier": "",
       },
 
       artistTypeOptions: [
-        { label: 'All', value: 'all-media' },
-        { label: 'Fine Artists', value: 'fine-art' },
-        { label: 'Sculptors', value: 'sculptural-works' },
-        { label: 'New Media Artists', value: 'new-media' },
-        { label: 'Merch Artists', value: 'merch-art' },
+        { label: "All", value: "all-media" },
+        { label: "Fine Artists", value: "fine-art" },
+        { label: "Sculptors", value: "sculptural-works" },
+        { label: "New Media Artists", value: "new-media" },
+        { label: "Merch Artists", value: "merch-art" },
       ],
 
       artistLevelOptions: [
-        { label: 'All', value: 'all-price-ranges' },
-        { label: 'Established (40k+)', value: 'gold' },
-        { label: 'Mid-Career (12k–40k)', value: 'silver' },
-        { label: 'Emerging (<12k)', value: 'bronze' },
+        { label: "All", value: "all-price-ranges" },
+        { label: "Established (40k+)", value: "gold" },
+        { label: "Mid-Career (12k–40k)", value: "silver" },
+        { label: "Emerging (<12k)", value: "bronze" },
       ],
       artworkCountOptions: [
-        { label: 'All', value: 'all' },
-        { label: 'Above 5', value: 'largeCount' },
-        { label: 'Between 2-5', value: 'mediumCount' },
-        { label: 'Below 2', value: 'smallCount' },
+        { label: "All", value: "all" },
+        { label: "Above 5", value: "largeCount" },
+        { label: "Between 2-5", value: "mediumCount" },
+        { label: "Below 2", value: "smallCount" },
       ],
-
-
-
-    }
+    };
   },
 
   computed: {
-
-
-
     sitemapItems() {
       // const start = performance.now()
 
-      const result = this.filteredItems.map(item => {
-        const slug = String(item.Name || 'artist')
+      const result = this.filteredItems.map((item) => {
+        const slug = String(item.Name || "artist")
           .toLowerCase()
-          .replace(/\s+/g, '-')
-          .replace(/[^\w-]+/g, '')
-          .replace(/--+/g, '-')
-          .replace(/^-+|-+$/g, '')
+          .replace(/\s+/g, "-")
+          .replace(/[^\w-]+/g, "")
+          .replace(/--+/g, "-")
+          .replace(/^-+|-+$/g, "");
 
         return {
           url: `${window.location.origin}/artists/${item.id}/${slug}/`,
-          lastmod: item['Last Modified']
-            ? new Date(item['Last Modified']).toISOString().split('T')[0]
-            : new Date().toISOString().split('T')[0]
-        }
-      })
+          lastmod: item["Last Modified"]
+            ? new Date(item["Last Modified"]).toISOString().split("T")[0]
+            : new Date().toISOString().split("T")[0],
+        };
+      });
 
       // const end = performance.now()
 
@@ -223,32 +253,33 @@ export default {
       //   `[sitemapItems] ${result.length} items in ${(end - start).toFixed(2)} ms`
       // )
 
-      return result
+      return result;
     },
     mobileFiltersLabel() {
       const parts = [];
 
-      if (this.filterValsRef.search?.trim()) parts.push('Search');
-      if (this.routeArtistType !== 'all-media') parts.push('Artist Type');
-      if (this.routeArtistLevel !== 'all-price-ranges') parts.push('Artist Level');
-      if (this.artworkCount !== 'all') parts.push('Number of Works');
+      if (this.filterValsRef.search?.trim()) parts.push("Search");
+      if (this.routeArtistType !== "all-media") parts.push("Artist Type");
+      if (this.routeArtistLevel !== "all-price-ranges")
+        parts.push("Artist Level");
+      if (this.artworkCount !== "all") parts.push("Number of Works");
 
-      if (parts.length === 0) return '';
+      if (parts.length === 0) return "";
       if (parts.length === 1) return `1 Selected Filter`;
       return `${parts.length} Selected Filters`;
     },
     routeArtistType: {
       get() {
-        return this.$route.params.artistType || 'all-media'
+        return this.$route.params.artistType || "all-media";
       },
       set(val) {
         this.$router.push({
           params: {
             ...this.$route.params,
-            artistType: val
-          }
-        })
-      }
+            artistType: val,
+          },
+        });
+      },
     },
 
     // routeArtistLevel: {
@@ -265,27 +296,24 @@ export default {
     //   }
     // },
 
-
-
-
-
     seoLdJson() {
-
-
-
-      const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/');
+      const url =
+        window.location.origin + (this.$route?.fullPath.split("#")[0] || "/");
       const siteName = import.meta.env.VITE_API_SITE_TITLE;
 
-      let image = import.meta.env.VITE_API_DEFAULT_IMAGE
-      if (this.parent?.fields?.['Image']?.[0]?.thumbnails?.large?.url) {
-        image = `${import.meta.env.VITE_API_PROXY_URL}/cacher/data-cache/index.php?url=${encodeURIComponent(this.parent?.fields?.['Image']?.[0]?.thumbnails?.large?.url)}`;
+      let image = import.meta.env.VITE_API_DEFAULT_IMAGE;
+      if (this.parent?.fields?.["Image"]?.[0]?.thumbnails?.large?.url) {
+        image = `${
+          import.meta.env.VITE_API_PROXY_URL
+        }/cacher/data-cache/index.php?url=${encodeURIComponent(
+          this.parent?.fields?.["Image"]?.[0]?.thumbnails?.large?.url,
+        )}`;
       }
 
-
       const schema = buildSchemaItem({
-        type: this.parent.fields?.['SEO Type'],
-        name: this.parent.fields?.['Title'] || siteName,
-        description: this.parent.fields?.['Subtitle'] || "",
+        type: this.parent.fields?.["SEO Type"],
+        name: this.parent.fields?.["Title"] || siteName,
+        description: this.parent.fields?.["Subtitle"] || "",
         url,
         image,
         extras: {
@@ -298,21 +326,29 @@ export default {
           //   addressRegion: "Western Cape",
           //   addressCountry: "ZA"
           // },
-          // openingHours: this.parent.fields?.['Opening Hours'] 
+          // openingHours: this.parent.fields?.['Opening Hours']
           //   ? this.parent.fields['Opening Hours'].split('\n').map(line => line.trim())
           //   : []
-        }
-      })
-
+        },
+      });
 
       const products = this.filteredItems.map((item) => {
-
         const newItem = buildSchemaItem({
           type: "Person",
-          url: item['SEO URL'] ? window.location.origin + item['SEO URL'] : null,
-          name: item['Name'] || "",
-          description: item?.['artist:artist_statement'] ? this.truncate(item?.['artist:artist_statement'], 500) : "",
-          image: item?.['Attachments']?.[0]?.thumbnails?.large?.url ? `${import.meta.env.VITE_API_PROXY_URL}/cacher/data-cache/index.php?url=${encodeURIComponent(item?.['Attachments']?.[0]?.thumbnails?.large?.url)}` : import.meta.env.VITE_API_DEFAULT_IMAGE,
+          url: item["SEO URL"]
+            ? window.location.origin + item["SEO URL"]
+            : null,
+          name: item["Name"] || "",
+          description: item?.["artist:artist_statement"]
+            ? this.truncate(item?.["artist:artist_statement"], 500)
+            : "",
+          image: item?.["Attachments"]?.[0]?.thumbnails?.large?.url
+            ? `${
+                import.meta.env.VITE_API_PROXY_URL
+              }/cacher/data-cache/index.php?url=${encodeURIComponent(
+                item?.["Attachments"]?.[0]?.thumbnails?.large?.url,
+              )}`
+            : import.meta.env.VITE_API_DEFAULT_IMAGE,
           // price: item['Price'] || "broo...",
           // extras: {
           //   category: item["Name (from Medium)"]?.[0]  || "",
@@ -331,82 +367,77 @@ export default {
       return schema;
     },
 
-
-
-
-
     seoConfig() {
-
-      const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/');
+      const url =
+        window.location.origin + (this.$route?.fullPath.split("#")[0] || "/");
       const siteName = import.meta.env.VITE_API_SITE_TITLE;
 
-      let image = import.meta.env.VITE_API_DEFAULT_IMAGE
+      let image = import.meta.env.VITE_API_DEFAULT_IMAGE;
       let imageWidth = import.meta.env.VITE_API_DEFAULT_IMAGE_WIDTH;
       let imageHeight = import.meta.env.VITE_API_DEFAULT_IMAGE_HEIGHT;
-      if (this.parent?.fields?.['Image']?.[0]?.thumbnails?.large?.url) {
-        const imageObject = this.parent?.fields?.['Image']?.[0]?.thumbnails?.large
-        image = `${import.meta.env.VITE_API_PROXY_URL}/cacher/data-cache/index.php?url=${encodeURIComponent(imageObject?.url)}`;
-        imageWidth = imageObject.width
-        imageHeight = imageObject.height
+      if (this.parent?.fields?.["Image"]?.[0]?.thumbnails?.large?.url) {
+        const imageObject =
+          this.parent?.fields?.["Image"]?.[0]?.thumbnails?.large;
+        image = `${
+          import.meta.env.VITE_API_PROXY_URL
+        }/cacher/data-cache/index.php?url=${encodeURIComponent(
+          imageObject?.url,
+        )}`;
+        imageWidth = imageObject.width;
+        imageHeight = imageObject.height;
       }
 
       return buildSeoConfig({
-        title: this.parent.fields?.['Title'],
-        description: this.parent.fields?.['Subtitle'] || "",
+        title: this.parent.fields?.["Title"],
+        description: this.parent.fields?.["Subtitle"] || "",
         url,
         image: image,
         imageWidth,
         imageHeight,
         siteName,
-        type: this.parent.fields?.['SEO Type'],
-        schema: this.seoLdJson
+        type: this.parent.fields?.["SEO Type"],
+        schema: this.seoLdJson,
       });
     },
 
     seoConfigMasked() {
-      const c = { ...this.seoConfig }
-      c.script = ''
-      return c
+      const c = { ...this.seoConfig };
+      c.script = "";
+      return c;
     },
   },
 
   watch: {
-    '$route.params': {
+    "$route.params": {
       handler() {
-        this.resetAndFetch()
+        this.resetAndFetch();
       },
-      deep: true
-    }
-
+      deep: true,
+    },
   },
 
   methods: {
-
-
     truncate(text, limit = 1000) {
       if (!text) return "";
       return text.length > limit ? text.slice(0, limit) + "..." : text;
     },
 
-
-
-
     /* 🔍 Token-based search */
     matchesTokenSearch(name, query) {
       if (!query) return true;
 
-      const nameTokens = (name || '').toLowerCase().split(/\s+/);
+      const nameTokens = (name || "").toLowerCase().split(/\s+/);
       const queryTokens = query.toLowerCase().split(/\s+/);
 
-      return queryTokens.every(qt =>
-        nameTokens.some(nt => nt.includes(qt))
+      return queryTokens.every((qt) =>
+        nameTokens.some((nt) => nt.includes(qt)),
       );
     },
 
     getCount(optionValue, lookupKey) {
       if (!this.allRecords?.length) return 0;
 
-      const search = this.filterValsRef?.search?.toLowerCase() || '';
+      const search = this.filterValsRef?.search?.toLowerCase() || "";
 
       // Start with all records
       let subset = [...this.allRecords];
@@ -419,35 +450,34 @@ export default {
       ------------------------------- */
 
       // If counting ARTIST TYPE, ignore activeType
-      if (lookupKey !== 'type' && activeType !== 'all-media') {
+      if (lookupKey !== "type" && activeType !== "all-media") {
         const map = {
-          'fine-art': 'Fine Art',
-          'sculptural-works': 'Sculptural Works',
-          'new-media': 'New Media',
-          'merch-art': 'Merch Art'
+          "fine-art": "Fine Art",
+          "sculptural-works": "Sculptural Works",
+          "new-media": "New Media",
+          "merch-art": "Merch Art",
         };
 
         const expected = map[activeType];
-        subset = subset.filter(r => (r.Media || []).includes(expected));
+        subset = subset.filter((r) => (r.Media || []).includes(expected));
       }
 
       // If counting ARTIST LEVEL, ignore activeLevel
-      if (lookupKey !== 'level' && activeLevel !== 'all-price-ranges') {
+      if (lookupKey !== "level" && activeLevel !== "all-price-ranges") {
         const tierMap = {
-          gold: 'Gold',
-          silver: 'Silver',
-          bronze: 'Bronze'
+          gold: "Gold",
+          silver: "Silver",
+          bronze: "Bronze",
         };
 
         const expected = tierMap[activeLevel];
-        subset = subset.filter(r => r['Av. Price Tier'] === expected);
+        subset = subset.filter((r) => r["Av. Price Tier"] === expected);
       }
-
 
       // Apply search filter
       if (search) {
-        subset = subset.filter(r =>
-          (r.Name || '').toLowerCase().includes(search)
+        subset = subset.filter((r) =>
+          (r.Name || "").toLowerCase().includes(search),
         );
       }
 
@@ -456,156 +486,150 @@ export default {
       ------------------------------- */
 
       // All option returns the whole subset
-      if (optionValue === 'all-media' || optionValue === 'all-price-ranges') {
+      if (optionValue === "all-media" || optionValue === "all-price-ranges") {
         return subset.length;
       }
 
       // Count for specific ARTIST TYPE
-      if (lookupKey === 'type') {
+      if (lookupKey === "type") {
         const map = {
-          'fine-art': 'Fine Art',
-          'sculptural-works': 'Sculptural Works',
-          'new-media': 'New Media',
-          'merch-art': 'Merch Art'
+          "fine-art": "Fine Art",
+          "sculptural-works": "Sculptural Works",
+          "new-media": "New Media",
+          "merch-art": "Merch Art",
         };
 
         const expected = map[optionValue];
-        return subset.filter(r => (r.Media || []).includes(expected)).length;
+        return subset.filter((r) => (r.Media || []).includes(expected)).length;
       }
 
       // Count for specific ARTIST LEVEL
-      if (lookupKey === 'level') {
+      if (lookupKey === "level") {
         const tierMap = {
-          gold: 'Gold',
-          silver: 'Silver',
-          bronze: 'Bronze'
+          gold: "Gold",
+          silver: "Silver",
+          bronze: "Bronze",
         };
 
         const expected = tierMap[optionValue];
-        return subset.filter(r => r['Av. Price Tier'] === expected).length;
+        return subset.filter((r) => r["Av. Price Tier"] === expected).length;
       }
 
-
-
       // Count for ARTWORK COUNT (per artist)
-      if (lookupKey === 'artworkCount') {
-        const countArtworks = (r) => Number(r['Count (Art)'] || 0)
+      if (lookupKey === "artworkCount") {
+        const countArtworks = (r) => Number(r["Count (Art)"] || 0);
 
-        if (optionValue === 'all') {
-          return subset.length
+        if (optionValue === "all") {
+          return subset.length;
         }
 
-        if (optionValue === 'smallCount') {
-          return subset.filter(r => countArtworks(r) < 2).length
+        if (optionValue === "smallCount") {
+          return subset.filter((r) => countArtworks(r) < 2).length;
         }
 
-        if (optionValue === 'mediumCount') {
-          return subset.filter(r => {
-            const c = countArtworks(r)
-            return c >= 2 && c <= 5
-          }).length
+        if (optionValue === "mediumCount") {
+          return subset.filter((r) => {
+            const c = countArtworks(r);
+            return c >= 2 && c <= 5;
+          }).length;
         }
 
-        if (optionValue === 'largeCount') {
-          return subset.filter(r => countArtworks(r) > 5).length
+        if (optionValue === "largeCount") {
+          return subset.filter((r) => countArtworks(r) > 5).length;
         }
       }
 
       return 0;
     },
 
-
-
     async fetchData() {
       this.loading = true;
       try {
         if (!this.allRecords.length) {
-          const res = await ArtistsBoundCache.FetchAll()
-          this.allRecords = res.response.data.records.map(r => ({ id: r.id, ...r.fields })).filter(r => r.Hide !== true)
+          const res = await ArtistsBoundCache.FetchAll();
+          this.allRecords = res.response.data.records
+            .map((r) => ({ id: r.id, ...r.fields }))
+            .filter((r) => r.Hide !== true);
         }
-        let filtered = this.allRecords
+        let filtered = this.allRecords;
 
+        const search = this.filterValsRef.search;
 
-        const search = this.filterValsRef.search
-
-        const type = this.routeArtistType     // slug
-        const level = this.routeArtistLevel   // slug
+        const type = this.routeArtistType; // slug
+        const level = this.routeArtistLevel; // slug
 
         // Artist Type → Media lookup
-        if (type !== 'all-media') {
+        if (type !== "all-media") {
           const humanReadable = {
-            'fine-art': 'Fine Art',
-            'sculptural-works': 'Sculptural Works',
-            'new-media': 'New Media',
-            'merch-art': 'Merch Art'
-          }[type]
+            "fine-art": "Fine Art",
+            "sculptural-works": "Sculptural Works",
+            "new-media": "New Media",
+            "merch-art": "Merch Art",
+          }[type];
 
-          filtered = filtered.filter(r => (r.Media || []).includes(humanReadable))
+          filtered = filtered.filter((r) =>
+            (r.Media || []).includes(humanReadable),
+          );
         }
 
         // Artist Level → tier lookup
-        if (level !== 'all-price-ranges') {
+        if (level !== "all-price-ranges") {
           const tierMap = {
-            gold: 'Gold',
-            silver: 'Silver',
-            bronze: 'Bronze'
-          }[level]
+            gold: "Gold",
+            silver: "Silver",
+            bronze: "Bronze",
+          }[level];
 
-          filtered = filtered.filter(r => r['Av. Price Tier'] === tierMap)
+          filtered = filtered.filter((r) => r["Av. Price Tier"] === tierMap);
         }
 
         // search
         if (search) {
-          filtered = filtered.filter(r =>
-            this.matchesTokenSearch(r.Name, search)
-          )
+          filtered = filtered.filter((r) =>
+            this.matchesTokenSearch(r.Name, search),
+          );
         }
 
-        const countFilter = this.artworkCount
+        const countFilter = this.artworkCount;
 
-        if (countFilter !== 'all') {
-          filtered = filtered.filter(r => {
-            const count = Number(r['Count (Art)'] || 0)
+        if (countFilter !== "all") {
+          filtered = filtered.filter((r) => {
+            const count = Number(r["Count (Art)"] || 0);
 
-            if (countFilter === 'smallCount') return count < 2
-            if (countFilter === 'mediumCount') return count >= 2 && count <= 5
-            if (countFilter === 'largeCount') return count > 5
+            if (countFilter === "smallCount") return count < 2;
+            if (countFilter === "mediumCount") return count >= 2 && count <= 5;
+            if (countFilter === "largeCount") return count > 5;
 
-            return true
-          })
+            return true;
+          });
         }
 
-
-
-
-
-        this.filteredItems = filtered
+        this.filteredItems = filtered;
         this.totalFiltered = filtered.length;
       } catch (err) {
-        console.error('❌ Failed to load artists:', err)
+        console.error("❌ Failed to load artists:", err);
       }
 
-      this.loading = false
-      this.$emit('loaded')
+      this.loading = false;
+      this.$emit("loaded");
     },
-
 
     scrollToResultsTop() {
       this.$nextTick(() => {
-        const el = this.$refs.resultsTop
-        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
-      })
+        const el = this.$refs.resultsTop;
+        if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
     },
 
     async resetAndFetch() {
-      this.currentPage = 0
-      await this.fetchData()
-      this.scrollToResultsTop()
+      this.currentPage = 0;
+      await this.fetchData();
+      this.scrollToResultsTop();
     },
   },
 
   async mounted() {
-    await this.fetchData()
+    await this.fetchData();
   },
-}
+};
 </script>

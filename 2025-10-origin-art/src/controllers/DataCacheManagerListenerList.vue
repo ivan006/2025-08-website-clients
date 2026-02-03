@@ -1,6 +1,5 @@
 <template>
   <div class="q-mt-md">
-
     <!-- 🧩 Segment hiding -->
     <div v-if="requests.length" class="row items-center q-gutter-sm q-mb-md">
       <q-input
@@ -26,32 +25,34 @@
 
     <!-- 🧾 Requests table -->
     <q-table
-        v-if="requests.length"
-        flat
-        bordered
-        dense
-        :rows="rows"
-        :columns="columns"
-        row-key="id"
+      v-if="requests.length"
+      flat
+      bordered
+      dense
+      :rows="rows"
+      :columns="columns"
+      row-key="id"
     >
-    <template #body-cell-url="props">
-    <q-td style="white-space: normal; word-break: break-all;">
-        <code class="text-caption">
-        <span
-            v-for="(part, i) in visibleParts(props.row.url)"
-            :key="i"
-            :style="{ color: rainbow[i % rainbow.length], fontWeight: 'bold' }"
-        >
-            {{ part }}
-        </span>
-        </code>
-    </q-td>
-    </template>
-
+      <template #body-cell-url="props">
+        <q-td style="white-space: normal; word-break: break-all">
+          <code class="text-caption">
+            <span
+              v-for="(part, i) in visibleParts(props.row.url)"
+              :key="i"
+              :style="{
+                color: rainbow[i % rainbow.length],
+                fontWeight: 'bold',
+              }"
+            >
+              {{ part }}
+            </span>
+          </code>
+        </q-td>
+      </template>
 
       <template #body-cell-actions="props">
         <q-td align="right">
-            <q-btn
+          <q-btn
             :size="$q.screen.lt.md ? 'sm' : 'sm'"
             color="negative"
             outline
@@ -60,8 +61,7 @@
             :loading="deleting.has(props.row.url)"
             :disable="deleted.has(props.row.url)"
             @click="deleteCache(props.row.url)"
-            />
-
+          />
         </q-td>
       </template>
     </q-table>
@@ -74,77 +74,82 @@
 
 <script>
 export default {
-  name: 'DataCacheManagerListenerList',
+  name: "DataCacheManagerListenerList",
 
   props: {
-    requests: { type: Array, required: true }
+    requests: { type: Array, required: true },
   },
 
-  data () {
+  data() {
     return {
-        deleting: new Set(),
-        deleted: new Set(),
+      deleting: new Set(),
+      deleted: new Set(),
       hideSegmentsCount: 14,
       rainbow: [
-        '#1565C0', '#0277BD', '#00897B', '#2E7D32',
-        '#EF6C00', '#AD1457', '#6A1B9A', '#424242'
+        "#1565C0",
+        "#0277BD",
+        "#00897B",
+        "#2E7D32",
+        "#EF6C00",
+        "#AD1457",
+        "#6A1B9A",
+        "#424242",
       ],
       columns: [
         {
-          name: 'url',
-          label: 'Request',
-          field: 'url',
-          align: 'left'
+          name: "url",
+          label: "Request",
+          field: "url",
+          align: "left",
         },
         {
-          name: 'actions',
-          label: 'Actions',
-          align: 'right'
-        }
-      ]
-    }
+          name: "actions",
+          label: "Actions",
+          align: "right",
+        },
+      ],
+    };
   },
 
   computed: {
-    rows () {
+    rows() {
       return this.requests.map((url, i) => ({
         id: i,
-        url
-      }))
-    }
+        url,
+      }));
+    },
   },
 
   methods: {
-    coloredParts (arg) {
-      const decoded = decodeURIComponent(arg)
-      return decoded.split(/([?/&=]+)/).filter(p => p.length)
+    coloredParts(arg) {
+      const decoded = decodeURIComponent(arg);
+      return decoded.split(/([?/&=]+)/).filter((p) => p.length);
     },
 
-    visibleParts (arg) {
-      return this.coloredParts(arg).slice(this.hideSegmentsCount)
+    visibleParts(arg) {
+      return this.coloredParts(arg).slice(this.hideSegmentsCount);
     },
 
-
-    buttonLabel (url) {
-        if (this.deleted.has(url)) return 'Deleted'
-        if (this.deleting.has(url)) return 'Deleting…'
-        return 'Delete'
+    buttonLabel(url) {
+      if (this.deleted.has(url)) return "Deleted";
+      if (this.deleting.has(url)) return "Deleting…";
+      return "Delete";
     },
 
-    async deleteCache (url) {
-        if (this.deleting.has(url) || this.deleted.has(url)) return
+    async deleteCache(url) {
+      if (this.deleting.has(url) || this.deleted.has(url)) return;
 
-        this.deleting.add(url)
+      this.deleting.add(url);
 
-        try {
-        await fetch(url.replace('?url=', '?delete='))
-        this.deleted.add(url)
-        } catch (e) {
-        console.error('Delete failed', e)
-        } finally {
-        this.deleting.delete(url)
-        }
-    }
-  }
-}
+      try {
+        await fetch(url.replace("?url=", "?delete="));
+        this.deleted.add(url);
+      } catch (e) {
+        console.error("Delete failed", e);
+      } finally {
+        this.deleting.delete(url);
+      }
+    },
+  },
+};
 </script>

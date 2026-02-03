@@ -1,7 +1,10 @@
 <template>
     <div>
-
-        <div v-if="errors.length" class="text-negative text-caption q-mt-xsx text-center" role="alert">
+        <div
+            v-if="errors.length"
+            class="text-negative text-caption q-mt-xsx text-center"
+            role="alert"
+        >
             <div v-for="(err, i) in errors" :key="i">
                 {{ err }}
             </div>
@@ -11,13 +14,13 @@
 
 <script>
 export default {
-    name: 'NativeLikeValidationError',
+    name: "NativeLikeValidationError",
 
     props: {
         errors: {
             type: Array,
-            default: () => []
-        }
-    }
-}
+            default: () => [],
+        },
+    },
+};
 </script>

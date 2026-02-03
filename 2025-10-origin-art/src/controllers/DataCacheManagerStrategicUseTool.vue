@@ -11,16 +11,21 @@
       style="max-width: 400px"
       class="q-mb-md"
     />
-    <q-btn :size="$q.screen.lt.md ? 'md' : 'md'" color="primary" label="Calculate" @click="calculate" />
+    <q-btn
+      :size="$q.screen.lt.md ? 'md' : 'md'"
+      color="primary"
+      label="Calculate"
+      @click="calculate"
+    />
 
     <div v-if="filters.length" class="q-mt-md">
       <p>
-        Adding <strong>one new item</strong> affects 
+        Adding <strong>one new item</strong> affects
         <strong>{{ totalCombos }}</strong> cache combinations.
       </p>
-      <ul style="margin-left:1em;">
+      <ul style="margin-left: 1em">
         <li v-for="(combo, i) in combos" :key="i">
-          {{ combo.join(' + ') || 'All (unfiltered)' }}
+          {{ combo.join(" + ") || "All (unfiltered)" }}
         </li>
       </ul>
     </div>
@@ -37,42 +42,42 @@
 </template>
 
 <script>
-import DataCacheManagerAllCombos from './DataCacheManagerAllCombos.vue'
+import DataCacheManagerAllCombos from "./DataCacheManagerAllCombos.vue";
 
 export default {
-  name: 'DataCacheManagerStrategicUseTool',
+  name: "DataCacheManagerStrategicUseTool",
   components: { DataCacheManagerAllCombos },
   data() {
     return {
-      inputString: 'Media, Style, Budget Tier',
+      inputString: "Media, Style, Budget Tier",
       filters: [],
-      combos: []
-    }
+      combos: [],
+    };
   },
   computed: {
     totalCombos() {
-      return Math.pow(2, this.filters.length)
-    }
+      return Math.pow(2, this.filters.length);
+    },
   },
   methods: {
     calculate() {
       this.filters = this.inputString
-        .split(',')
-        .map(f => f.trim())
-        .filter(Boolean)
-      this.combos = this.generateCombos(this.filters)
+        .split(",")
+        .map((f) => f.trim())
+        .filter(Boolean);
+      this.combos = this.generateCombos(this.filters);
     },
     generateCombos(filters) {
-      const results = [[]]
+      const results = [[]];
       for (let mask = 1; mask < Math.pow(2, filters.length); mask++) {
-        const combo = filters.filter((_, i) => mask & (1 << i))
-        results.push(combo)
+        const combo = filters.filter((_, i) => mask & (1 << i));
+        results.push(combo);
       }
-      return results
-    }
+      return results;
+    },
   },
   mounted() {
-    this.calculate()
-  }
-}
+    this.calculate();
+  },
+};
 </script>

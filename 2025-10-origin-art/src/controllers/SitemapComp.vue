@@ -1,7 +1,7 @@
 <template>
   <div>
     <q-dialog v-model="open">
-      <q-card style="max-height: 90vh; overflow-y: auto;">
+      <q-card style="max-height: 90vh; overflow-y: auto">
         <q-card-section>
           <div class="text-h6">Sitemap XML Viewer</div>
           <div class="text-caption text-grey">
@@ -30,7 +30,13 @@
         </q-card-section>
 
         <q-card-actions align="right">
-          <q-btn :size="$q.screen.lt.md ? 'md' : 'md'" flat label="Close" color="primary" v-close-popup />
+          <q-btn
+            :size="$q.screen.lt.md ? 'md' : 'md'"
+            flat
+            label="Close"
+            color="primary"
+            v-close-popup
+          />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -44,61 +50,62 @@ export default {
   props: {
     items: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
 
   data() {
     return {
-      open: false
-    }
+      open: false,
+    };
   },
 
   computed: {
     lastModified() {
       if (!this.items.length) {
-        return new Date().toISOString().split('T')[0]
+        return new Date().toISOString().split("T")[0];
       }
 
       // max(lastmod) across all sitemap entries
       return this.items
-        .map(i => i.lastmod)
+        .map((i) => i.lastmod)
         .sort()
-        .at(-1)
+        .at(-1);
     },
     xml() {
       const escape = (str) =>
         String(str)
           .replace(/&/g, "&amp;")
           .replace(/</g, "&lt;")
-          .replace(/>/g, "&gt;")
+          .replace(/>/g, "&gt;");
 
-      const urls = this.items.map(i => `
+      const urls = this.items.map(
+        (i) => `
   <url>
     <loc>${escape(i.url)}</loc>
     <lastmod>${escape(i.lastmod)}</lastmod>
-  </url>`)
+  </url>`,
+      );
 
       return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls.join("\n")}
-</urlset>`
-    }
+</urlset>`;
+    },
   },
 
   methods: {
     copyText(text) {
-      navigator.clipboard.writeText(text)
-    }
+      navigator.clipboard.writeText(text);
+    },
   },
 
   mounted() {
-    window.addEventListener("keydown", e => {
+    window.addEventListener("keydown", (e) => {
       if (e.shiftKey && e.key === "G") {
-        this.open = true
+        this.open = true;
       }
-    })
-  }
-}
+    });
+  },
+};
 </script>
-

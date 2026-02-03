@@ -1,15 +1,10 @@
 <template>
   <div class="row items-center no-wrap">
-
     <!-- ROOT LEVEL -->
-    <div
-      v-for="item in menuData"
-      :key="item.id"
-      class="q-mx-sm"
-    >
-
+    <div v-for="item in menuData" :key="item.id" class="q-mx-sm">
       <!-- A) ROOT WITHOUT CHILDREN -->
-      <q-btn :size="$q.screen.lt.md ? 'md' : 'md'"
+      <q-btn
+        :size="$q.screen.lt.md ? 'md' : 'md'"
         v-if="!item.children || !item.children.length"
         flat
         no-caps
@@ -22,7 +17,7 @@
       <!-- B) ROOT WITH CHILDREN -->
       <q-btn-dropdown
         v-else
-         :size="$q.screen.lt.md ? 'md' : 'md'"
+        :size="$q.screen.lt.md ? 'md' : 'md'"
         flat
         no-caps
         dense
@@ -31,27 +26,22 @@
         icon-right="keyboard_arrow_down"
         content-style="min-width: 220px"
       >
-
         <!-- FIRST LEVEL -->
         <q-list bordered separator>
-
           <MenuItem
             v-for="child in item.children"
             :key="child.id"
             :node="child"
           />
-
         </q-list>
-
       </q-btn-dropdown>
-
     </div>
   </div>
 </template>
 
 <script>
-import menuData from "./menu.json"
-import MenuItem from "./MenuItem.vue"
+import menuData from "./menu.json";
+import MenuItem from "./MenuItem.vue";
 
 export default {
   name: "MultiLevelNav",
@@ -61,7 +51,7 @@ export default {
   data() {
     return {
       menuData,
-    }
+    };
   },
 
   methods: {
@@ -72,9 +62,9 @@ export default {
         fontWeight: "600",
         color: "#1a1a1a",
         padding: "6px 10px",
-        backgroundColor: "transparent"
-      }
-    }
-  }
-}
+        backgroundColor: "transparent",
+      };
+    },
+  },
+};
 </script>

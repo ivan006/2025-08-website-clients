@@ -15,31 +15,35 @@
       <!--<div class="row justify-center" >-->
 
       <template v-for="item in items" :key="item.id">
-
         <!--<q-avatar>-->
         <!--  <img :src="item">-->
         <!--</q-avatar>-->
         <div class="col-xl-6 col-md-6 col-6">
           <div class="">
-
-
-            <q-card class="q-ma-smx" style="border-radius: 10px;" flat>
+            <q-card class="q-ma-smx" style="border-radius: 10px" flat>
               <q-card-section class="q-pa-none">
-
-
                 <div>
-                  <q-img :src="item?.['Image']?.[0]?.thumbnails?.large?.url
-                    ? `${$apiProxyUrl}${encodeURIComponent(item['Image'][0].thumbnails.large.url)}`
-                    : ''" :alt="`${item.Title} Catalogue`" :style="{
-                    height: $q.screen.lt.md ? '150px' : '220px',
-                    maxWidth: '100%'
-                  }" fit="cover" class="rounded-top" />
+                  <q-img
+                    :src="
+                      item?.['Image']?.[0]?.thumbnails?.large?.url
+                        ? `${$apiProxyUrl}${encodeURIComponent(
+                            item['Image'][0].thumbnails.large.url,
+                          )}`
+                        : ''
+                    "
+                    :alt="`${item.Title} Catalogue`"
+                    :style="{
+                      height: $q.screen.lt.md ? '150px' : '220px',
+                      maxWidth: '100%',
+                    }"
+                    fit="cover"
+                    class="rounded-top"
+                  />
 
                   <!--<img src="https://cdn.quasar.dev/img/avatar.png">-->
                 </div>
 
-                <div class=" q-py-sm q-px-md text-center ">
-
+                <div class="q-py-sm q-px-md text-center">
                   <!-- <div class="lt-md q-mt-lg"></div> -->
 
                   <h2 class="r-font-h4 font-1ry text- q-my-sm text-uppercase">
@@ -50,19 +54,19 @@
                     {{ item["Subtitle"] }}
                   </p>
 
-
-                  <q-btn :to="item['SEO URL']" color="grey-8" :size="$q.screen.lt.md ? 'md' : 'md'" unelevated class="q-my-sm"
-                    style="border-radius: 100px;" no-caps>
+                  <q-btn
+                    :to="item['SEO URL']"
+                    color="grey-8"
+                    :size="$q.screen.lt.md ? 'md' : 'md'"
+                    unelevated
+                    class="q-my-sm"
+                    style="border-radius: 100px"
+                    no-caps
+                  >
                     <!-- {{ item["Button Text"] }} -->
                     Learn More
                   </q-btn>
-
-
-
-
-
                 </div>
-
               </q-card-section>
             </q-card>
 
@@ -72,44 +76,38 @@
           </div>
         </div>
       </template>
-
     </div>
-
   </template>
-
-
 </template>
 
 <script>
-import Home_Page_Items from 'src/models/orm-api/Home_Page_Items'
+import Home_Page_Items from "src/models/orm-api/Home_Page_Items";
 import { createMetaMixin } from "quasar";
 import { buildSchemaItem, buildSeoConfig } from "src/utils/seo";
 import SEODataViewer from "src/controllers/SEODataViewer.vue";
-import SitemapComp from 'src/controllers/SitemapComp.vue'
+import SitemapComp from "src/controllers/SitemapComp.vue";
 
 export default {
-  name: 'HomeItemsComp',
+  name: "HomeItemsComp",
   components: {
     SEODataViewer,
-    SitemapComp
+    SitemapComp,
   },
 
   mixins: [
     createMetaMixin(function () {
-
       return this.seoConfig;
-
-    })
+    }),
   ],
 
   props: {
     fetchFlags: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
     parent: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
   },
   data() {
@@ -124,24 +122,23 @@ export default {
         sortBy: [],
         groupBy: [],
       },
-      filterValsRef: {}
-    }
+      filterValsRef: {},
+    };
   },
   computed: {
-
     sitemapItems() {
       // const start = performance.now()
 
-      const result = this.items.map(item => {
-        const slug = item['SEO URL']
+      const result = this.items.map((item) => {
+        const slug = item["SEO URL"];
 
         return {
           url: `${window.location.origin}${slug}`,
-          lastmod: item['Last Modified']
-            ? new Date(item['Last Modified']).toISOString().split('T')[0]
-            : new Date().toISOString().split('T')[0]
-        }
-      })
+          lastmod: item["Last Modified"]
+            ? new Date(item["Last Modified"]).toISOString().split("T")[0]
+            : new Date().toISOString().split("T")[0],
+        };
+      });
 
       // const end = performance.now()
 
@@ -149,57 +146,62 @@ export default {
       //   `[sitemapItems] ${result.length} items in ${(end - start).toFixed(2)} ms`
       // )
 
-      return result
+      return result;
     },
 
     seoLdJson() {
-
-
-
-      const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/');
+      const url =
+        window.location.origin + (this.$route?.fullPath.split("#")[0] || "/");
       const siteName = import.meta.env.VITE_API_SITE_TITLE;
 
-      let image = import.meta.env.VITE_API_DEFAULT_IMAGE
+      let image = import.meta.env.VITE_API_DEFAULT_IMAGE;
       // if (this.parent?.fields?.['Image']?.[0]?.thumbnails?.large?.url) {
       //   image = `${import.meta.env.VITE_API_PROXY_URL}/cacher/data-cache/index.php?url=${encodeURIComponent(this.parent?.fields?.['Image']?.[0]?.thumbnails?.large?.url)}`;
       // }
 
-
       const schema = buildSchemaItem({
-        type: this.parent.fields?.['SEO Type'],
-        name: this.parent.fields?.['Title'] || siteName,
-        description: this.parent.fields?.['Subtitle'] || '',
+        type: this.parent.fields?.["SEO Type"],
+        name: this.parent.fields?.["Title"] || siteName,
+        description: this.parent.fields?.["Subtitle"] || "",
         url,
         image,
         extras: {
-          telephone: this.parent.fields?.['Phone Number'] || "",
-          email: this.parent.fields?.['Email Address'] || "",
+          telephone: this.parent.fields?.["Phone Number"] || "",
+          email: this.parent.fields?.["Email Address"] || "",
           address: {
             "@type": "PostalAddress",
-            streetAddress: this.parent.fields?.['Address'] || "",
+            streetAddress: this.parent.fields?.["Address"] || "",
             addressLocality: "Cape Town",
             addressRegion: "Western Cape",
-            addressCountry: "ZA"
+            addressCountry: "ZA",
           },
-          openingHours: this.parent.fields?.['Opening Hours']
-            ? this.parent.fields['Opening Hours'].split('\n').map(line => line.trim())
-            : []
-        }
-      })
-
+          openingHours: this.parent.fields?.["Opening Hours"]
+            ? this.parent.fields["Opening Hours"]
+                .split("\n")
+                .map((line) => line.trim())
+            : [],
+        },
+      });
 
       const products = this.items.map((item) => {
-
         const newItem = buildSchemaItem({
-          type: item['SEO Type'],
-          url: item['SEO URL'] ? window.location.origin + item['SEO URL'] : null,
-          name: item['Title'] || '',
-          description: item['Subtitle'] || '',
-          image: item?.['Image']?.[0]?.url ? `${import.meta.env.VITE_API_PROXY_URL}/cacher/data-cache/index.php?url=${encodeURIComponent(item?.['Image']?.[0]?.url)}` : "",
-          price: item['Price'],
+          type: item["SEO Type"],
+          url: item["SEO URL"]
+            ? window.location.origin + item["SEO URL"]
+            : null,
+          name: item["Title"] || "",
+          description: item["Subtitle"] || "",
+          image: item?.["Image"]?.[0]?.url
+            ? `${
+                import.meta.env.VITE_API_PROXY_URL
+              }/cacher/data-cache/index.php?url=${encodeURIComponent(
+                item?.["Image"]?.[0]?.url,
+              )}`
+            : "",
+          price: item["Price"],
           extras: {
-            category: item['Category'],
-          }
+            category: item["Category"],
+          },
         });
         // console.log(newItem)
 
@@ -214,11 +216,11 @@ export default {
       return schema;
     },
     seoConfig() {
-
-      const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/');
+      const url =
+        window.location.origin + (this.$route?.fullPath.split("#")[0] || "/");
       const siteName = import.meta.env.VITE_API_SITE_TITLE;
 
-      let image = import.meta.env.VITE_API_DEFAULT_IMAGE
+      let image = import.meta.env.VITE_API_DEFAULT_IMAGE;
       let imageWidth = import.meta.env.VITE_API_DEFAULT_IMAGE_WIDTH;
       let imageHeight = import.meta.env.VITE_API_DEFAULT_IMAGE_HEIGHT;
       // if (this.parent?.fields?.['Image']?.[0]?.thumbnails?.large?.url) {
@@ -227,26 +229,25 @@ export default {
 
       return buildSeoConfig({
         title: null,
-        description: this.parent.fields?.['Subtitle'] || '',
+        description: this.parent.fields?.["Subtitle"] || "",
         url,
         image: image,
         imageWidth,
         imageHeight,
         siteName,
-        type: this.parent.fields?.['SEO Type'],
-        schema: this.seoLdJson
+        type: this.parent.fields?.["SEO Type"],
+        schema: this.seoLdJson,
       });
     },
 
     seoConfigMasked() {
-      const seoConfigMasked = { ...this.seoConfig }
-      seoConfigMasked.script = ""
-      return seoConfigMasked
+      const seoConfigMasked = { ...this.seoConfig };
+      seoConfigMasked.script = "";
+      return seoConfigMasked;
     },
 
-
     superTableModel() {
-      return Home_Page_Items
+      return Home_Page_Items;
     },
     filterValsComp() {
       const result = {
@@ -256,18 +257,15 @@ export default {
     },
   },
   methods: {
-
     isActive(item) {
       return item.URL === this.activeRoute;
     },
 
     async fetchData() {
       try {
-
         this.loading = true;
         this.loadingError = false;
         let rules = [];
-
 
         let extraHeaderComputed = {};
         let flagsComputed = {};
@@ -291,20 +289,17 @@ export default {
           },
         );
 
-        this.$emit('loaded')
+        this.$emit("loaded");
 
-
-        this.items = response.response.data.records.map(record => {
+        this.items = response.response.data.records.map((record) => {
           return {
             id: record.id,
             createdTime: record.createdTime,
-            ...record.fields
+            ...record.fields,
           };
         });
 
-
         this.loading = false;
-
       } catch (error) {
         this.loading = false;
         this.loadingError = true;
@@ -315,9 +310,9 @@ export default {
     this.fetchData();
   },
   watch: {
-    '$route.path'(newPath) {
+    "$route.path"(newPath) {
       this.activeRoute = newPath;
-    }
-  }
-}
+    },
+  },
+};
 </script>

@@ -1,6 +1,5 @@
 <template>
   <q-card flat bordered class="text-1ry-color box-shadow-1ry rounded-borders">
-
     <q-img
       :src="largeUrl"
       :placeholder-src="smallUrl"
@@ -10,12 +9,12 @@
       fit="contain"
       :alt="`${art.Title} by ${artistName}`"
     />
-      <!-- style="background-color: #EEE;" -->
-    
+    <!-- style="background-color: #EEE;" -->
+
     <q-separator />
 
     <q-card-section>
-      <div class="text-h6 font-1ry" style="min-height: 64px;">
+      <div class="text-h6 font-1ry" style="min-height: 64px">
         {{ art.Title }}
       </div>
 
@@ -24,7 +23,9 @@
       </div>
       <!-- Dimensions on preview -->
       <div
-        v-if="art.Height && art.Width" class="text-caption text-grey-7 q-mt-xs">
+        v-if="art.Height && art.Width"
+        class="text-caption text-grey-7 q-mt-xs"
+      >
         {{ art.Height }} × {{ art.Width }} cm
       </div>
 
@@ -42,8 +43,6 @@
         :to="`/artworks/${art.id}/${slugify(art.Title || 'artwork')}`"
       />
     </q-card-actions>
-
-
   </q-card>
 </template>
 
@@ -62,12 +61,20 @@ export default {
 
     largeUrl() {
       const u = this.attachments.thumbnails?.large?.url;
-      return u ? `${import.meta.env.VITE_API_PROXY_URL}/cacher/data-cache/index.php?url=${encodeURIComponent(u)}` : "";
+      return u
+        ? `${
+            import.meta.env.VITE_API_PROXY_URL
+          }/cacher/data-cache/index.php?url=${encodeURIComponent(u)}`
+        : "";
     },
 
     smallUrl() {
       const u = this.attachments.thumbnails?.small?.url;
-      return u ? `${import.meta.env.VITE_API_PROXY_URL}/cacher/data-cache/index.php?url=${encodeURIComponent(u)}` : "";
+      return u
+        ? `${
+            import.meta.env.VITE_API_PROXY_URL
+          }/cacher/data-cache/index.php?url=${encodeURIComponent(u)}`
+        : "";
     },
 
     artistName() {
@@ -76,20 +83,18 @@ export default {
 
     cardHeight() {
       return this.$q.screen.lt.md ? "150px" : "250px";
-    }
+    },
   },
   methods: {
-
-
     slugify(text) {
       return text
         .toLowerCase()
-        .replace(/\s+/g, '-')        // Replace spaces with -
-        .replace(/[^\w-]+/g, '')     // Remove non-word characters
-        .replace(/--+/g, '-')        // Merge multiple -
-        .replace(/^-+|-+$/g, '');    // Trim - from start/end
+        .replace(/\s+/g, "-") // Replace spaces with -
+        .replace(/[^\w-]+/g, "") // Remove non-word characters
+        .replace(/--+/g, "-") // Merge multiple -
+        .replace(/^-+|-+$/g, ""); // Trim - from start/end
     },
-  }
+  },
 };
 </script>
 

@@ -1,17 +1,17 @@
 <template>
   <div>
     <router-view />
-    
+
     <DataCacheManager />
   </div>
 </template>
 
 <script>
-import DataCacheManager from 'src/controllers/DataCacheManager.vue'
+import DataCacheManager from "src/controllers/DataCacheManager.vue";
 export default {
-  name: 'GlobalController',
+  name: "GlobalController",
   components: {
-    DataCacheManager
+    DataCacheManager,
   },
-}
+};
 </script>
