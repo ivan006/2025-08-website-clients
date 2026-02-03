@@ -1,23 +1,14 @@
 <template>
-  <div
-  >
+  <div>
     <div v-show="loading || childLoading">
       <div class="text-center q-pa-xl">Loading...</div>
     </div>
     <div v-show="!(loading || childLoading)">
-
-      
-      
-
-    
-      
-      <Secondary_Page_Items_Controller :parent="this.item" @loaded="childLoading=false" />
-
-
+      <Secondary_Page_Items_Controller
+        :parent="this.item"
+        @loaded="childLoading = false"
+      />
     </div>
-
-
-
   </div>
 </template>
 
@@ -28,50 +19,47 @@ import Secondary_Page_Items_Controller from "src/controllers/Secondary_Page_Item
 export default {
   name: "Secondary_Page_Controller",
   components: {
-    Secondary_Page_Items_Controller
+    Secondary_Page_Items_Controller,
   },
-  data(){
+  data() {
     return {
       loading: true,
       childLoading: true,
       item: {},
-    }
+    };
   },
   computed: {
-
     id() {
       // return this.$route.params.rId
-      return 'recHpBSy9dEXXwQDF'
+      return "recHpBSy9dEXXwQDF";
     },
     superTableModel() {
-      return Secondary_Page
+      return Secondary_Page;
     },
   },
   methods: {
     fetchData() {
-      this.loading = true
+      this.loading = true;
       this.superTableModel
         .FetchById(
           this.id,
           // this.relationships,
           [],
-          { flags: {}, moreHeaders: {}, rels: [] }
+          { flags: {}, moreHeaders: {}, rels: [] },
         )
         .then((response) => {
-          this.item = response.response.data
-          this.loading = false
+          this.item = response.response.data;
+          this.loading = false;
         })
         .catch(() => {
-          this.loading = false
+          this.loading = false;
         });
     },
   },
-  mounted(){
+  mounted() {
     this.fetchData();
-  }
-}
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>
