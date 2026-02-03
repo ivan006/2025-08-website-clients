@@ -21,7 +21,7 @@
             </div>
             <div class="q-pa-md">
               <q-btn
-                label="Refresh Cache"
+                label="Refresh List"
                 color="primary"
                 outline
                 class="q-mb-md"
