@@ -23,69 +23,110 @@
       <!-- COVER PAGE -->
       <section
         v-if="item.fields?.['Show Cover Page'] === true"
-        class="column items-center"
+        class=""
         style="
           position: relative;
           width: 210mm;
           height: 297mm;
-          padding: 25mm 20mm;
           box-sizing: border-box;
           page-break-after: always;
           background: white;
+          padding: 18mm 30mm;
         "
       >
-        <!-- HEADING (30mm) -->
-        <div
-          class="text-h4 font-1ry text-center"
-          style="height: 30mm; display: flex; align-items: center"
-        >
-          {{ item.fields.Title }}
-        </div>
+        <!-- border: solid 1px grey; -->
+        <div style="height: 260mm">
+          <!-- HEADING (30mm) -->
+          <div
+            class="text-h2 font-1ry text-center"
+            style="
+              height: 80mm;
+              display: flex;
+              align-items: center;
+              margin-left: auto;
+              margin-right: auto;
+            "
+          >
+            {{ item.fields.Title }}
+          </div>
 
-        <!-- BODY (55mm) -->
-        <div
-          v-if="item.fields?.['Body Text']"
-          class="text-body1 text-center"
-          style="
-            height: 55mm;
-            max-width: 140mm;
-            opacity: 0.85;
-            overflow: hidden;
-          "
-          v-html="bodyHtml"
-        ></div>
+          <!-- BODY (55mm) -->
+          <div style="height: 5mm"></div>
+          <div
+            v-if="item.fields?.['Body Text (max 200 chars)']"
+            class="text-body1 text-center"
+            style="
+              height: 20mm;
+              opacity: 0.85;
+              overflow: hidden;
+              margin-left: auto;
+              margin-right: auto;
+            "
+            v-html="bodyHtml"
+          ></div>
+          <div style="height: 10mm"></div>
 
-        <!-- IMAGE (150mm) -->
-        <div
-          v-if="item.fields?.Image?.[0]"
-          class="column items-center justify-center"
-          style="height: 150mm"
-        >
+          <!-- IMAGE (150mm) -->
+
           <img
+            v-if="item.fields?.Image?.[0]"
             :src="`${$apiProxyUrl}${encodeURIComponent(
               item.fields.Image[0].url,
             )}`"
-            style="max-height: 100%; max-width: 100%; object-fit: contain"
+            style="
+              height: 100%;
+              height: 80mm;
+              margin-left: auto;
+              margin-right: auto;
+              display: block;
+            "
           />
-        </div>
 
-        <!-- BRAND / CONTACT (62mm) -->
-        <div
-          class="column items-center justify-center"
-          style="height: 62mm; opacity: 0.85"
-        >
-          <img
-            :src="VITE_API_DEFAULT_IMAGE"
-            style="height: 22mm; object-fit: contain"
-            class="q-mb-md"
-          />
+          <!-- BRAND / CONTACT (62mm) -->
+
           <div
             class="text-caption text-center"
-            style="opacity: 0.7; line-height: 1.6"
+            style="
+              opacity: 0.7;
+              line-height: 1.6;
+              height: 70mm;
+              padding-top: 10mm;
+            "
           >
-            <div>{{ site?.["Contact Person"] }}</div>
-            <div>{{ site?.Email }}</div>
-            <div>{{ site?.["Phone Number"] }}</div>
+            <img
+              :src="`${$apiProxyUrl}${encodeURIComponent(
+                site['Compressed Logo'][0].url,
+              )}`"
+              style="
+                height: 10mm;
+                object-fit: contain;
+                margin-left: auto;
+                margin-right: auto;
+              "
+            />
+            <div class="text-h5" style="margin-left: auto; margin-right: auto">
+              {{ site?.["Title"] }}
+            </div>
+            <div
+              class="text-body2"
+              style="
+                width: 50mm;
+                padding-bottom: 5mm;
+                margin-left: auto;
+                margin-right: auto;
+              "
+            >
+              {{ site?.["Tagline"] }}
+            </div>
+            <div style="margin-left: auto; margin-right: auto">
+              {{ site?.["Contact Person"] }}
+            </div>
+            <div style="margin-left: auto; margin-right: auto">
+              {{ site?.Email }}
+            </div>
+            <div style="margin-left: auto; margin-right: auto">
+              {{ site?.["Phone Number"] }}
+            </div>
           </div>
         </div>
       </section>
@@ -125,7 +166,9 @@ export default {
 
   computed: {
     bodyHtml() {
-      return marked.parse(this.item.fields?.["Body Text"] || "");
+      return marked.parse(
+        this.item.fields?.["Body Text (max 200 chars)"] || "",
+      );
     },
     id() {
       return this.$route.params.rId;
