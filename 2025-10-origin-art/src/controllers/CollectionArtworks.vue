@@ -102,7 +102,6 @@
 
 <script>
 import Artworks from "src/models/orm-api/Artworks";
-import Site from "src/models/orm-api/Site";
 
 export default {
   name: "CollectionArtworks",
