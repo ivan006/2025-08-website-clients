@@ -60,12 +60,13 @@
             />
           </div>
 
-          <div v-if="item.fields?.Image?.[0]" style="height: 10mm"></div>
+          <div v-if="item.fields?.Image?.[0]" style="height: 20mm"></div>
           <div
-            class="text-h2 font-1ry text-center"
+            class="text-h3 font-1ry text-center"
             style="
-              height: 80mm;
+              max-height: 80mm;
               width: 100%;
+              line-height: 1.5em;
               display: flex;
               align-items: center; /* vertical center */
               justify-content: center; /* horizontal center */
@@ -75,7 +76,7 @@
           </div>
 
           <!-- BODY (55mm) -->
-          <div style="height: 5mm"></div>
+          <div style="height: 20mm"></div>
           <div
             v-if="item.fields?.['Body Text (max 200 chars)']"
             class="text-body1 text-center"
