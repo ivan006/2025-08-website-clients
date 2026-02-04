@@ -23,7 +23,7 @@
       <!-- COVER PAGE -->
       <section
         v-if="item.fields?.['Show Cover Page'] === true"
-        class="column items-center justify-center"
+        class="column items-center"
         style="
           position: relative;
           width: 210mm;
@@ -34,24 +34,32 @@
           background: white;
         "
       >
-        <!-- HEADING -->
-        <div class="text-h4 font-1ry text-center q-mb-md">
+        <!-- HEADING (30mm) -->
+        <div
+          class="text-h4 font-1ry text-center"
+          style="height: 30mm; display: flex; align-items: center"
+        >
           {{ item.fields.Title }}
         </div>
 
-        <!-- BODY TEXT -->
+        <!-- BODY (55mm) -->
         <div
           v-if="item.fields?.['Body Text']"
           class="text-body1 text-center"
-          style="white-space: pre-line; max-width: 140mm; opacity: 0.85"
+          style="
+            height: 55mm;
+            max-width: 140mm;
+            opacity: 0.85;
+            overflow: hidden;
+          "
           v-html="bodyHtml"
         ></div>
 
-        <!-- IMAGE -->
+        <!-- IMAGE (150mm) -->
         <div
           v-if="item.fields?.Image?.[0]"
           class="column items-center justify-center"
-          style="height: 160mm; margin-bottom: 15mm"
+          style="height: 150mm"
         >
           <img
             :src="`${$apiProxyUrl}${encodeURIComponent(
@@ -60,16 +68,17 @@
             style="max-height: 100%; max-width: 100%; object-fit: contain"
           />
         </div>
-        <!-- COVER BRAND / CONTACT (CENTERED) -->
-        <div class="column items-center q-mb-xl" style="opacity: 0.85">
-          <!-- LOGO -->
+
+        <!-- BRAND / CONTACT (62mm) -->
+        <div
+          class="column items-center justify-center"
+          style="height: 62mm; opacity: 0.85"
+        >
           <img
             :src="VITE_API_DEFAULT_IMAGE"
             style="height: 22mm; object-fit: contain"
             class="q-mb-md"
           />
-
-          <!-- CONTACT -->
           <div
             class="text-caption text-center"
             style="opacity: 0.7; line-height: 1.6"
@@ -80,6 +89,7 @@
           </div>
         </div>
       </section>
+
       <CollectionArtworks :parent="item" :site="site" />
       <!-- <div class="text-1ry-color">
         
