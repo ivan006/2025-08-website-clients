@@ -1,5 +1,5 @@
 <template>
-  <div class="q-pt-md">
+  <div class="">
     <div v-if="loading" class="text-center q-pa-xl">Loading...</div>
 
     <div v-else>

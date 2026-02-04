@@ -14,8 +14,8 @@
           class="column items-center"
           style="
             position: relative;
-            width: 200mm;
-            height: 287mm;
+            width: 210mm;
+            height: 297mm;
             padding: 0mm 15mm;
             box-sizing: border-box;
           "
@@ -24,17 +24,21 @@
           }"
         >
           <!-- border: solid 1px grey; -->
+          <!-- border: solid 1px grey; -->
 
           <!-- HEADER -->
-          <div class="row justify-end full-width q-mb-xl">
-            <img :src="VITE_API_DEFAULT_IMAGE" style="height: 22mm" />
+          <div
+            class="row justify-end full-width"
+            style="margin-top: 13mm; height: 22mm"
+          >
+            <img :src="VITE_API_DEFAULT_IMAGE" style="height: 100%" />
           </div>
 
           <!-- IMAGE -->
           <!-- IMAGE FRAME -->
           <div
-            class="column items-center justify-center q-mb-lg"
-            style="height: 197mm; overflow: hidden"
+            class="column items-center justify-center"
+            style="height: 200mm; overflow: hidden; padding: 10mm 0"
           >
             <!-- width: 200mm; -->
             <!-- border: solid 1px grey; -->
@@ -45,7 +49,10 @@
           </div>
 
           <!-- META -->
-          <div class="full-width text-left text-body2" style="">
+          <div
+            class="full-width text-left text-body2"
+            style="height: 42mm; overflow: hidden"
+          >
             <!-- border: solid 1px grey; -->
             <strong>{{ artistName(art) }}</strong
             ><br />
@@ -58,21 +65,30 @@
           </div>
           <!-- FOOTER -->
           <div
-            class="full-width row items-center text-caption"
-            style="position: absolute; bottom: 0mm; left: 0"
+            class="full-width row text-caption"
+            style="
+              position: absolute;
+              bottom: 0mm;
+              left: 0;
+              padding-left: 15mm;
+              padding-right: 15mm;
+              align-items: flex-end;
+              margin-bottom: 13mm;
+              height: 7mm;
+            "
           >
-            <!-- LEFT (empty / spacer) -->
-            <div class="col-4"></div>
+            <!-- CONTACT INFO (CENTER, SINGLE LINE) -->
+            <div class="col-10">
+              Enquiries:
+              {{ site?.["Contact Person"] }}
+              &nbsp;|&nbsp;
+              {{ site?.Email }}
+              &nbsp;|&nbsp;
+              {{ site?.["Phone Number"] }}
+            </div>
 
-            <!-- CENTER (page number) -->
-            <div class="col-4 text-center">– {{ i + 1 }} –</div>
-
-            <!-- RIGHT (contact details) -->
-            <div
-              class="col-4 text-right"
-              style="padding-right: 15mm; opacity: 0.6; font-size: 11px"
-            >
-              info@originart.art&nbsp;&nbsp;•&nbsp;&nbsp;+27&nbsp;82&nbsp;600&nbsp;9693
+            <div class="col-2 text-right">
+              {{ i + 1 }}
             </div>
           </div>
         </section>
