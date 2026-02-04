@@ -45,6 +45,22 @@
         >
           <!-- HEADING (30mm) -->
 
+          <!-- IMAGE (150mm) -->
+          <div v-if="item.fields?.Image?.[0]" style="height: 80mm">
+            <img
+              :src="`${$apiProxyUrl}${encodeURIComponent(
+                item.fields.Image[0].url,
+              )}`"
+              style="
+                height: 100%;
+                margin-left: auto;
+                margin-right: auto;
+                display: block;
+              "
+            />
+          </div>
+
+          <div v-if="item.fields?.Image?.[0]" style="height: 10mm"></div>
           <div
             class="text-h2 font-1ry text-center"
             style="
@@ -72,22 +88,6 @@
             "
             v-html="bodyHtml"
           ></div>
-          <div v-if="item.fields?.Image?.[0]" style="height: 10mm"></div>
-
-          <!-- IMAGE (150mm) -->
-          <div v-if="item.fields?.Image?.[0]" style="height: 80mm">
-            <img
-              :src="`${$apiProxyUrl}${encodeURIComponent(
-                item.fields.Image[0].url,
-              )}`"
-              style="
-                height: 100%;
-                margin-left: auto;
-                margin-right: auto;
-                display: block;
-              "
-            />
-          </div>
 
           <!-- BRAND / CONTACT (62mm) -->
 
