@@ -173,30 +173,54 @@ export default {
     profileUrl(id) {
       return `/collections/${id}`;
     },
-    fetchCollectionData(id) {
+    async fetchCollectionData(id) {
       this.itemLoading[id] = true;
 
-      Artworks.FetchAll(
-        "regenerate",
-        [],
-        {},
-        {},
-        {
-          limit: 200,
-          filters: {
-            filterByFormula: `AND(SEARCH('${id}',ARRAYJOIN({RECORD_ID (from Collections)}, ',')))`,
+      try {
+        // 1️⃣ Regenerate artworks for this collection
+        await Artworks.FetchAll(
+          "regenerate",
+          [],
+          {},
+          {},
+          {
+            limit: 200,
+            filters: {
+              filterByFormula: `AND(SEARCH('${id}',ARRAYJOIN({RECORD_ID (from Collections)}, ',')))`,
+            },
           },
-        },
-      )
-        .then((res) => {
-          this.items = res.response.data.records.map((r) => ({
-            id: r.id,
-            ...r.fields,
-          }));
-        })
-        .finally(() => {
-          this.itemLoading[id] = false;
-        });
+        );
+
+        // 2️⃣ Regenerate THIS collection record only
+        const res = await Collections.FetchById(id, "regenerate");
+        const updated = {
+          id: res.response.data.id,
+          ...res.response.data.fields,
+        };
+
+        // 3️⃣ Patch it into existing list
+        const idx = this.allRecords.findIndex((r) => r.id === id);
+        if (idx !== -1) {
+          this.allRecords.splice(idx, 1, updated);
+        }
+
+        // 4️⃣ Re-apply current filters
+        let filtered = this.allRecords;
+        const search = this.filterValsRef.search;
+
+        if (search) {
+          filtered = filtered.filter((r) =>
+            this.matchesTokenSearch(r.Title, search),
+          );
+        }
+
+        this.filteredItems = filtered;
+        this.totalFiltered = filtered.length;
+      } catch (err) {
+        console.error("❌ Failed to refresh collection:", err);
+      } finally {
+        this.itemLoading[id] = false;
+      }
     },
     truncate(text, limit = 1000) {
       if (!text) return "";

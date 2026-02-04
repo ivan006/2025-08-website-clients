@@ -107,8 +107,8 @@ export default {
   components: {},
 
   props: {
-    parentId: {
-      type: [String, Number],
+    parent: {
+      type: [Object],
     },
   },
 
@@ -123,9 +123,9 @@ export default {
 
   computed: {
     filterFormula() {
-      // return `AND(({RECORD_ID (from Collections)}='${this.parentId}'))`
-      // return `AND(FIND('${this.parentId}',{RECORD_ID (from Collections)}))`
-      return `AND(SEARCH('${this.parentId}',ARRAYJOIN({RECORD_ID (from Collections)}, ',')))`;
+      // return `AND(({RECORD_ID (from Collections)}='${this.parent.id}'))`
+      // return `AND(FIND('${this.parent.id}',{RECORD_ID (from Collections)}))`
+      return `AND(SEARCH('${this.parent.id}',ARRAYJOIN({RECORD_ID (from Collections)}, ',')))`;
     },
 
     VITE_API_DEFAULT_IMAGE() {
