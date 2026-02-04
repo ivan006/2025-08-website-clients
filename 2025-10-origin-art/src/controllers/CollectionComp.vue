@@ -37,19 +37,18 @@
         <!-- border: solid 1px grey; -->
         <div style="height: 260mm">
           <!-- HEADING (30mm) -->
+
           <div
             class="text-h2 font-1ry text-center"
             style="
               height: 80mm;
-              display: flex;
-              align-items: center;
+              width: 100%;
               margin-left: auto;
               margin-right: auto;
             "
           >
             {{ item.fields.Title }}
           </div>
-
           <!-- BODY (55mm) -->
           <div style="height: 5mm"></div>
           <div
