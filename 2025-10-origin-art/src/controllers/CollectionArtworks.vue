@@ -113,11 +113,13 @@ export default {
     parent: {
       type: [Object],
     },
+    site: {
+      type: [Object],
+    },
   },
 
   data() {
     return {
-      site: null,
       loading: false,
       items: [],
       sectionPages: {}, // page trackers for each medium group
@@ -158,11 +160,6 @@ export default {
   },
 
   methods: {
-    fetchSite() {
-      Site.FetchById("recE9Mnz1vihDkgXU").then((res) => {
-        this.site = res.response.data.fields;
-      });
-    },
     attachments(art) {
       return art.Attachments?.[0] || {};
     },
@@ -224,7 +221,6 @@ export default {
 
   mounted() {
     this.fetchArtworks();
-    this.fetchSite();
   },
 };
 </script>

@@ -22,7 +22,7 @@
       </div> -->
       <!-- COVER PAGE -->
       <section
-        v-if="item.fields?.Heading"
+        v-if="item.fields?.['Show Cover Page'] === true"
         class="column items-center justify-center"
         style="
           position: relative;
@@ -34,6 +34,19 @@
           background: white;
         "
       >
+        <!-- HEADING -->
+        <div class="text-h4 font-1ry text-center q-mb-md">
+          {{ item.fields.Title }}
+        </div>
+
+        <!-- BODY TEXT -->
+        <div
+          v-if="item.fields?.['Body Text']"
+          class="text-body1 text-center"
+          style="white-space: pre-line; max-width: 140mm; opacity: 0.85"
+          v-html="bodyHtml"
+        ></div>
+
         <!-- IMAGE -->
         <div
           v-if="item.fields?.Image?.[0]"
@@ -47,22 +60,27 @@
             style="max-height: 100%; max-width: 100%; object-fit: contain"
           />
         </div>
+        <!-- COVER BRAND / CONTACT (CENTERED) -->
+        <div class="column items-center q-mb-xl" style="opacity: 0.85">
+          <!-- LOGO -->
+          <img
+            :src="VITE_API_DEFAULT_IMAGE"
+            style="height: 22mm; object-fit: contain"
+            class="q-mb-md"
+          />
 
-        <!-- HEADING -->
-        <div class="text-h4 font-1ry text-center q-mb-md">
-          {{ item.fields.Heading }}
-        </div>
-
-        <!-- BODY TEXT -->
-        <div
-          v-if="item.fields?.['Body Text']"
-          class="text-body1 text-center"
-          style="white-space: pre-line; max-width: 140mm; opacity: 0.85"
-        >
-          {{ item.fields["Body Text"] }}
+          <!-- CONTACT -->
+          <div
+            class="text-caption text-center"
+            style="opacity: 0.7; line-height: 1.6"
+          >
+            <div>{{ site?.["Contact Person"] }}</div>
+            <div>{{ site?.Email }}</div>
+            <div>{{ site?.["Phone Number"] }}</div>
+          </div>
         </div>
       </section>
-      <CollectionArtworks :parent="item" />
+      <CollectionArtworks :parent="item" :site="site" />
       <!-- <div class="text-1ry-color">
         
       </div> -->
@@ -73,6 +91,8 @@
 <script>
 import Collections from "src/models/orm-api/Collections";
 import CollectionArtworks from "src/controllers/CollectionArtworks.vue";
+import { marked } from "marked";
+import Site from "src/models/orm-api/Site";
 
 export default {
   name: "CollectionComp",
@@ -83,6 +103,7 @@ export default {
 
   data() {
     return {
+      site: null,
       loading: true,
       item: {},
       showEnquiry: false,
@@ -93,12 +114,24 @@ export default {
   },
 
   computed: {
+    bodyHtml() {
+      return marked.parse(this.item.fields?.["Body Text"] || "");
+    },
     id() {
       return this.$route.params.rId;
+    },
+
+    VITE_API_DEFAULT_IMAGE() {
+      return import.meta.env.VITE_API_DEFAULT_IMAGE;
     },
   },
 
   methods: {
+    fetchSite() {
+      Site.FetchById("recE9Mnz1vihDkgXU").then((res) => {
+        this.site = res.response.data.fields;
+      });
+    },
     fetchData() {
       this.loading = true;
       Collections.FetchById(this.id)
@@ -114,6 +147,8 @@ export default {
 
   mounted() {
     this.fetchData();
+
+    this.fetchSite();
   },
 };
 </script>
