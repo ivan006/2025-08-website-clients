@@ -2,14 +2,17 @@
   <div class="">
     <div v-if="loading" class="text-center q-pa-lg">Loading artworks...</div>
 
-    <div v-else-if="!items.length" class="text-center q-pa-lg text-grey-7">
+    <div
+      v-else-if="!itemsComputed.length"
+      class="text-center q-pa-lg text-grey-7"
+    >
       No artworks found for this artist.
     </div>
 
     <div v-else>
       <div class="bg-white">
         <section
-          v-for="(art, i) in items"
+          v-for="(art, i) in itemsComputed"
           :key="art.id"
           class="column items-center"
           style="
@@ -20,7 +23,7 @@
             box-sizing: border-box;
           "
           :style="{
-            pageBreakAfter: i === items.length - 1 ? 'auto' : 'always',
+            pageBreakAfter: i === itemsComputed.length - 1 ? 'auto' : 'always',
           }"
         >
           <!-- border: solid 1px grey; -->
@@ -122,6 +125,27 @@ export default {
   },
 
   computed: {
+    itemsComputed() {
+      const records = [...this.items];
+      const orderedIds = this.parent?.fields?.Art || [];
+
+      if (!orderedIds.length) return records;
+
+      const orderMap = new Map();
+      orderedIds.forEach((id, index) => {
+        orderMap.set(id, index);
+      });
+
+      return records.sort((a, b) => {
+        const ai = orderMap.get(a.id);
+        const bi = orderMap.get(b.id);
+
+        if (ai === undefined && bi === undefined) return 0;
+        if (ai === undefined) return 1;
+        if (bi === undefined) return -1;
+        return ai - bi;
+      });
+    },
     filterFormula() {
       // return `AND(({RECORD_ID (from Collections)}='${this.parent.id}'))`
       // return `AND(FIND('${this.parent.id}',{RECORD_ID (from Collections)}))`

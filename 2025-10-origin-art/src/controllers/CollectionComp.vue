@@ -62,7 +62,6 @@
           {{ item.fields["Body Text"] }}
         </div>
       </section>
-      <pre> {{ item }}</pre>
       <CollectionArtworks :parent="item" />
       <!-- <div class="text-1ry-color">
         
