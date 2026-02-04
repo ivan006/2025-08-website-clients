@@ -35,7 +35,14 @@
         "
       >
         <!-- border: solid 1px grey; -->
-        <div style="height: 260mm">
+        <div
+          style="
+            height: 260mm;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* vertical alignment */
+          "
+        >
           <!-- HEADING (30mm) -->
 
           <div
@@ -43,12 +50,14 @@
             style="
               height: 80mm;
               width: 100%;
-              margin-left: auto;
-              margin-right: auto;
+              display: flex;
+              align-items: center; /* vertical center */
+              justify-content: center; /* horizontal center */
             "
           >
             {{ item.fields.Title }}
           </div>
+
           <!-- BODY (55mm) -->
           <div style="height: 5mm"></div>
           <div
@@ -63,23 +72,22 @@
             "
             v-html="bodyHtml"
           ></div>
-          <div style="height: 10mm"></div>
+          <div v-if="item.fields?.Image?.[0]" style="height: 10mm"></div>
 
           <!-- IMAGE (150mm) -->
-
-          <img
-            v-if="item.fields?.Image?.[0]"
-            :src="`${$apiProxyUrl}${encodeURIComponent(
-              item.fields.Image[0].url,
-            )}`"
-            style="
-              height: 100%;
-              height: 80mm;
-              margin-left: auto;
-              margin-right: auto;
-              display: block;
-            "
-          />
+          <div v-if="item.fields?.Image?.[0]" style="height: 80mm">
+            <img
+              :src="`${$apiProxyUrl}${encodeURIComponent(
+                item.fields.Image[0].url,
+              )}`"
+              style="
+                height: 100%;
+                margin-left: auto;
+                margin-right: auto;
+                display: block;
+              "
+            />
+          </div>
 
           <!-- BRAND / CONTACT (62mm) -->
 
