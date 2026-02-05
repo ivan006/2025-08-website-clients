@@ -14,7 +14,7 @@
         <section
           v-for="(art, i) in itemsComputed"
           :key="art.id"
-          class="column items-center"
+          class="column items-center debug-border"
           style="
             position: relative;
             width: 210mm;
@@ -223,3 +223,15 @@ export default {
   },
 };
 </script>
+
+<style>
+.debug-border {
+  border: 1px solid grey;
+}
+
+@media print {
+  .debug-border {
+    border: none !important;
+  }
+}
+</style>

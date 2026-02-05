@@ -23,7 +23,7 @@
       <!-- COVER PAGE -->
       <section
         v-if="item.fields?.['Show Cover Page'] === true"
-        class=""
+        class="debug-border"
         style="
           position: relative;
           width: 210mm;
