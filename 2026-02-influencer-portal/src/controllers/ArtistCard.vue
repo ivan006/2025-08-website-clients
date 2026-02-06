@@ -56,8 +56,8 @@ export default {
             const url = img?.thumbnails?.large?.url;
             return url
                 ? `${
-                      import.meta.env.VITE_API_PROXY_URL
-                  }/cacher/data-cache/index.php?url=${encodeURIComponent(url)}`
+                      import.meta.env.VITE_API_PROXYY_URL
+                  }/data-cache/index.php?url=${encodeURIComponent(url)}`
                 : "";
         },
 
@@ -66,8 +66,8 @@ export default {
             const url = img?.thumbnails?.small?.url;
             return url
                 ? `${
-                      import.meta.env.VITE_API_PROXY_URL
-                  }/cacher/data-cache/index.php?url=${encodeURIComponent(url)}`
+                      import.meta.env.VITE_API_PROXYY_URL
+                  }/data-cache/index.php?url=${encodeURIComponent(url)}`
                 : "";
         },
 

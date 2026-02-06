@@ -414,8 +414,8 @@ export default {
 
   //     let image = ""
   //     if (this.item?.fields?.['Image']?.[0]?.url) {
-  //       image = `${import.meta.env.VITE_API_PROXY_URL}/cacher/data-cache/index.php?url=${encodeURIComponent(this.item?.['Image']?.[0]?.url)}`;
-  //       image = `${import.meta.env.VITE_API_PROXY_URL}/cacher/data-cache/index.php?url=${encodeURIComponent(this.item?.fields?.['Image']?.[0]?.url)}`;
+  //       image = `${import.meta.env.VITE_API_PROXYY_URL}/data-cache/index.php?url=${encodeURIComponent(this.item?.['Image']?.[0]?.url)}`;
+  //       image = `${import.meta.env.VITE_API_PROXYY_URL}/data-cache/index.php?url=${encodeURIComponent(this.item?.fields?.['Image']?.[0]?.url)}`;
   //     }
 
   //     return buildSeoConfig({

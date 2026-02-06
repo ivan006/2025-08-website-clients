@@ -10,8 +10,8 @@ export default class ArtworksBoundCache extends BasicModel {
 
   static proxyBaseUrl() {
     return `${
-      import.meta.env.VITE_API_PROXY_URL
-    }/cacher/data-cache/bound-cache.php?action=get&url=`;
+      import.meta.env.VITE_API_PROXYY_URL
+    }/data-cache/bound-cache.php?action=get&url=`;
   }
 
   static defaultFlags = {
