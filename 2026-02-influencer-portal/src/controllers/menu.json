@@ -21,9 +21,7 @@
                 "label": "Fine Art",
                 "url": "/all-artworks/fine-art/all-price-ranges/",
                 "slug": "fine-art-7",
-                "parentIds": [
-                    "recQRF1v9rwgX3ukX"
-                ],
+                "parentIds": ["recQRF1v9rwgX3ukX"],
                 "childIds": [],
                 "children": [
                     {
@@ -31,9 +29,7 @@
                         "label": "Gold Tier",
                         "url": "/all-artworks/fine-art/gold/",
                         "slug": "gold-tier-11",
-                        "parentIds": [
-                            "recW60cC7QkG48Kbb"
-                        ],
+                        "parentIds": ["recW60cC7QkG48Kbb"],
                         "childIds": [],
                         "children": []
                     },
@@ -42,9 +38,7 @@
                         "label": "Silver Tier",
                         "url": "/all-artworks/fine-art/silver/",
                         "slug": "silver-tier-12",
-                        "parentIds": [
-                            "recW60cC7QkG48Kbb"
-                        ],
+                        "parentIds": ["recW60cC7QkG48Kbb"],
                         "childIds": [],
                         "children": []
                     },
@@ -53,9 +47,7 @@
                         "label": "Bronze Tier",
                         "url": "/all-artworks/fine-art/bronze/",
                         "slug": "bronze-tier-13",
-                        "parentIds": [
-                            "recW60cC7QkG48Kbb"
-                        ],
+                        "parentIds": ["recW60cC7QkG48Kbb"],
                         "childIds": [],
                         "children": []
                     }
@@ -66,9 +58,7 @@
                 "label": "Sculptural Works",
                 "url": "/all-artworks/sculptural-works/all-price-ranges/",
                 "slug": "sculptural-works-8",
-                "parentIds": [
-                    "recQRF1v9rwgX3ukX"
-                ],
+                "parentIds": ["recQRF1v9rwgX3ukX"],
                 "childIds": [],
                 "children": [
                     {
@@ -76,9 +66,7 @@
                         "label": "Gold Tier",
                         "url": "/all-artworks/sculptural-works/gold/",
                         "slug": "gold-tier-14",
-                        "parentIds": [
-                            "recLXFCsu8Ogek4N7"
-                        ],
+                        "parentIds": ["recLXFCsu8Ogek4N7"],
                         "childIds": [],
                         "children": []
                     },
@@ -87,9 +75,7 @@
                         "label": "Silver Tier",
                         "url": "/all-artworks/sculptural-works/silver/",
                         "slug": "silver-tier-15",
-                        "parentIds": [
-                            "recLXFCsu8Ogek4N7"
-                        ],
+                        "parentIds": ["recLXFCsu8Ogek4N7"],
                         "childIds": [],
                         "children": []
                     },
@@ -98,9 +84,7 @@
                         "label": "Bronze Tier",
                         "url": "/all-artworks/sculptural-works/bronze/",
                         "slug": "bronze-tier-16",
-                        "parentIds": [
-                            "recLXFCsu8Ogek4N7"
-                        ],
+                        "parentIds": ["recLXFCsu8Ogek4N7"],
                         "childIds": [],
                         "children": []
                     }
@@ -111,9 +95,7 @@
                 "label": "New Media",
                 "url": "/all-artworks/new-media/all-price-ranges/",
                 "slug": "new-media-9",
-                "parentIds": [
-                    "recQRF1v9rwgX3ukX"
-                ],
+                "parentIds": ["recQRF1v9rwgX3ukX"],
                 "childIds": [],
                 "children": [
                     {
@@ -121,9 +103,7 @@
                         "label": "Gold Tier",
                         "url": "/all-artworks/new-media/gold/",
                         "slug": "gold-tier-17",
-                        "parentIds": [
-                            "reclRLQqa27vssJp0"
-                        ],
+                        "parentIds": ["reclRLQqa27vssJp0"],
                         "childIds": [],
                         "children": []
                     },
@@ -132,9 +112,7 @@
                         "label": "Silver Tier",
                         "url": "/all-artworks/new-media/silver/",
                         "slug": "silver-tier-18",
-                        "parentIds": [
-                            "reclRLQqa27vssJp0"
-                        ],
+                        "parentIds": ["reclRLQqa27vssJp0"],
                         "childIds": [],
                         "children": []
                     },
@@ -143,9 +121,7 @@
                         "label": "Bronze Tier",
                         "url": "/all-artworks/new-media/bronze/",
                         "slug": "bronze-tier-19",
-                        "parentIds": [
-                            "reclRLQqa27vssJp0"
-                        ],
+                        "parentIds": ["reclRLQqa27vssJp0"],
                         "childIds": [],
                         "children": []
                     }
@@ -156,9 +132,7 @@
                 "label": "Merch Art",
                 "url": "/all-artworks/merch-art/all-price-ranges/",
                 "slug": "merch-art-10",
-                "parentIds": [
-                    "recQRF1v9rwgX3ukX"
-                ],
+                "parentIds": ["recQRF1v9rwgX3ukX"],
                 "childIds": [],
                 "children": [
                     {
@@ -166,9 +140,7 @@
                         "label": "Gold Tier",
                         "url": "/all-artworks/merch-art/gold/",
                         "slug": "gold-tier-20",
-                        "parentIds": [
-                            "rec9gWD6QJIBcOro4"
-                        ],
+                        "parentIds": ["rec9gWD6QJIBcOro4"],
                         "childIds": [],
                         "children": []
                     },
@@ -177,9 +149,7 @@
                         "label": "Silver Tier",
                         "url": "/all-artworks/merch-art/silver/",
                         "slug": "silver-tier-21",
-                        "parentIds": [
-                            "rec9gWD6QJIBcOro4"
-                        ],
+                        "parentIds": ["rec9gWD6QJIBcOro4"],
                         "childIds": [],
                         "children": []
                     },
@@ -188,9 +158,7 @@
                         "label": "Bronze Tier",
                         "url": "/all-artworks/merch-art/bronze/",
                         "slug": "bronze-tier-22",
-                        "parentIds": [
-                            "rec9gWD6QJIBcOro4"
-                        ],
+                        "parentIds": ["rec9gWD6QJIBcOro4"],
                         "childIds": [],
                         "children": []
                     }
