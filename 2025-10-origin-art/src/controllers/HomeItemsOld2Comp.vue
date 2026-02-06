@@ -193,7 +193,7 @@ export default {
       return u[0].thumbnails?.small?.url
         ? `${
             import.meta.env.VITE_API_PROXY_URL
-          }/cacher/data-cache/index.php?url=${encodeURIComponent(
+          }/data-cache/index.php?url=${encodeURIComponent(
             u[0].thumbnails?.large?.url,
           )}`
         : "";
@@ -203,7 +203,7 @@ export default {
       return u[0].thumbnails?.small?.url
         ? `${
             import.meta.env.VITE_API_PROXY_URL
-          }/cacher/data-cache/index.php?url=${encodeURIComponent(
+          }/data-cache/index.php?url=${encodeURIComponent(
             u[0].thumbnails?.small?.url,
           )}`
         : "";

@@ -14,7 +14,7 @@ export default class BasicModel extends Model {
 
     return `${
       import.meta.env.VITE_API_PROXY_URL
-    }/cacher/data-cache/index.php?${param}`;
+    }/data-cache/index.php?${param}`;
   }
 
   static get airtableBaseUrl() {

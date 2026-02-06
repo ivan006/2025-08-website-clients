@@ -131,7 +131,7 @@ export default {
       if (this.parent?.fields?.["Image"]?.[0]?.url) {
         image = `${
           import.meta.env.VITE_API_PROXY_URL
-        }/cacher/data-cache/index.php?url=${encodeURIComponent(
+        }/data-cache/index.php?url=${encodeURIComponent(
           this.parent?.fields?.["Image"]?.[0]?.url,
         )}`;
       }
@@ -171,7 +171,7 @@ export default {
           image: item?.["Image"]?.[0]?.url
             ? `${
                 import.meta.env.VITE_API_PROXY_URL
-              }/cacher/data-cache/index.php?url=${encodeURIComponent(
+              }/data-cache/index.php?url=${encodeURIComponent(
                 item?.["Image"]?.[0]?.url,
               )}`
             : "",
@@ -201,7 +201,7 @@ export default {
       if (this.parent?.fields?.["Image"]?.[0]?.url) {
         image = `${
           import.meta.env.VITE_API_PROXY_URL
-        }/cacher/data-cache/index.php?url=${encodeURIComponent(
+        }/data-cache/index.php?url=${encodeURIComponent(
           this.parent?.fields?.["Image"]?.[0]?.url,
         )}`;
       }

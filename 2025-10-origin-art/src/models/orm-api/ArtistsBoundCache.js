@@ -11,7 +11,7 @@ export default class ArtistsBoundCache extends BasicModel {
   static proxyBaseUrl() {
     return `${
       import.meta.env.VITE_API_PROXY_URL
-    }/cacher/data-cache/bound-cache.php?action=get&url=`;
+    }/data-cache/bound-cache.php?action=get&url=`;
   }
 
   static defaultFlags = {

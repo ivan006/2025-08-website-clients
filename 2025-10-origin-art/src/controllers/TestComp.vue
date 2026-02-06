@@ -307,9 +307,7 @@ export default {
       if (this.parent?.fields?.["Image"]?.[0]?.url) {
         image = `${
           import.meta.env.VITE_API_PROXY_URL
-        }/cacher/data-cache/index.php?url=${
-          this.parent?.fields?.["Image"]?.[0]?.url
-        }`;
+        }/data-cache/index.php?url=${this.parent?.fields?.["Image"]?.[0]?.url}`;
       }
 
       const schema = buildSchemaItem({
@@ -330,9 +328,9 @@ export default {
           name: item["Title"] || "",
           description: item["Subtitle"] || "",
           image: item["Image"]
-            ? `${
-                import.meta.env.VITE_API_PROXY_URL
-              }/cacher/data-cache/index.php?url=${item["Image"]}`
+            ? `${import.meta.env.VITE_API_PROXY_URL}/data-cache/index.php?url=${
+                item["Image"]
+              }`
             : "",
           price: item["Price"],
           extras: {
@@ -360,9 +358,7 @@ export default {
       if (this.parent?.fields?.["Image"]?.[0]?.url) {
         image = `${
           import.meta.env.VITE_API_PROXY_URL
-        }/cacher/data-cache/index.php?url=${
-          this.parent?.fields?.["Image"]?.[0]?.url
-        }`;
+        }/data-cache/index.php?url=${this.parent?.fields?.["Image"]?.[0]?.url}`;
       }
 
       return buildSeoConfig({

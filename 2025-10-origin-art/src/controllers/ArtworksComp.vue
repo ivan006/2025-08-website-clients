@@ -336,7 +336,7 @@ export default {
       if (this.parent?.fields?.["Image"]?.[0]?.thumbnails?.large?.url) {
         image = `${
           import.meta.env.VITE_API_PROXY_URL
-        }/cacher/data-cache/index.php?url=${encodeURIComponent(
+        }/data-cache/index.php?url=${encodeURIComponent(
           this.parent?.fields?.["Image"]?.[0]?.thumbnails?.large?.url,
         )}`;
       }
@@ -374,7 +374,7 @@ export default {
           image: item?.["Attachments"]?.[0]?.thumbnails?.large?.url
             ? `${
                 import.meta.env.VITE_API_PROXY_URL
-              }/cacher/data-cache/index.php?url=${encodeURIComponent(
+              }/data-cache/index.php?url=${encodeURIComponent(
                 item?.["Attachments"]?.[0]?.thumbnails?.large?.url,
               )}`
             : import.meta.env.VITE_API_DEFAULT_IMAGE,
@@ -409,9 +409,7 @@ export default {
           this.parent?.fields?.["Image"]?.[0]?.thumbnails?.large;
         image = `${
           import.meta.env.VITE_API_PROXY_URL
-        }/cacher/data-cache/index.php?url=${encodeURIComponent(
-          imageObject?.url,
-        )}`;
+        }/data-cache/index.php?url=${encodeURIComponent(imageObject?.url)}`;
         imageWidth = imageObject.width;
         imageHeight = imageObject.height;
       }

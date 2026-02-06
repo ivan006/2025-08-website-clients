@@ -57,7 +57,7 @@ export default {
             return url
                 ? `${
                       import.meta.env.VITE_API_PROXY_URL
-                  }/cacher/data-cache/index.php?url=${encodeURIComponent(url)}`
+                  }/data-cache/index.php?url=${encodeURIComponent(url)}`
                 : "";
         },
 
@@ -67,7 +67,7 @@ export default {
             return url
                 ? `${
                       import.meta.env.VITE_API_PROXY_URL
-                  }/cacher/data-cache/index.php?url=${encodeURIComponent(url)}`
+                  }/data-cache/index.php?url=${encodeURIComponent(url)}`
                 : "";
         },
 

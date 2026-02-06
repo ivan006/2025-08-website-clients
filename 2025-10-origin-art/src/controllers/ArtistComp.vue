@@ -252,7 +252,7 @@ export default {
       return att?.thumbnails?.large?.url
         ? `${
             import.meta.env.VITE_API_PROXY_URL
-          }/cacher/data-cache/index.php?url=${encodeURIComponent(
+          }/data-cache/index.php?url=${encodeURIComponent(
             att.thumbnails.large.url,
           )}`
         : "";
@@ -263,7 +263,7 @@ export default {
       return att?.thumbnails?.small?.url
         ? `${
             import.meta.env.VITE_API_PROXY_URL
-          }/cacher/data-cache/index.php?url=${encodeURIComponent(
+          }/data-cache/index.php?url=${encodeURIComponent(
             att.thumbnails.small.url,
           )}`
         : "";

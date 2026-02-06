@@ -250,9 +250,7 @@ export default {
           image: item["Image"]
             ? `${
                 import.meta.env.VITE_API_PROXY_URL
-              }/cacher/data-cache/index.php?url=${encodeURIComponent(
-                item["Image"],
-              )}`
+              }/data-cache/index.php?url=${encodeURIComponent(item["Image"])}`
             : "",
           price: item["Price"],
         }),

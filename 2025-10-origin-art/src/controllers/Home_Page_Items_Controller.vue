@@ -156,7 +156,7 @@ export default {
 
       let image = import.meta.env.VITE_API_DEFAULT_IMAGE;
       // if (this.parent?.fields?.['Image']?.[0]?.thumbnails?.large?.url) {
-      //   image = `${import.meta.env.VITE_API_PROXY_URL}/cacher/data-cache/index.php?url=${encodeURIComponent(this.parent?.fields?.['Image']?.[0]?.thumbnails?.large?.url)}`;
+      //   image = `${import.meta.env.VITE_API_PROXY_URL}/data-cache/index.php?url=${encodeURIComponent(this.parent?.fields?.['Image']?.[0]?.thumbnails?.large?.url)}`;
       // }
 
       const schema = buildSchemaItem({
@@ -194,7 +194,7 @@ export default {
           image: item?.["Image"]?.[0]?.url
             ? `${
                 import.meta.env.VITE_API_PROXY_URL
-              }/cacher/data-cache/index.php?url=${encodeURIComponent(
+              }/data-cache/index.php?url=${encodeURIComponent(
                 item?.["Image"]?.[0]?.url,
               )}`
             : "",
@@ -224,7 +224,7 @@ export default {
       let imageWidth = import.meta.env.VITE_API_DEFAULT_IMAGE_WIDTH;
       let imageHeight = import.meta.env.VITE_API_DEFAULT_IMAGE_HEIGHT;
       // if (this.parent?.fields?.['Image']?.[0]?.thumbnails?.large?.url) {
-      //   image = `${import.meta.env.VITE_API_PROXY_URL}/cacher/data-cache/index.php?url=${encodeURIComponent(this.parent?.fields?.['Image']?.[0]?.thumbnails?.large?.url)}`;
+      //   image = `${import.meta.env.VITE_API_PROXY_URL}/data-cache/index.php?url=${encodeURIComponent(this.parent?.fields?.['Image']?.[0]?.thumbnails?.large?.url)}`;
       // }
 
       return buildSeoConfig({
