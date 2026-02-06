@@ -1,17 +1,14 @@
-import BasicModel from './BasicModel'
+import BasicModel from "./BasicModel";
 
 export default class Policies extends BasicModel {
-
-  static entity = '/Policies';
-  static entityUrl = '/Policies';
+  static entity = "/Policies";
+  static entityUrl = "/Policies";
 
   static get airtableBaseUrl() {
-    return 'https://api.airtable.com/v0/appWL8gDT9ZaqV8jY'
+    return import.meta.env.VITE_API_BACKEND_URL;
   }
-  
+
   static defaultFlags = {
     // view: "viwqEmrRk14mVdu4z",
-  }
-  
-
+  };
 }

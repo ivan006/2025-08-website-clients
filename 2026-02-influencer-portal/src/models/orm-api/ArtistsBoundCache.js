@@ -5,7 +5,7 @@ export default class ArtistsBoundCache extends BasicModel {
   static entityUrl = "/Artist";
 
   static get airtableBaseUrl() {
-    return "https://api.airtable.com/v0/appWL8gDT9ZaqV8jY";
+    return import.meta.env.VITE_API_BACKEND_URL;
   }
 
   static proxyBaseUrl() {
