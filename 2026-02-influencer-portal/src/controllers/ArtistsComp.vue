@@ -304,7 +304,7 @@ export default {
       let image = import.meta.env.VITE_API_DEFAULT_IMAGE;
       if (this.parent?.fields?.["Image"]?.[0]?.thumbnails?.large?.url) {
         image = `${
-          import.meta.env.VITE_API_PROXYY_URL
+          import.meta.env.VITE_API_PROXY_URL
         }/data-cache/index.php?url=${encodeURIComponent(
           this.parent?.fields?.["Image"]?.[0]?.thumbnails?.large?.url,
         )}`;
@@ -344,7 +344,7 @@ export default {
             : "",
           image: item?.["Attachments"]?.[0]?.thumbnails?.large?.url
             ? `${
-                import.meta.env.VITE_API_PROXYY_URL
+                import.meta.env.VITE_API_PROXY_URL
               }/data-cache/index.php?url=${encodeURIComponent(
                 item?.["Attachments"]?.[0]?.thumbnails?.large?.url,
               )}`
@@ -379,7 +379,7 @@ export default {
         const imageObject =
           this.parent?.fields?.["Image"]?.[0]?.thumbnails?.large;
         image = `${
-          import.meta.env.VITE_API_PROXYY_URL
+          import.meta.env.VITE_API_PROXY_URL
         }/data-cache/index.php?url=${encodeURIComponent(imageObject?.url)}`;
         imageWidth = imageObject.width;
         imageHeight = imageObject.height;

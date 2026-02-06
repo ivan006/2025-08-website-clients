@@ -292,7 +292,7 @@ export default {
       const att = this.item.Attachments?.[0];
       return att?.thumbnails?.large?.url
         ? `${
-            import.meta.env.VITE_API_PROXYY_URL
+            import.meta.env.VITE_API_PROXY_URL
           }/data-cache/index.php?url=${encodeURIComponent(
             att.thumbnails.large.url,
           )}`
@@ -303,7 +303,7 @@ export default {
       const att = this.item.Attachments?.[0];
       return att?.thumbnails?.small?.url
         ? `${
-            import.meta.env.VITE_API_PROXYY_URL
+            import.meta.env.VITE_API_PROXY_URL
           }/data-cache/index.php?url=${encodeURIComponent(
             att.thumbnails.small.url,
           )}`

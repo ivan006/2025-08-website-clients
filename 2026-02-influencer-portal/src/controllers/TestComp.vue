@@ -306,7 +306,7 @@ export default {
       let image = "";
       if (this.parent?.fields?.["Image"]?.[0]?.url) {
         image = `${
-          import.meta.env.VITE_API_PROXYY_URL
+          import.meta.env.VITE_API_PROXY_URL
         }/data-cache/index.php?url=${this.parent?.fields?.["Image"]?.[0]?.url}`;
       }
 
@@ -328,9 +328,9 @@ export default {
           name: item["Title"] || "",
           description: item["Subtitle"] || "",
           image: item["Image"]
-            ? `${
-                import.meta.env.VITE_API_PROXYY_URL
-              }/data-cache/index.php?url=${item["Image"]}`
+            ? `${import.meta.env.VITE_API_PROXY_URL}/data-cache/index.php?url=${
+                item["Image"]
+              }`
             : "",
           price: item["Price"],
           extras: {
@@ -357,7 +357,7 @@ export default {
       let image = "";
       if (this.parent?.fields?.["Image"]?.[0]?.url) {
         image = `${
-          import.meta.env.VITE_API_PROXYY_URL
+          import.meta.env.VITE_API_PROXY_URL
         }/data-cache/index.php?url=${this.parent?.fields?.["Image"]?.[0]?.url}`;
       }
 

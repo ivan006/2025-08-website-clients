@@ -130,7 +130,7 @@ export default {
       let image = "";
       if (this.parent?.fields?.["Image"]?.[0]?.url) {
         image = `${
-          import.meta.env.VITE_API_PROXYY_URL
+          import.meta.env.VITE_API_PROXY_URL
         }/data-cache/index.php?url=${encodeURIComponent(
           this.parent?.fields?.["Image"]?.[0]?.url,
         )}`;
@@ -170,7 +170,7 @@ export default {
           description: item["Subtitle"] || "",
           image: item?.["Image"]?.[0]?.url
             ? `${
-                import.meta.env.VITE_API_PROXYY_URL
+                import.meta.env.VITE_API_PROXY_URL
               }/data-cache/index.php?url=${encodeURIComponent(
                 item?.["Image"]?.[0]?.url,
               )}`
@@ -200,7 +200,7 @@ export default {
       let image = "";
       if (this.parent?.fields?.["Image"]?.[0]?.url) {
         image = `${
-          import.meta.env.VITE_API_PROXYY_URL
+          import.meta.env.VITE_API_PROXY_URL
         }/data-cache/index.php?url=${encodeURIComponent(
           this.parent?.fields?.["Image"]?.[0]?.url,
         )}`;

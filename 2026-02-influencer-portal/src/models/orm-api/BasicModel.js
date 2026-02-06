@@ -13,7 +13,7 @@ export default class BasicModel extends Model {
         : "url=";
 
     return `${
-      import.meta.env.VITE_API_PROXYY_URL
+      import.meta.env.VITE_API_PROXY_URL
     }/data-cache/index.php?${param}`;
   }
 
