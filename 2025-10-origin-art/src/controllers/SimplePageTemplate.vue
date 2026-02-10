@@ -22,7 +22,7 @@
                 class="text-body1x text-subtitle1"
                 style="white-space: pre-line"
               >
-                {{ item.Body }}
+                <div v-html="bodyHtml"></div>
               </div>
             </div>
           </div>
@@ -34,35 +34,46 @@
 
 <script>
 import Policies from "src/models/orm-api/Policies";
-
 import SEODataViewer from "src/controllers/SEODataViewer.vue";
 import { createMetaMixin } from "quasar";
 import { buildSchemaItem, buildSeoConfig } from "src/utils/seo";
+import { marked } from "marked";
+
+// 🔒 explicit, boring, safe
+const SLUG_TO_RECORD_ID = {
+  "privacy-policy": "recIL2JG4aDRfVi78",
+  "refund-policy": "recGe8aQ1rjkVFpKY",
+  "about-us": "rec3yq3CL9KjxmdQG",
+};
 
 export default {
-  name: "PolicyPrivacyComp",
+  name: "SimplePageTemplate",
 
-  components: {
-    SEODataViewer,
-  },
+  components: { SEODataViewer },
+
   mixins: [
     createMetaMixin(function () {
       return this.seoConfig;
     }),
   ],
+
   data() {
     return {
-      showDialog: false,
       loading: true,
       item: {},
-      showEnquiry: false,
-      dialogueVModel: true,
     };
   },
 
   computed: {
-    id() {
-      return "recIL2JG4aDRfVi78";
+    bodyHtml() {
+      return marked.parse(this.item.Body || "");
+    },
+    pageSlug() {
+      return this.$route.params.pageSlug;
+    },
+
+    recordId() {
+      return SLUG_TO_RECORD_ID[this.pageSlug];
     },
 
     seoLdJson() {
@@ -102,11 +113,10 @@ export default {
         url,
         image,
         siteName,
-        type: "Person",
+        type: "WebPage",
         schema: this.seoLdJson,
       });
     },
-
     seoConfigMasked() {
       const c = { ...this.seoConfig };
       c.script = "";
@@ -116,14 +126,14 @@ export default {
 
   methods: {
     fetchIndiData() {
-      this.loading = true;
+      if (!this.recordId) return;
 
-      Policies.FetchById(this.id)
+      this.loading = true;
+      Policies.FetchById(this.recordId)
         .then((res) => {
           this.item = res.response.data.fields;
-          this.loading = false;
         })
-        .catch(() => (this.loading = false));
+        .finally(() => (this.loading = false));
     },
   },
 
