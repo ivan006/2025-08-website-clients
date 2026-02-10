@@ -106,6 +106,15 @@ const routes = [
               //   },
               // },
               {
+                path: "/page/:pageSlug",
+                name: "simple-page",
+                component: () =>
+                  import("src/controllers/SimplePageTemplate.vue"),
+                props: true,
+                meta: { requiresAuth: false },
+              },
+
+              {
                 path: "/privacy-policy",
                 name: "/privacy-policy",
                 // path: '/home/:rId',
