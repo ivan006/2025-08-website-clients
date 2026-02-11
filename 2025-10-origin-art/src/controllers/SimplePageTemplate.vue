@@ -100,20 +100,29 @@
           </div> -->
           <div class="bg-white q-py-md">
             <div class="container-sm">
-              <div class="text-body1x text-subtitle1" style="">
-                <div class="row q-col-gutter-xl">
-                  <div
-                    class="col-12 col-md-6"
-                    v-html="toColumns(item.Body).left"
-                  ></div>
-                  <div
-                    class="col-12 col-md-6"
-                    v-html="toColumns(item.Body).right"
-                  ></div>
+              <div class="text-body1x text-subtitle1">
+                <div
+                  v-for="(row, index) in toRows(item.Body)"
+                  :key="index"
+                  class="q-mb-xl"
+                >
+                  <div v-html="row.heading"></div>
+
+                  <div class="row q-col-gutter-xl">
+                    <div
+                      class="col-12 col-md-6"
+                      v-html="toColumns(row.body).left"
+                    ></div>
+                    <div
+                      class="col-12 col-md-6"
+                      v-html="toColumns(row.body).right"
+                    ></div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+
           <div class="bg-3ry-color">
             <div style="padding-top: 0px" class="">
               <div class="q-py-xl">
@@ -234,6 +243,36 @@ export default {
   },
 
   methods: {
+    toRows(input) {
+      const html = this.toHtmlPlus(input);
+
+      // 1️⃣ Detect highest (smallest number) heading present
+      const match = html.match(/<h([1-6])\b/i);
+      if (!match) {
+        return [{ heading: "", body: html.trim() }];
+      }
+
+      const highestLevel = match[1]; // e.g. "1" or "2"
+
+      // 2️⃣ Split only on that heading level
+      const regex = new RegExp(`(?=<h${highestLevel}\\b)`, "i");
+
+      const sections = html.split(regex).filter((s) => s.trim());
+
+      return sections.map((sectionHtml) => {
+        const doc = new DOMParser().parseFromString(sectionHtml, "text/html");
+
+        const headingEl = doc.body.querySelector(`h${highestLevel}`);
+
+        const heading = headingEl ? headingEl.outerHTML : "";
+        if (headingEl) headingEl.remove();
+
+        return {
+          heading,
+          body: doc.body.innerHTML.trim(),
+        };
+      });
+    },
     toColumns(input) {
       // 1️⃣ full pipeline first
       let html = this.toHtmlPlus(input); // use the computed that already injects classes
@@ -252,12 +291,12 @@ export default {
 
       // 1️⃣ tag → marker + level-specific classes
       html = html
-        // .replace(/<h-2>/gi, `<h-1 class="headingclass r-font-h2">`)
-        // .replace(/<h-1>/gi, `<h0 class="headingclass r-font-h3">`)
-        // .replace(/<h0>/gi, `<h1 class="headingclass r-font-h4">`)
-        .replace(/<h1>/gi, `<h1 class="headingclass r-font-h5">`)
-        .replace(/<h2>/gi, `<h2 class="headingclass r-font-h6">`)
-        .replace(/<h3>/gi, `<h3 class="headingclass r-font-hx">`);
+        // .replace(/<h-1>/gi, `<h-1 class="headingclass r-font-h2">`)
+        // .replace(/<h0>/gi, `<h0 class="headingclass r-font-h3">`)
+        // .replace(/<h1>/gi, `<h1 class="headingclass r-font-h4">`)
+        .replace(/<h2>/gi, `<h2 class="headingclass text-center r-font-h5">`)
+        .replace(/<h3>/gi, `<h3 class="headingclass r-font-h6">`)
+        .replace(/<h4>/gi, `<h4 class="headingclass r-font-hx">`);
 
       // 2️⃣ global pass (single source of truth)
       html = html.replace(
