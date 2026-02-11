@@ -9,9 +9,9 @@
           <!-- this image load is for touching the smaller image for whatsap and social media previews -->
           <img
             :src="
-              this.item.fields?.['Image']?.[0]?.url
+              item?.['Attachments']?.[0]?.url
                 ? `${$apiProxyUrl}${encodeURIComponent(
-                    this.item.fields?.['Image']?.[0]?.thumbnails?.large?.url,
+                    item?.['Attachments']?.[0]?.thumbnails?.large?.url,
                   )}`
                 : ''
             "
@@ -21,9 +21,9 @@
           <div class="bg-3ry-color">
             <div
               :style="
-                this.item.fields?.['Image']?.[0]?.url
+                item?.['Attachments']?.[0]?.url
                   ? `background-image: url(${$apiProxyUrl}${encodeURIComponent(
-                      this.item.fields?.['Image']?.[0]?.url,
+                      item?.['Attachments']?.[0]?.url,
                     )});`
                   : ``
               "
@@ -53,25 +53,27 @@
                 <div class="container-sm text-white">
                   <div class="row q-col-gutter-md justify-center">
                     <div class="col-xl-6 col-md-6 col-12">
-                      <div class="gt-md q-py-lg"></div>
+                      <div class="gt-md q-py-md"></div>
 
                       <h1 class="text-center r-font-h3 text-bold">
                         <span
                           class="text-weight-bold font-1ry text-uppercase"
                           style="letter-spacing: 15px"
                         >
-                          {{ item.fields?.["Title"] }}
+                          {{ item?.["Title"] }}
                         </span>
                       </h1>
-
-                      <h2 class="text-center text-subtitle2">
-                        <span
-                          class="text-weight-lightx font-2ry text-uppercase"
-                          style="letter-spacing: 10px"
+                    </div>
+                    <div class="col-xl-12 col-md-12 col-12"></div>
+                    <div class="col-xl-10 col-md-10 col-12">
+                      <div class="text-center text-subtitle2x text-body">
+                        <div
+                          class="text-weight-lightx font-2ry text-uppercasex r-font-h4"
+                          style="letter-spacing: 10cpx"
                         >
-                          {{ item.fields?.["Subtitle"] }}
-                        </span>
-                      </h2>
+                          <div v-html="toHtml(item.Tagline)"></div>
+                        </div>
+                      </div>
 
                       <div class="gt-md q-py-lg"></div>
                     </div>
@@ -80,7 +82,7 @@
               </div>
             </div>
           </div>
-          <div class="text- q-py-md">
+          <!-- <div class="text- q-py-md">
             <div class="container-sm">
               <h2
                 class="r-font-h3 text-center q-my-none text-uppercase font-1ry"
@@ -95,15 +97,40 @@
                 <div v-html="taglineHtml"></div>
               </div>
             </div>
-          </div>
+          </div> -->
           <div class="bg-white q-py-md">
             <div class="container-sm">
               <div class="text-body1x text-subtitle1" style="">
-                <!-- <div v-html="bodyHtml"></div> -->
-
                 <div class="row q-col-gutter-xl">
-                  <div class="col-12 col-md-6" v-html="bodyColumns.left"></div>
-                  <div class="col-12 col-md-6" v-html="bodyColumns.right"></div>
+                  <div
+                    class="col-12 col-md-6"
+                    v-html="toColumns(item.Body).left"
+                  ></div>
+                  <div
+                    class="col-12 col-md-6"
+                    v-html="toColumns(item.Body).right"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-3ry-color">
+            <div style="padding-top: 0px" class="">
+              <div class="q-py-xl">
+                <div class="container-sm text-white">
+                  <div class="row q-col-gutter-md justify-center">
+                    <div class="col-xl-12 col-md-12 col-12"></div>
+                    <div class="col-xl-10 col-md-10 col-12">
+                      <div class="text-center text-subtitle2x text-body">
+                        <div
+                          class="text-weight-lightx font-2ry text-uppercasex r-font-h4"
+                          style="letter-spacing: 10cpx"
+                        >
+                          <div v-html="toHtml(item['Closing Line'])"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -128,6 +155,7 @@ const SLUG_TO_RECORD_ID = {
   "about-us": "rec3yq3CL9KjxmdQG",
   "info-for-artists": "recfjkCIv8hVr8647",
   "info-for-collectors": "recj52kiC87mNRTsj",
+  "info-for-collectors-2": "rec9IhLFHPPv6auBS",
 };
 
 export default {
@@ -149,44 +177,6 @@ export default {
   },
 
   computed: {
-    bodyColumns() {
-      // 1️⃣ full pipeline first
-      let html = this.bodyHtml; // use the computed that already injects classes
-
-      // 2️⃣ split AFTER transform
-      const sections = html.split(/(?=<h1|<h2|<h3|<h4|<h5|<h6)/i);
-      const mid = Math.ceil(sections.length / 2);
-
-      return {
-        left: sections.slice(0, mid).join(""),
-        right: sections.slice(mid).join(""),
-      };
-    },
-    bodyHtml() {
-      let html = marked.parse(this.item.Body || "");
-
-      // 1️⃣ tag → marker + level-specific classes
-      html = html
-        // .replace(/<h-2>/gi, `<h-1 class="headingclass r-font-h2">`)
-        // .replace(/<h-1>/gi, `<h0 class="headingclass r-font-h3">`)
-        // .replace(/<h0>/gi, `<h1 class="headingclass r-font-h4">`)
-        .replace(/<h1>/gi, `<h2 class="headingclass r-font-h5">`)
-        .replace(/<h2>/gi, `<h3 class="headingclass r-font-h6">`)
-        .replace(/<h3>/gi, `<h4 class="headingclass r-font-h6">`);
-
-      // 2️⃣ global pass (single source of truth)
-      html = html.replace(
-        /headingclass/g,
-        "font-1ry text-uppercase text-centerx q-my-md",
-      );
-
-      return html;
-    },
-    taglineHtml() {
-      let html = marked.parse(this.item.Tagline || "");
-
-      return html;
-    },
     pageSlug() {
       return this.$route.params.pageSlug;
     },
@@ -244,6 +234,44 @@ export default {
   },
 
   methods: {
+    toColumns(input) {
+      // 1️⃣ full pipeline first
+      let html = this.toHtmlPlus(input); // use the computed that already injects classes
+
+      // 2️⃣ split AFTER transform
+      const sections = html.split(/(?=<h1|<h2|<h3|<h4|<h5|<h6)/i);
+      const mid = Math.ceil(sections.length / 2);
+
+      return {
+        left: sections.slice(0, mid).join(""),
+        right: sections.slice(mid).join(""),
+      };
+    },
+    toHtmlPlus(input) {
+      let html = marked.parse(input || "");
+
+      // 1️⃣ tag → marker + level-specific classes
+      html = html
+        // .replace(/<h-2>/gi, `<h-1 class="headingclass r-font-h2">`)
+        // .replace(/<h-1>/gi, `<h0 class="headingclass r-font-h3">`)
+        // .replace(/<h0>/gi, `<h1 class="headingclass r-font-h4">`)
+        .replace(/<h1>/gi, `<h1 class="headingclass r-font-h5">`)
+        .replace(/<h2>/gi, `<h2 class="headingclass r-font-h6">`)
+        .replace(/<h3>/gi, `<h3 class="headingclass r-font-hx">`);
+
+      // 2️⃣ global pass (single source of truth)
+      html = html.replace(
+        /headingclass/g,
+        "font-1ry text-uppercase text-centerx q-my-md",
+      );
+
+      return html;
+    },
+    toHtml(input) {
+      let html = marked.parse(input || "");
+
+      return html;
+    },
     fetchIndiData() {
       if (!this.recordId) return;
 
