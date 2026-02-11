@@ -107,7 +107,7 @@
                     :key="index"
                     class="q-mb-xl"
                   >
-                    <div v-html="row.heading"></div>
+                    <div class="text-center" v-html="row.heading"></div>
 
                     <div class="row q-col-gutter-x-xl">
                       <div
@@ -119,7 +119,19 @@
                     </div>
                   </div>
                 </template>
-                <template v-else> </template>
+
+                <template v-else>
+                  <div class="row q-col-gutter-xl">
+                    <div
+                      class="col-12 col-md-6"
+                      v-html="toColumns(item.Body).left"
+                    ></div>
+                    <div
+                      class="col-12 col-md-6"
+                      v-html="toColumns(item.Body).right"
+                    ></div>
+                  </div>
+                </template>
               </div>
             </div>
           </div>
@@ -305,7 +317,7 @@ export default {
         // .replace(/<h-1>/gi, `<h-1 class="headingclass r-font-h2">`)
         // .replace(/<h0>/gi, `<h0 class="headingclass r-font-h3">`)
         // .replace(/<h1>/gi, `<h1 class="headingclass r-font-h4">`)
-        .replace(/<h2>/gi, `<h2 class="headingclass text-center r-font-h4">`)
+        .replace(/<h2>/gi, `<h2 class="headingclass r-font-h4">`)
         .replace(/<h3>/gi, `<h3 class="headingclass r-font-h6">`)
         .replace(/<h4>/gi, `<h4 class="headingclass r-font-hx">`);
 
