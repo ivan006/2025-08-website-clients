@@ -101,24 +101,25 @@
           <div class="bg-white q-py-md">
             <div class="container-sm">
               <div class="text-body1x text-subtitle1">
-                <div
-                  v-for="(row, index) in toHeadingGroupings(item.Body)"
-                  :key="index"
-                  class="q-mb-xl"
-                >
-                  <div v-html="row.heading"></div>
+                <template v-if="recordId == 'rec9IhLFHPPv6auBS'">
+                  <div
+                    v-for="(row, index) in splitSectionsAndHeadings(item.Body)"
+                    :key="index"
+                    class="q-mb-xl"
+                  >
+                    <div v-html="row.heading"></div>
 
-                  <div class="row q-col-gutter-xl">
-                    <div
-                      class="col-12 col-md-6"
-                      v-html="toColumns(row.body).left"
-                    ></div>
-                    <div
-                      class="col-12 col-md-6"
-                      v-html="toColumns(row.body).right"
-                    ></div>
+                    <div class="row q-col-gutter-x-xl">
+                      <div
+                        v-for="(sectionHtml, index) in splitSections(row.body)"
+                        :key="index"
+                        class="col-12 col-md-6"
+                        v-html="sectionHtml"
+                      ></div>
+                    </div>
                   </div>
-                </div>
+                </template>
+                <template v-else> </template>
               </div>
             </div>
           </div>
@@ -243,7 +244,18 @@ export default {
   },
 
   methods: {
-    toHeadingGroupings(input) {
+    splitSections(input) {
+      const html = this.toHtmlPlus(input);
+
+      const match = html.match(/<h([1-6])\b/i);
+      if (!match) return [html.trim()];
+
+      const highestLevel = match[1];
+      const splitRegex = new RegExp(`(?=<h${highestLevel}\\b)`, "i");
+
+      return html.split(splitRegex).filter((s) => s.trim());
+    },
+    splitSectionsAndHeadings(input) {
       const html = this.toHtmlPlus(input);
 
       // 1️⃣ detect highest (smallest number) heading level present
@@ -293,7 +305,7 @@ export default {
         // .replace(/<h-1>/gi, `<h-1 class="headingclass r-font-h2">`)
         // .replace(/<h0>/gi, `<h0 class="headingclass r-font-h3">`)
         // .replace(/<h1>/gi, `<h1 class="headingclass r-font-h4">`)
-        .replace(/<h2>/gi, `<h2 class="headingclass text-center r-font-h5">`)
+        .replace(/<h2>/gi, `<h2 class="headingclass text-center r-font-h4">`)
         .replace(/<h3>/gi, `<h3 class="headingclass r-font-h6">`)
         .replace(/<h4>/gi, `<h4 class="headingclass r-font-hx">`);
 
