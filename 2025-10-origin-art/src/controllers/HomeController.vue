@@ -4,6 +4,7 @@
       <div class="text-center q-pa-xl">Loading...</div>
     </div>
     <div v-show="!(loading || childLoading)">
+      <!-- this image load is for touching the smaller image for whatsap and social media previews -->
       <img
         :src="
           this.item.fields?.['Image']?.[0]?.url

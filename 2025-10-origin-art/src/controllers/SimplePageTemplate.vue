@@ -6,6 +6,80 @@
     <template v-else>
       <div class="row items-center bg-white" style="min-height: 60vh">
         <div class="col">
+          <!-- this image load is for touching the smaller image for whatsap and social media previews -->
+          <img
+            :src="
+              this.item.fields?.['Image']?.[0]?.url
+                ? `${$apiProxyUrl}${encodeURIComponent(
+                    this.item.fields?.['Image']?.[0]?.thumbnails?.large?.url,
+                  )}`
+                : ''
+            "
+            alt=""
+            style="display: none"
+          />
+          <div class="bg-3ry-color">
+            <div
+              :style="
+                this.item.fields?.['Image']?.[0]?.url
+                  ? `background-image: url(${$apiProxyUrl}${encodeURIComponent(
+                      this.item.fields?.['Image']?.[0]?.url,
+                    )});`
+                  : ``
+              "
+              style="
+                background-color: rgb(70, 70, 70);
+                background-position: center;
+
+                background-size: cover; /* height fills, width scales proportionally */
+                image-rendering: crisp-edges; /* optional, prevents blurring */
+                background-attachment: scroll;
+
+                background-color: rgba(0, 0, 0, 0);
+                background-blend-mode: darken;
+
+                background-repeat: no-repeat;
+                image-rendering: -webkit-optimize-contrast;
+                image-rendering: crisp-edges;
+
+                background-color: rgba(0, 0, 0, 0.3);
+                background-blend-mode: darken;
+
+                padding-top: 0px;
+              "
+              class=""
+            >
+              <div class="q-py-xl">
+                <div class="container-sm text-white">
+                  <div class="row q-col-gutter-md justify-center">
+                    <div class="col-xl-6 col-md-6 col-12">
+                      <div class="gt-md q-py-lg"></div>
+
+                      <h1 class="text-center r-font-h3 text-bold">
+                        <span
+                          class="text-weight-bold font-1ry text-uppercase"
+                          style="letter-spacing: 15px"
+                        >
+                          {{ item.fields?.["Title"] }}
+                        </span>
+                      </h1>
+
+                      <h2 class="text-center text-subtitle2">
+                        <span
+                          class="text-weight-lightx font-2ry text-uppercase"
+                          style="letter-spacing: 10px"
+                        >
+                          {{ item.fields?.["Subtitle"] }}
+                        </span>
+                      </h2>
+
+                      <div class="gt-md q-py-lg"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="text- q-py-md">
             <div class="container-sm">
               <h2
