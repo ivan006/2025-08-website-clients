@@ -15,14 +15,22 @@
               </h2>
             </div>
           </div>
-
           <div class="bg-white q-py-md">
             <div class="container-sm">
-              <div
-                class="text-body1x text-subtitle1"
-                style="white-space: pre-line"
-              >
-                <div v-html="bodyHtml"></div>
+              <div class="text-body1x text-subtitle1" style="">
+                <div v-html="taglineHtml"></div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-white q-py-md">
+            <div class="container-sm">
+              <div class="text-body1x text-subtitle1" style="">
+                <!-- <div v-html="bodyHtml"></div> -->
+
+                <div class="row q-col-gutter-xl">
+                  <div class="col-12 col-md-6" v-html="bodyColumns.left"></div>
+                  <div class="col-12 col-md-6" v-html="bodyColumns.right"></div>
+                </div>
               </div>
             </div>
           </div>
@@ -44,6 +52,8 @@ const SLUG_TO_RECORD_ID = {
   "privacy-policy": "recIL2JG4aDRfVi78",
   "refund-policy": "recGe8aQ1rjkVFpKY",
   "about-us": "rec3yq3CL9KjxmdQG",
+  "info-for-artists": "recfjkCIv8hVr8647",
+  "info-for-collectors": "recj52kiC87mNRTsj",
 };
 
 export default {
@@ -65,8 +75,43 @@ export default {
   },
 
   computed: {
+    bodyColumns() {
+      // 1️⃣ full pipeline first
+      let html = this.bodyHtml; // use the computed that already injects classes
+
+      // 2️⃣ split AFTER transform
+      const sections = html.split(/(?=<h1|<h2|<h3|<h4|<h5|<h6)/i);
+      const mid = Math.ceil(sections.length / 2);
+
+      return {
+        left: sections.slice(0, mid).join(""),
+        right: sections.slice(mid).join(""),
+      };
+    },
     bodyHtml() {
-      return marked.parse(this.item.Body || "");
+      let html = marked.parse(this.item.Body || "");
+
+      // 1️⃣ tag → marker + level-specific classes
+      html = html
+        // .replace(/<h-2>/gi, `<h-1 class="headingclass r-font-h2">`)
+        // .replace(/<h-1>/gi, `<h0 class="headingclass r-font-h3">`)
+        // .replace(/<h0>/gi, `<h1 class="headingclass r-font-h4">`)
+        .replace(/<h1>/gi, `<h2 class="headingclass r-font-h5">`)
+        .replace(/<h2>/gi, `<h3 class="headingclass r-font-h6">`)
+        .replace(/<h3>/gi, `<h4 class="headingclass r-font-h6">`);
+
+      // 2️⃣ global pass (single source of truth)
+      html = html.replace(
+        /headingclass/g,
+        "font-1ry text-uppercase text-centerx q-my-md",
+      );
+
+      return html;
+    },
+    taglineHtml() {
+      let html = marked.parse(this.item.Tagline || "");
+
+      return html;
     },
     pageSlug() {
       return this.$route.params.pageSlug;
