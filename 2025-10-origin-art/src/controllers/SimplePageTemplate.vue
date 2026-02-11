@@ -102,7 +102,7 @@
             <div class="container-sm">
               <div class="text-body1x text-subtitle1">
                 <div
-                  v-for="(row, index) in toRows(item.Body)"
+                  v-for="(row, index) in toHeadingGroupings(item.Body)"
                   :key="index"
                   class="q-mb-xl"
                 >
@@ -243,25 +243,24 @@ export default {
   },
 
   methods: {
-    toRows(input) {
+    toHeadingGroupings(input) {
       const html = this.toHtmlPlus(input);
 
-      // 1️⃣ Detect highest (smallest number) heading present
+      // 1️⃣ detect highest (smallest number) heading level present
       const match = html.match(/<h([1-6])\b/i);
       if (!match) {
         return [{ heading: "", body: html.trim() }];
       }
 
-      const highestLevel = match[1]; // e.g. "1" or "2"
+      const highestLevel = match[1];
 
-      // 2️⃣ Split only on that heading level
-      const regex = new RegExp(`(?=<h${highestLevel}\\b)`, "i");
+      // 2️⃣ split only on that heading level
+      const splitRegex = new RegExp(`(?=<h${highestLevel}\\b)`, "i");
 
-      const sections = html.split(regex).filter((s) => s.trim());
+      const sections = html.split(splitRegex).filter((s) => s.trim());
 
       return sections.map((sectionHtml) => {
         const doc = new DOMParser().parseFromString(sectionHtml, "text/html");
-
         const headingEl = doc.body.querySelector(`h${highestLevel}`);
 
         const heading = headingEl ? headingEl.outerHTML : "";
