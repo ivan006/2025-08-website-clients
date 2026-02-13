@@ -1,292 +1,275 @@
 <template>
-  <div class="">
-    <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
-    <div v-if="loading" class="text-center q-pa-xl">Loading...</div>
-
-    <template v-else>
-      <div class="row items-center bg-white" style="min-height: 60vh">
-        <div class="col">
-          <!-- this image load is for touching the smaller image for whatsap and social media previews -->
-          <img
-            :src="
-              item?.['Attachments']?.[0]?.url
-                ? `${$apiProxyUrl}${encodeURIComponent(
-                    item?.['Attachments']?.[0]?.thumbnails?.large?.url,
-                  )}`
-                : ''
-            "
-            alt=""
-            style="display: none"
-          />
-          <div class="bg-3ry-color">
-            <div
-              :style="
-                item?.['Attachments']?.[0]?.url
-                  ? `background-image: url(${$apiProxyUrl}${encodeURIComponent(
-                      item?.['Attachments']?.[0]?.url,
-                    )});`
-                  : ``
-              "
-              style="
-                background-color: rgb(70, 70, 70);
-                background-position: center;
-
-                background-size: cover; /* height fills, width scales proportionally */
-                image-rendering: crisp-edges; /* optional, prevents blurring */
-                background-attachment: scroll;
-
-                background-color: rgba(0, 0, 0, 0);
-                background-blend-mode: darken;
-
-                background-repeat: no-repeat;
-                image-rendering: -webkit-optimize-contrast;
-                image-rendering: crisp-edges;
-
-                background-color: rgba(0, 0, 0, 0.3);
-                background-blend-mode: darken;
-
-                padding-top: 0px;
-              "
-              class=""
+  <div
+    class="container-mdx"
+    style="border-bottom: 1px solid rgba(0, 0, 0, 0.12)"
+  >
+    <catalogue-layout>
+      <template #filters>
+        <div>
+          <template v-for="(filter, fIdx) in filterGroups" :key="fIdx">
+            <q-expansion-item
+              :label="filter.label"
+              class="text-weight-bold"
+              default-opened
             >
-              <div class="q-py-xl">
-                <div class="container-sm text-white">
-                  <div class="row q-col-gutter-md justify-center">
-                    <div class="col-xl-6 col-md-6 col-12">
-                      <div class="gt-md q-py-md"></div>
-
-                      <h1 class="text-center r-font-h3 text-bold">
-                        <span
-                          class="text-weight-bold font-1ry text-uppercase"
-                          style="letter-spacing: 15px"
-                        >
-                          {{ item?.["Title"] }}
-                        </span>
-                      </h1>
-                    </div>
-                    <div class="col-xl-12 col-md-12 col-12"></div>
-                    <div class="col-xl-10 col-md-10 col-12">
-                      <div class="text-center text-subtitle2x text-body">
-                        <div
-                          class="text-weight-lightx font-2ry text-uppercasex r-font-h4"
-                          style="letter-spacing: 10cpx"
-                        >
-                          <div v-html="toHtml(item.Tagline)"></div>
-                        </div>
-                      </div>
-
-                      <div class="gt-md q-py-lg"></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!-- <div class="text- q-py-md">
-            <div class="container-sm">
-              <h2
-                class="r-font-h3 text-center q-my-none text-uppercase font-1ry"
+              <q-option-group
+                v-model="filterValsRef[filter.lookup]"
+                :options="filter.options"
+                type="radio"
+                @update:model-value="resetAndFetch"
+                class="q-pb-md text-weight-regular"
               >
-                {{ item.Title }}
-              </h2>
-            </div>
-          </div>
-          <div class="bg-white q-py-md">
-            <div class="container-sm">
-              <div class="text-body1x text-subtitle1" style="">
-                <div v-html="taglineHtml"></div>
-              </div>
-            </div>
-          </div> -->
-          <div class="bg-white q-py-xl">
-            <div class="container-sm">
-              <div class="text-body1x text-subtitle1">
-                <template
-                  v-if="
-                    [
-                      'recUfByGJ6A3kW967',
-                      'rec9IhLFHPPv6auBS',
-                      'recQghOl9RwUTLlp3',
-                      'rec0TegL34RS7PCKm',
-                    ].includes(recordId)
-                  "
-                >
+                <template v-slot:label="scope">
                   <div
-                    v-for="(row, index) in splitSectionsAndHeadings(item.Body)"
-                    :key="index"
-                    class="q-mb-xl"
+                    class="row items-center no-wrap justify-between q-gutter-x-sm"
                   >
-                    <div class="text-center" style="width: 100%">
-                      <div
-                        style="
-                          max-width: 800px;
-                          margin-left: auto;
-                          margin-right: auto;
-                        "
-                        v-html="row.heading"
-                      ></div>
-                    </div>
+                    <div class="">{{ scope.label }}</div>
 
-                    <div class="row q-col-gutter-x-xl justify-center">
-                      <div
-                        v-for="(sectionHtml, index) in splitSections(row.body)"
-                        :key="index"
-                        class="col-12 col-md-6 text-center"
-                        v-html="sectionHtml"
-                      ></div>
-                    </div>
-                  </div>
-                </template>
-                <template
-                  v-else-if="
-                    ['recAAr62J3RCEC2R9', 'recITBB5TtaPuWCQL'].includes(
-                      recordId,
-                    )
-                  "
-                >
-                  <div class="row q-col-gutter-x-xl justify-center">
-                    <div
-                      v-for="(sectionHtml, index) in splitSections(item.Body)"
-                      :key="index"
-                      class="col-12 col-md-6 text-center"
-                      v-html="sectionHtml"
-                    ></div>
-                  </div>
-                </template>
+                    <!-- v-if="filterValsRef[filter.lookup] !== scope.value" -->
 
-                <template v-else>
-                  <div class="row q-col-gutter-xl">
-                    <div
-                      class="col-12 col-md-6"
-                      v-html="toColumns(item.Body).left"
-                    ></div>
-                    <div
-                      class="col-12 col-md-6"
-                      v-html="toColumns(item.Body).right"
-                    ></div>
+                    <!-- :class="filterValsRef[filter.lookup] !== scope.value ? `text-2ry-color` : `text-3ry-color`" -->
+                    <!-- text-4ry-color bg-3ry-color -->
+                    <q-badge
+                      color=""
+                      transparent
+                      align="middle"
+                      class="q-ml-sm"
+                      size="small"
+                    >
+                      {{ getCount(scope.value, filter.table) }}
+                    </q-badge>
                   </div>
                 </template>
-              </div>
-            </div>
+              </q-option-group>
+            </q-expansion-item>
+
+            <q-separator v-if="fIdx < filterGroups.length - 1" />
+          </template>
+        </div>
+      </template>
+
+      <template #content>
+        <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
+        <!-- <pre>{{ offsetTrail }}</pre> -->
+        <div v-if="loading" class="text-center q-pa-md">Loading...</div>
+        <div
+          v-else-if="!items.length"
+          class="text-center q-pa-md text-2ry-color"
+        >
+          No artworks found.
+        </div>
+        <div v-else>
+          <div class="text-center q-pa-sm text-1ry-color">
+            {{ currentRecordCount }} artworks found
           </div>
 
-          <div class="bg-3ry-color">
-            <div style="padding-top: 0px" class="">
-              <div class="q-py-xl">
-                <div class="container-sm text-white">
-                  <div class="row q-col-gutter-md justify-center">
-                    <div class="col-xl-12 col-md-12 col-12"></div>
-                    <div class="col-xl-10 col-md-10 col-12">
-                      <div class="text-center text-subtitle2x text-body">
-                        <div
-                          class="text-weight-lightx font-2ry text-uppercasex r-font-h4"
-                          style="letter-spacing: 10cpx"
-                        >
-                          <div v-html="toHtml(item['Closing Line'])"></div>
-                        </div>
-                      </div>
-                    </div>
+          <div class="row q-col-gutter-lgx">
+            <div
+              v-for="art in items"
+              :key="art.id"
+              class="col-6 col-md-2 q-pa-sm"
+            >
+              <q-card flat bordered class="text-1ry-color box-shadow-1ry">
+                <img
+                  :src="
+                    art['Image']
+                      ? `${$apiProxyUrl}${encodeURIComponent(art['Image'])}`
+                      : ''
+                  "
+                  ratio="1"
+                  class="rounded-borders"
+                />
+                <q-card-section>
+                  <div class="text-h6 font-1ry" style="min-height: 64px">
+                    {{ art.Title }}
                   </div>
-                </div>
-              </div>
+                  <div class="text-subtitle2 text-2ry-color q-mt-xs">
+                    {{ art["Artist Name"]?.[0] || "Unknown Artist" }}
+                  </div>
+                  <div class="text-body1 q-mt-xs text-weight-bold">
+                    R{{ art.Price?.toLocaleString() }}
+                  </div>
+                </q-card-section>
+                <q-card-actions align="right">
+                  <q-btn
+                    flat
+                    :size="$q.screen.lt.md ? 'sm' : 'sm'"
+                    label="View Details"
+                    class="bg-1ry-color"
+                  />
+                </q-card-actions>
+              </q-card>
             </div>
           </div>
         </div>
-      </div>
-    </template>
+
+        <!-- ✅ Smart Pagination -->
+        <div class="text-center q-mt-lg flex flex-center q-gutter-sm">
+          <q-btn
+            :size="$q.screen.lt.md ? 'md' : 'md'"
+            flat
+            color="primary"
+            icon="chevron_left"
+            label="Previous"
+            :disable="currentPage === 0"
+            @click="prevPage"
+          />
+
+          <div>
+            <q-btn
+              v-for="(off, idx) in offsetTrail"
+              :key="idx"
+              :size="$q.screen.lt.md ? 'sm' : 'sm'"
+              flat
+              round
+              :label="idx + 1"
+              :color="idx === currentPage ? 'primary' : 'grey-6'"
+              @click="goToPage(idx)"
+            />
+          </div>
+
+          <q-btn
+            :size="$q.screen.lt.md ? 'md' : 'md'"
+            flat
+            color="primary"
+            icon-right="chevron_right"
+            label="Next"
+            :disable="!nextOffset"
+            @click="nextPage"
+          />
+        </div>
+      </template>
+    </catalogue-layout>
   </div>
 </template>
 
 <script>
-import Policies from "src/models/orm-api/Policies";
-import SEODataViewer from "src/controllers/SEODataViewer.vue";
+import Secondary_Page_Items from "src/models/orm-api/Secondary_Page_Items";
+import Tertiary_Page_Items from "src/models/orm-api/Tertiary_Page_Items"; // 👈 new
 import { createMetaMixin } from "quasar";
 import { buildSchemaItem, buildSeoConfig } from "src/utils/seo";
-import { marked } from "marked";
-
-// 🔒 explicit, boring, safe
-const SLUG_TO_RECORD_ID = {
-  "privacy-policy": "recIL2JG4aDRfVi78",
-  "refund-policy": "recGe8aQ1rjkVFpKY",
-  "about-us": "rec3yq3CL9KjxmdQG",
-  "about-us-2": "recAAr62J3RCEC2R9",
-
-  "info-for-collectors": "recj52kiC87mNRTsj",
-  "info-for-collectors-2": "rec9IhLFHPPv6auBS",
-  "dear-collectors": "rec0TegL34RS7PCKm",
-
-  "info-for-artists": "recfjkCIv8hVr8647",
-  "dear-artists": "recUfByGJ6A3kW967",
-  "dear-artists-2": "recQghOl9RwUTLlp3",
-  "work-with-us": "recITBB5TtaPuWCQL",
-};
+import SEODataViewer from "src/controllers/SEODataViewer.vue";
+import CatalogueLayout from "src/controllers/CatalogueLayout.vue";
 
 export default {
-  name: "SimplePageTemplate",
-
-  components: { SEODataViewer },
-
+  name: "RichPageSectionsTemplate",
+  components: { SEODataViewer, CatalogueLayout },
   mixins: [
     createMetaMixin(function () {
       return this.seoConfig;
     }),
   ],
-
   data() {
     return {
-      loading: true,
-      item: {},
+      items: [],
+      recordCounts: [], // 👈 stores 48 count records
+      loading: false,
+      filterValsRef: {
+        "Media Category Name": "Fine Art",
+        "Theme Name": "Evocative",
+        "Tier Category": "Gold Tier",
+      },
+      nextOffset: null,
+      offsetTrail: [null],
+      currentPage: 0,
+      options: { itemsPerPage: 60 },
+      filterGroups: [
+        {
+          label: "Media Type",
+          lookup: "Media Category Name",
+          table: "Media Category",
+          options: [
+            { label: "Fine Art", value: "Fine Art" },
+            { label: "Sculptural Works", value: "Sculptural Works" },
+            { label: "New Media", value: "New Media" },
+          ],
+        },
+        {
+          label: "Style",
+          lookup: "Theme Name",
+          table: "Art Theme",
+          options: [
+            { label: "Evocative", value: "Evocative" },
+            { label: "Decorative", value: "Decorative" },
+          ],
+        },
+        {
+          label: "Budget",
+          lookup: "Tier Category",
+          table: "Artist Tiers",
+          options: [
+            { label: "Gold (>50k)", value: "Gold Tier" },
+            { label: "Silver (10k-50k)", value: "Silver Tier" },
+            { label: "Bronze (<10k)", value: "Bronze Tier" },
+          ],
+        },
+      ],
     };
   },
 
   computed: {
-    pageSlug() {
-      return this.$route.params.pageSlug;
-    },
+    // 👇 Finds the current combination’s precomputed total
+    currentRecordCount() {
+      const media = this.filterValsRef["Media Category Name"];
+      const theme = this.filterValsRef["Theme Name"];
+      const tier = this.filterValsRef["Tier Category"];
 
-    recordId() {
-      return SLUG_TO_RECORD_ID[this.pageSlug];
+      return (
+        this.recordCounts.find((r) => {
+          const f = r.fields;
+          const mediaNames = f["Name (from Media Category)"] || [];
+          const themeNames = f["Name (from Art Theme)"] || [];
+          const tierNames = f["Name (from Artist Tiers)"] || [];
+
+          const mediaMatch = media
+            ? mediaNames.includes(media)
+            : mediaNames.length === 0;
+          const themeMatch = theme
+            ? themeNames.includes(theme)
+            : themeNames.length === 0;
+          const tierMatch = tier
+            ? tierNames.includes(tier)
+            : tierNames.length === 0;
+
+          return mediaMatch && themeMatch && tierMatch;
+        })?.fields["Record Count"] || 0
+      );
     },
 
     seoLdJson() {
       const url =
         window.location.origin + (this.$route?.fullPath.split("#")[0] || "/");
-      const siteName = import.meta.env.VITE_API_SITE_TITLE;
-
-      let image = import.meta.env.VITE_API_DEFAULT_IMAGE;
-      if (this.mainImage) {
-        image = this.mainImage;
-      }
-
-      const schema = buildSchemaItem({
-        type: this.item?.["SEO Type"],
-        name: this.item?.["Title"] || siteName,
-        description: this.item.Body,
-        url,
-        image,
-        extras: {},
-      });
-
-      return schema;
+      const products = this.items.map((item) =>
+        buildSchemaItem({
+          type: "Product",
+          url: item["SEO URL"]
+            ? window.location.origin + item["SEO URL"]
+            : null,
+          name: item["Title"] || "",
+          description: item["Subtitle"] || "",
+          image: item["Image"]
+            ? `${
+                import.meta.env.VITE_API_PROXY_URL
+              }/data-cache/index.php?url=${encodeURIComponent(item["Image"])}`
+            : "",
+          price: item["Price"],
+        }),
+      );
+      return {
+        "@context": "https://schema.org",
+        "@type": "ItemList",
+        itemListElement: products,
+      };
     },
     seoConfig() {
       const url =
         window.location.origin + (this.$route?.fullPath.split("#")[0] || "/");
-      const siteName = import.meta.env.VITE_API_SITE_TITLE;
-
-      let image = import.meta.env.VITE_API_DEFAULT_IMAGE;
-      if (this.mainImage) {
-        image = this.mainImage;
-      }
-
       return buildSeoConfig({
-        title: this.item?.["Title"],
-        description: this.item.Body,
+        title: "Art Catalogue",
+        description:
+          "Browse our collection of artworks across categories and styles.",
         url,
-        image,
-        siteName,
-        type: "WebPage",
-        schema: this.seoLdJson,
+        siteName: import.meta.env.VITE_API_SITE_TITLE,
       });
     },
     seoConfigMasked() {
@@ -297,119 +280,127 @@ export default {
   },
 
   methods: {
-    splitSections(input) {
-      const html = this.toHtmlPlus(input);
+    getCount(optionValue, groupKey) {
+      const media = this.filterValsRef["Media Category Name"];
+      const theme = this.filterValsRef["Theme Name"];
+      const tier = this.filterValsRef["Tier Category"];
 
-      const match = html.match(/<h([1-6])\b/i);
-      if (!match) return [html.trim()];
-
-      const highestLevel = match[1];
-      const splitRegex = new RegExp(`(?=<h${highestLevel}\\b)`, "i");
-
-      return html.split(splitRegex).filter((s) => s.trim());
-    },
-    splitSectionsAndHeadings(input) {
-      const html = this.toHtmlPlus(input);
-
-      // 1️⃣ Detect highest (smallest number) heading level present
-      const match = html.match(/<h([1-6])\b/i);
-      if (!match) {
-        return [{ heading: "", body: html.trim() }];
-      }
-
-      const highestLevel = match[1];
-
-      // 2️⃣ Split only on that heading level
-      const splitRegex = new RegExp(`(?=<h${highestLevel}\\b)`, "i");
-      const sections = html.split(splitRegex).filter((s) => s.trim());
-
-      return sections.map((sectionHtml) => {
-        const doc = new DOMParser().parseFromString(sectionHtml, "text/html");
-
-        const headingEl = doc.body.querySelector(`h${highestLevel}`);
-        let heading = "";
-
-        if (headingEl) {
-          // Capture heading HTML
-          heading = headingEl.outerHTML;
-
-          // Look for first paragraph immediately after heading
-          const nextEl = headingEl.nextElementSibling;
-
-          if (nextEl && nextEl.tagName.toLowerCase() === "p") {
-            // Attach first paragraph to heading block
-            heading += nextEl.outerHTML;
-            nextEl.remove();
-          }
-
-          // Remove heading itself from body
-          headingEl.remove();
-        }
-
-        return {
-          heading,
-          body: doc.body.innerHTML.trim(),
-        };
-      });
-    },
-    toColumns(input) {
-      // 1️⃣ full pipeline first
-      let html = this.toHtmlPlus(input); // use the computed that already injects classes
-
-      // 2️⃣ split AFTER transform
-      const sections = html.split(/(?=<h1|<h2|<h3|<h4|<h5|<h6)/i);
-      const mid = Math.ceil(sections.length / 2);
-
-      return {
-        left: sections.slice(0, mid).join(""),
-        right: sections.slice(mid).join(""),
+      const combo = {
+        media: groupKey === "Media Category" ? optionValue : media,
+        theme: groupKey === "Art Theme" ? optionValue : theme,
+        tier: groupKey === "Artist Tiers" ? optionValue : tier,
       };
+
+      const match = this.recordCounts.find((r) => {
+        const f = r.fields;
+        const mediaNames = f["Name (from Media Category)"] || [];
+        const themeNames = f["Name (from Art Theme)"] || [];
+        const tierNames = f["Name (from Artist Tiers)"] || [];
+
+        const mediaMatch = combo.media
+          ? mediaNames.includes(combo.media)
+          : mediaNames.length === 0;
+        const themeMatch = combo.theme
+          ? themeNames.includes(combo.theme)
+          : themeNames.length === 0;
+        const tierMatch = combo.tier
+          ? tierNames.includes(combo.tier)
+          : tierNames.length === 0;
+        return mediaMatch && themeMatch && tierMatch;
+      });
+
+      return match?.fields["Record Count"] || 0;
+    },
+    async fetchRecordCounts() {
+      try {
+        const res = await Tertiary_Page_Items.FetchAll(
+          "auto",
+          [],
+          {},
+          {},
+          { limit: 100 },
+        );
+        this.recordCounts = res.response.data.records;
+        console.log("✅ Record counts loaded:", this.recordCounts.length);
+      } catch (err) {
+        console.error("❌ Failed to load record counts:", err);
+      }
     },
 
-    toHtmlPlus(input) {
-      let html = marked.parse(input || "");
+    async fetchData(offset = null) {
+      this.loading = true;
+      try {
+        const filters = this.filterValsRef;
+        const parts = Object.entries(filters)
+          .filter(([_, v]) => v)
+          .map(([k, v]) => `({${k}}='${v.replace(/'/g, "\\'")}')`);
+        const formula = parts.length ? `AND(${parts.join(",")})` : "";
 
-      const globalClasses = "font-1ry text-uppercase q-my-md";
-      const globalStyle = "font-weight: 500;";
-
-      html = html
-        .replace(
-          /<h2>/gi,
-          `<h2 class="${globalClasses} r-font-h4" style="${globalStyle}">`,
-        )
-        .replace(
-          /<h3>/gi,
-          `<h3 class="${globalClasses} r-font-h6" style="${globalStyle}">`,
-        )
-        .replace(
-          /<h4>/gi,
-          `<h4 class="${globalClasses} r-font-hx" style="${globalStyle}">`,
+        const response = await Secondary_Page_Items.FetchAll(
+          "auto",
+          [],
+          {},
+          {},
+          {
+            limit: this.options.itemsPerPage,
+            filters: formula ? { filterByFormula: formula } : {},
+            offset,
+          },
         );
 
-      return html;
-    },
-    toHtml(input) {
-      let html = marked.parse(input || "");
+        const data = response.response.data;
+        this.items = data.records.map((r) => ({ id: r.id, ...r.fields }));
+        const newOffset = data.offset || null;
+        this.nextOffset = newOffset;
 
-      return html;
-    },
-    fetchIndiData() {
-      if (!this.recordId) {
-        this.loading = false;
-        return;
+        if (newOffset && !this.offsetTrail.includes(newOffset)) {
+          this.offsetTrail.push(newOffset);
+        }
+
+        console.log(
+          `Page ${this.currentPage + 1} → Offset:`,
+          offset,
+          "→ Next:",
+          newOffset,
+        );
+      } catch (err) {
+        console.error(err);
       }
+      this.loading = false;
+      this.$emit("loaded");
+    },
 
-      this.loading = true;
-      Policies.FetchById(this.recordId)
-        .then((res) => {
-          this.item = res.response.data.fields;
-        })
-        .finally(() => (this.loading = false));
+    async nextPage() {
+      if (this.nextOffset) {
+        this.currentPage++;
+        await this.fetchData(this.nextOffset);
+      }
+    },
+
+    async prevPage() {
+      if (this.currentPage > 0) {
+        this.currentPage--;
+        const prevOffset = this.offsetTrail[this.currentPage];
+        await this.fetchData(prevOffset);
+      }
+    },
+
+    async goToPage(pageIndex) {
+      this.currentPage = pageIndex;
+      const offset = this.offsetTrail[pageIndex];
+      await this.fetchData(offset);
+    },
+
+    async resetAndFetch() {
+      this.offsetTrail = [null];
+      this.currentPage = 0;
+      await this.fetchData();
     },
   },
 
-  mounted() {
-    this.fetchIndiData();
+  async mounted() {
+    await this.fetchRecordCounts(); // 👈 prefetch count table once
+    await this.fetchData();
   },
 };
 </script>
