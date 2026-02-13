@@ -99,10 +99,7 @@
             </div>
           </div> -->
 
-          <RichPageSectionsTemplate
-            :parent="{ ...item, id: id }"
-            :site="site"
-          />
+          <RichPageSectionsTemplate :parent="{ ...item, id: id }" />
           <div class="bg-3ry-color">
             <div style="padding-top: 0px" class="">
               <div class="q-py-xl">
@@ -132,20 +129,27 @@
 
 <script>
 import RichPageModel from "src/models/orm-api/RichPageModel";
+import SEODataViewer from "src/controllers/SEODataViewer.vue";
 import RichPageSectionsTemplate from "src/controllers/RichPageSectionsTemplate.vue";
+import { buildSchemaItem, buildSeoConfig } from "src/utils/seo";
 import { marked } from "marked";
 import Site from "src/models/orm-api/Site";
+import { createMetaMixin } from "quasar";
 
 export default {
   name: "RichPagesTemplate",
 
   components: {
     RichPageSectionsTemplate,
+    SEODataViewer,
   },
-
+  mixins: [
+    createMetaMixin(function () {
+      return this.seoConfig;
+    }),
+  ],
   data() {
     return {
-      site: null,
       loading: true,
       item: {},
       showEnquiry: false,
@@ -168,14 +172,56 @@ export default {
     VITE_API_DEFAULT_IMAGE() {
       return import.meta.env.VITE_API_DEFAULT_IMAGE;
     },
+
+    seoLdJson() {
+      const url =
+        window.location.origin + (this.$route?.fullPath.split("#")[0] || "/");
+      const siteName = import.meta.env.VITE_API_SITE_TITLE;
+
+      let image = import.meta.env.VITE_API_DEFAULT_IMAGE;
+      if (this.mainImage) {
+        image = this.mainImage;
+      }
+
+      const schema = buildSchemaItem({
+        type: this.item?.["SEO Type"],
+        name: this.item?.["Title"] || siteName,
+        description: this.item.Body,
+        url,
+        image,
+        extras: {},
+      });
+
+      return schema;
+    },
+    seoConfig() {
+      const url =
+        window.location.origin + (this.$route?.fullPath.split("#")[0] || "/");
+      const siteName = import.meta.env.VITE_API_SITE_TITLE;
+
+      let image = import.meta.env.VITE_API_DEFAULT_IMAGE;
+      if (this.mainImage) {
+        image = this.mainImage;
+      }
+
+      return buildSeoConfig({
+        title: this.item?.["Title"],
+        description: this.item.Body,
+        url,
+        image,
+        siteName,
+        type: "WebPage",
+        schema: this.seoLdJson,
+      });
+    },
+    seoConfigMasked() {
+      const c = { ...this.seoConfig };
+      c.script = "";
+      return c;
+    },
   },
 
   methods: {
-    fetchSite() {
-      Site.FetchById("recE9Mnz1vihDkgXU").then((res) => {
-        this.site = res.response.data.fields;
-      });
-    },
     fetchData() {
       this.loading = true;
       RichPageModel.FetchById(this.id)
@@ -288,8 +334,6 @@ export default {
 
   mounted() {
     this.fetchData();
-
-    this.fetchSite();
   },
 };
 </script>
