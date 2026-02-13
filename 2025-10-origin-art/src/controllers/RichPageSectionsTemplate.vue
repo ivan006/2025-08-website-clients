@@ -1,115 +1,27 @@
 <template>
-  <div class="">
-    <div v-if="loading" class="text-center q-pa-lg">Loading artworks...</div>
+  <div v-if="loading" class="text-center q-pa-lg">Loading artworks...</div>
 
-    <div
-      v-else-if="!itemsComputed.length"
-      class="text-center q-pa-lg text-grey-7"
-    >
-      No artworks found for this artist.
-    </div>
+  <div
+    v-else-if="!itemsComputed.length"
+    class="text-center q-pa-lg text-grey-7"
+  >
+    No artworks found for this artist.
+  </div>
 
-    <div v-else>
-      <div class="bg-white q-py-xl">
-        <div class="container-sm">
-          <div class="text-body1x text-subtitle1">
-            <div class="row q-col-gutter-x-xl justify-center">
-              <div
-                v-for="(item, index) in itemsComputed"
-                :key="index"
-                class="col-12 col-md-6 text-center"
-              >
-                <div v-html="item.Body"></div>
-              </div>
+  <div v-else>
+    <div class="bg-white q-py-xl">
+      <div class="container-sm">
+        <div class="text-body1x text-subtitle1">
+          <div class="row q-col-gutter-x-xl justify-center">
+            <div
+              v-for="(item, index) in itemsComputed"
+              :key="index"
+              class="col-12 col-md-6 text-center"
+            >
+              <div v-html="item.Body"></div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="bg-white">
-        <section
-          v-for="(art, i) in itemsComputed"
-          :key="art.id"
-          class="column items-center debug-border"
-          style="
-            position: relative;
-            width: 210mm;
-            height: 297mm;
-            padding: 0mm 15mm;
-            box-sizing: border-box;
-          "
-          :style="{
-            pageBreakAfter: i === itemsComputed.length - 1 ? 'auto' : 'always',
-          }"
-        >
-          <!-- border: solid 1px grey; -->
-          <!-- border: solid 1px grey; -->
-
-          <!-- HEADER -->
-          <div
-            class="row justify-end full-width"
-            style="margin-top: 13mm; height: 22mm"
-          >
-            <img :src="VITE_API_DEFAULT_IMAGE" style="height: 100%" />
-          </div>
-
-          <!-- IMAGE -->
-          <!-- IMAGE FRAME -->
-          <div
-            class="column items-center justify-center"
-            style="height: 200mm; overflow: hidden; padding: 10mm 0"
-          >
-            <!-- width: 200mm; -->
-            <!-- border: solid 1px grey; -->
-            <img
-              :src="largeUrl(art)"
-              style="max-height: 100%; max-width: 100%; object-fit: contain"
-            />
-          </div>
-
-          <!-- META -->
-          <div
-            class="full-width text-left text-body2"
-            style="height: 42mm; overflow: hidden"
-          >
-            <!-- border: solid 1px grey; -->
-            <strong>{{ artistName(art) }}</strong
-            ><br />
-            <em>{{ art.Title }}</em
-            ><br />
-            {{ art["Name (from Medium)"]?.[0] }}<br />
-            {{ art.Height }} × {{ art.Width }} cm<br />
-            {{ art.Year }}<br />
-            R{{ Number(art.Price)?.toLocaleString() }}
-          </div>
-          <!-- FOOTER -->
-          <div
-            class="full-width row text-caption"
-            style="
-              position: absolute;
-              bottom: 0mm;
-              left: 0;
-              padding-left: 15mm;
-              padding-right: 15mm;
-              align-items: flex-end;
-              margin-bottom: 13mm;
-              height: 7mm;
-            "
-          >
-            <!-- CONTACT INFO (CENTER, SINGLE LINE) -->
-            <div class="col-10">
-              Enquiries:
-              {{ site?.["Contact Person"] }}
-              &nbsp;|&nbsp;
-              {{ site?.Email }}
-              &nbsp;|&nbsp;
-              {{ site?.["Phone Number"] }}
-            </div>
-
-            <div class="col-2 text-right">
-              {{ i + 1 }}
-            </div>
-          </div>
-        </section>
       </div>
     </div>
   </div>
@@ -196,7 +108,7 @@ export default {
         {
           limit: 200,
           filters: {
-            filterByFormula: `AND(SEARCH('${this.parent.id}',ARRAYJOIN({RECORD_ID (from Page)}, ',')))`,
+            filterByFormula: `SEARCH('${this.parent.id}', ARRAYJOIN({RECORD_ID (from Pages)}, ','))`,
           },
         },
       )
