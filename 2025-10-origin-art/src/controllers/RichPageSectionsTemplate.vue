@@ -18,6 +18,12 @@
               :key="index"
               class="col-12 col-md-6 text-center"
             >
+              <i
+                v-if="item.Icon"
+                style="font-size: 80px"
+                class="q-icon material-icons"
+                >{{ item.Icon }}</i
+              >
               <h2
                 class="font-1ry text-uppercase q-my-md r-font-h4"
                 style="font-weight: 500"
@@ -44,9 +50,6 @@ export default {
 
   props: {
     parent: {
-      type: [Object],
-    },
-    site: {
       type: [Object],
     },
   },
