@@ -99,7 +99,7 @@
             </div>
           </div> -->
 
-          <RichPageSectionsTemplate :parent="{ ...item, id: id }" />
+          <RichPageSectionsTemplate :parent="{ ...item, id: recordId }" />
           <div class="bg-3ry-color">
             <div style="padding-top: 0px" class="">
               <div class="q-py-xl">
@@ -156,17 +156,24 @@ export default {
       dialogOpen: false,
       dialogText: "",
       dialogTitle: "",
+      slugToRecordId: {
+        "about-us": "recm1zwISXhFelkc5",
+        "work-with-us": "recukJ1L2nAS4FUbH",
+      },
     };
   },
 
   computed: {
+    pageSlug() {
+      return this.$route.params.pageSlug;
+    },
+    recordId() {
+      return this.slugToRecordId[this.pageSlug];
+    },
     bodyHtml() {
       return marked.parse(
         this.item.fields?.["Body Text (max 200 chars)"] || "",
       );
-    },
-    id() {
-      return this.$route.params.pageSlug;
     },
 
     VITE_API_DEFAULT_IMAGE() {
@@ -224,7 +231,7 @@ export default {
   methods: {
     fetchData() {
       this.loading = true;
-      RichPageModel.FetchById(this.id)
+      RichPageModel.FetchById(this.recordId)
         .then((response) => {
           this.item = response.response.data.fields;
           this.loading = false;

@@ -13,12 +13,11 @@
       <div class="container-sm">
         <div class="text-body1x text-subtitle1">
           <div class="row q-col-gutter-x-xl justify-center">
-            <div
+            <!-- <div
               v-for="(item, index) in itemsComputed"
               :key="index"
               class="col-12 col-md-6 text-center"
             >
-              <!-- color: rgb(150, 150, 150); -->
               <i
                 v-if="item.Icon"
                 style="font-size: 80px; color: rgb(100, 100, 100)"
@@ -32,6 +31,41 @@
                 {{ item.Title }}
               </h2>
               <div v-html="toHtml(item.Body)"></div>
+            </div> -->
+            <div
+              v-for="(item, index) in itemsComputed"
+              :key="index"
+              class="col-12 col-md-6 text-center"
+              style="position: relative; overflow: hidden"
+            >
+              <i
+                v-if="item.Icon"
+                class="material-icons"
+                style="
+                  position: absolute;
+                  top: 50%;
+                  left: 50%;
+                  transform: translate(-50%, -50%);
+                  font-size: 260px;
+                  color: rgba(0, 0, 0, 0.05);
+                  z-index: 0;
+                  pointer-events: none;
+                  line-height: 1;
+                "
+              >
+                {{ item.Icon }}
+              </i>
+
+              <div style="position: relative; z-index: 1">
+                <h2
+                  class="font-1ry text-uppercase q-my-md r-font-h4"
+                  style="font-weight: 500"
+                >
+                  {{ item.Title }}
+                </h2>
+
+                <div v-html="toHtml(item.Body)"></div>
+              </div>
             </div>
           </div>
         </div>
