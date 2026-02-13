@@ -18,7 +18,13 @@
               :key="index"
               class="col-12 col-md-6 text-center"
             >
-              <div v-html="item.Body"></div>
+              <h2
+                class="font-1ry text-uppercase q-my-md r-font-h4"
+                style="font-weight: 500"
+              >
+                {{ item.Title }}
+              </h2>
+              <div v-html="toHtml(item.Body)"></div>
             </div>
           </div>
         </div>
@@ -29,6 +35,7 @@
 
 <script>
 import RichPageSectionsModel from "src/models/orm-api/RichPageSectionsModel";
+import { marked } from "marked";
 
 export default {
   name: "RichPageSectionsTemplate",
@@ -81,6 +88,33 @@ export default {
   },
 
   methods: {
+    toHtmlPlus(input) {
+      let html = marked.parse(input || "");
+
+      const globalClasses = "font-1ry text-uppercase q-my-md";
+      const globalStyle = "font-weight: 500;";
+
+      html = html
+        .replace(
+          /<h2>/gi,
+          `<h2 class="${globalClasses} r-font-h4" style="${globalStyle}">`,
+        )
+        .replace(
+          /<h3>/gi,
+          `<h3 class="${globalClasses} r-font-h6" style="${globalStyle}">`,
+        )
+        .replace(
+          /<h4>/gi,
+          `<h4 class="${globalClasses} r-font-hx" style="${globalStyle}">`,
+        );
+
+      return html;
+    },
+    toHtml(input) {
+      let html = marked.parse(input || "");
+
+      return html;
+    },
     attachments(art) {
       return art.Attachments?.[0] || {};
     },
