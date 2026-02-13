@@ -1,319 +1,232 @@
 <template>
-  <template v-if="!items.length">
-    <template v-if="loading">
-      <div class="text-center q-pa-md">Loading...</div>
-    </template>
-    <template v-else>
-      <div class="text-center q-pa-md text-grey-5">None</div>
-    </template>
-  </template>
-  <template v-else>
-    <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
-    <SitemapComp :items="sitemapItems" />
+  <div class="">
+    <div v-if="loading" class="text-center q-pa-lg">Loading artworks...</div>
 
-    <div class="row q-col-gutter-lg justify-around">
-      <!--<div class="row justify-center" >-->
-
-      <template v-for="item in items" :key="item.id">
-        <!--<q-avatar>-->
-        <!--  <img :src="item">-->
-        <!--</q-avatar>-->
-        <div class="col-xl-6 col-md-6 col-6">
-          <div class="">
-            <q-card class="q-ma-smx" style="border-radius: 10px" flat>
-              <q-card-section class="q-pa-none">
-                <div>
-                  <q-img
-                    :src="
-                      item?.['Image']?.[0]?.thumbnails?.large?.url
-                        ? `${$apiProxyUrl}${encodeURIComponent(
-                            item['Image'][0].thumbnails.large.url,
-                          )}`
-                        : ''
-                    "
-                    :alt="`${item.Title} Catalogue`"
-                    :style="{
-                      height: $q.screen.lt.md ? '150px' : '220px',
-                      maxWidth: '100%',
-                    }"
-                    fit="cover"
-                    class="rounded-top"
-                  />
-
-                  <!--<img src="https://cdn.quasar.dev/img/avatar.png">-->
-                </div>
-
-                <div class="q-py-sm q-px-md text-center">
-                  <!-- <div class="lt-md q-mt-lg"></div> -->
-
-                  <h2 class="r-font-h4 font-1ry text- q-my-sm text-uppercase">
-                    {{ item["Title"] }}
-                  </h2>
-
-                  <p class="text-subtitle1 q-my-sm font-2ry text-weight-light">
-                    {{ item["Subtitle"] }}
-                  </p>
-
-                  <q-btn
-                    :to="item['SEO URL']"
-                    color="grey-8"
-                    :size="$q.screen.lt.md ? 'md' : 'md'"
-                    unelevated
-                    class="q-my-sm"
-                    style="border-radius: 100px"
-                    no-caps
-                  >
-                    <!-- {{ item["Button Text"] }} -->
-                    Learn More
-                  </q-btn>
-                </div>
-              </q-card-section>
-            </q-card>
-
-            <!--<pre>-->
-            <!--  {{item}}-->
-            <!--</pre>-->
-          </div>
-        </div>
-      </template>
+    <div
+      v-else-if="!itemsComputed.length"
+      class="text-center q-pa-lg text-grey-7"
+    >
+      No artworks found for this artist.
     </div>
-  </template>
+
+    <div v-else>
+      <div class="bg-white">
+        <section
+          v-for="(art, i) in itemsComputed"
+          :key="art.id"
+          class="column items-center debug-border"
+          style="
+            position: relative;
+            width: 210mm;
+            height: 297mm;
+            padding: 0mm 15mm;
+            box-sizing: border-box;
+          "
+          :style="{
+            pageBreakAfter: i === itemsComputed.length - 1 ? 'auto' : 'always',
+          }"
+        >
+          <!-- border: solid 1px grey; -->
+          <!-- border: solid 1px grey; -->
+
+          <!-- HEADER -->
+          <div
+            class="row justify-end full-width"
+            style="margin-top: 13mm; height: 22mm"
+          >
+            <img :src="VITE_API_DEFAULT_IMAGE" style="height: 100%" />
+          </div>
+
+          <!-- IMAGE -->
+          <!-- IMAGE FRAME -->
+          <div
+            class="column items-center justify-center"
+            style="height: 200mm; overflow: hidden; padding: 10mm 0"
+          >
+            <!-- width: 200mm; -->
+            <!-- border: solid 1px grey; -->
+            <img
+              :src="largeUrl(art)"
+              style="max-height: 100%; max-width: 100%; object-fit: contain"
+            />
+          </div>
+
+          <!-- META -->
+          <div
+            class="full-width text-left text-body2"
+            style="height: 42mm; overflow: hidden"
+          >
+            <!-- border: solid 1px grey; -->
+            <strong>{{ artistName(art) }}</strong
+            ><br />
+            <em>{{ art.Title }}</em
+            ><br />
+            {{ art["Name (from Medium)"]?.[0] }}<br />
+            {{ art.Height }} × {{ art.Width }} cm<br />
+            {{ art.Year }}<br />
+            R{{ Number(art.Price)?.toLocaleString() }}
+          </div>
+          <!-- FOOTER -->
+          <div
+            class="full-width row text-caption"
+            style="
+              position: absolute;
+              bottom: 0mm;
+              left: 0;
+              padding-left: 15mm;
+              padding-right: 15mm;
+              align-items: flex-end;
+              margin-bottom: 13mm;
+              height: 7mm;
+            "
+          >
+            <!-- CONTACT INFO (CENTER, SINGLE LINE) -->
+            <div class="col-10">
+              Enquiries:
+              {{ site?.["Contact Person"] }}
+              &nbsp;|&nbsp;
+              {{ site?.Email }}
+              &nbsp;|&nbsp;
+              {{ site?.["Phone Number"] }}
+            </div>
+
+            <div class="col-2 text-right">
+              {{ i + 1 }}
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-import RichPageSectionsModel from "src/models/orm-api/RichPageSectionsModel";
-import { createMetaMixin } from "quasar";
-import { buildSchemaItem, buildSeoConfig } from "src/utils/seo";
-import SEODataViewer from "src/controllers/SEODataViewer.vue";
-import SitemapComp from "src/controllers/SitemapComp.vue";
+import Artworks from "src/models/orm-api/Artworks";
 
 export default {
-  name: "HomeItemsComp",
-  components: {
-    SEODataViewer,
-    SitemapComp,
-  },
+  name: "CollectionArtworks",
 
-  mixins: [
-    createMetaMixin(function () {
-      return this.seoConfig;
-    }),
-  ],
+  components: {},
 
   props: {
-    fetchFlags: {
-      type: Object,
-      default: () => ({}),
-    },
     parent: {
-      type: Object,
-      default: () => ({}),
+      type: [Object],
+    },
+    site: {
+      type: [Object],
     },
   },
+
   data() {
     return {
-      activeRoute: this.$route.path,
-      items: [],
       loading: false,
-      loadingError: false,
-      options: {
-        page: 1,
-        itemsPerPage: 100,
-        sortBy: [],
-        groupBy: [],
-      },
-      filterValsRef: {},
+      items: [],
+      sectionPages: {}, // page trackers for each medium group
     };
   },
+
   computed: {
-    sitemapItems() {
-      // const start = performance.now()
+    itemsComputed() {
+      const records = [...this.items];
+      const orderedIds = this.parent?.fields?.Art || [];
 
-      const result = this.items.map((item) => {
-        const slug = item["SEO URL"];
+      if (!orderedIds.length) return records;
 
-        return {
-          url: `${window.location.origin}${slug}`,
-          lastmod: item["Last Modified"]
-            ? new Date(item["Last Modified"]).toISOString().split("T")[0]
-            : new Date().toISOString().split("T")[0],
-        };
+      const orderMap = new Map();
+      orderedIds.forEach((id, index) => {
+        orderMap.set(id, index);
       });
 
-      // const end = performance.now()
+      return records.sort((a, b) => {
+        const ai = orderMap.get(a.id);
+        const bi = orderMap.get(b.id);
 
-      // console.log(
-      //   `[sitemapItems] ${result.length} items in ${(end - start).toFixed(2)} ms`
-      // )
-
-      return result;
-    },
-
-    seoLdJson() {
-      const url =
-        window.location.origin + (this.$route?.fullPath.split("#")[0] || "/");
-      const siteName = import.meta.env.VITE_API_SITE_TITLE;
-
-      let image = import.meta.env.VITE_API_DEFAULT_IMAGE;
-      // if (this.parent?.fields?.['Image']?.[0]?.thumbnails?.large?.url) {
-      //   image = `${import.meta.env.VITE_API_PROXY_URL}/data-cache/index.php?url=${encodeURIComponent(this.parent?.fields?.['Image']?.[0]?.thumbnails?.large?.url)}`;
-      // }
-
-      const schema = buildSchemaItem({
-        type: this.parent.fields?.["SEO Type"],
-        name: this.parent.fields?.["Title"] || siteName,
-        description: this.parent.fields?.["Subtitle"] || "",
-        url,
-        image,
-        extras: {
-          telephone: this.parent.fields?.["Phone Number"] || "",
-          email: this.parent.fields?.["Email Address"] || "",
-          address: {
-            "@type": "PostalAddress",
-            streetAddress: this.parent.fields?.["Address"] || "",
-            addressLocality: "Cape Town",
-            addressRegion: "Western Cape",
-            addressCountry: "ZA",
-          },
-          openingHours: this.parent.fields?.["Opening Hours"]
-            ? this.parent.fields["Opening Hours"]
-                .split("\n")
-                .map((line) => line.trim())
-            : [],
-        },
-      });
-
-      const products = this.items.map((item) => {
-        const newItem = buildSchemaItem({
-          type: item["SEO Type"],
-          url: item["SEO URL"]
-            ? window.location.origin + item["SEO URL"]
-            : null,
-          name: item["Title"] || "",
-          description: item["Subtitle"] || "",
-          image: item?.["Image"]?.[0]?.url
-            ? `${
-                import.meta.env.VITE_API_PROXY_URL
-              }/data-cache/index.php?url=${encodeURIComponent(
-                item?.["Image"]?.[0]?.url,
-              )}`
-            : "",
-          price: item["Price"],
-          extras: {
-            category: item["Category"],
-          },
-        });
-        // console.log(newItem)
-
-        return newItem;
-      });
-
-      // Only add itemListElement if provided
-      if (products.length > 0) {
-        schema.itemListElement = products;
-      }
-
-      return schema;
-    },
-    seoConfig() {
-      const url =
-        window.location.origin + (this.$route?.fullPath.split("#")[0] || "/");
-      const siteName = import.meta.env.VITE_API_SITE_TITLE;
-
-      let image = import.meta.env.VITE_API_DEFAULT_IMAGE;
-      let imageWidth = import.meta.env.VITE_API_DEFAULT_IMAGE_WIDTH;
-      let imageHeight = import.meta.env.VITE_API_DEFAULT_IMAGE_HEIGHT;
-      // if (this.parent?.fields?.['Image']?.[0]?.thumbnails?.large?.url) {
-      //   image = `${import.meta.env.VITE_API_PROXY_URL}/data-cache/index.php?url=${encodeURIComponent(this.parent?.fields?.['Image']?.[0]?.thumbnails?.large?.url)}`;
-      // }
-
-      return buildSeoConfig({
-        title: null,
-        description: this.parent.fields?.["Subtitle"] || "",
-        url,
-        image: image,
-        imageWidth,
-        imageHeight,
-        siteName,
-        type: this.parent.fields?.["SEO Type"],
-        schema: this.seoLdJson,
+        if (ai === undefined && bi === undefined) return 0;
+        if (ai === undefined) return 1;
+        if (bi === undefined) return -1;
+        return ai - bi;
       });
     },
 
-    seoConfigMasked() {
-      const seoConfigMasked = { ...this.seoConfig };
-      seoConfigMasked.script = "";
-      return seoConfigMasked;
-    },
-
-    superTableModel() {
-      return RichPageSectionsModel;
-    },
-    filterValsComp() {
-      const result = {
-        ...this.filterValsRef,
-      };
-      return result;
+    VITE_API_DEFAULT_IMAGE() {
+      return import.meta.env.VITE_API_DEFAULT_IMAGE;
     },
   },
+
   methods: {
-    isActive(item) {
-      return item.URL === this.activeRoute;
+    attachments(art) {
+      return art.Attachments?.[0] || {};
     },
 
-    async fetchData() {
-      try {
-        this.loading = true;
-        this.loadingError = false;
-        let rules = [];
+    largeUrl(art) {
+      const u = this.attachments(art).url;
+      return u
+        ? `${
+            import.meta.env.VITE_API_PROXY_URL
+          }/data-cache/index.php?url=${encodeURIComponent(u)}`
+        : "";
+    },
 
-        let extraHeaderComputed = {};
-        let flagsComputed = {};
+    artistName(art) {
+      return art["Name (from Artist)"]?.[0] || "Unknown Artist";
+    },
+    fetchArtworks() {
+      this.loading = true;
 
-        const response = await this.superTableModel.FetchAll(
-          "auto",
-          // =========================
-          [],
-          {
-            ...rules,
-            ...flagsComputed,
-            /// -----------------------
-            ...this.fetchFlags,
+      Artworks.FetchAll(
+        "auto",
+        [],
+        {},
+        {},
+        {
+          limit: 200,
+          filters: {
+            filterByFormula: `AND(SEARCH('${this.parent.id}',ARRAYJOIN({RECORD_ID (from Collections)}, ',')))`,
           },
-          extraHeaderComputed,
-          {
-            page: this.options.page,
-            limit: this.options.itemsPerPage,
-            //============================
-            filters: this.filterValsComp,
-            clearPrimaryModelOnly: false,
-          },
-        );
+        },
+      )
+        .then((res) => {
+          this.items = res.response.data.records.map((r) => ({
+            id: r.id,
+            ...r.fields,
+          }));
 
-        this.$emit("loaded");
-
-        this.items = response.response.data.records.map((record) => {
-          return {
-            id: record.id,
-            createdTime: record.createdTime,
-            ...record.fields,
-          };
+          // ✅ sort by artist last name
+          this.items.sort((a, b) => {
+            const lastA = (a["Name (from Artist)"]?.[0] || "")
+              .trim()
+              .split(" ")
+              .pop()
+              .toLowerCase();
+            const lastB = (b["Name (from Artist)"]?.[0] || "")
+              .trim()
+              .split(" ")
+              .pop()
+              .toLowerCase();
+            return lastA.localeCompare(lastB);
+          });
+          this.loading = false;
+        })
+        .catch(() => {
+          this.loading = false;
         });
+    },
+  },
 
-        this.loading = false;
-      } catch (error) {
-        this.loading = false;
-        this.loadingError = true;
-      }
-    },
-  },
   mounted() {
-    this.fetchData();
-  },
-  watch: {
-    "$route.path"(newPath) {
-      this.activeRoute = newPath;
-    },
+    this.fetchArtworks();
   },
 };
 </script>
+
+<style>
+.debug-border {
+  border: 1px solid grey;
+}
+
+@media print {
+  .debug-border {
+    border: none !important;
+  }
+}
+</style>

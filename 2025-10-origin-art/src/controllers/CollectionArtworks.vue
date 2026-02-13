@@ -147,11 +147,6 @@ export default {
         return ai - bi;
       });
     },
-    filterFormula() {
-      // return `AND(({RECORD_ID (from Collections)}='${this.parent.id}'))`
-      // return `AND(FIND('${this.parent.id}',{RECORD_ID (from Collections)}))`
-      return `AND(SEARCH('${this.parent.id}',ARRAYJOIN({RECORD_ID (from Collections)}, ',')))`;
-    },
 
     VITE_API_DEFAULT_IMAGE() {
       return import.meta.env.VITE_API_DEFAULT_IMAGE;
@@ -186,7 +181,7 @@ export default {
         {
           limit: 200,
           filters: {
-            filterByFormula: this.filterFormula,
+            filterByFormula: `AND(SEARCH('${this.parent.id}',ARRAYJOIN({RECORD_ID (from Collections)}, ',')))`,
           },
         },
       )
