@@ -365,23 +365,26 @@ export default {
         right: sections.slice(mid).join(""),
       };
     },
+
     toHtmlPlus(input) {
       let html = marked.parse(input || "");
 
-      // 1️⃣ tag → marker + level-specific classes
-      html = html
-        // .replace(/<h-1>/gi, `<h-1 class="headingclass r-font-h2">`)
-        // .replace(/<h0>/gi, `<h0 class="headingclass r-font-h3">`)
-        // .replace(/<h1>/gi, `<h1 class="headingclass r-font-h4">`)
-        .replace(/<h2>/gi, `<h2 class="headingclass r-font-h4">`)
-        .replace(/<h3>/gi, `<h3 class="headingclass r-font-h6">`)
-        .replace(/<h4>/gi, `<h4 class="headingclass r-font-hx">`);
+      const globalClasses = "font-1ry text-uppercase q-my-md";
+      const globalStyle = "font-weight: 500;";
 
-      // 2️⃣ global pass (single source of truth)
-      html = html.replace(
-        /headingclass/g,
-        "font-1ry text-uppercase text-centerx q-my-md ",
-      );
+      html = html
+        .replace(
+          /<h2>/gi,
+          `<h2 class="${globalClasses} r-font-h4" style="${globalStyle}">`,
+        )
+        .replace(
+          /<h3>/gi,
+          `<h3 class="${globalClasses} r-font-h6" style="${globalStyle}">`,
+        )
+        .replace(
+          /<h4>/gi,
+          `<h4 class="${globalClasses} r-font-hx" style="${globalStyle}">`,
+        );
 
       return html;
     },
