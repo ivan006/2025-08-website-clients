@@ -10,6 +10,21 @@
     </div>
 
     <div v-else>
+      <div class="bg-white q-py-xl">
+        <div class="container-sm">
+          <div class="text-body1x text-subtitle1">
+            <div class="row q-col-gutter-x-xl justify-center">
+              <div
+                v-for="(item, index) in itemsComputed"
+                :key="index"
+                class="col-12 col-md-6 text-center"
+              >
+                <div v-html="item.Body"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="bg-white">
         <section
           v-for="(art, i) in itemsComputed"
@@ -101,10 +116,10 @@
 </template>
 
 <script>
-import Artworks from "src/models/orm-api/Artworks";
+import RichPageSectionsModel from "src/models/orm-api/RichPageSectionsModel";
 
 export default {
-  name: "CollectionArtworks",
+  name: "RichPageSectionsTemplate",
 
   components: {},
 
@@ -173,7 +188,7 @@ export default {
     fetchArtworks() {
       this.loading = true;
 
-      Artworks.FetchAll(
+      RichPageSectionsModel.FetchAll(
         "auto",
         [],
         {},
@@ -181,7 +196,7 @@ export default {
         {
           limit: 200,
           filters: {
-            filterByFormula: `AND(SEARCH('${this.parent.id}',ARRAYJOIN({RECORD_ID (from Collections)}, ',')))`,
+            filterByFormula: `AND(SEARCH('${this.parent.id}',ARRAYJOIN({RECORD_ID (from Page)}, ',')))`,
           },
         },
       )

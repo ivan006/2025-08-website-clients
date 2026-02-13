@@ -1,163 +1,146 @@
 <template>
   <div class="">
+    <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
     <div v-if="loading" class="text-center q-pa-xl">Loading...</div>
 
-    <div v-else>
-      <!-- <div class="container-sm">
-
-        <div class="columnx items-center text-center q-mb-md">
-
-          <div class="row justify-center">
-            <div class="col-12 col-md-8">
-            
-   
-              <div class="text-h4 font-1ry q-mt-md">
-                {{ item.fields.Title }}
-              </div> 
-
-            </div>
- 
-          </div>
-        </div>
-      </div> -->
-      <!-- COVER PAGE -->
-      <section
-        v-if="item.fields?.['Show Cover Page'] === true"
-        class="debug-border"
-        style="
-          position: relative;
-          width: 210mm;
-          height: 297mm;
-          box-sizing: border-box;
-          page-break-after: always;
-          background: white;
-          padding: 18mm 30mm;
-        "
-      >
-        <!-- border: solid 1px grey; -->
-        <div
-          style="
-            height: 260mm;
-            display: flex;
-            flex-direction: column;
-            justify-content: center; /* vertical alignment */
-          "
-        >
-          <!-- HEADING (30mm) -->
-
-          <!-- IMAGE (150mm) -->
-          <div v-if="item.fields?.Image?.[0]" style="height: 80mm">
-            <img
-              :src="`${$apiProxyUrl}${encodeURIComponent(
-                item.fields.Image[0].url,
-              )}`"
-              style="
-                height: 100%;
-                margin-left: auto;
-                margin-right: auto;
-                display: block;
-              "
-            />
-          </div>
-
-          <div v-if="item.fields?.Image?.[0]" style="height: 20mm"></div>
-          <div
-            class="text-h3 font-1ry text-center"
-            style="
-              max-height: 80mm;
-              width: 100%;
-              line-height: 1.5em;
-              display: flex;
-              align-items: center; /* vertical center */
-              justify-content: center; /* horizontal center */
+    <template v-else>
+      <div class="row items-center bg-white" style="min-height: 60vh">
+        <div class="col">
+          <!-- this image load is for touching the smaller image for whatsap and social media previews -->
+          <img
+            :src="
+              item?.['Attachments']?.[0]?.url
+                ? `${$apiProxyUrl}${encodeURIComponent(
+                    item?.['Attachments']?.[0]?.thumbnails?.large?.url,
+                  )}`
+                : ''
             "
-          >
-            {{ item.fields.Title }}
-          </div>
-
-          <!-- BODY (55mm) -->
-          <div style="height: 20mm"></div>
-          <div
-            v-if="item.fields?.['Body Text (max 200 chars)']"
-            class="text-body1 text-center"
-            style="
-              height: 20mm;
-              opacity: 0.85;
-              overflow: hidden;
-              margin-left: auto;
-              margin-right: auto;
-            "
-            v-html="bodyHtml"
-          ></div>
-
-          <!-- BRAND / CONTACT (62mm) -->
-
-          <div
-            class="text-caption text-center"
-            style="
-              opacity: 0.7;
-              line-height: 1.6;
-              height: 70mm;
-              padding-top: 10mm;
-            "
-          >
-            <img
-              :src="`${$apiProxyUrl}${encodeURIComponent(
-                site['Compressed Logo'][0].url,
-              )}`"
-              style="
-                height: 10mm;
-                object-fit: contain;
-                margin-left: auto;
-                margin-right: auto;
-              "
-            />
-            <div class="text-h5" style="margin-left: auto; margin-right: auto">
-              {{ site?.["Title"] }}
-            </div>
+            alt=""
+            style="display: none"
+          />
+          <div class="bg-3ry-color">
             <div
-              class="text-body2"
-              style="
-                width: 50mm;
-                padding-bottom: 5mm;
-                margin-left: auto;
-                margin-right: auto;
+              :style="
+                item?.['Attachments']?.[0]?.url
+                  ? `background-image: url(${$apiProxyUrl}${encodeURIComponent(
+                      item?.['Attachments']?.[0]?.url,
+                    )});`
+                  : ``
               "
+              style="
+                background-color: rgb(70, 70, 70);
+                background-position: center;
+
+                background-size: cover; /* height fills, width scales proportionally */
+                image-rendering: crisp-edges; /* optional, prevents blurring */
+                background-attachment: scroll;
+
+                background-color: rgba(0, 0, 0, 0);
+                background-blend-mode: darken;
+
+                background-repeat: no-repeat;
+                image-rendering: -webkit-optimize-contrast;
+                image-rendering: crisp-edges;
+
+                background-color: rgba(0, 0, 0, 0.3);
+                background-blend-mode: darken;
+
+                padding-top: 0px;
+              "
+              class=""
             >
-              {{ site?.["Tagline"] }}
+              <div class="q-py-xl">
+                <div class="container-sm text-white">
+                  <div class="row q-col-gutter-md justify-center">
+                    <div class="col-xl-6 col-md-6 col-12">
+                      <div class="gt-md q-py-md"></div>
+
+                      <h1 class="text-center r-font-h3 text-bold">
+                        <span
+                          class="text-weight-bold font-1ry text-uppercase"
+                          style="letter-spacing: 15px"
+                        >
+                          {{ item?.["Title"] }}
+                        </span>
+                      </h1>
+                    </div>
+                    <div class="col-xl-12 col-md-12 col-12"></div>
+                    <div class="col-xl-10 col-md-10 col-12">
+                      <div class="text-center text-subtitle2x text-body">
+                        <div
+                          class="text-weight-lightx font-2ry text-uppercasex r-font-h4"
+                          style="letter-spacing: 10cpx"
+                        >
+                          <div v-html="toHtml(item.Tagline)"></div>
+                        </div>
+                      </div>
+
+                      <div class="gt-md q-py-lg"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div style="margin-left: auto; margin-right: auto">
-              {{ site?.["Contact Person"] }}
+          </div>
+          <!-- <div class="text- q-py-md">
+            <div class="container-sm">
+              <h2
+                class="r-font-h3 text-center q-my-none text-uppercase font-1ry"
+              >
+                {{ item.Title }}
+              </h2>
             </div>
-            <div style="margin-left: auto; margin-right: auto">
-              {{ site?.Email }}
+          </div>
+          <div class="bg-white q-py-md">
+            <div class="container-sm">
+              <div class="text-body1x text-subtitle1" style="">
+                <div v-html="taglineHtml"></div>
+              </div>
             </div>
-            <div style="margin-left: auto; margin-right: auto">
-              {{ site?.["Phone Number"] }}
+          </div> -->
+
+          <RichPageSectionsTemplate
+            :parent="{ ...item, id: id }"
+            :site="site"
+          />
+          <div class="bg-3ry-color">
+            <div style="padding-top: 0px" class="">
+              <div class="q-py-xl">
+                <div class="container-sm text-white">
+                  <div class="row q-col-gutter-md justify-center">
+                    <div class="col-xl-12 col-md-12 col-12"></div>
+                    <div class="col-xl-10 col-md-10 col-12">
+                      <div class="text-center text-subtitle2x text-body">
+                        <div
+                          class="text-weight-lightx font-2ry text-uppercasex r-font-h4"
+                          style="letter-spacing: 10cpx"
+                        >
+                          <div v-html="toHtml(item['Closing Line'])"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </section>
-
-      <CollectionArtworks :parent="item" :site="site" />
-      <!-- <div class="text-1ry-color">
-        
-      </div> -->
-    </div>
+      </div>
+    </template>
   </div>
 </template>
 
 <script>
-import Collections from "src/models/orm-api/Collections";
-import CollectionArtworks from "src/controllers/CollectionArtworks.vue";
+import RichPageModel from "src/models/orm-api/RichPageModel";
+import RichPageSectionsTemplate from "src/controllers/RichPageSectionsTemplate.vue";
 import { marked } from "marked";
 import Site from "src/models/orm-api/Site";
 
 export default {
-  name: "CollectionComp",
+  name: "RichPagesTemplate",
 
   components: {
-    CollectionArtworks,
+    RichPageSectionsTemplate,
   },
 
   data() {
@@ -179,7 +162,7 @@ export default {
       );
     },
     id() {
-      return this.$route.params.rId;
+      return this.$route.params.pageSlug;
     },
 
     VITE_API_DEFAULT_IMAGE() {
@@ -195,14 +178,111 @@ export default {
     },
     fetchData() {
       this.loading = true;
-      Collections.FetchById(this.id)
+      RichPageModel.FetchById(this.id)
         .then((response) => {
-          this.item = response.response.data;
+          this.item = response.response.data.fields;
           this.loading = false;
         })
         .catch(() => {
           this.loading = false;
         });
+    },
+
+    splitSections(input) {
+      const html = this.toHtmlPlus(input);
+
+      const match = html.match(/<h([1-6])\b/i);
+      if (!match) return [html.trim()];
+
+      const highestLevel = match[1];
+      const splitRegex = new RegExp(`(?=<h${highestLevel}\\b)`, "i");
+
+      return html.split(splitRegex).filter((s) => s.trim());
+    },
+    splitSectionsAndHeadings(input) {
+      const html = this.toHtmlPlus(input);
+
+      // 1️⃣ Detect highest (smallest number) heading level present
+      const match = html.match(/<h([1-6])\b/i);
+      if (!match) {
+        return [{ heading: "", body: html.trim() }];
+      }
+
+      const highestLevel = match[1];
+
+      // 2️⃣ Split only on that heading level
+      const splitRegex = new RegExp(`(?=<h${highestLevel}\\b)`, "i");
+      const sections = html.split(splitRegex).filter((s) => s.trim());
+
+      return sections.map((sectionHtml) => {
+        const doc = new DOMParser().parseFromString(sectionHtml, "text/html");
+
+        const headingEl = doc.body.querySelector(`h${highestLevel}`);
+        let heading = "";
+
+        if (headingEl) {
+          // Capture heading HTML
+          heading = headingEl.outerHTML;
+
+          // Look for first paragraph immediately after heading
+          const nextEl = headingEl.nextElementSibling;
+
+          if (nextEl && nextEl.tagName.toLowerCase() === "p") {
+            // Attach first paragraph to heading block
+            heading += nextEl.outerHTML;
+            nextEl.remove();
+          }
+
+          // Remove heading itself from body
+          headingEl.remove();
+        }
+
+        return {
+          heading,
+          body: doc.body.innerHTML.trim(),
+        };
+      });
+    },
+    toColumns(input) {
+      // 1️⃣ full pipeline first
+      let html = this.toHtmlPlus(input); // use the computed that already injects classes
+
+      // 2️⃣ split AFTER transform
+      const sections = html.split(/(?=<h1|<h2|<h3|<h4|<h5|<h6)/i);
+      const mid = Math.ceil(sections.length / 2);
+
+      return {
+        left: sections.slice(0, mid).join(""),
+        right: sections.slice(mid).join(""),
+      };
+    },
+
+    toHtmlPlus(input) {
+      let html = marked.parse(input || "");
+
+      const globalClasses = "font-1ry text-uppercase q-my-md";
+      const globalStyle = "font-weight: 500;";
+
+      html = html
+        .replace(
+          /<h2>/gi,
+          `<h2 class="${globalClasses} r-font-h4" style="${globalStyle}">`,
+        )
+        .replace(
+          /<h3>/gi,
+          `<h3 class="${globalClasses} r-font-h6" style="${globalStyle}">`,
+        )
+        .replace(
+          /<h4>/gi,
+          `<h4 class="${globalClasses} r-font-hx" style="${globalStyle}">`,
+        );
+
+      return html;
+    },
+    toHtml(input) {
+      let html = marked.parse(input || "");
+
+      return html;
     },
   },
 
