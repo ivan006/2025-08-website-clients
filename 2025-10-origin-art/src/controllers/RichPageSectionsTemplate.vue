@@ -18,9 +18,10 @@
               :key="index"
               class="col-12 col-md-6 text-center"
             >
+              <!-- color: rgb(150, 150, 150); -->
               <i
                 v-if="item.Icon"
-                style="font-size: 80px"
+                style="font-size: 80px; color: rgb(100, 100, 100)"
                 class="q-icon material-icons"
                 >{{ item.Icon }}</i
               >
