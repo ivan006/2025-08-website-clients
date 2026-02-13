@@ -106,10 +106,18 @@ const routes = [
               //   },
               // },
               {
-                path: "/page/:pageSlug",
-                name: "simple-page",
+                path: "/policies/:pageSlug",
+                name: "/policies/:pageSlug",
                 component: () =>
                   import("src/controllers/SimplePageTemplate.vue"),
+                props: true,
+                meta: { requiresAuth: false },
+              },
+              {
+                path: "/page/:pageSlug",
+                name: "/page/:pageSlug",
+                component: () =>
+                  import("src/controllers/RichPagesTemplate.vue"),
                 props: true,
                 meta: { requiresAuth: false },
               },

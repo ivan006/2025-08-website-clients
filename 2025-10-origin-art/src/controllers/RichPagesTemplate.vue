@@ -155,26 +155,9 @@
       </div> -->
       <div class="bg-2ry-color">
         <div class="container-sm q-py-lg">
-          <Home_Page_Items_Controller
+          <RichPageSectionsTemplate
             :parent="this.item"
             @loaded="childLoading = false"
-          />
-        </div>
-      </div>
-
-      <div class="bg-white text- q-py-md">
-        <div class="container-sm">
-          <h2 class="r-font-h3 text-center q-my-none text-uppercase font-1ry">
-            Featured Artist
-          </h2>
-        </div>
-      </div>
-      <!-- Featured artist -->
-      <div class="bg-2ry-color">
-        <div class="container-sm q-py-xl">
-          <HomePageFeaturedArtistComp
-            v-if="item.fields"
-            :artistId="item.fields['Featured Artist'][0]"
           />
         </div>
       </div>
@@ -395,17 +378,15 @@
 </template>
 
 <script>
-import Home_Page from "src/models/orm-api/Home_Page";
+import RichPageModel from "src/models/orm-api/RichPageModel";
 import { createMetaMixin } from "quasar";
-import Home_Page_Items_Controller from "src/controllers/RichPageSectionsTemplate.vue";
-import HomePageFeaturedArtistComp from "src/controllers/HomePageFeaturedArtistComp.vue";
+import RichPageSectionsTemplate from "src/controllers/RichPageSectionsTemplate.vue";
 import { buildSeoConfig } from "src/utils/seo";
 
 export default {
   name: "HomeController.vue",
   components: {
     RichPageSectionsTemplate,
-    HomePageFeaturedArtistComp,
   },
   // mixins: [
 
@@ -442,7 +423,7 @@ export default {
       return "rec2ykH253BM2Qrsc";
     },
     superTableModel() {
-      return Home_Page;
+      return RichPageModel;
     },
   },
   methods: {

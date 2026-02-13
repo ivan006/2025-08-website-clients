@@ -81,7 +81,7 @@
 </template>
 
 <script>
-import Home_Page_Items from "src/models/orm-api/Home_Page_Items";
+import RichPageSectionsModel from "src/models/orm-api/RichPageSectionsModel";
 import { createMetaMixin } from "quasar";
 import { buildSchemaItem, buildSeoConfig } from "src/utils/seo";
 import SEODataViewer from "src/controllers/SEODataViewer.vue";
@@ -247,7 +247,7 @@ export default {
     },
 
     superTableModel() {
-      return Home_Page_Items;
+      return RichPageSectionsModel;
     },
     filterValsComp() {
       const result = {
