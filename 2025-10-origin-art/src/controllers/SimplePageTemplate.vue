@@ -98,25 +98,59 @@
               </div>
             </div>
           </div> -->
-          <div class="bg-white q-py-md">
+          <div class="bg-white q-py-xl">
             <div class="container-sm">
               <div class="text-body1x text-subtitle1">
-                <template v-if="recordId == 'rec9IhLFHPPv6auBS'">
+                <template
+                  v-if="
+                    [
+                      'recUfByGJ6A3kW967',
+                      'rec9IhLFHPPv6auBS',
+                      'recQghOl9RwUTLlp3',
+                      'rec0TegL34RS7PCKm',
+                    ].includes(recordId)
+                  "
+                >
                   <div
                     v-for="(row, index) in splitSectionsAndHeadings(item.Body)"
                     :key="index"
                     class="q-mb-xl"
                   >
-                    <div class="text-center" v-html="row.heading"></div>
+                    <div class="text-center" style="width: 100%">
+                      <div
+                        style="
+                          max-width: 800px;
+                          margin-left: auto;
+                          margin-right: auto;
+                        "
+                        v-html="row.heading"
+                      ></div>
+                    </div>
 
-                    <div class="row q-col-gutter-x-xl">
+                    <div class="row q-col-gutter-x-xl justify-center">
                       <div
                         v-for="(sectionHtml, index) in splitSections(row.body)"
                         :key="index"
-                        class="col-12 col-md-6"
+                        class="col-12 col-md-6 text-center"
                         v-html="sectionHtml"
                       ></div>
                     </div>
+                  </div>
+                </template>
+                <template
+                  v-else-if="
+                    ['recAAr62J3RCEC2R9', 'recITBB5TtaPuWCQL'].includes(
+                      recordId,
+                    )
+                  "
+                >
+                  <div class="row q-col-gutter-x-xl justify-center">
+                    <div
+                      v-for="(sectionHtml, index) in splitSections(item.Body)"
+                      :key="index"
+                      class="col-12 col-md-6 text-center"
+                      v-html="sectionHtml"
+                    ></div>
                   </div>
                 </template>
 
@@ -175,9 +209,16 @@ const SLUG_TO_RECORD_ID = {
   "privacy-policy": "recIL2JG4aDRfVi78",
   "refund-policy": "recGe8aQ1rjkVFpKY",
   "about-us": "rec3yq3CL9KjxmdQG",
-  "info-for-artists": "recfjkCIv8hVr8647",
+  "about-us-2": "recAAr62J3RCEC2R9",
+
   "info-for-collectors": "recj52kiC87mNRTsj",
   "info-for-collectors-2": "rec9IhLFHPPv6auBS",
+  "dear-collectors": "rec0TegL34RS7PCKm",
+
+  "info-for-artists": "recfjkCIv8hVr8647",
+  "dear-artists": "recUfByGJ6A3kW967",
+  "dear-artists-2": "recQghOl9RwUTLlp3",
+  "work-with-us": "recITBB5TtaPuWCQL",
 };
 
 export default {
@@ -270,7 +311,7 @@ export default {
     splitSectionsAndHeadings(input) {
       const html = this.toHtmlPlus(input);
 
-      // 1️⃣ detect highest (smallest number) heading level present
+      // 1️⃣ Detect highest (smallest number) heading level present
       const match = html.match(/<h([1-6])\b/i);
       if (!match) {
         return [{ heading: "", body: html.trim() }];
@@ -278,17 +319,32 @@ export default {
 
       const highestLevel = match[1];
 
-      // 2️⃣ split only on that heading level
+      // 2️⃣ Split only on that heading level
       const splitRegex = new RegExp(`(?=<h${highestLevel}\\b)`, "i");
-
       const sections = html.split(splitRegex).filter((s) => s.trim());
 
       return sections.map((sectionHtml) => {
         const doc = new DOMParser().parseFromString(sectionHtml, "text/html");
-        const headingEl = doc.body.querySelector(`h${highestLevel}`);
 
-        const heading = headingEl ? headingEl.outerHTML : "";
-        if (headingEl) headingEl.remove();
+        const headingEl = doc.body.querySelector(`h${highestLevel}`);
+        let heading = "";
+
+        if (headingEl) {
+          // Capture heading HTML
+          heading = headingEl.outerHTML;
+
+          // Look for first paragraph immediately after heading
+          const nextEl = headingEl.nextElementSibling;
+
+          if (nextEl && nextEl.tagName.toLowerCase() === "p") {
+            // Attach first paragraph to heading block
+            heading += nextEl.outerHTML;
+            nextEl.remove();
+          }
+
+          // Remove heading itself from body
+          headingEl.remove();
+        }
 
         return {
           heading,
@@ -324,7 +380,7 @@ export default {
       // 2️⃣ global pass (single source of truth)
       html = html.replace(
         /headingclass/g,
-        "font-1ry text-uppercase text-centerx q-my-md",
+        "font-1ry text-uppercase text-centerx q-my-md ",
       );
 
       return html;
@@ -335,7 +391,10 @@ export default {
       return html;
     },
     fetchIndiData() {
-      if (!this.recordId) return;
+      if (!this.recordId) {
+        this.loading = false;
+        return;
+      }
 
       this.loading = true;
       Policies.FetchById(this.recordId)
