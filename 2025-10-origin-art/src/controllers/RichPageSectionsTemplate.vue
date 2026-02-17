@@ -1,11 +1,11 @@
 <template>
-  <div v-if="loading" class="text-center q-pa-lg">Loading artworks...</div>
+  <div v-if="loading" class="text-center q-pa-lg">Loading items...</div>
 
   <div
     v-else-if="!itemsComputed.length"
     class="text-center q-pa-lg text-grey-7"
   >
-    No artworks found for this artist.
+    No items.
   </div>
 
   <div v-else>
@@ -13,7 +13,7 @@
       <div class="container-sm">
         <div class="text-body1x text-subtitle1">
           <div class="row q-col-gutter-x-xl justify-center">
-            <!-- <div
+            <div
               v-for="(item, index) in itemsComputed"
               :key="index"
               class="col-12 col-md-6 text-center"
@@ -31,8 +31,8 @@
                 {{ item.Title }}
               </h2>
               <div v-html="toHtml(item.Body)"></div>
-            </div> -->
-            <div
+            </div>
+            <!-- <div
               v-for="(item, index) in itemsComputed"
               :key="index"
               class="col-12 col-md-6 text-center"
@@ -66,7 +66,7 @@
 
                 <div v-html="toHtml(item.Body)"></div>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -100,7 +100,7 @@ export default {
   computed: {
     itemsComputed() {
       const records = [...this.items];
-      const orderedIds = this.parent?.fields?.Art || [];
+      const orderedIds = this.parent?.["Page Sections"] || [];
 
       if (!orderedIds.length) return records;
 
@@ -153,23 +153,8 @@ export default {
 
       return html;
     },
-    attachments(art) {
-      return art.Attachments?.[0] || {};
-    },
 
-    largeUrl(art) {
-      const u = this.attachments(art).url;
-      return u
-        ? `${
-            import.meta.env.VITE_API_PROXY_URL
-          }/data-cache/index.php?url=${encodeURIComponent(u)}`
-        : "";
-    },
-
-    artistName(art) {
-      return art["Name (from Artist)"]?.[0] || "Unknown Artist";
-    },
-    fetchArtworks() {
+    fetchItems() {
       this.loading = true;
 
       RichPageSectionsModel.FetchAll(
@@ -191,19 +176,19 @@ export default {
           }));
 
           // ✅ sort by artist last name
-          this.items.sort((a, b) => {
-            const lastA = (a["Name (from Artist)"]?.[0] || "")
-              .trim()
-              .split(" ")
-              .pop()
-              .toLowerCase();
-            const lastB = (b["Name (from Artist)"]?.[0] || "")
-              .trim()
-              .split(" ")
-              .pop()
-              .toLowerCase();
-            return lastA.localeCompare(lastB);
-          });
+          // this.items.sort((a, b) => {
+          //   const lastA = (a["Name (from Artist)"]?.[0] || "")
+          //     .trim()
+          //     .split(" ")
+          //     .pop()
+          //     .toLowerCase();
+          //   const lastB = (b["Name (from Artist)"]?.[0] || "")
+          //     .trim()
+          //     .split(" ")
+          //     .pop()
+          //     .toLowerCase();
+          //   return lastA.localeCompare(lastB);
+          // });
           this.loading = false;
         })
         .catch(() => {
@@ -213,7 +198,7 @@ export default {
   },
 
   mounted() {
-    this.fetchArtworks();
+    this.fetchItems();
   },
 };
 </script>
