@@ -98,7 +98,7 @@
               </div>
             </div>
           </div> -->
-
+          <!-- <pre>{{ recordId }}</pre> -->
           <RichPageSectionsTemplate :parent="{ ...item, id: recordId }" />
           <div class="bg-3ry-color">
             <div style="padding-top: 0px" class="">
@@ -338,7 +338,11 @@ export default {
       return html;
     },
   },
-
+  watch: {
+    pageSlug() {
+      this.fetchData();
+    },
+  },
   mounted() {
     this.fetchData();
   },

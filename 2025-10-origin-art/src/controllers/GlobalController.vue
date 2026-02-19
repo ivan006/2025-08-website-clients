@@ -63,8 +63,11 @@
           <div class="text-center q-pa-xl">Loading...</div>
         </div>
         <div v-show="!(loading || childLoading)">
-          <div class="row justify-between items-center q-py-mdx">
-            <div class="col-12x col-md-auto text-center">
+          <div
+            class="row items-center q-py-mdx"
+            :class="$q.screen.gt.sm ? 'justify-between' : 'justify-center'"
+          >
+            <div class="col-12 col-md-auto text-center q-mb-sm q-mb-md-none">
               <!--<q-btn flat round dense icon="menu" class="q-mr-sm" />-->
               <!--<q-avatar large>-->
               <!--  <img :src="this.item.fields?.['Logo Image']?.[0]?.url">-->
