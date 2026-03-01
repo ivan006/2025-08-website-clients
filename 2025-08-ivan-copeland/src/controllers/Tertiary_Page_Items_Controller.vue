@@ -8,113 +8,95 @@
     </template>
   </template>
   <template v-else>
-
     <div class="row">
       <!--<div class="row justify-center" >-->
-
 
       <!--<pre>-->
       <!--  {{itemListElement}}-->
       <!--</pre>-->
       <template v-for="item in items" :key="item.id">
-
         <!--<q-avatar>-->
         <!--  <img :src="item">-->
         <!--</q-avatar>-->
         <div class="col-xl-6 col-md-6 col-sm-12 col-xs-12">
           <div class="q-py-lg q-px-lg">
-
             <div class="row">
-
               <div class="col-xl-4 col-md-4 col-sm-12 col-xs-12 q-px-lg">
-                <div
-
-                >
+                <div>
                   <img
-                    :src="item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.thumbnails?.large?.url}` : ''"
-                    style="width: 100%; display: block; border-radius: 1000px;"
-                  >
+                    :src="
+                      item?.['Image']?.[0]?.url
+                        ? `https://ivan-copeland.co.za/integrator/data-cache/index.php?url=${item?.['Image']?.[0]?.thumbnails?.large?.url}`
+                        : ''
+                    "
+                    style="width: 100%; display: block; border-radius: 1000px"
+                  />
                   <!--<img src="https://cdn.quasar.dev/img/avatar.png">-->
                 </div>
               </div>
-              <div class="col-xl-8 col-md-8 col-sm-12 col-xs-12 q-px-lg ">
+              <div class="col-xl-8 col-md-8 col-sm-12 col-xs-12 q-px-lg">
                 <div class="column justify-center full-height">
-
                   <div class="lt-md q-mt-lg"></div>
 
                   <h2 class="text-h4 text-bold q-mt-none">
-                    {{item["Title"]}}
+                    {{ item["Title"] }}
                   </h2>
 
                   <div class="text-body3">
-                    {{item["Subtitle"]}}
+                    {{ item["Subtitle"] }}
                   </div>
 
-                  <div class="text-body3">
-                    R{{item["Price"]}}.00
-                  </div>
+                  <div class="text-body3">R{{ item["Price"] }}.00</div>
                 </div>
-
-
-
               </div>
             </div>
           </div>
         </div>
       </template>
-
     </div>
-
   </template>
-
-
 </template>
 
 <script>
-import Tertiary_Page_Items from 'src/models/orm-api/Tertiary_Page_Items'
-import {createMetaMixin} from "quasar";
-import {buildSchemaItem, buildSeoConfig} from "src/utils/seo";
+import Tertiary_Page_Items from "src/models/orm-api/Tertiary_Page_Items";
+import { createMetaMixin } from "quasar";
+import { buildSchemaItem, buildSeoConfig } from "src/utils/seo";
 
 export default {
-  name: 'Tertiary_Page_Items_Controller',
-  components: {
-  },
-
+  name: "Tertiary_Page_Items_Controller",
+  components: {},
 
   mixins: [
     createMetaMixin(function () {
-
-
-      const url = window.location.origin + (this.$route?.fullPath || '/');
+      const url = window.location.origin + (this.$route?.fullPath || "/");
       const siteName = import.meta.env.VITE_API_SITE_TITLE;
 
-      let image = ""
-      if (this.parent?.fields?.['Image']?.[0]?.url) {
-        image = `https://capetownlists.co.za/?url=${this.parent?.fields?.['Image']?.[0]?.url}`;
+      let image = "";
+      if (this.parent?.fields?.["Image"]?.[0]?.url) {
+        image = `https://ivan-copeland.co.za/integrator/data-cache/index.php?url=${this.parent?.fields?.["Image"]?.[0]?.url}`;
       }
 
-
       const schema = buildSchemaItem({
-        type: this.parent.fields?.['SEO Type'],
-        name: this.parent.fields?.['Title'] || siteName,
-        description: this.parent.fields?.['Subtitle'] || '',
+        type: this.parent.fields?.["SEO Type"],
+        name: this.parent.fields?.["Title"] || siteName,
+        description: this.parent.fields?.["Subtitle"] || "",
         url,
         image,
-        extras: {}
+        extras: {},
       });
 
-
       const products = this.items.map((item) => {
-
         const newItem = buildSchemaItem({
-          type: item['SEO Type'],
-          name: item['Title'] || '',
-          description: item['Subtitle'] || '',
-          image: item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${item?.['Image']?.[0]?.url}` : "",
-          price: String(item['Price']),
+          type: item["SEO Type"],
+          name: item["Title"] || "",
+          description: item["Subtitle"] || "",
+          image: item?.["Image"]?.[0]?.url
+            ? `https://ivan-copeland.co.za/integrator/data-cache/index.php?url=${item?.["Image"]?.[0]?.url}`
+            : "",
+          price: String(item["Price"]),
           extras: {
-            category: item['Category'],
-          }
+            category: item["Category"],
+          },
         });
         // console.log(newItem)
 
@@ -126,29 +108,28 @@ export default {
         schema.itemListElement = products;
       }
 
-
       return buildSeoConfig({
-        title: this.parent.fields?.['Title'] || siteName,
-        description: this.parent.fields?.['Subtitle'] || '',
+        title: this.parent.fields?.["Title"] || siteName,
+        description: this.parent.fields?.["Subtitle"] || "",
         url,
         image: image || `${window.location.origin}/og-default.jpg`,
         siteName,
-        type: this.parent.fields?.['SEO Type'],
-        schema
+        type: this.parent.fields?.["SEO Type"],
+        schema,
       });
-    })
+    }),
   ],
   props: {
     fetchFlags: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
     parent: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
   },
-  data(){
+  data() {
     return {
       activeRoute: this.$route.path,
       items: [],
@@ -161,12 +142,12 @@ export default {
         groupBy: [],
       },
       filterValsRef: {},
-    }
+    };
   },
 
   computed: {
     superTableModel() {
-      return Tertiary_Page_Items
+      return Tertiary_Page_Items;
     },
     filterValsComp() {
       const result = {
@@ -180,18 +161,15 @@ export default {
     },
   },
   methods: {
-
     isActive(item) {
       return item.URL === this.activeRoute;
     },
 
     async fetchData() {
       try {
-
         this.loading = true;
         this.loadingError = false;
         let rules = [];
-
 
         let extraHeaderComputed = {};
         let flagsComputed = {};
@@ -215,31 +193,28 @@ export default {
           },
         );
 
-
-        this.items = response.response.data.records.map(record => {
+        this.items = response.response.data.records.map((record) => {
           return {
             id: record.id,
             createdTime: record.createdTime,
-            ...record.fields
+            ...record.fields,
           };
         });
 
-
         this.loading = false;
-
       } catch (error) {
         this.loading = false;
         this.loadingError = true;
       }
     },
   },
-  mounted(){
+  mounted() {
     this.fetchData();
   },
   watch: {
-    '$route.path'(newPath) {
+    "$route.path"(newPath) {
       this.activeRoute = newPath;
-    }
-  }
-}
+    },
+  },
+};
 </script>

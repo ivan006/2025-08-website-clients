@@ -20,7 +20,7 @@
                     <img
                       :src="
                         this.item.fields?.['Logo Image'][0].thumbnails.large.url
-                          ? `https://ivan-copeland.co.za/data-cache/index.php?url=${this.item.fields?.['Logo Image'][0].thumbnails.large.url}`
+                          ? `https://ivan-copeland.co.za/integrator/data-cache/index.php?url=${this.item.fields?.['Logo Image'][0].thumbnails.large.url}`
                           : ''
                       "
                       style="max-height: 200px; border-radius: 1000px"
@@ -41,7 +41,7 @@
       </div>
     </q-toolbar>
 
-    <!--<img v-if="item.fields" :src="`https://ivan-copeland.co.za/data-cache/index.php?url=${item.fields['Site Background Image']?.[0]?.url}`" alt="">-->
+    <!--<img v-if="item.fields" :src="`https://ivan-copeland.co.za/integrator/data-cache/index.php?url=${item.fields['Site Background Image']?.[0]?.url}`" alt="">-->
     <!--<img v-if="item.fields" :src="`${item.fields['Site Background Image']?.[0]?.url}`" alt="">-->
 
     <q-page-container>

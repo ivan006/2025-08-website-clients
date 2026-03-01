@@ -1,15 +1,19 @@
 <template>
   <div
-    :style="this.item.fields?.['Image']?.[0]?.url ? `background-image: url(https://capetownlists.co.za/?url=${this.item.fields?.['Image']?.[0]?.url});` : ``"
+    :style="
+      this.item.fields?.['Image']?.[0]?.url
+        ? `background-image: url(https://ivan-copeland.co.za/integrator/data-cache/index.php?url=${this.item.fields?.['Image']?.[0]?.url});`
+        : ``
+    "
     style="
-    min-height: 100vh;
-    background-color: rgb(70,70,70);
-    background-position: center;
-    background-size: cover;
-    background-attachment: fixed;
+      min-height: 100vh;
+      background-color: rgb(70, 70, 70);
+      background-position: center;
+      background-size: cover;
+      background-attachment: fixed;
 
-    background-color: rgba(0,0,0,.2);
-    background-blend-mode: darken;
+      background-color: rgba(0, 0, 0, 0.2);
+      background-blend-mode: darken;
     "
     class="ScaledParent"
   >
@@ -17,53 +21,57 @@
       <div class="text-center q-pa-xl">Loading...</div>
     </template>
     <template v-else>
-
       <div class="q-py-xl">
-
-        <div
-          class="container-md"
-        >
-          <div class="row q-col-gutter-md text-white" >
-
-
+        <div class="container-md">
+          <div class="row q-col-gutter-md text-white">
             <!--<div class="col-xl-1 col-md-1 col-sm-12 col-xs-12">-->
-
 
             <!--</div>-->
 
-            <div class="col-xl-10 col-md-10 col-sm-12 col-xs-12 offset-md-1 q-px-xl flex flex-center " style="min-height: 500px;">
-
-
+            <div
+              class="col-xl-10 col-md-10 col-sm-12 col-xs-12 offset-md-1 q-px-xl flex flex-center"
+              style="min-height: 500px"
+            >
               <div>
-
-
                 <div class="gt-sm">
-                  <h1 class="text-center text-h1 " style="letter-spacing: 15px;">
-                  <span class="text-weight-thin font-1ry text-uppercase" style="letter-spacing: 15px;">
-                    {{item.fields?.['Title']}}
-                  </span>
+                  <h1 class="text-center text-h1" style="letter-spacing: 15px">
+                    <span
+                      class="text-weight-thin font-1ry text-uppercase"
+                      style="letter-spacing: 15px"
+                    >
+                      {{ item.fields?.["Title"] }}
+                    </span>
                   </h1>
                 </div>
                 <div class="lt-md">
                   <h1 class="text-center text-h2 font-1ry">
-                  <span class="text-weight-thin font-1ry text-uppercase" style="letter-spacing: 15px;">
-                    {{item.fields?.['Title']}}
-                  </span>
+                    <span
+                      class="text-weight-thin font-1ry text-uppercase"
+                      style="letter-spacing: 15px"
+                    >
+                      {{ item.fields?.["Title"] }}
+                    </span>
                   </h1>
                 </div>
 
                 <div class="gt-sm">
-                  <h2 class="text-center text-h3" >
-                  <span class="text-weight-light font-2ry text-uppercase" style="letter-spacing: 15px;">
-                  {{item.fields?.['Subtitle']}}
-                  </span>
+                  <h2 class="text-center text-h3">
+                    <span
+                      class="text-weight-light font-2ry text-uppercase"
+                      style="letter-spacing: 15px"
+                    >
+                      {{ item.fields?.["Subtitle"] }}
+                    </span>
                   </h2>
                 </div>
                 <div class="lt-md">
                   <h2 class="text-center text-h4 text-bold font-2ry">
-                  <span class="text-weight-light font-2ry text-uppercase" style="letter-spacing: 15px;">
-                  {{item.fields?.['Subtitle']}}
-                  </span>
+                    <span
+                      class="text-weight-light font-2ry text-uppercase"
+                      style="letter-spacing: 15px"
+                    >
+                      {{ item.fields?.["Subtitle"] }}
+                    </span>
                   </h2>
                 </div>
               </div>
@@ -85,120 +93,95 @@
         </div>
       </div>
 
-
-
-
-
-      <div class=" bg-white" style="padding-top: 100px; padding-bottom: 100px;">
-        <div
-          class="container-md "
-        >
-
+      <div class="bg-white" style="padding-top: 100px; padding-bottom: 100px">
+        <div class="container-md">
           <Home_Page_Items_Controller :parent="this.item" />
         </div>
       </div>
 
-      <div class=" bg-3ry-color text-white">
+      <div class="bg-3ry-color text-white">
         <div class="row">
-
-          <div
-            class="col-xl-6 col-md-6 col-sm-12 col-xs-12"
-          >
-
-
-
+          <div class="col-xl-6 col-md-6 col-sm-12 col-xs-12">
             <img
-              :src="this.item.fields?.['Contact Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${this.item.fields?.['Contact Image']?.[0]?.url}` : ''"
-              style="
-                width: 100%; display: block;
-                -webkit-filter: grayscale(100%);
-                filter:  brightness(120%);
+              :src="
+                this.item.fields?.['Contact Image']?.[0]?.url
+                  ? `https://ivan-copeland.co.za/integrator/data-cache/index.php?url=${this.item.fields?.['Contact Image']?.[0]?.url}`
+                  : ''
               "
-            >
-
+              style="
+                width: 100%;
+                display: block;
+                -webkit-filter: grayscale(100%);
+                filter: brightness(120%);
+              "
+            />
           </div>
-          <div class="col-xl-6 col-md-6 col-sm-12 col-xs-12  " >
-            <div class="row full-height items-center q-py-lg q-px-xl ">
-
-              <div class=""  id="contact">
-
-
-
+          <div class="col-xl-6 col-md-6 col-sm-12 col-xs-12">
+            <div class="row full-height items-center q-py-lg q-px-xl">
+              <div class="" id="contact">
                 <h2 class="text-h3 text-bold font-1ry text-uppercase">
-
-                  {{item.fields?.['Contact Title']}}
+                  {{ item.fields?.["Contact Title"] }}
                 </h2>
 
-                <div class=" text-h5 q-pb-xl font-2ry ">
-
-                  {{item.fields?.['Contact Email Address']}}
+                <div class="text-h5 q-pb-xl font-2ry">
+                  {{ item.fields?.["Contact Email Address"] }}
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>
     </template>
     <!--<HomeSEOController />-->
-
-
   </div>
 </template>
 
 <script>
 import Home_Page from "src/models/orm-api/Home_Page";
-import { createMetaMixin } from 'quasar'
+import { createMetaMixin } from "quasar";
 import HomeSEOController from "src/controllers/HomeSEOController.vue";
 import Home_Page_Items_Controller from "src/controllers/Home_Page_Items_Controller.vue";
-import {buildSeoConfig} from "src/utils/seo";
-
-
-
+import { buildSeoConfig } from "src/utils/seo";
 
 export default {
   name: "HomeController.vue",
-  components: {Home_Page_Items_Controller},
-  data(){
+  components: { Home_Page_Items_Controller },
+  data() {
     return {
       loading: true,
       item: {},
-    }
+    };
   },
   computed: {
-
     id() {
       // return this.$route.params.rId
-      return 'recoIS6KWZ2aqcBJT'
+      return "recoIS6KWZ2aqcBJT";
     },
     superTableModel() {
-      return Home_Page
+      return Home_Page;
     },
   },
   methods: {
     fetchData() {
-      this.loading = true
+      this.loading = true;
       this.superTableModel
         .FetchById(
           this.id,
           // this.relationships,
           [],
-          { flags: {}, moreHeaders: {}, rels: [] }
+          { flags: {}, moreHeaders: {}, rels: [] },
         )
         .then((response) => {
-          this.item = response.response.data
-          this.loading = false
+          this.item = response.response.data;
+          this.loading = false;
         })
         .catch(() => {
-          this.loading = false
+          this.loading = false;
         });
     },
   },
-  mounted(){
+  mounted() {
     this.fetchData();
-
-
-
 
     if (window.location.hash) {
       const hash = window.location.hash; // keep the full hash intact
@@ -215,22 +198,20 @@ export default {
         const el = document.querySelector(hash); // use raw hash
 
         if (el) {
-          const top = el.getBoundingClientRect().top + window.scrollY
+          const top = el.getBoundingClientRect().top + window.scrollY;
           window.scrollTo({
             top: top,
-            behavior: 'smooth'
-          })
+            behavior: "smooth",
+          });
         } else {
-          setTimeout(scrollToHash, 200)
+          setTimeout(scrollToHash, 200);
         }
-      }
+      };
 
-      scrollToHash()
+      scrollToHash();
     }
-  }
-}
+  },
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

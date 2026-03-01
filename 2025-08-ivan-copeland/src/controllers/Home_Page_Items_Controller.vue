@@ -30,7 +30,7 @@
                     src="~assets/square.webp"
                     :style="
                       item?.['Image']?.[0]?.thumbnails?.large?.url
-                        ? `background-image: url(https://ivan-copeland.co.za/data-cache/index.php?url=${item?.['Image']?.[0]?.thumbnails?.large?.url});`
+                        ? `background-image: url(https://ivan-copeland.co.za/integrator/data-cache/index.php?url=${item?.['Image']?.[0]?.thumbnails?.large?.url});`
                         : ``
                     "
                     style="
@@ -43,7 +43,7 @@
                   />
 
                   <!--<img-->
-                  <!--  :src="item?.['Image']?.[0]?.url ? `https://ivan-copeland.co.za/data-cache/index.php?url=${item?.['Image']?.[0]?.thumbnails?.large?.url}` : ''"-->
+                  <!--  :src="item?.['Image']?.[0]?.url ? `https://ivan-copeland.co.za/integrator/data-cache/index.php?url=${item?.['Image']?.[0]?.thumbnails?.large?.url}` : ''"-->
                   <!--  style="-->
 
                   <!--  display: inline;-->
@@ -150,7 +150,7 @@ export default {
 
       let image = "";
       if (this.parent?.fields?.["Image"]?.[0]?.url) {
-        image = `https://ivan-copeland.co.za/data-cache/index.php?url=${this.parent?.fields?.["Image"]?.[0]?.url}`;
+        image = `https://ivan-copeland.co.za/integrator/data-cache/index.php?url=${this.parent?.fields?.["Image"]?.[0]?.url}`;
       }
 
       const schema = buildSchemaItem({
@@ -168,7 +168,7 @@ export default {
           name: item["Title"] || "",
           description: item["Subtitle"] || "",
           image: item?.["Image"]?.[0]?.url
-            ? `https://ivan-copeland.co.za/data-cache/index.php?url=${item?.["Image"]?.[0]?.url}`
+            ? `https://ivan-copeland.co.za/integrator/data-cache/index.php?url=${item?.["Image"]?.[0]?.url}`
             : "",
           price: String(item["Price"]),
           extras: {

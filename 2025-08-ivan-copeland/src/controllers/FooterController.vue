@@ -10,7 +10,7 @@
             <img
               :src="
                 this.item.fields?.['Footer Logo'][0].thumbnails.large.url
-                  ? `https://ivan-copeland.co.za/data-cache/index.php?url=${this.item.fields?.['Footer Logo'][0].thumbnails.large.url}`
+                  ? `https://ivan-copeland.co.za/integrator/data-cache/index.php?url=${this.item.fields?.['Footer Logo'][0].thumbnails.large.url}`
                   : ''
               "
               style="height: 100px"
