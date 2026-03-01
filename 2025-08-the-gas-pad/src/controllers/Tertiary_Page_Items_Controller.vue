@@ -9,161 +9,162 @@
   </template>
   <template v-else>
     <SEODataViewer :seoConfig="seoConfigMasked" :seoLdJson="seoLdJson" />
-   <!-- <pre>{{ itemsNoSubcategory }}</pre> -->
+    <!-- <pre>{{ itemsNoSubcategory }}</pre> -->
     <template v-for="(items, category) in itemsNoSubcategory" :key="category">
-      <div class="bg-white " >
-        <div
-          class="container-md q-py-xl"
-        >
-          <h2 class="r-font-h3 q-my-none text-center font-1ry text-uppercase">{{ category }}</h2>
+      <div class="bg-white">
+        <div class="container-md q-py-xl">
+          <h2 class="r-font-h3 q-my-none text-center font-1ry text-uppercase">
+            {{ category }}
+          </h2>
         </div>
       </div>
-      <div class="bg-2ry-color" >
-        <div
-          class="container-md q-py-xl"
-        >
-        
+      <div class="bg-2ry-color">
+        <div class="container-md q-py-xl">
           <div class="row q-col-gutter-md">
-
-            <template v-for="item in items" :key="item.id" >
-                        
+            <template v-for="item in items" :key="item.id">
               <!--<q-avatar>-->
               <!--  <img :src="item">-->
               <!--</q-avatar>-->
-              <div class="col-xl-3 col-md-3 col-6 ">
-                
-                <q-card  style="border-radius: 10px;">
+              <div class="col-xl-3 col-md-3 col-6">
+                <q-card style="border-radius: 10px">
                   <q-card-section>
-                   <div
-
-                    >
-                      <div class="row q-col-gutter-none  justify-around">
-
-                        <div class="col-xl-6 col-md-6 col-12 ">
-                          
-                
+                    <div>
+                      <div class="row q-col-gutter-none justify-around">
+                        <div class="col-xl-6 col-md-6 col-12">
                           <img
-                            :src="item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${encodeURIComponent(item?.['Image']?.[0]?.thumbnails?.large?.url)}` : ''"
-                            style="width: 100%; display: block; border-radius: 1000px;"
-                          >
+                            :src="
+                              item?.['Image']?.[0]?.url
+                                ? `https://thegaspad.co.za/integrator/data-cache/index.php?url=${encodeURIComponent(
+                                    item?.['Image']?.[0]?.thumbnails?.large
+                                      ?.url,
+                                  )}`
+                                : ''
+                            "
+                            style="
+                              width: 100%;
+                              display: block;
+                              border-radius: 1000px;
+                            "
+                          />
                         </div>
-                      </div>  
+                      </div>
                       <!--<img src="https://cdn.quasar.dev/img/avatar.png">-->
                     </div>
                     <div class="lt-md q-mt-lg"></div>
 
-                    <h2 class="r-font-h5 text-center text-bold q-mt-none font-1ry text-uppercase">
-                      {{item["Title"]}}
+                    <h2
+                      class="r-font-h5 text-center text-bold q-mt-none font-1ry text-uppercase"
+                    >
+                      {{ item["Title"] }}
                     </h2>
                   </q-card-section>
                 </q-card>
               </div>
             </template>
-            
-
           </div>
         </div>
       </div>
     </template>
 
-    
     <template v-for="(subcats, category) in itemsComputed" :key="category">
-      <div class="bg-white " >
-        <div
-          class="container-md q-py-xl"
-        >
-          <h2 class="r-font-h3 q-my-none text-center font-1ry text-uppercase">{{ category }}</h2>
+      <div class="bg-white">
+        <div class="container-md q-py-xl">
+          <h2 class="r-font-h3 q-my-none text-center font-1ry text-uppercase">
+            {{ category }}
+          </h2>
         </div>
       </div>
-      <div class="bg-2ry-color" >
+      <div class="bg-2ry-color">
         <!-- <div>&nbsp;</div> -->
-        <div
-          class="container-md q-pb-xl"
-        >
-        
+        <div class="container-md q-pb-xl">
           <div class="row q-col-gutter-md">
             <template v-for="(products, sub) in subcats" :key="sub">
-
-              <div class="col-xl-3 col-md-3 col-sm-12 col-xs-12  ">
-                  
+              <div class="col-xl-3 col-md-3 col-sm-12 col-xs-12">
                 <!-- <q-card class="bg-4ry-color">
                   <q-card-section> -->
-                    
-                    <h3 class="r-font-h5 q-my-none q-py-xl text-center text-uppercase font-1ry" style="">{{ sub }}</h3>
 
-                    <div class="row q-col-gutter-md justify-center">
-                      
-                      <template v-for="item in products" :key="item.id" >
-                        
-                        <!--<q-avatar>-->
-                        <!--  <img :src="item">-->
-                        <!--</q-avatar>-->
-                        <div class="col-xl-12 col-md-12 col-6 ">
-                          
-                          <q-card class="" style="border-radius: 10px;">
-                            <q-card-section>
-                              <div class="">
+                <h3
+                  class="r-font-h5 q-my-none q-py-xl text-center text-uppercase font-1ry"
+                  style=""
+                >
+                  {{ sub }}
+                </h3>
 
-                                <div class="row">
+                <div class="row q-col-gutter-md justify-center">
+                  <template v-for="item in products" :key="item.id">
+                    <!--<q-avatar>-->
+                    <!--  <img :src="item">-->
+                    <!--</q-avatar>-->
+                    <div class="col-xl-12 col-md-12 col-6">
+                      <q-card class="" style="border-radius: 10px">
+                        <q-card-section>
+                          <div class="">
+                            <div class="row">
+                              <div
+                                class="col-xl-6 col-md-6 col-sm-12 col-xs-12 q-px-md"
+                              >
+                                <div>
+                                  <img
+                                    :src="
+                                      item?.['Image']?.[0]?.url
+                                        ? `https://thegaspad.co.za/integrator/data-cache/index.php?url=${encodeURIComponent(
+                                            item?.['Image']?.[0]?.thumbnails
+                                              ?.large?.url,
+                                          )}`
+                                        : ''
+                                    "
+                                    style="
+                                      width: 100%;
+                                      display: block;
+                                      border-radius: 1000px;
+                                    "
+                                  />
+                                  <!--<img src="https://cdn.quasar.dev/img/avatar.png">-->
+                                </div>
+                              </div>
+                              <div
+                                class="col-xl-6 col-md-6 col-sm-12 col-xs-12 q-px-sm"
+                              >
+                                <div class="column justify-center full-height">
+                                  <div class="lt-md q-mt-lg"></div>
 
-                                  <div class="col-xl-6 col-md-6 col-sm-12 col-xs-12 q-px-md">
-                                    <div
+                                  <h2
+                                    class="r-font-h6 text-bold q-mt-none font-1ry text-uppercase"
+                                  >
+                                    {{ item["Title"] }}
+                                  </h2>
 
-                                    >
-                                      <img
-                                        :src="item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${encodeURIComponent(item?.['Image']?.[0]?.thumbnails?.large?.url)}` : ''"
-                                        style="width: 100%; display: block; border-radius: 1000px;"
-                                      >
-                                      <!--<img src="https://cdn.quasar.dev/img/avatar.png">-->
-                                    </div>
+                                  <div class="text-body2">
+                                    {{ item["Subtitle"] }}
                                   </div>
-                                  <div class="col-xl-6 col-md-6 col-sm-12 col-xs-12 q-px-sm ">
-                                    <div class="column justify-center full-height">
 
-                                      <div class="lt-md q-mt-lg"></div>
-
-                                      <h2 class="r-font-h6 text-bold q-mt-none font-1ry text-uppercase">
-                                        {{item["Title"]}}
-                                      </h2>
-
-                                      <div class="text-body2">
-                                        {{item["Subtitle"]}}
-                                      </div>
-
-                                      <div class="text-body2">
-                                        {{currency(item["Price"])}}
-                                      </div>
-                                    </div>
-
-
-
+                                  <div class="text-body2">
+                                    {{ currency(item["Price"]) }}
                                   </div>
                                 </div>
-
-                                <!--<pre>-->
-                                <!--  {{item}}-->
-                                <!--</pre>-->
                               </div>
-                              
-                            </q-card-section>
-                          </q-card>
-                        </div>
-                      </template>
-                    </div>
-                  
-                  <!-- </q-card-section>
-                </q-card> -->
-              </div>  
-            </template>
+                            </div>
 
-          </div> 
+                            <!--<pre>-->
+                            <!--  {{item}}-->
+                            <!--</pre>-->
+                          </div>
+                        </q-card-section>
+                      </q-card>
+                    </div>
+                  </template>
+                </div>
+
+                <!-- </q-card-section>
+                </q-card> -->
+              </div>
+            </template>
+          </div>
         </div>
       </div>
-
     </template>
     <div class="row">
       <!--<div class="row justify-center" >-->
-
 
       <!--<pre>-->
       <!--  {{itemListElement}}-->
@@ -171,8 +172,6 @@
       <!--<h2 class="text-center">Deposits</h2>-->
       <div class="row">
         <!--<div class="row justify-center" >-->
-
-        
 
         <!-- <template v-for="item in items" :key="item.id">
 
@@ -187,7 +186,7 @@
 
                   >
                     <img
-                      :src="item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${encodeURIComponent(item?.['Image']?.[0]?.thumbnails?.large?.url)}` : ''"
+                      :src="item?.['Image']?.[0]?.url ? `https://thegaspad.co.za/integrator/data-cache/index.php?url=${encodeURIComponent(item?.['Image']?.[0]?.thumbnails?.large?.url)}` : ''"
                       style="width: 100%; display: block; border-radius: 1000px;"
                     >
                   </div>
@@ -220,44 +219,37 @@
         </template> -->
       </div>
     </div>
-
   </template>
-
-
 </template>
 
 <script>
-import Tertiary_Page_Items from 'src/models/orm-api/Tertiary_Page_Items'
-import {createMetaMixin} from "quasar";
-import {buildSchemaItem, buildSeoConfig} from "src/utils/seo";
+import Tertiary_Page_Items from "src/models/orm-api/Tertiary_Page_Items";
+import { createMetaMixin } from "quasar";
+import { buildSchemaItem, buildSeoConfig } from "src/utils/seo";
 import SEODataViewer from "src/controllers/SEODataViewer.vue";
 
 export default {
-  name: 'Tertiary_Page_Items_Controller',
+  name: "Tertiary_Page_Items_Controller",
   components: {
-    SEODataViewer
+    SEODataViewer,
   },
-
-
 
   mixins: [
     createMetaMixin(function () {
-
       return this.seoConfig;
-
-    })
+    }),
   ],
   props: {
     fetchFlags: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
     parent: {
       type: Object,
-      default: () => ({})
+      default: () => ({}),
     },
   },
-  data(){
+  data() {
     return {
       activeRoute: this.$route.path,
       items: [],
@@ -270,71 +262,77 @@ export default {
         groupBy: [],
       },
       filterValsRef: {},
-    }
+    };
   },
 
   computed: {
-    
-    seoConfig(){
-
-      const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/');
+    seoConfig() {
+      const url =
+        window.location.origin + (this.$route?.fullPath.split("#")[0] || "/");
       const siteName = import.meta.env.VITE_API_SITE_TITLE;
 
-      let image = ""
-      if (this.parent?.fields?.['Image']?.[0]?.url) {
-        image = `https://capetownlists.co.za/?url=${encodeURIComponent(this.parent?.fields?.['Image']?.[0]?.url)}`;
+      let image = "";
+      if (this.parent?.fields?.["Image"]?.[0]?.url) {
+        image = `https://thegaspad.co.za/integrator/data-cache/index.php?url=${encodeURIComponent(
+          this.parent?.fields?.["Image"]?.[0]?.url,
+        )}`;
       }
 
-     return buildSeoConfig({
-        title: this.parent.fields?.['Title'] || siteName,
-        description: this.parent.fields?.['Subtitle'] || '',
+      return buildSeoConfig({
+        title: this.parent.fields?.["Title"] || siteName,
+        description: this.parent.fields?.["Subtitle"] || "",
         url,
         image: image || `${window.location.origin}/og-default.jpg`,
         siteName,
-        type: this.parent.fields?.['SEO Type'],
-        schema: this.seoLdJson
+        type: this.parent.fields?.["SEO Type"],
+        schema: this.seoLdJson,
       });
     },
-    
-    seoConfigMasked(){
-      const seoConfigMasked = { ...this.seoConfig }
-      seoConfigMasked.script = ""
-      return seoConfigMasked
+
+    seoConfigMasked() {
+      const seoConfigMasked = { ...this.seoConfig };
+      seoConfigMasked.script = "";
+      return seoConfigMasked;
     },
-    
-    seoLdJson(){
-    
-      const url = window.location.origin + (this.$route?.fullPath.split('#')[0] || '/');
+
+    seoLdJson() {
+      const url =
+        window.location.origin + (this.$route?.fullPath.split("#")[0] || "/");
       const siteName = import.meta.env.VITE_API_SITE_TITLE;
 
-      let image = ""
-      if (this.parent?.fields?.['Image']?.[0]?.url) {
-        image = `https://capetownlists.co.za/?url=${encodeURIComponent(this.parent?.fields?.['Image']?.[0]?.url)}`;
+      let image = "";
+      if (this.parent?.fields?.["Image"]?.[0]?.url) {
+        image = `https://thegaspad.co.za/integrator/data-cache/index.php?url=${encodeURIComponent(
+          this.parent?.fields?.["Image"]?.[0]?.url,
+        )}`;
       }
 
-
       const schema = buildSchemaItem({
-        type: this.parent.fields?.['SEO Type'],
-        name: this.parent.fields?.['Title'] || siteName,
-        description: this.parent.fields?.['Subtitle'] || '',
+        type: this.parent.fields?.["SEO Type"],
+        name: this.parent.fields?.["Title"] || siteName,
+        description: this.parent.fields?.["Subtitle"] || "",
         url,
         image,
-        extras: {}
+        extras: {},
       });
 
-
       const products = this.items.map((item) => {
-
         const newItem = buildSchemaItem({
-          type: item['SEO Type'],
-          url: item['SEO URL'] ? window.location.origin + item['SEO URL'] : null,
-          name: item['Title'] || '',
-          description: item['Subtitle'] || '',
-          image: item?.['Image']?.[0]?.url ? `https://capetownlists.co.za/?url=${encodeURIComponent(item?.['Image']?.[0]?.url)}` : "",
-          price: item['Price'],
+          type: item["SEO Type"],
+          url: item["SEO URL"]
+            ? window.location.origin + item["SEO URL"]
+            : null,
+          name: item["Title"] || "",
+          description: item["Subtitle"] || "",
+          image: item?.["Image"]?.[0]?.url
+            ? `https://thegaspad.co.za/integrator/data-cache/index.php?url=${encodeURIComponent(
+                item?.["Image"]?.[0]?.url,
+              )}`
+            : "",
+          price: item["Price"],
           extras: {
-            category: item['Category'],
-          }
+            category: item["Category"],
+          },
         });
         // console.log(newItem)
 
@@ -348,9 +346,9 @@ export default {
 
       return schema;
     },
-  
+
     superTableModel() {
-      return Tertiary_Page_Items
+      return Tertiary_Page_Items;
     },
     filterValsComp() {
       return {
@@ -359,13 +357,13 @@ export default {
     },
     itemListElement() {
       return this.items;
-    },  
+    },
     itemsComputed() {
       const grouped = {};
 
-      this.items.forEach(item => {
-        const category = item['Category'] || 'Uncategorized';
-        const sub = item['Sub-category'];
+      this.items.forEach((item) => {
+        const category = item["Category"] || "Uncategorized";
+        const sub = item["Sub-category"];
 
         // skip items with no subcategory
         if (!sub) return;
@@ -387,9 +385,9 @@ export default {
     itemsNoSubcategory() {
       const grouped = {};
 
-      this.items.forEach(item => {
-        const category = item['Category'] || 'Uncategorized';
-        const sub = item['Sub-category'];
+      this.items.forEach((item) => {
+        const category = item["Category"] || "Uncategorized";
+        const sub = item["Sub-category"];
 
         if (sub) return; // skip items that *do* have subcategory
 
@@ -400,18 +398,17 @@ export default {
       });
 
       return grouped;
-    }
+    },
   },
   methods: {
-
     currency(num) {
-      let result = ""
-      if(num){
-        result = "R"+(Math.round(num * 100) / 100).toFixed(2);
+      let result = "";
+      if (num) {
+        result = "R" + (Math.round(num * 100) / 100).toFixed(2);
       } else {
-        result = "-"
+        result = "-";
       }
-      return result
+      return result;
     },
 
     isActive(item) {
@@ -420,11 +417,9 @@ export default {
 
     async fetchData() {
       try {
-
         this.loading = true;
         this.loadingError = false;
         let rules = [];
-
 
         let extraHeaderComputed = {};
         let flagsComputed = {};
@@ -447,33 +442,31 @@ export default {
             clearPrimaryModelOnly: false,
           },
         );
-        
-        this.$emit('loaded')
 
-        this.items = response.response.data.records.map(record => {
+        this.$emit("loaded");
+
+        this.items = response.response.data.records.map((record) => {
           return {
             id: record.id,
             createdTime: record.createdTime,
-            ...record.fields
+            ...record.fields,
           };
         });
 
-
         this.loading = false;
-
       } catch (error) {
         this.loading = false;
         this.loadingError = true;
       }
     },
   },
-  mounted(){
+  mounted() {
     this.fetchData();
   },
   watch: {
-    '$route.path'(newPath) {
+    "$route.path"(newPath) {
       this.activeRoute = newPath;
-    }
-  }
-}
+    },
+  },
+};
 </script>

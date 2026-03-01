@@ -28,14 +28,14 @@
                     >
                       <div>
                         <!-- <img
-                          :src="item?.['Image']?.[0]?.url ? `https://the-gas-pad.letsnetworkhub.com/?url=${encodeURIComponent(item?.['Image']?.[0]?.thumbnails?.large?.url)}` : ''"
+                          :src="item?.['Image']?.[0]?.url ? `https://thegaspad.co.za/integrator/data-cache/index.php?url=${encodeURIComponent(item?.['Image']?.[0]?.thumbnails?.large?.url)}` : ''"
                           style="width: 100%; display: block; border-radius: 1000px;"
                         > -->
                         <img
                           src="~assets/square.webp"
                           :style="
                             item?.['Image']?.[0]?.thumbnails?.large?.url
-                              ? `background-image: url(https://the-gas-pad.letsnetworkhub.com/?url=${encodeURIComponent(
+                              ? `background-image: url(https://thegaspad.co.za/integrator/data-cache/index.php?url=${encodeURIComponent(
                                   item?.['Image']?.[0]?.thumbnails?.large?.url,
                                 )});`
                               : ``
@@ -142,7 +142,7 @@ export default {
 
       let image = "";
       if (this.parent?.fields?.["Image"]?.[0]?.url) {
-        image = `https://the-gas-pad.letsnetworkhub.com/?url=${encodeURIComponent(
+        image = `https://thegaspad.co.za/integrator/data-cache/index.php?url=${encodeURIComponent(
           this.parent?.fields?.["Image"]?.[0]?.url,
         )}`;
       }
@@ -171,7 +171,7 @@ export default {
 
       let image = "";
       if (this.parent?.fields?.["Image"]?.[0]?.url) {
-        image = `https://the-gas-pad.letsnetworkhub.com/?url=${encodeURIComponent(
+        image = `https://thegaspad.co.za/integrator/data-cache/index.php?url=${encodeURIComponent(
           this.parent?.fields?.["Image"]?.[0]?.url,
         )}`;
       }
@@ -194,7 +194,7 @@ export default {
           name: item["Title"] || "",
           description: item["Subtitle"] || "",
           image: item?.["Image"]?.[0]?.url
-            ? `https://the-gas-pad.letsnetworkhub.com/?url=${encodeURIComponent(
+            ? `https://thegaspad.co.za/integrator/data-cache/index.php?url=${encodeURIComponent(
                 item?.["Image"]?.[0]?.url,
               )}`
             : "",

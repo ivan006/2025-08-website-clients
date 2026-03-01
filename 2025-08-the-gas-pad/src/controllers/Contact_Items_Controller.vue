@@ -30,7 +30,7 @@
                     <img
                       :src="
                         item?.['Image']?.[0]?.url
-                          ? `https://the-gas-pad.letsnetworkhub.com/?url=${encodeURIComponent(
+                          ? `https://thegaspad.co.za/integrator/data-cache/index.php?url=${encodeURIComponent(
                               item?.['Image']?.[0]?.thumbnails?.large?.url,
                             )}`
                           : ''
@@ -85,7 +85,7 @@ export default {
 
       let image = "";
       if (this.parent?.fields?.["Image"]?.[0]?.url) {
-        image = `https://the-gas-pad.letsnetworkhub.com/?url=${encodeURIComponent(
+        image = `https://thegaspad.co.za/integrator/data-cache/index.php?url=${encodeURIComponent(
           this.parent?.fields?.["Image"]?.[0]?.url,
         )}`;
       }
@@ -105,7 +105,7 @@ export default {
           name: item["Title"] || "",
           description: item["Subtitle"] || "",
           image: item?.["Image"]?.[0]?.url
-            ? `https://the-gas-pad.letsnetworkhub.com/?url=${encodeURIComponent(
+            ? `https://thegaspad.co.za/integrator/data-cache/index.php?url=${encodeURIComponent(
                 item?.["Image"]?.[0]?.url,
               )}`
             : "",

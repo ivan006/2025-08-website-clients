@@ -2,7 +2,7 @@
   <div
     :style="
       this.item.fields?.['Image']?.[0]?.url
-        ? `background-image: url(https://the-gas-pad.letsnetworkhub.com/?url=${encodeURIComponent(
+        ? `background-image: url(https://thegaspad.co.za/integrator/data-cache/index.php?url=${encodeURIComponent(
             this.item.fields?.['Image']?.[0]?.url,
           )});`
         : ``
