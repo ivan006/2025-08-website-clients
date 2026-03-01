@@ -1,41 +1,30 @@
 <template>
-  <div
-  >
-
-
-    <q-toolbar style="" class="q-py-md bg-white ">
-
-      <div class="container-md  ">
+  <div>
+    <q-toolbar style="" class="q-py-md bg-white">
+      <div class="container-md">
         <template v-if="loading">
           <div class="text-center q-pa-xl">Loading...</div>
         </template>
         <template v-else>
-          <div class="row justify-between items-center  q-py-md ">
-
-            <div
-              class="col-12 col-md-auto text-center"
-            >
-
+          <div class="row justify-between items-center q-py-md">
+            <div class="col-12 col-md-auto text-center">
               <!--<q-btn flat round dense icon="menu" class="q-mr-sm" />-->
               <!--<q-avatar large>-->
               <!--  <img :src="this.item.fields?.['Logo Image']?.[0]?.url">-->
               <!--  &lt;!&ndash;<q-icon name="school" size="lg" style="opacity: 50%" />&ndash;&gt;-->
               <!--</q-avatar>-->
 
-
-
-              <q-item
-                to="/"
-                class="q-pa-none"
-              >
-
+              <q-item to="/" class="q-pa-none">
                 <q-item-section>
-
                   <div>
                     <img
-                      :src="this.item.fields?.['Logo Image'][0].thumbnails.large.url ? `https://capetownlists.co.za/?url=${this.item.fields?.['Logo Image'][0].thumbnails.large.url}` : ''"
-                      style="max-height: 200px; border-radius: 1000px;"
-                    >
+                      :src="
+                        this.item.fields?.['Logo Image'][0].thumbnails.large.url
+                          ? `https://ivan-copeland.co.za/data-cache/index.php?url=${this.item.fields?.['Logo Image'][0].thumbnails.large.url}`
+                          : ''
+                      "
+                      style="max-height: 200px; border-radius: 1000px"
+                    />
                   </div>
                 </q-item-section>
               </q-item>
@@ -43,31 +32,21 @@
               <!--  &lt;!&ndash;{{ siteTitle }}&ndash;&gt;-->
               <!--</q-toolbar-title>-->
             </div>
-            <div
-              class="col-12 col-md-auto q-my-lg text-center"
-            >
-
+            <div class="col-12 col-md-auto q-my-lg text-center">
               <!--<q-btn flat round dense icon="whatshot" />-->
               <MenuItems />
-
             </div>
           </div>
         </template>
-
       </div>
-
     </q-toolbar>
 
-
-
-    <!--<img v-if="item.fields" :src="`https://capetownlists.co.za/?url=${item.fields['Site Background Image']?.[0]?.url}`" alt="">-->
+    <!--<img v-if="item.fields" :src="`https://ivan-copeland.co.za/data-cache/index.php?url=${item.fields['Site Background Image']?.[0]?.url}`" alt="">-->
     <!--<img v-if="item.fields" :src="`${item.fields['Site Background Image']?.[0]?.url}`" alt="">-->
-
-
 
     <q-page-container>
       <!--<pre>{{item}}</pre>-->
-      <div class=" " style="min-height: 60vh;">
+      <div class=" " style="min-height: 60vh">
         <!--<BreadcrumbsComp />-->
         <router-view />
       </div>
@@ -78,69 +57,67 @@
     <!--</div>-->
     <FooterController />
   </div>
-
 </template>
 
 <script>
-import { computed } from 'vue';
-import { useRoute } from 'vue-router';
+import { computed } from "vue";
+import { useRoute } from "vue-router";
 // import BreadcrumbsComp from 'src/controllers/BreadcrumbsComp.vue';
-import VueCookies from 'vue-cookies';
-import MenuItems from 'src/controllers/MenuItems.vue';
+import VueCookies from "vue-cookies";
+import MenuItems from "src/controllers/MenuItems.vue";
 import Site_Menu_Items from "src/models/orm-api/Site_Menu_Items";
 import Site from "src/models/orm-api/Site";
 import FooterController from "src/controllers/FooterController.vue";
 
 export default {
-  name: 'GlobalController',
+  name: "GlobalController",
   components: {
     FooterController,
     // BreadcrumbsComp,
-    MenuItems
+    MenuItems,
   },
 
-  data(){
+  data() {
     return {
-      siteTitle: 'Lorum Ipsum',
+      siteTitle: "Lorum Ipsum",
       loading: true,
       item: {},
-    }
+    };
   },
   computed: {
-
     id() {
       // return this.$route.params.rId
-      return 'reci1Y5KdKFBkz3T1'
+      return "reci1Y5KdKFBkz3T1";
     },
     superTableModel() {
-      return Site
+      return Site;
     },
     bgUrl() {
-      const result = this.item.fields?.['Site Background Image']?.[0]?.url
-      return result
+      const result = this.item.fields?.["Site Background Image"]?.[0]?.url;
+      return result;
     },
   },
   methods: {
     fetchData() {
-      this.loading = true
+      this.loading = true;
       this.superTableModel
         .FetchById(
           this.id,
           // this.relationships,
           [],
-          { flags: {}, moreHeaders: {}, rels: [] }
+          { flags: {}, moreHeaders: {}, rels: [] },
         )
         .then((response) => {
-          this.item = response.response.data
-          this.loading = false
+          this.item = response.response.data;
+          this.loading = false;
         })
         .catch(() => {
-          this.loading = false
+          this.loading = false;
         });
     },
   },
-  mounted(){
+  mounted() {
     this.fetchData();
-  }
+  },
 };
 </script>
